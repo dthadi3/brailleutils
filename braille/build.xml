@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project default="buildJars">
+	<description>Buildfile for this project</description>
+	
+	<!-- Timestamp format definition -->
+	<tstamp>
+		<format property="ISO-TODAY" pattern="yyyy-MM-dd"/>
+	</tstamp>
+	
+	<!-- ================================================================== -->
+	<!-- Common properties                                                  -->
+	<!-- ================================================================== -->
+
+	<property name="ant-build.dir" value="${basedir}/ant-build"/>
+	<property name="ant-output.dir" value="${ant-build.dir}/output"/>
+	<property name="dist.dir" value="${ant-output.dir}/dist"/>
+	<property name="lib.dir" value="${basedir}/lib"/>
+	
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="test-src.dir" value="${basedir}/tests"/>
+	<property name="catalog-src.dir" value="${basedir}/catalog"/>
+	
+	<property name="build.dir" value="${ant-output.dir}/build.temp"/>
+	<property name="test-build.dir" value="${ant-output.dir}/test-build.temp"/>
+	<property name="catalog-build.dir" value="${ant-output.dir}/catalog-build.temp"/>
+	
+	<property name="test.report.dir" value="${ant-output.dir}/docs/test-report"/>
+	<property name="test.report-temp.dir" value="${ant-output.dir}/docs/test-report.temp"/>
+	<property name="javadoc.dir" value="${ant-output.dir}/docs/javadoc"/>
+
+	<!--
+		Embedded distribution for PEF validation, embossing and to/from text converters
+	-->
+
+	<property name="braille.jar" value="${dist.dir}/braille.jar"/>
+	
+	<property name="catalog.jar" value="${dist.dir}/catalog.jar"/>
+	<!--
+		Standalone distribution for PEF validation, embossing and to/from text converters
+	 -->
+	<property name="brailleUtils.jar" value="${dist.dir}/brailleUtils.jar"/>
+	
+	<property name="distribution.zip" value="${dist.dir}/brailleUtils-${ISO-TODAY}.zip"/>
+	
+	<!--
+		Distribution for PEF validation, requires braille.jar and 
+	-->
+	
+	<!--
+		Distribution of common classes needed when creating other implementations
+		as plugins. 
+	-->
+	<property name="common.jar" value="${dist.dir}/common.jar"/>
+	
+	<path id="test.classpath">
+		<fileset dir="${dist.dir}">
+			<include name="braille.jar"/>
+			<include name="catalog.jar"/>
+			<include name="test.jar"/>
+		</fileset>
+		<fileset dir="${lib.dir}">
+			<include name="junit*.jar"/>
+		</fileset>
+	</path>
+	
+    <path id="javadoc.classpath">
+      <fileset dir="${basedir}/lib">
+        <include name="**/**/*.jar"/>
+       </fileset>
+    </path>
+
+	<patternset id="braille-jar.patternset">
+		<include name="org/daisy/braille/**/*.*"/>
+		<include name="org/daisy/catalog/**/*.*"/>
+		<include name="org/daisy/factory/**/*.*"/>
+		<include name="org/daisy/paper/**/*.*"/>
+		<include name="org/daisy/printing/**/*.*"/>
+		<include name="org/daisy/validator/**/*.*"/>
+		<include name="META-INF/**/*.*"/>
+	</patternset>
+	
+	<patternset id="catalog-jar.patternset">
+		<include name="**/*.*"/>
+	</patternset>
+
+	<patternset id="common-jar.patternset">
+		<include name="org/daisy/factory/**/*.*"/>
+		<include name="org/daisy/paper/**/*.*"/>
+		<include name="org/daisy/printing/**/*.*"/>
+		<include name="org/daisy/validator/**/*.*"/>
+	</patternset>
+
+	<!-- ================================================================== -->
+	<!-- Private targets                                                    -->
+	<!-- ================================================================== -->
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: emptyBuildDir                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="emptyBuildDir">
+    	<delete dir="${build.dir}"/>
+    	<mkdir dir="${build.dir}"/>
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: emptyCatalogBuildDir                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="emptyCatalogBuildDir">
+    	<delete dir="${catalog-build.dir}"/>
+    	<mkdir dir="${catalog-build.dir}"/>
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: emptyTestBuildDir                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="emptyTestBuildDir">
+    	<delete dir="${test-build.dir}"/>
+    	<mkdir dir="${test-build.dir}"/>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: emptyReportsDir                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="emptyReportsDir">
+    	<delete dir="${test.report.dir}"/>
+    	<mkdir dir="${test.report.dir}"/>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: createJavadocDir                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="createJavadocDir">
+    	<mkdir dir="${javadoc.dir}"/>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: createDistDir                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="createDistDir">
+		<mkdir dir="${dist.dir}"/>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - -
+          target: compile              
+         - - - - - - - - - - - - - - - - - -->
+    <target name="compile" depends="emptyBuildDir">
+    	<!-- Compile core files -->
+        <javac srcdir="${src.dir}" destdir="${build.dir}">
+			<classpath>
+				<fileset dir="${lib.dir}">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+        </javac>
+
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: buildCoreJar                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="buildCoreJar" depends="compile, createDistDir">
+    	<jar destfile="${braille.jar}">
+    		<fileset dir="${build.dir}">
+    			<patternset refid="braille-jar.patternset"/>
+    		</fileset>
+    		<fileset dir="${src.dir}">
+    			<patternset refid="braille-jar.patternset"/>  			
+    		</fileset>
+    		<manifest>
+    			<attribute name="Built-By" value="${user.name}"/>
+    			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    		</manifest>
+    	</jar>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: compileCatalog                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="compileCatalog" depends="buildCoreJar, emptyCatalogBuildDir">
+    	<!-- Compile catalog files -->
+        <javac srcdir="${catalog-src.dir}" destdir="${catalog-build.dir}">
+			<classpath>
+				<fileset dir="${dist.dir}">
+					<include name="*.jar"/>
+				</fileset>
+				<fileset dir="${lib.dir}">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+        </javac>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: buildCatalogJar                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="buildCatalogJar" depends="compileCatalog, createDistDir">
+    	<jar destfile="${catalog.jar}">
+    		<fileset dir="${catalog-build.dir}">
+    			<patternset refid="catalog-jar.patternset"/>
+    		</fileset>
+    		<fileset dir="${catalog-src.dir}">
+    			<patternset refid="catalog-jar.patternset"/>  			
+    		</fileset>
+    		<manifest>
+    			<attribute name="Built-By" value="${user.name}"/>
+    			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    		</manifest>
+    	</jar>
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: compileTests                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="compileTests" depends="buildCoreJar, buildCatalogJar, emptyTestBuildDir">
+    	<!-- Compile test files -->
+	    <javac srcdir="${test-src.dir}" destdir="${test-build.dir}">
+			<classpath>
+				<fileset dir="${dist.dir}">
+					<include name="*.jar"/>
+				</fileset>
+				<fileset dir="${lib.dir}">
+					<include name="junit*.jar"/>
+				</fileset>
+			</classpath>
+	    </javac>            
+    </target>
+	
+	<!-- ================================= 
+          target: runUnitTests              
+         ================================= -->
+	<target name="runUnitTests" depends="emptyReportsDir, emptyTestBuildDir, createDistDir, compileTests" description="Run unit tests">
+
+		<jar destfile="${dist.dir}/test.jar" >
+    		<fileset dir="${test-build.dir}">
+    			<include name="**/*.class"/>
+    		</fileset>
+    	</jar>
+
+		<mkdir dir="${test.report-temp.dir}"/>
+		
+		<junit fork="yes" printsummary="no" haltonfailure="no">
+			<batchtest fork="yes" todir="${test.report-temp.dir}">
+		      <fileset dir="${test-build.dir}">
+		        <include name="**/*Test.class" />
+		      	<include name="**/TestUnit.class" />
+		      	<exclude name="**/Test.class" />
+		      </fileset>
+		    </batchtest>
+		    <formatter type="xml" />
+		    <classpath refid="test.classpath" />
+		</junit>
+
+		<junitreport todir="${test.report.dir}">
+			<fileset dir="${test.report-temp.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report todir="${test.report.dir}" />
+		</junitreport>
+		
+		<delete dir="${test.report-temp.dir}"/>
+		<delete dir="${build.dir}"/>
+		<delete dir="${test-build.dir}"/>
+    	<delete dir="${catalog-build.dir}"/>
+		<delete deleteonexit="true" file="${dist.dir}/test.jar"/>
+	</target>
+	
+	<!-- ================================= 
+          target: buildJavadoc                      
+         ================================= -->
+    <target name="buildJavadoc" depends="createJavadocDir" description="Build javadoc">
+    	<javadoc destdir="${javadoc.dir}"
+    			windowtitle="braille"
+    			encoding="UTF-8"
+    			charset="UTF-8"
+    			classpathref="javadoc.classpath">
+    		<link offline="true" href="http://java.sun.com/javase/6/docs/api/" packagelistLoc="ant-build/resources/javase-6"/>
+    		<fileset dir="${src.dir}">
+    			<include name="**/*.java"/>
+    		</fileset>
+    	</javadoc>
+    </target>
+	
+	<!-- ================================= 
+          target: buildJars              
+         ================================= -->
+    <target name="buildJars" depends="buildCoreJar, buildCatalogJar, createDistDir" description="Build jar-files for all packages">
+    	<jar destfile="${brailleUtils.jar}" >
+    		<fileset dir="${build.dir}">
+    			<patternset refid="braille-jar.patternset"/>
+    		</fileset>
+    		<fileset dir="${src.dir}">
+    			<patternset refid="braille-jar.patternset"/>  			
+    		</fileset>
+    		<manifest>
+    			<attribute name="Class-Path" value="lib/catalog.jar lib/isorelax.jar lib/jing.jar lib/saxon8.jar lib/xercesImpl.jar lib/xml-apis.jar"/>
+    			<attribute name="Main-Class" value="org.daisy.braille.ui.BasicUI"/>
+    			<attribute name="Built-By" value="${user.name}"/>
+    			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    		</manifest>
+    	</jar>
+    	
+<!--
+    	<jar destfile="${common.jar}" >
+    		<fileset dir="${build.dir}">
+    			<patternset refid="common-jar.patternset"/>
+    		</fileset>
+    		<fileset dir="${src.dir}">
+    			<patternset refid="common-jar.patternset"/>  			
+    		</fileset>
+    		<manifest>
+    			<attribute name="Built-By" value="${user.name}"/>
+    			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    		</manifest>
+    	</jar>-->
+    	<delete dir="${build.dir}"/>
+    	<delete dir="${catalog-build.dir}"/>
+    	<delete dir="${test-build.dir}"/>
+    </target>
+	
+	<!-- ================================= 
+          target: buildZip 
+         ================================= -->
+    <target name="buildZip" depends="buildJars, createDistDir" description="Build zip distribution">
+    	<zip destfile="${distribution.zip}">
+    		<zipfileset file="${brailleUtils.jar}" prefix="brailleUtils/"/>
+    		<zipfileset file="${catalog.jar}" prefix="brailleUtils/lib"/>
+    		<zipfileset dir="${lib.dir}" prefix="brailleUtils/lib">
+    			<include name="*.jar"/>
+    		</zipfileset>
+    		<zipfileset dir="${basedir}/licenses" prefix="brailleUtils/licenses/">
+    			<include name="**/*.*"/>
+    		</zipfileset>
+    	</zip>
+    </target>
+
+	<!-- ================================= 
+          target: all             
+         ================================= -->
+    <target name="all" depends="buildJavadoc, buildJars, runUnitTests" description="Build jars and javadoc">
+
+    </target>
+
+</project>

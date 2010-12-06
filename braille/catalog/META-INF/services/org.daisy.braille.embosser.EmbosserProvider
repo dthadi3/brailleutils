@@ -1,0 +1,3 @@
+com_braillo.BrailloEmbosserProvider
+com_indexbraille.IndexEmbosserProvider
+org_daisy.GenericEmbosserProvider
