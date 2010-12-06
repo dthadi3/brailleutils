@@ -70,6 +70,7 @@ braille/lib/junit-4.4.jar -text
 braille/lib/saxon8.jar -text
 braille/lib/xercesImpl.jar -text
 braille/lib/xml-apis.jar -text
+braille/licenses/lgpl.txt -text svneol=unset#text/plain
 braille/src/META-INF/services/org.daisy.braille.table.TableProvider -text
 braille/src/META-INF/services/org.daisy.validator.Validator -text
 braille/src/org/daisy/braille/BrailleConstants.java -text svneol=unset#text/plain
