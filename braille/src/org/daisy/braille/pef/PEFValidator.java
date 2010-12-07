@@ -27,12 +27,15 @@ import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.ValidationDriver;
 
 public class PEFValidator extends AbstractFactoryObject implements org.daisy.validator.Validator {
+	public final static String FEATURE_MODE = "validator mode";
 	public enum Mode {LIGHT_MODE, FULL_MODE};
 	private File report;
+	private Mode mode;
 	
 	public PEFValidator() {
 		this(null);
-		report = null;
+		this.report = null;
+		this.mode = Mode.FULL_MODE;
 	}
 	
 	private PEFValidator(String id) {
@@ -40,13 +43,13 @@ public class PEFValidator extends AbstractFactoryObject implements org.daisy.val
 	}
 	
 	public boolean validate(URL input) {
-		return validate(input, Mode.FULL_MODE);
+		return validate(input, mode);
 	}
 	
-	public boolean validate(URL input, Mode mode) {
+	private boolean validate(URL input, Mode modeLocal) {
 		boolean hasSchematron = true;
 		String schemaPath = "pef-2008-1-full.rng";
-		switch (mode) {
+		switch (modeLocal) {
 			case FULL_MODE: 
 				schemaPath = "pef-2008-1-full.rng";
 				hasSchematron = true;
@@ -183,17 +186,27 @@ public class PEFValidator extends AbstractFactoryObject implements org.daisy.val
 	}
 
 	public Object getFeature(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		if (FEATURE_MODE.equals(key)) {
+			return mode;
+		} else {
+			throw new IllegalArgumentException("Unknown feature: '" + key +"'");
+		}
 	}
 
 	public Object getProperty(String key) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void setFeature(String key, Object value) {
-		// TODO Auto-generated method stub
+		if (FEATURE_MODE.equals(key)) {
+			try {
+				mode = (Mode)value;
+			} catch (ClassCastException e) {
+				throw new IllegalArgumentException("Unsupported value for " + FEATURE_MODE + " '" + value + "'");
+			}
+		} else {
+			throw new IllegalArgumentException("Unknown feature: '" + key +"'");
+		}
 		
 	}
 
