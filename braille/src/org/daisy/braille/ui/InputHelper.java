@@ -115,7 +115,7 @@ public class InputHelper {
 		}
 	}
 	
-	protected void clearSettings() throws BackingStoreException {
+	public void clearSettings() throws BackingStoreException {
 		pr.clear();
 		pr.flush();
 	}

@@ -56,7 +56,7 @@ public class EmbossPEF {
 	
 	protected void readSetup(boolean verify) {
 		// Check setup
-		InputHelper input = new InputHelper(EmbossPEF.class);
+		InputHelper input = new InputHelper(this.getClass());
 		ArrayList<String> str = new ArrayList<String>();
 		for (PrintService ps : PrinterDevice.getDevices()) {
 			str.add(ps.getName());
@@ -100,6 +100,8 @@ public class EmbossPEF {
 		EmbossPEF obj = new EmbossPEF();
 
 		if ("-clear".equalsIgnoreCase(args[0])) {
+			InputHelper h = new InputHelper(obj.getClass());
+			h.clearSettings();
 			System.out.println("Settings have been cleared.");
 			System.exit(0);
 		}
