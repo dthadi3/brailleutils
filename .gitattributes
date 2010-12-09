@@ -7,62 +7,26 @@ braille/build.xml -text svneol=unset#text/plain
 braille/catalog/META-INF/services/org.daisy.braille.embosser.EmbosserProvider -text
 braille/catalog/META-INF/services/org.daisy.braille.table.TableProvider -text
 braille/catalog/META-INF/services/org.daisy.paper.PaperProvider -text
-braille/catalog/com_braillo/Braillo200Embosser.class -text
 braille/catalog/com_braillo/Braillo200Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/Braillo440Embosser.class -text
 braille/catalog/com_braillo/Braillo440Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/Braillo440VolumeWriter$Mode.class -text
-braille/catalog/com_braillo/Braillo440VolumeWriter.class -text
 braille/catalog/com_braillo/Braillo440VolumeWriter.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/BrailloEmbosser$1.class -text
-braille/catalog/com_braillo/BrailloEmbosser.class -text
 braille/catalog/com_braillo/BrailloEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/BrailloEmbosserProvider$EmbosserType.class -text
-braille/catalog/com_braillo/BrailloEmbosserProvider.class -text
 braille/catalog/com_braillo/BrailloEmbosserProvider.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/BrailloTableProvider$TableType.class -text
-braille/catalog/com_braillo/BrailloTableProvider.class -text
 braille/catalog/com_braillo/BrailloTableProvider.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/BrailloVolumeWriter.class -text
 braille/catalog/com_braillo/BrailloVolumeWriter.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexBasicV3Embosser.class -text
 braille/catalog/com_indexbraille/IndexBasicV3Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexEmbosser$1.class -text
-braille/catalog/com_indexbraille/IndexEmbosser.class -text
 braille/catalog/com_indexbraille/IndexEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexEmbosserProvider$EmbosserType.class -text
-braille/catalog/com_indexbraille/IndexEmbosserProvider.class -text
 braille/catalog/com_indexbraille/IndexEmbosserProvider.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexEverestV3Embosser.class -text
 braille/catalog/com_indexbraille/IndexEverestV3Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexV2Embosser.class -text
 braille/catalog/com_indexbraille/IndexV2Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_yourdolphin/SupernovaTableProvider$TableType.class -text
-braille/catalog/com_yourdolphin/SupernovaTableProvider.class -text
 braille/catalog/com_yourdolphin/SupernovaTableProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/EmbosserTableProvider$TableType.class -text
-braille/catalog/org_daisy/EmbosserTableProvider.class -text
 braille/catalog/org_daisy/EmbosserTableProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/GenericEmbosser$1.class -text
-braille/catalog/org_daisy/GenericEmbosser.class -text
 braille/catalog/org_daisy/GenericEmbosser.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/GenericEmbosserProvider$EmbosserType.class -text
-braille/catalog/org_daisy/GenericEmbosserProvider.class -text
 braille/catalog/org_daisy/GenericEmbosserProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/ISO216PaperProvider$PaperSize.class -text
-braille/catalog/org_daisy/ISO216PaperProvider.class -text
 braille/catalog/org_daisy/ISO216PaperProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/NorthAmericaPaperProvider$PaperSize.class -text
-braille/catalog/org_daisy/NorthAmericaPaperProvider.class -text
 braille/catalog/org_daisy/NorthAmericaPaperProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/TractorPaperProvider$PaperSize.class -text
-braille/catalog/org_daisy/TractorPaperProvider.class -text
 braille/catalog/org_daisy/TractorPaperProvider.java -text svneol=unset#text/plain
-braille/catalog/se_tpb/CXTableProvider$TableType.class -text
-braille/catalog/se_tpb/CXTableProvider.class -text
 braille/catalog/se_tpb/CXTableProvider.java -text svneol=unset#text/plain
-braille/catalog/se_tpb/FA44PaperProvider$PaperSize.class -text
-braille/catalog/se_tpb/FA44PaperProvider.class -text
 braille/catalog/se_tpb/FA44PaperProvider.java -text svneol=unset#text/plain
 braille/lib/isorelax.jar -text
 braille/lib/jing.jar -text
@@ -154,15 +118,9 @@ braille/src/org/daisy/printing/package.html -text svneol=unset#text/plain
 braille/src/org/daisy/validator/Validator.java -text svneol=unset#text/plain
 braille/src/org/daisy/validator/ValidatorFactory.java -text svneol=unset#text/plain
 braille/src/org/daisy/validator/package.html -text svneol=unset#text/plain
-braille/tests/com_braillo/BrailloTableProviderTest.class -text
 braille/tests/com_braillo/BrailloTableProviderTest.java -text svneol=unset#text/plain
-braille/tests/com_indexbraille/IndexEmbosserProviderTest.class -text
 braille/tests/com_indexbraille/IndexEmbosserProviderTest.java -text svneol=unset#text/plain
-braille/tests/com_yourdolphin/SupernovaTableProviderTest.class -text
 braille/tests/com_yourdolphin/SupernovaTableProviderTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/MainTest.class -text
 braille/tests/org/daisy/MainTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/braille/pef/RangeTest.class -text
 braille/tests/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
-braille/tests/org_daisy/EmbosserTableProviderTest.class -text
 braille/tests/org_daisy/EmbosserTableProviderTest.java -text svneol=unset#text/plain
