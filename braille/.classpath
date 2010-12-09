@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" output="tests" path="tests"/>
-	<classpathentry kind="src" output="catalog" path="catalog"/>
+	<classpathentry kind="src" output="bin/src" path="src"/>
+	<classpathentry kind="src" output="bin/tests" path="tests"/>
+	<classpathentry kind="src" output="bin/catalog" path="catalog"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/isorelax.jar"/>
 	<classpathentry kind="lib" path="lib/jing.jar"/>
@@ -10,5 +10,5 @@
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.4.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="bin/src"/>
 </classpath>
