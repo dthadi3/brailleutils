@@ -30,7 +30,7 @@ public class ConfigurableEmbosser extends AbstractEmbosserWriter {
 		private BrailleConverter bt;
 		
 		// optional params
-		private LineBreaks.Type breaks = LineBreaks.Type.DEFAULT;
+		private LineBreaks breaks = new StandardLineBreaks(StandardLineBreaks.Type.DEFAULT);
 		private Padding padNewline = Padding.values()[0];
 		private byte[] header = new byte[0];
 		private byte[] footer = new byte[0];
@@ -50,11 +50,11 @@ public class ConfigurableEmbosser extends AbstractEmbosserWriter {
 
 		public Builder breaks(String value) { 
 			if (value!=null && !"".equals(value)) {
-				return breaks(LineBreaks.Type.valueOf(value.toUpperCase()));
+				return breaks(new StandardLineBreaks(StandardLineBreaks.Type.valueOf(value.toUpperCase())));
 			}
 			return this;
 		}
-		public Builder breaks(LineBreaks.Type value) {
+		public Builder breaks(LineBreaks value) {
 			breaks = value; return this;
 		}
 		public Builder padNewline(String value) {
@@ -83,7 +83,7 @@ public class ConfigurableEmbosser extends AbstractEmbosserWriter {
 
 	private ConfigurableEmbosser(Builder builder) {
 		bf = builder.bt;
-		breaks = new LineBreaks(builder.breaks);
+		breaks = builder.breaks;
 		padNewline = builder.padNewline;
 		header = builder.header;
 		footer = builder.footer;

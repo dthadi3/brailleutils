@@ -181,7 +181,7 @@
         <javac srcdir="${catalog-src.dir}" destdir="${catalog-build.dir}">
 			<classpath>
 				<fileset dir="${dist.dir}">
-					<include name="*.jar"/>
+					<include name="braille.jar"/>
 				</fileset>
 				<fileset dir="${lib.dir}">
 					<include name="*.jar"/>

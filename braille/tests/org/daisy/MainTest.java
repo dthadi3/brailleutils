@@ -14,13 +14,13 @@ public class MainTest {
 	@Test
 	public void countTables() {
 		TableCatalog tc = TableCatalog.newInstance();
-		assertEquals("Verify the number of table implementations", 13, tc.list().size());
+		assertEquals("Verify the number of table implementations", 19, tc.list().size());
 	}
 	
 	@Test
 	public void countEmbossers() {
 		EmbosserCatalog ec = EmbosserCatalog.newInstance();
-		assertEquals("Verify the number of embosser implementations", 11, ec.list().size());
+		assertEquals("Verify the number of embosser implementations", 12, ec.list().size());
 	}
 	
 	@Test

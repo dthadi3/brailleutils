@@ -11,8 +11,8 @@ import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserWriterProperties;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
-import org.daisy.braille.embosser.LineBreaks;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
+import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.embosser.UnsupportedPaperException;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
@@ -57,7 +57,7 @@ public class Braillo200Embosser extends BrailloEmbosser {
 				.supportsDuplex(true)
 				.supportsAligning(true);
 			ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, tc.newBrailleConverter())
-				.breaks(LineBreaks.Type.DOS)
+				.breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS))
 				.padNewline(ConfigurableEmbosser.Padding.NONE) // JH100408: changed from BEFORE
 				.embosserProperties(ep)
 				.header(getBrailloHeader(ep.getMaxWidth(), getPageFormat()))

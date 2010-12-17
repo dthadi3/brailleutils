@@ -7,8 +7,8 @@ import org.daisy.braille.embosser.EmbosserFactoryException;
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserWriterProperties;
-import org.daisy.braille.embosser.LineBreaks;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
+import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.embosser.UnsupportedPaperException;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
@@ -43,7 +43,7 @@ public class IndexV2Embosser extends IndexEmbosser {
 					EmbosserTools.getHeight(getPageFormat(), getCellHeight()))
 				.supportsDuplex(true)
 				.supportsAligning(true);
-			b.breaks(LineBreaks.Type.DOS);
+			b.breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS));
 			b.padNewline(ConfigurableEmbosser.Padding.NONE);
 			b.embosserProperties(ep);
 			b.footer(new byte[]{0x1a});

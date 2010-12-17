@@ -5,8 +5,8 @@ import java.io.OutputStream;
 import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
-import org.daisy.braille.embosser.LineBreaks;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
+import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Dimensions;
@@ -42,7 +42,7 @@ public class IndexBasicV3Embosser extends IndexEmbosser {
 		tc.setFeature("fallback", getFeature("fallback"));
 		tc.setFeature("replacement", getFeature("replacement"));
 		ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, tc.newBrailleConverter())
-			.breaks(LineBreaks.Type.DOS)
+			.breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS))
 			.padNewline(ConfigurableEmbosser.Padding.NONE)
 			.footer(new byte[]{0x1a})
 			.embosserProperties(

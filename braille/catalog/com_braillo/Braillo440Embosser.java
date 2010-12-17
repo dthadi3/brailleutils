@@ -6,8 +6,8 @@ import org.daisy.braille.embosser.BufferedVolumeEmbosser;
 import org.daisy.braille.embosser.EmbosserFactoryException;
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
-import org.daisy.braille.embosser.LineBreaks;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
+import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Dimensions;
@@ -77,7 +77,7 @@ public class Braillo440Embosser extends BrailloEmbosser {
 			.supportsAligning(true)
 			.supportsDuplex(true);
 		BufferedVolumeEmbosser.Builder b = new BufferedVolumeEmbosser.Builder(device, tc.newBrailleConverter(), bvw, ep)
-			.breaks(LineBreaks.Type.DOS)
+			.breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS))
 			.padNewline(BufferedVolumeEmbosser.Padding.NONE) // JH100408: changed from BEFORE
 			.autoLineFeedOnEmptyPage(true);
 		return b.build();

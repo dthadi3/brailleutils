@@ -30,6 +30,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Provides a handler for reading a PEF-file and sending the contents to an Embosser.
  * Constructor is private on purpose, use a Builder to create a new PEFHandler.
  * @author  Joel Hakansson, TPB
+ * @author Bert Frees
  * @version 3 sep 2008
  */
 /*
@@ -75,6 +76,9 @@ public class PEFHandler extends DefaultHandler {
 	private final AlignmentFallback alignFallback;
 	private final boolean mirrorAlign;
 	private final int offset;
+//**** Added by Bert Frees *****************************************
+	private final int topOffset;
+//****************************************************************** 
 
 	private Stack<Element> elements;
 	private Element currentPage;
@@ -102,6 +106,9 @@ public class PEFHandler extends DefaultHandler {
 		private AlignmentFallback alignFallback = AlignmentFallback.LEFT;
 		private boolean mirrorAlign = false;
 		private int offset = 0;
+//**** Added by Bert Frees *****************************************
+		private int topOffset = 0;
+//****************************************************************** 
 
 		/**
 		 * Create a new PEFHandler builder
@@ -186,6 +193,12 @@ public class PEFHandler extends DefaultHandler {
 			offset = value;
 			return this;
 		}
+//**** Added by Bert Frees *****************************************
+		public Builder topOffset(int value) {
+			topOffset = value;
+			return this;
+		}
+//****************************************************************** 
 		public PEFHandler build() throws IOException {
 			return new PEFHandler(this);
 		}
@@ -197,6 +210,9 @@ public class PEFHandler extends DefaultHandler {
 		this.alignFallback = builder.alignFallback;
 		this.mirrorAlign = builder.mirrorAlign;
 		this.offset = builder.offset;
+//**** Added by Bert Frees *****************************************
+		this.topOffset = builder.topOffset;
+//****************************************************************** 
         this.elements = new Stack<Element>();
         this.currentPage = null;
         this.currentSection = null;
@@ -231,9 +247,14 @@ public class PEFHandler extends DefaultHandler {
 			} else if ("row".equals(localName)) {
 				if (range.inRange(pageCount)) {
 					try {
-						if (currentPage==elements.peek()) {
+						if (currentPage==elements.peek()) { // same page 
 							embosser.newLine();
 						}
+//**** Added by Bert Frees *****************************************
+						else { // first row of new page
+							addVerticalAlignPadding(topOffset);
+						}
+//******************************************************************
 						if (mirrorAlign && verso && isDuplex) {
 							addAlignPadding(versoAlignmentPadding);
 						} else {
@@ -348,6 +369,13 @@ public class PEFHandler extends DefaultHandler {
 		}
 		embosser.write(new String(c));
 	}
+//**** Added by Bert Frees *****************************************
+	private void addVerticalAlignPadding(int align) throws IOException {
+		for (int i=0;i<align;i++) {
+			embosser.newLine();
+		}
+	}
+//******************************************************************
 	private String toKey(String uri, String localName) {
 		return uri+">"+localName;
 	}

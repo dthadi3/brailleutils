@@ -35,7 +35,7 @@ public class BufferedVolumeEmbosser extends AbstractEmbosserWriter {
 		private final EmbosserWriterProperties ep;
 		
 		// optional params
-		private LineBreaks.Type breaks = LineBreaks.Type.DEFAULT;
+		private LineBreaks breaks = new StandardLineBreaks();
 		private Padding padNewline = Padding.values()[0];
 		private boolean lineFeedOnEmptySheet = false;
 
@@ -47,11 +47,11 @@ public class BufferedVolumeEmbosser extends AbstractEmbosserWriter {
 		}
 		public Builder breaks(String value) { 
 			if (value!=null && !"".equals(value)) {
-				return breaks(LineBreaks.Type.valueOf(value.toUpperCase()));
+				return breaks(new StandardLineBreaks(StandardLineBreaks.Type.valueOf(value.toUpperCase())));
 			}
 			return this;
 		}
-		public Builder breaks(LineBreaks.Type value) {
+		public Builder breaks(LineBreaks value) {
 			breaks = value; return this;
 		}
 		public Builder padNewline(String value) {
@@ -71,7 +71,7 @@ public class BufferedVolumeEmbosser extends AbstractEmbosserWriter {
 	private BufferedVolumeEmbosser(Builder builder) {
 		vw = builder.vw;
 		bf = builder.bt;
-		breaks = new LineBreaks(builder.breaks);
+		breaks = builder.breaks;
 		padNewline = builder.padNewline;
 		lineFeedOnEmptySheet = builder.lineFeedOnEmptySheet;
 		pd = builder.pd;

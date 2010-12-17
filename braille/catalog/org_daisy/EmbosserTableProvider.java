@@ -22,13 +22,11 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 				// "Braillo USA 6 DOT 001.00"
 		DA_DK, 
 		DE_DE, 
-		ES_ES, 
+		ES_ES,
+		ES_ES_TABLE_2,
 		IT_IT_FIRENZE, 
-		//SV_SE_CX, 
-		//SV_SE_MIXED, 
 		UNICODE_BRAILLE, 
-		/*BRAILLO_6DOT_046_01, // compatible with "Braillo SWEDEN 6 DOT 046.01"
-		BRAILLO_6DOT_047_01 // compatible with "Braillo NORWAY 6 DOT 047.01"*/
+
 	};
 
 	private final ArrayList<Table> tables;
@@ -40,15 +38,10 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 		tables.add(new EmbosserTable<TableType>("British computer braille", "", TableType.EN_GB, this));
 		tables.add(new EmbosserTable<TableType>("Danish computer braille", "", TableType.DA_DK, this));
 		tables.add(new EmbosserTable<TableType>("German computer braille", "", TableType.DE_DE, this));
-		tables.add(new EmbosserTable<TableType>("Spanish computer braille", "", TableType.ES_ES, this));
+		tables.add(new EmbosserTable<TableType>("Spanish computer braille (classic)", "Classic Spanish braille table", TableType.ES_ES, this));
+		tables.add(new EmbosserTable<TableType>("Spanish computer braille (modern)", "Modern Spanish braille table", TableType.ES_ES_TABLE_2, this));
 		tables.add(new EmbosserTable<TableType>("Italian computer braille", "", TableType.IT_IT_FIRENZE, this));
-		//tables.add(new EmbosserTable<TableType>("Swedish CX", "Matches the Swedish representation in CX", TableType.SV_SE_CX, this));
-		//tables.add(new EmbosserTable<TableType>("Swedish mixed", "", TableType.SV_SE_MIXED, this));
 		tables.add(new EmbosserTable<TableType>("Unicode braille", "", TableType.UNICODE_BRAILLE, this));
-		/*
-		tables.add(new EmbosserTable<TableType>("Braillo SWEDEN 6 DOT 046.01", "Compatible with Braillo SWEDEN 6 DOT 046.01", TableType.BRAILLO_6DOT_046_01, this).putProperty(IS_DISPLAY_FORMAT, false));
-		tables.add(new EmbosserTable<TableType>("Braillo NORWAY 6 DOT 047.01", "Compatible with Braillo NORWAY 6 DOT 047.01", TableType.BRAILLO_6DOT_047_01, this).putProperty(IS_DISPLAY_FORMAT, false));
-		*/
 	}
 
 
@@ -87,39 +80,17 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 					new String(
 							" a,b.k;l'cif/msp@e:h}o+r^djg|ntq_1?2-u<v{3960x$&\"5*8>z=(%4w7#y)\\"),
 					Charset.forName("UTF-8"), fallback, replacement, true);
+//**** Added by Bert Frees ***************************************** 
+		case ES_ES_TABLE_2:
+				return new EmbosserBrailleConverter(
+						new String(" a,b.k;l'cifímsp@e:h}o+r^djgÌntq_1?2-u<v{396óxé&\"5*8>z=á%4w7#yú\\"),
+						Charset.forName("UTF-8"), fallback, replacement, false);
+//****************************************************************** 
 		case IT_IT_FIRENZE:
 			return new EmbosserBrailleConverter(
 					new String(
 							" a,b'k;l\"cif/msp)e:h*o!r%djg&ntq(1?2-u<v#396^x\\@+5.8>z=[$4w7_y]0"),
 					Charset.forName("UTF-8"), fallback, replacement, true);
-			/*
-		case BRAILLO_6DOT_046_01: // sv-SE
-			return new EmbosserBrailleConverter(
-					new String(
-							" a,b'k;l^cif/msp!e:h*o+r\"djg[ntq_1?2-u<v%396]x\\&#5.8>z=($4w70y)@"),
-					Charset.forName("UTF-8"), fallback, replacement, true);
-		case BRAILLO_6DOT_047_01: // no-NO
-			return new EmbosserBrailleConverter(
-					new String(
-							" A,B.K;L`CIF/MSP'E:H@O!RaDJG[NTQ*]?r-U\"Vqm\\h&Xli_e%u$Z=k|dWg#Ynj"),
-					Charset.forName("UTF-8"), fallback, replacement, false);
-					
-		case SV_SE_CX:
-			return new EmbosserBrailleConverter(
-					new String(
-							" a,b.k;l^cif/msp'e:h*o!r~djgäntq_å?ê-u(v@îöë§xèç\"û+ü)z=à|ôwï#yùé"),
-					Charset.forName("UTF-8"), fallback, replacement, true);
-		case SV_SE_MIXED:
-			StringBuffer sb = new StringBuffer(
-					" a,b.k;l_cif/msp'e:h_o!r_djgäntq_å?_-u(v__öë_xè_\"_+ü)z=___w__y__");
-			for (int i = 0; i < 64; i++) {
-				if (sb.charAt(i) == '_') {
-					sb.setCharAt(i, (char) (0x2800 + i));
-				}
-			}
-			return new EmbosserBrailleConverter(sb.toString(), Charset.forName("UTF-8"),
-					fallback, replacement, true);
-					*/
 		case UNICODE_BRAILLE:
 			return new EmbosserBrailleConverter(BrailleConstants.BRAILLE_PATTERNS_256,
 					Charset.forName("UTF-8"), fallback, replacement, true);

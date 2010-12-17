@@ -39,7 +39,7 @@ public class EmbosserTableProviderTest {
 	@Test
 	public void testListLength() {
 		EmbosserTableProvider bt = new EmbosserTableProvider();
-		assertEquals("Assert that all tables have tests by counting the list length", 6, bt.list().size());
+		assertEquals("Assert that all tables have tests by counting the list length", 7, bt.list().size());
 	}
 /*
 	@Test

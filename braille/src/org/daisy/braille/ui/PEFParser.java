@@ -21,12 +21,12 @@ import java.io.File;
 
 import org.daisy.braille.embosser.Embosser;
 import org.daisy.braille.embosser.EmbosserCatalog;
-import org.daisy.braille.embosser.LineBreaks;
+import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
+import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
-import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
 
 /**
  * Reads a PEF-file and outputs a text file.
@@ -66,7 +66,7 @@ class PEFParser {
 			}			
 			System.out.println("  -breaks value       line break style, available values are:");
 			first=true;
-			for (LineBreaks.Type b : LineBreaks.Type.values()) {
+			for (StandardLineBreaks.Type b : StandardLineBreaks.Type.values()) {
 				System.out.println("                          \"" + b.toString().toLowerCase() + "\"" + (first?" (default)":""));
 				first=false;
 			}

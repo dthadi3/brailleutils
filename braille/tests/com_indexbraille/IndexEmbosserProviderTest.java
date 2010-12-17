@@ -9,7 +9,7 @@ public class IndexEmbosserProviderTest {
 	
 	@Test
 	public void testListLength() {
-		assertEquals("Assert that all embossers have tests by counting the list length", 4, ep.list().size());
+		assertEquals("Assert that all embossers have tests by counting the list length", 5, ep.list().size());
 	}
 
 }
