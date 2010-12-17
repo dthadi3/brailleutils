@@ -15,30 +15,39 @@ public class EmbosserBrailleConverter implements BrailleConverter {
 	public enum EightDotFallbackMethod {
 		MASK, REPLACE, REMOVE
 	}; // , FAIL
-	
 	private HashMap<Character, Character> b2t;
 	private HashMap<Character, Character> t2b;
-	private String tableDef;
 	private Charset charset;
 	private EightDotFallbackMethod fallback;
 	private char replacement;
 	private boolean ignoreCase;
 	private boolean supports8dot;
 	
-	
+	/**
+	 * Creates a new EmbosserBrailleConverter
+	 * @param table the characters in the table, in Unicode order. Must contain 64 or 256 characters.
+	 * @param charset 
+	 * @param fallback
+	 * @param replacement
+	 * @param ignoreCase
+	 * @throws throws IllegalArgumentException if the table length isn't equal to 64 or 256.
+	 */
 	public EmbosserBrailleConverter(String table, Charset charset, EightDotFallbackMethod fallback, char replacement, boolean ignoreCase) {
-		this.tableDef = table;
+		char[] tableDef = table.toCharArray();
 		this.charset = charset;
 		this.fallback = fallback;
 		this.replacement = replacement;
 		this.ignoreCase = ignoreCase;
-		this.supports8dot = tableDef.length()==256;
+		this.supports8dot = tableDef.length==256;
+		if (tableDef.length!=64 && tableDef.length!=256) {
+			throw new IllegalArgumentException("Unsupported table length: " + table.length());
+		}
 		b2t = new HashMap<Character, Character>();
 		t2b = new HashMap<Character, Character>();
 		//lower case def.
 		int i = 0;
 		char b;
-		for (char t : table.toCharArray()) {
+		for (char t : tableDef) {
 			b = (char)(0x2800+i);
 			put(b, t);
 			i++;
