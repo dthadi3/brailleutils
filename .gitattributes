@@ -82,6 +82,7 @@ braille/src/org/daisy/braille/pef/pef-2008-1-full.rng -text
 braille/src/org/daisy/braille/pef/pef-2008-1-light.rng -text
 braille/src/org/daisy/braille/table/AbstractConfigurableTableProvider.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/AbstractTable.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/table/AdvancedBrailleConverter.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/BrailleConverter.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/ConfigurableTableProvider.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/DefaultTableCatalog.java -text svneol=unset#text/plain
@@ -94,6 +95,7 @@ braille/src/org/daisy/braille/table/TableFilter.java -text svneol=unset#text/pla
 braille/src/org/daisy/braille/table/TableProperties.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/TableProvider.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/braille/tools/StringTranslator.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/BasicUI.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/EmbossPEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/InputHelper.java -text svneol=unset#text/plain
@@ -131,4 +133,5 @@ braille/tests/com_yourdolphin/SupernovaTableProviderTest.java -text svneol=unset
 braille/tests/org/daisy/MainTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
+braille/tests/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
 braille/tests/org_daisy/EmbosserTableProviderTest.java -text svneol=unset#text/plain
