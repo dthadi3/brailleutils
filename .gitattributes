@@ -132,6 +132,7 @@ braille/tests/com_indexbraille/IndexTableProviderTest.java -text svneol=unset#te
 braille/tests/com_yourdolphin/SupernovaTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/MainTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
+braille/tests/org/daisy/braille/table/AdvancedBrailleConverterTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
 braille/tests/org_daisy/EmbosserTableProviderTest.java -text svneol=unset#text/plain
