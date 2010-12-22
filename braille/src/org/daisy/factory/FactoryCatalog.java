@@ -8,7 +8,7 @@ import java.util.Collection;
  *
  * @param <T> the type of factory objects that this catalog contains
  */
-public interface FactoryCatalog<T extends FactoryObject> extends Provider<T> {
+public interface FactoryCatalog<T extends Factory> extends Provider<T> {
 
 	/**
 	 * Gets the value of a feature for this catalog
@@ -25,17 +25,17 @@ public interface FactoryCatalog<T extends FactoryObject> extends Provider<T> {
 	public void setFeature(String key, Object value);
 	
 	/**
-	 * Gets the FactoryObject with this identifier
-	 * @param identifier the identifier for the requested FactoryObject
-	 * @return returns the FactoryObject with this identifier, or null if none is found
+	 * Gets the Factory with this identifier
+	 * @param identifier the identifier for the requested Factory
+	 * @return returns the Factory with this identifier, or null if none is found
 	 */
 	public T get(String identifier);
 	
 	/**
-	 * Lists the FactoryObjects available to this catalog that the
+	 * Lists the Factories available to this catalog that the
 	 * supplied FactoryFilter accepts
 	 * @param filter the FactoryFilter to use
-	 * @return returns a collection of FactoryObjects
+	 * @return returns a collection of Factories
 	 */
 	public Collection<T> list(FactoryFilter<T> filter);
 

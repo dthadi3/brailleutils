@@ -21,7 +21,7 @@ import java.io.OutputStream;
 
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableFilter;
-import org.daisy.factory.FactoryObject;
+import org.daisy.factory.Factory;
 import org.daisy.paper.Dimensions;
 import org.daisy.paper.PageFormat;
 import org.daisy.printing.Device;
@@ -31,7 +31,7 @@ import org.daisy.printing.Device;
  * @author Joel Håkansson
  *
  */
-public interface Embosser extends FactoryObject {// , EmbosserProperties {
+public interface Embosser extends Factory {// , EmbosserProperties {
 
 	public boolean supportsDimensions(Dimensions dim);
 	public boolean supportsTable(Table table);

@@ -1,13 +1,13 @@
 package org.daisy.paper;
 
-import org.daisy.factory.FactoryObject;
+import org.daisy.factory.Factory;
 
 /**
  * Provides an interface for common properties of a Paper. 
  * @author Joel Håkansson, TPB
  *
  */
-public interface Paper extends FactoryObject, Dimensions  {
+public interface Paper extends Factory, Dimensions  {
 	/**
 	 * The shape of the paper in the most commonly used orientation
 	 */

@@ -17,14 +17,14 @@
  */
 package org.daisy.braille.table;
 
-import org.daisy.factory.FactoryObject;
+import org.daisy.factory.Factory;
 
 /**
  * Provides an interface for common properties of a Table. 
  * @author Joel Håkansson
  *
  */
-public interface Table extends FactoryObject {
+public interface Table extends Factory {
 	/**
 	 * Creates a new BrailleConverter based on the current configuration of this
 	 * Table. 

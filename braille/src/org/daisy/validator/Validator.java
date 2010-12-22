@@ -3,13 +3,13 @@ package org.daisy.validator;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.daisy.factory.FactoryObject;
+import org.daisy.factory.Factory;
 
 /**
  * Simple interface for validators
  * @author Joel Håkansson, TPB
  */
-public interface Validator extends FactoryObject {
+public interface Validator extends Factory {
 	
 	/**
 	 * Validates the resource at the given URL

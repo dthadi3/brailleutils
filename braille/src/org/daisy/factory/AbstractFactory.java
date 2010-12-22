@@ -1,16 +1,16 @@
 package org.daisy.factory;
 
 /**
- * Provides an abstract class for FactoryObjects.
+ * Provides an abstract class for Factories.
  * @author Joel Håkansson, TPB
  *
  */
-public abstract class AbstractFactoryObject implements FactoryObject {
+public abstract class AbstractFactory implements Factory {
 	private final String name;
 	private final String desc;
 	private final String identifier;
 	
-	public AbstractFactoryObject(String name, String desc, String identifier) {
+	public AbstractFactory(String name, String desc, String identifier) {
 		this.name = name;
 		this.desc = desc;
 		if (identifier==null) {
@@ -20,7 +20,7 @@ public abstract class AbstractFactoryObject implements FactoryObject {
 		}
 	}
 	
-	public AbstractFactoryObject(String name, String desc, Enum<? extends Enum<?>> identifier) {
+	public AbstractFactory(String name, String desc, Enum<? extends Enum<?>> identifier) {
 		this(name, desc, identifier.getClass().getCanonicalName() + "." + identifier.toString());
 	}
 	

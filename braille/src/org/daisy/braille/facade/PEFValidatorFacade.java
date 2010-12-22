@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
+import org.daisy.braille.pef.PEFValidator;
 import org.daisy.validator.ValidatorFactory;
 
 public class PEFValidatorFacade {
@@ -19,7 +20,7 @@ public class PEFValidatorFacade {
 			throw new FileNotFoundException("File does not exist: " + in);
 		}
 		ValidatorFactory factory = ValidatorFactory.newInstance();
-		org.daisy.validator.Validator pv = factory.newValidator("org.daisy.braille.pef.PEFValidator");
+		org.daisy.validator.Validator pv = factory.newValidator(PEFValidator.class.getCanonicalName());
 		if (pv == null) {
 			throw new IOException("Could not find validator.");
 		}

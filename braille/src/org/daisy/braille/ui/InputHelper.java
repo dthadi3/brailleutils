@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import org.daisy.factory.FactoryObject;
+import org.daisy.factory.Factory;
 
 public class InputHelper {
 	private Preferences pr;
@@ -16,6 +16,16 @@ public class InputHelper {
 	public InputHelper(@SuppressWarnings("rawtypes") Class c) {
 		pr = Preferences.userNodeForPackage(c);
 		ln =  new LineNumberReader(new InputStreamReader(System.in));
+	}
+	
+	public InputHelper() {
+		// Determining the calling class.
+		// ca[0] is the anonymous security manager
+		// ca[1] is this class
+		// ca[2] is the calling class
+		this((new SecurityManager() { @SuppressWarnings("rawtypes")
+			   public Class[] getClassContext() { return super.getClassContext(); }}.getClassContext())[2]
+		);
 	}
 
 	public String select(String key, String[] select, String name, boolean verify) {
@@ -57,12 +67,12 @@ public class InputHelper {
 		return value;
 	}
 	
-	public String select(String key, List<FactoryObject> select, String name, boolean verify) {
+	public String select(String key, List<Factory> select, String name, boolean verify) {
 		String value = getKey(key);
 		if (value!=null) {
 			// check value
 			boolean ok = false;
-			for (FactoryObject s : select) {
+			for (Factory s : select) {
 				if (value.equals(s.getIdentifier())) {
 					ok = true;
 					break;
@@ -77,7 +87,7 @@ public class InputHelper {
 			// ask user
 			System.out.println("Choose " + name + ": ");
 			int i = 1;
-			for (FactoryObject s : select) {
+			for (Factory s : select) {
 				System.out.print(i + ". " + s.getDisplayName());
 				if (value!=null && s.getIdentifier().equals(value)) {
 					System.out.print(" (current value, hit enter to keep this value)");

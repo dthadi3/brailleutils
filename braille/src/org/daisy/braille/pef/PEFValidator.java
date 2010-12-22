@@ -15,7 +15,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.daisy.factory.AbstractFactoryObject;
+import org.daisy.factory.AbstractFactory;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -26,7 +26,7 @@ import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.ValidationDriver;
 
-public class PEFValidator extends AbstractFactoryObject implements org.daisy.validator.Validator {
+public class PEFValidator extends AbstractFactory implements org.daisy.validator.Validator {
 	public final static String FEATURE_MODE = "validator mode";
 	public enum Mode {LIGHT_MODE, FULL_MODE};
 	private File report;

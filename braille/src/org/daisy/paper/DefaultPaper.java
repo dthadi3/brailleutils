@@ -1,8 +1,8 @@
 package org.daisy.paper;
 
-import org.daisy.factory.AbstractFactoryObject;
+import org.daisy.factory.AbstractFactory;
 
-public class DefaultPaper extends AbstractFactoryObject implements Paper {
+public class DefaultPaper extends AbstractFactory implements Paper {
 	private final double width, height;
 	private final Shape shape;
 

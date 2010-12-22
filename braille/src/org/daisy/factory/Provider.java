@@ -3,16 +3,16 @@ package org.daisy.factory;
 import java.util.Collection;
 
 /**
- * Provides an interface for a collection of FactoryObjects.
+ * Provides an interface for a collection of Factories.
  * @author Joel Håkansson, TPB
  *
- * @param <T> the type of FactoryObjects handled by this Provider
+ * @param <T> the type of Factories handled by this Provider
  */
-public interface Provider<T extends FactoryObject> {
+public interface Provider<T extends Factory> {
 	
 	/**
-	 * Lists all FactoryObjects
-	 * @return returns a collection of FactoryObjects
+	 * Lists all Factories
+	 * @return returns a collection of Factories
 	 */
 	public Collection<T> list();
 

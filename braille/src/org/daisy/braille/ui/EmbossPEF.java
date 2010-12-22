@@ -34,7 +34,7 @@ import org.daisy.braille.embosser.UnsupportedWidthException;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
 import org.daisy.braille.pef.PEFHandler;
-import org.daisy.factory.FactoryObject;
+import org.daisy.factory.Factory;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PaperCatalog;
@@ -56,7 +56,7 @@ public class EmbossPEF {
 	
 	protected void readSetup(boolean verify) {
 		// Check setup
-		InputHelper input = new InputHelper(this.getClass());
+		InputHelper input = new InputHelper();
 		ArrayList<String> str = new ArrayList<String>();
 		for (PrintService ps : PrinterDevice.getDevices()) {
 			str.add(ps.getName());
@@ -65,12 +65,12 @@ public class EmbossPEF {
 		System.out.println("Using device: " + deviceName);
 		
 		EmbosserCatalog ec = EmbosserCatalog.newInstance();
-		String embosserType = input.select(EMBOSSER_TYPE, new ArrayList<FactoryObject>(ec.list()), "embosser", verify);
+		String embosserType = input.select(EMBOSSER_TYPE, new ArrayList<Factory>(ec.list()), "embosser", verify);
 		type = ec.get(embosserType);
 		System.out.println("Embosser: " + type.getDisplayName());
 
 		PaperCatalog pc = PaperCatalog.newInstance();
-		String paperSize = input.select(PAPER_SIZE, new ArrayList<FactoryObject>(pc.list()), "paper", verify);
+		String paperSize = input.select(PAPER_SIZE, new ArrayList<Factory>(pc.list()), "paper", verify);
 		paper = pc.get(paperSize);
 		System.out.println("Paper: " + paper.getDisplayName());
 	}

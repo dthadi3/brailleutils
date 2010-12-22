@@ -5,10 +5,10 @@ import java.util.HashMap;
 import org.daisy.braille.table.DefaultTableProvider;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
-import org.daisy.factory.AbstractFactoryObject;
+import org.daisy.factory.AbstractFactory;
 import org.daisy.paper.PageFormat;
 
-public abstract class AbstractEmbosser extends AbstractFactoryObject implements Embosser {
+public abstract class AbstractEmbosser extends AbstractFactory implements Embosser {
 	private final HashMap<String, Object> props;
 	private final HashMap<String, String> settings;
 	private double cellHeight = 10;

@@ -17,9 +17,9 @@
  */
 package org.daisy.braille.table;
 
-import org.daisy.factory.AbstractFactoryObject;
+import org.daisy.factory.AbstractFactory;
 
-public abstract class AbstractTable extends AbstractFactoryObject implements Table {
+public abstract class AbstractTable extends AbstractFactory implements Table {
 	
 	public AbstractTable(String name, String desc, String identifier) {
 		super(name, desc, identifier);

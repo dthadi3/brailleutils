@@ -33,9 +33,9 @@ class ValidatePEF {
 			} catch (Exception e) {
 				System.out.println("Could not set mode to '" + args[2] + "'");
 			}
-		}
+		}  
 		ValidatorFactory factory = ValidatorFactory.newInstance();
-		org.daisy.validator.Validator pv = factory.newValidator("org.daisy.braille.pef.PEFValidator");
+		org.daisy.validator.Validator pv = factory.newValidator(PEFValidator.class.getCanonicalName());
 		if (pv == null) {
 			System.out.println("Could not find validator.");
 			System.exit(-2);
