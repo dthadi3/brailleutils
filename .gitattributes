@@ -8,6 +8,7 @@ braille/catalog/META-INF/services/org.daisy.braille.embosser.EmbosserProvider -t
 braille/catalog/META-INF/services/org.daisy.braille.table.TableProvider -text
 braille/catalog/META-INF/services/org.daisy.paper.PaperProvider -text
 braille/catalog/com_braillo/Braillo200Embosser.java -text svneol=unset#text/plain
+braille/catalog/com_braillo/Braillo200_270_400_v12_16Embosser.java -text
 braille/catalog/com_braillo/Braillo440Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo440VolumeWriter.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/BrailloEmbosser.java -text svneol=unset#text/plain

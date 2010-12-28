@@ -20,7 +20,7 @@ public class MainTest {
 	@Test
 	public void countEmbossers() {
 		EmbosserCatalog ec = EmbosserCatalog.newInstance();
-		assertEquals("Verify the number of embosser implementations", 12, ec.list().size());
+		assertEquals("Verify the number of embosser implementations", 13, ec.list().size());
 	}
 	
 	@Test

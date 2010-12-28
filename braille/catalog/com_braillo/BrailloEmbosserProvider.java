@@ -10,6 +10,7 @@ import org.daisy.braille.embosser.EmbosserProvider;
 public class BrailloEmbosserProvider implements EmbosserProvider {
 	public static enum EmbosserType {
 		BRAILLO_200,
+		BRAILLO_270,
 		BRAILLO_400_S, 
 		BRAILLO_400_SR,
 		BRAILLO_440_SW_2P,
@@ -21,8 +22,8 @@ public class BrailloEmbosserProvider implements EmbosserProvider {
 	
 	public BrailloEmbosserProvider() {
 		embossers = new HashMap<EmbosserType, Embosser>();
-		// NONE = Generic embosser, that we do not know much about, supports any paper and any table
 		embossers.put(EmbosserType.BRAILLO_200, new Braillo200Embosser("Braillo 200 (firmware 000.17 or later)", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_200));
+		embossers.put(EmbosserType.BRAILLO_270, new Braillo200_270_400_v12_16Embosser("Braillo 270 (firmware 12 to 16)", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_270));
 		embossers.put(EmbosserType.BRAILLO_400_S, new Braillo200Embosser("Braillo 400S (firmware 000.17 or later)", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_400_S));
 		embossers.put(EmbosserType.BRAILLO_400_SR, new Braillo200Embosser("Braillo 400SR (firmware 000.17 or later)", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_400_SR));
 		embossers.put(EmbosserType.BRAILLO_440_SW_2P, new Braillo440Embosser("Braillo 440SW (two page mode)", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_440_SW_2P));
