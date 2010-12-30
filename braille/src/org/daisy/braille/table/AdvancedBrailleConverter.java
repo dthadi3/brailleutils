@@ -29,6 +29,7 @@ public class AdvancedBrailleConverter implements BrailleConverter {
 	 * @param fallback
 	 * @param replacement
 	 * @param ignoreCase
+	 * @param mode
 	 */
 	public AdvancedBrailleConverter(String[] table, Charset charset, EightDotFallbackMethod fallback, char replacement, boolean ignoreCase, MatchMode mode) {
 		this(table, charset, fallback, replacement, ignoreCase, false, mode);
@@ -38,9 +39,8 @@ public class AdvancedBrailleConverter implements BrailleConverter {
 	 * Creates a new 8-dot table
 	 * @param table
 	 * @param charset
-	 * @param fallback
-	 * @param replacement
 	 * @param ignoreCase
+	 * @param mode
 	 */
 	public AdvancedBrailleConverter(String[] table, Charset charset, boolean ignoreCase, MatchMode mode) {
 		this(table, charset, EightDotFallbackMethod.MASK, null, ignoreCase, true, mode);

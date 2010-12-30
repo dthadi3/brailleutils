@@ -22,7 +22,7 @@ import org.daisy.printing.Device;
 
 
 /**
- * Provides an Embosser for Braillo 200/400S/400SR
+ * Provides an Embosser for Braillo 200/270/400 firmware 12-16
  * @author Joel Håkansson
  */
 public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {

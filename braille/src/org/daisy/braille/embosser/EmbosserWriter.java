@@ -35,8 +35,10 @@ import java.io.IOException;
 public interface EmbosserWriter extends EmbosserWriterProperties, Closeable {
 	/**
 	 * Write a string of braille to the embosser.
-	 * Values must be between 0x2800 and 0x28FF
-	 * @param braille
+	 * Values must be between 0x2800 and 0x28FF. An implementation may supply
+	 * a complete row of braille in a single chunk. However, an implementation
+	 * may also call this method repeatedly without any other calls in between.
+	 * @param braille characters in the range 0x2800 to 0x28FF 
 	 * @throws IOException
 	 */
 	public void write(String braille) throws IOException;
