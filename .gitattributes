@@ -71,7 +71,11 @@ braille/src/org/daisy/braille/facade/PEFConverterFacade.java -text svneol=unset#
 braille/src/org/daisy/braille/facade/PEFValidatorFacade.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/facade/package.html -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/Element.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/NumeralSortString.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFBook.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/PEFFileMerger.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/PEFFileSplitter.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/PEFGenerator.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFHandler.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFNamespaceContext.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFValidator.java -text svneol=unset#text/plain
@@ -96,12 +100,19 @@ braille/src/org/daisy/braille/table/TableFilter.java -text svneol=unset#text/pla
 braille/src/org/daisy/braille/table/TableProperties.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/TableProvider.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/braille/tools/FileCompare.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/tools/FileTools.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/tools/StringTranslator.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/tools/resource-files/normalize.xsl -text svneol=unset#text/plain
+braille/src/org/daisy/braille/ui/AbstractUI.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/BasicUI.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/EmbossPEF.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/ui/GeneratePEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/InputHelper.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/ui/MergePEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/PEFParser.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/RawPrint.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/ui/SplitPEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/TextParser.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/ValidatePEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/package.html -text svneol=unset#text/plain
@@ -132,7 +143,17 @@ braille/tests/com_indexbraille/IndexEmbosserProviderTest.java -text svneol=unset
 braille/tests/com_indexbraille/IndexTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_yourdolphin/SupernovaTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/MainTest.java -text svneol=unset#text/plain
+braille/tests/org/daisy/braille/pef/PEFFileMergerTest.java -text svneol=unset#text/plain
+braille/tests/org/daisy/braille/pef/PEFFileSplitterTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
+braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestExpected.pef -text
+braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-1.pef -text
+braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-2.pef -text
+braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-3.pef -text
+braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-1.pef -text
+braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-2.pef -text
+braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-3.pef -text
+braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestInput.pef -text
 braille/tests/org/daisy/braille/table/AdvancedBrailleConverterTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
