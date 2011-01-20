@@ -171,7 +171,7 @@
          - - - - - - - - - - - - - - - - - -->
     <target name="compile" depends="emptyBuildDir">
     	<!-- Compile core files -->
-        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" debug="true">
 			<classpath>
 				<fileset dir="${lib.dir}">
 					<include name="*.jar"/>
@@ -204,7 +204,7 @@
          - - - - - - - - - - - - - - - - - -->
     <target name="compileCatalog" depends="buildCoreJar, emptyCatalogBuildDir">
     	<!-- Compile catalog files -->
-        <javac srcdir="${catalog-src.dir}" destdir="${catalog-build.dir}" includeantruntime="false">
+        <javac srcdir="${catalog-src.dir}" destdir="${catalog-build.dir}" includeantruntime="false" debug="true">
 			<classpath>
 				<fileset dir="${dist.dir}">
 					<include name="${core-jar.name}"/>
@@ -239,7 +239,7 @@
          - - - - - - - - - - - - - - - - - -->
     <target name="compileTests" depends="buildCoreJar, buildCatalogJar, emptyTestBuildDir">
     	<!-- Compile test files -->
-	    <javac srcdir="${test-src.dir}" destdir="${test-build.dir}" includeantruntime="false">
+	    <javac srcdir="${test-src.dir}" destdir="${test-build.dir}" includeantruntime="false" debug="true">
 			<classpath>
 				<fileset dir="${dist.dir}">
 					<include name="*.jar"/>

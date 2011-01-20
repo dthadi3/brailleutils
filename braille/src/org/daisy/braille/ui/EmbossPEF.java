@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.prefs.BackingStoreException;
 
 import javax.print.PrintService;
@@ -34,6 +35,8 @@ import org.daisy.braille.embosser.UnsupportedWidthException;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
 import org.daisy.braille.pef.PEFHandler;
+import org.daisy.braille.table.Table;
+import org.daisy.braille.table.TableCatalog;
 import org.daisy.factory.Factory;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;
@@ -44,10 +47,12 @@ import org.xml.sax.SAXException;
 public class EmbossPEF {
 	public static String DEVICE_NAME = "device name";
 	public static String EMBOSSER_TYPE = "embosser type";
+	public static String TABLE_TYPE = "table type";
 	public static String PAPER_SIZE = "paper size";
 
 	private String deviceName;
 	private Embosser type;
+	private Table table;
 	private Paper paper;
 	
 	public EmbossPEF() {
@@ -68,6 +73,16 @@ public class EmbossPEF {
 		String embosserType = input.select(EMBOSSER_TYPE, new ArrayList<Factory>(ec.list()), "embosser", verify);
 		type = ec.get(embosserType);
 		System.out.println("Embosser: " + type.getDisplayName());
+		
+		TableCatalog tablef = TableCatalog.newInstance();
+		Collection<Table> supportedTables = tablef.list(type.getTableFilter());
+		if (supportedTables.size()>1) {
+			String tableType = input.select(TABLE_TYPE, new ArrayList<Factory>(supportedTables), "table", verify);
+			table = tablef.get(tableType);
+			System.out.println("Table: " + table.getDisplayName());
+		} else {
+			table = null;
+		}
 
 		PaperCatalog pc = PaperCatalog.newInstance();
 		String paperSize = input.select(PAPER_SIZE, new ArrayList<Factory>(pc.list()), "paper", verify);
@@ -75,7 +90,9 @@ public class EmbossPEF {
 		System.out.println("Paper: " + paper.getDisplayName());
 	}
 	
-
+	public Table getTable() {
+		return table;
+	}
 	
 	public String getDeviceName() {
 		return deviceName;
@@ -118,6 +135,10 @@ public class EmbossPEF {
 
 		//TODO: support reverse orientation
 		obj.getEmbosser().setFeature(EmbosserFeatures.PAGE_FORMAT, new PageFormat(obj.getPaper()));
+		
+		if (obj.getTable()!=null) {
+			obj.getEmbosser().setFeature(EmbosserFeatures.TABLE, obj.getTable());
+		}
 
 		File input = new File(args[0]);
 		if (!input.exists()) {
@@ -147,6 +168,9 @@ public class EmbossPEF {
 		ps.println("Current settings:");
 		ps.println("\tDevice: " + deviceName);
 		ps.println("\tEmbosser: " + type.getDisplayName());
+		if (table!=null) {
+			ps.println("\tTable: " + table.getDisplayName());
+		}
 		ps.println("\tPaper: " + paper.getDisplayName());
 	}
 
