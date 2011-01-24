@@ -41,6 +41,7 @@ import org.daisy.factory.Factory;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PaperCatalog;
+import org.daisy.paper.PaperFilter;
 import org.daisy.printing.PrinterDevice;
 import org.xml.sax.SAXException;
 
@@ -85,7 +86,9 @@ public class EmbossPEF {
 		}
 
 		PaperCatalog pc = PaperCatalog.newInstance();
-		String paperSize = input.select(PAPER_SIZE, new ArrayList<Factory>(pc.list()), "paper", verify);
+		String paperSize = input.select(PAPER_SIZE, new ArrayList<Factory>(
+				pc.list(new EmbosserPaperFilter(type))), "paper", verify
+			);
 		paper = pc.get(paperSize);
 		System.out.println("Paper: " + paper.getDisplayName());
 	}
@@ -173,6 +176,20 @@ public class EmbossPEF {
 		}
 		ps.println("\tPaper: " + paper.getDisplayName());
 	}
+	
+	// Accepts papers that are supported by the embosser in the default orientation
+	private class EmbosserPaperFilter implements PaperFilter {
+			private final Embosser emb;
 
+			public EmbosserPaperFilter(Embosser emb) {
+				this.emb = emb;
+			}
+			
+			@Override
+			public boolean accept(Paper object) {
+				return emb.supportsDimensions(object);
+			}
+
+	}
 
 }

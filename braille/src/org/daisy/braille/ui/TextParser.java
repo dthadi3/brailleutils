@@ -19,10 +19,12 @@ package org.daisy.braille.ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
-import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 
 /**
@@ -37,45 +39,70 @@ import org.daisy.braille.table.TableCatalog;
  */
 //TODO: Add rows and cols params. Implement support for maximum page size. If exceeded, break row or page.
 
-class TextParser {
+class TextParser extends AbstractUI {
+	private final List<Argument> reqArgs;
+	private final List<OptionalArgument> optionalArgs;
+	private final ShortFormResolver tableSF;
 
+	public TextParser() {
+		reqArgs = new ArrayList<Argument>();
+		reqArgs.add(new Argument("input", "path to the input file"));
+		reqArgs.add(new Argument("output", "path to the output file"));
+		TableCatalog tableCatalog = TableCatalog.newInstance();
+		tableSF = new ShortFormResolver(tableCatalog.list());
+		optionalArgs = new ArrayList<OptionalArgument>();
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_MODE, "input braille code", getDefinitionList(tableCatalog, tableSF), ""));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_IDENTIFIER, "the publications unique identifier", "[generated]"));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_DATE, "set the publication date using the form \"yyyy-MM-dd\"", "[today's date]"));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_AUTHOR, "the author of the publication", "[undefined]"));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TITLE, "the title of the publication", "[undefined]"));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_LANGUAGE, "set the publications language (as defined by IETF RFC 3066)", "[undefined]"));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_DUPLEX, "set the document's duplex property", "true"));
+	}
 
 	/**
 	 * Command line entry point.
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		TextParser ui = new TextParser();
 		if (args.length<2) {
-			System.out.println("TextParser input output [options ...]");
-			System.out.println();
-			System.out.println("Arguments");
-			System.out.println("  input               path to the input file");
-			System.out.println("  output              path to the output file");
-			System.out.println();
-			System.out.println("Options");
-			System.out.println("  -mode value        input braille code (auto detected by default), available values are:");
-			TableCatalog tableFactory = TableCatalog.newInstance();
-			for (Table t : tableFactory.list()) {
-				System.out.println("                          \"" + t.getIdentifier() + "\"");
-			}
-			System.out.println("  -author value       the author of the publication");
-			System.out.println("  -title value        the title of the publication");
-			System.out.println("  -identifier value   the publications unique identifier. If no value is supplied, it will be a generated.");
-			System.out.println("  -language value     set the document language (as defined by IETF RFC 3066)");
-			System.out.println("  -duplex value       set the document's duplex property. Default is \"true\"");
-			System.out.println("  -date value         set the publication date using the form \"yyyy-MM-dd\"");
+			ui.displayHelp(System.out);
 		} else {
 			try {
-				PEFConverterFacade.parseTextFile(args);
+				Map<String, String> p = ui.toMap(args);
+
+				// remove required argument
+				File input = new File(""+p.remove(ARG_PREFIX+0));
+				File output = new File(""+p.remove(ARG_PREFIX+1));
+				// remap
+				ui.expandShortForm(p, PEFConverterFacade.KEY_MODE, ui.tableSF);
+				// run
+				PEFConverterFacade.parseTextFile(input, output, p);
 				System.out.println("Validating result...");
-				boolean ok = PEFValidatorFacade.validate(new File(args[1]), System.out);
+				boolean ok = PEFValidatorFacade.validate(output, System.out);
 				if (!ok) {
-					System.out.println("Warning: Validation failed for " + args[1]);
+					System.out.println("Warning: Validation failed for " + output);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public String getName() {
+		return BasicUI.text2pef;
+	}
+
+	@Override
+	public List<Argument> getRequiredArguments() {
+		return reqArgs;
+	}
+
+	@Override
+	public List<OptionalArgument> getOptionalArguments() {
+		return optionalArgs;
 	}
 
 }

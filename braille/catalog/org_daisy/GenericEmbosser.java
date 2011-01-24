@@ -40,9 +40,7 @@ public class GenericEmbosser extends AbstractEmbosser {
 
 	@Override
 	public boolean supportsDimensions(Dimensions dim) {
-		if (dim!=null) { 
-			return true; 
-		} else { return false; }
+		return true;
 	}
 
 	@Override
@@ -62,9 +60,17 @@ public class GenericEmbosser extends AbstractEmbosser {
 		ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, tc.newBrailleConverter());
 		b.breaks((String)getFeature("breaks"));
 		b.padNewline((String)getFeature("padNewline"));
+		final int maxWidth;
+		final int maxHeight;
+		if (getPageFormat()!=null) {
+			maxWidth = EmbosserTools.getWidth(getPageFormat(), getCellWidth());
+			maxHeight = EmbosserTools.getHeight(getPageFormat(), getCellHeight());
+		} else {
+			maxWidth = Integer.MAX_VALUE;
+			maxHeight = Integer.MAX_VALUE;
+		}
 		b.embosserProperties(
-				new SimpleEmbosserProperties(EmbosserTools.getWidth(getPageFormat(), getCellWidth()),
-						EmbosserTools.getHeight(getPageFormat(), getCellHeight()))
+				new SimpleEmbosserProperties(maxWidth, maxHeight)
 				.supports8dot(true)
 				.supportsDuplex(true)
 				.supportsAligning(false));

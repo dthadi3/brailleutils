@@ -18,14 +18,14 @@
 package org.daisy.braille.ui;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import org.daisy.braille.embosser.Embosser;
-import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
-import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
-import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 
 /**
@@ -35,65 +35,87 @@ import org.daisy.braille.table.TableCatalog;
  * @version 2 jul 2008
  * @since 1.0
  */
-class PEFParser {
-
+class PEFParser extends AbstractUI {
+	private final List<Argument> reqArgs;
+	private final List<OptionalArgument> optionalArgs;
+	//private final ShortFormResolver embosserSF;
+	private final ShortFormResolver tableSF;
+	
+	public PEFParser() {
+		reqArgs = new ArrayList<Argument>();
+		reqArgs.add(new Argument("input", "path to the input file"));
+		reqArgs.add(new Argument("output", "path to the output file"));
+		optionalArgs = new ArrayList<OptionalArgument>();
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_RANGE, "output a range of pages", "1-"));
+		TableCatalog tableCatalog = TableCatalog.newInstance();
+		tableSF = new ShortFormResolver(tableCatalog.list());
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TABLE, "braille code table", getDefinitionList(tableCatalog, tableSF), ""));
+		/*
+		EmbosserCatalog embosserCatalog = EmbosserCatalog.newInstance();
+		embosserSF = new ShortFormResolver(embosserCatalog.list());
+		System.out.println(embosserSF.getShortForm(org_daisy.GenericEmbosserProvider.class.getCanonicalName()+".EmbosserType.NONE"));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_EMBOSSER, "target embosser", getDefinitionList(embosserCatalog, embosserSF), embosserSF.getShortForm(org_daisy.GenericEmbosserProvider.class.getCanonicalName()+".EmbosserType.NONE")));
+		*/
+		List<Definition> lbDefs = new ArrayList<Definition>();
+		lbDefs.add(new Definition(StandardLineBreaks.Type.DEFAULT.toString(), "System default line breaks"));
+		lbDefs.add(new Definition(StandardLineBreaks.Type.DOS.toString(), "DOS/Windows line breaks"));
+		lbDefs.add(new Definition(StandardLineBreaks.Type.MAC.toString(), "Mac line breaks"));
+		lbDefs.add(new Definition(StandardLineBreaks.Type.UNIX.toString(), "Unix/Linux line breaks"));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_BREAKS, "line break style", lbDefs, ""));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_FALLBACK, "8-dot fallback method", ""));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_REPLACEMENT, "replacement character, expressed as a hexadecimal number representing the unicode code point of the replacement character (in the range 2800-283F)", "2800"));
+	}
+	
 	/**
 	 * Command line entry point.
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		PEFParser ui = new PEFParser();
 		if (args.length<2) {
-			System.out.println("PEFParser input output [options ...]");
-			System.out.println();
-			System.out.println("Arguments");
-			System.out.println("  input               path to the input file");
-			System.out.println("  output              path to the output file");
-			System.out.println();
-			System.out.println("Options");
-			System.out.println("  -embosser value     target embosser, available values are:");
-			boolean first=true;
-			EmbosserCatalog embf = EmbosserCatalog.newInstance();
-			for (Embosser e : embf.list()) {
-				System.out.println("                          \"" + e.getIdentifier() + "\"" + (first?" (default)":""));
-				first=false;
-			}
-			System.out.println("  -table value        braille code table, available values are:");
-			first=true;
-			TableCatalog tablef = TableCatalog.newInstance();
-			for (Table t : tablef.list()) {
-				System.out.println("                          \"" + t.getIdentifier() + "\"" + (first?" (default)":""));
-				first=false;
-			}			
-			System.out.println("  -breaks value       line break style, available values are:");
-			first=true;
-			for (StandardLineBreaks.Type b : StandardLineBreaks.Type.values()) {
-				System.out.println("                          \"" + b.toString().toLowerCase() + "\"" + (first?" (default)":""));
-				first=false;
-			}
-			System.out.println("  -range from[-to]    output a range of pages");
-			System.out.println("  -fallback value     8-dot fallback method, available values are:");
-			first=true;
-			for (EightDotFallbackMethod f : EightDotFallbackMethod.values()) {
-				System.out.println("                          \"" + f.toString().toLowerCase() + "\"" + (first?" (default)":""));
-				first=false;
-			}
-			System.out.println("  -replacement value  replacement pattern, value in range 2800-283F");
-			System.out.println("                      (default is 2800)");
-			System.out.println();
-			System.out.println("Note that the \"table\" and \"breaks\" options depend on target embosser.");
-
+			ui.displayHelp(System.out);
 		} else {
 			try {
-				boolean ok = PEFValidatorFacade.validate(new File(args[0]), System.out);
+				Map<String, String> p = ui.toMap(args);
+				// remove required argument
+				File input = new File(""+p.remove(ARG_PREFIX+0));
+				File output = new File(""+p.remove(ARG_PREFIX+1));
+				
+				// validate input
+				boolean ok = PEFValidatorFacade.validate(input, System.out);
 				if (!ok) {
 					System.out.println("Validation failed, exiting...");
 					System.exit(-1);
 				}
-				PEFConverterFacade.parsePefFile(args);
+				
+				// expand short forms, if any
+				//ui.expandShortForm(p, PEFConverterFacade.KEY_EMBOSSER, ui.embosserSF);
+				ui.expandShortForm(p, PEFConverterFacade.KEY_TABLE, ui.tableSF);
+				
+				// run
+				FileOutputStream os = new FileOutputStream(output);
+				PEFConverterFacade.parsePefFile(input, os, p);
+				os.close();
+				System.out.println("Done!");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public String getName() {
+		return BasicUI.pef2text;
+	}
+
+	@Override
+	public List<Argument> getRequiredArguments() {
+		return reqArgs;
+	}
+
+	@Override
+	public List<OptionalArgument> getOptionalArguments() {
+		return optionalArgs;
 	}
 
 }

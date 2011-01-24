@@ -17,19 +17,16 @@
  */
 package org.daisy.braille.pef;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
-import java.util.BitSet;
 import java.util.Date;
+import java.util.List;
 
 import org.daisy.braille.table.BrailleConverter;
 import org.daisy.braille.table.Table;
@@ -122,74 +119,17 @@ public class TextHandler {
 			date = value; return this;
 		}
 		
-		private BitSet analyze(InputStream is) throws IOException {
-			BitSet set = new BitSet(256);
-			int val;
-			while ((val=is.read())>-1) {
-				set.set(val);
-			}
-			return set;
-		}
-		
-		private BrailleConverter detect() {
-			try {
-				FileInputStream is = new FileInputStream(input);
-				BitSet inputThumbprint = analyze(is);
-				is.close();
-				inputThumbprint.clear(0x0a); //LF
-				inputThumbprint.clear(0x0c); //FF
-				inputThumbprint.clear(0x0d); //CF
-				inputThumbprint.clear(0x1a); //SUB
-				StringBuffer brailleChars = new StringBuffer();
-				for (int i=0; i<256; i++) {
-					brailleChars.append((char)(0x2800+i));
-				}
-				BrailleConverter converter;
-				TableCatalog factory = TableCatalog.newInstance();
-				BitSet tableThumbprint;
-				Table t1 = null;
-				for (Table type : factory.list()) {
-					 converter = type.newBrailleConverter();
-					 ByteArrayInputStream bis = new ByteArrayInputStream(converter.toText(brailleChars.toString()).getBytes(converter.getPreferredCharset().name()));
-					 tableThumbprint = analyze(bis);
-					 tableThumbprint.and(inputThumbprint);
-					 if (tableThumbprint.equals(inputThumbprint)) {
-						 if (t1==null) {
-							 System.out.println("Input matches " + type.getDisplayName());
-							 t1 = type;
-						 } else {
-							 System.out.println("Warning: Input also matches " + type.getDisplayName());
-						 }
-					 }
-				}
-				if (t1!=null) {
-					System.out.println("Using " + t1.getDisplayName());
-					return t1.newBrailleConverter();
-				}
-				System.out.println("None found:");
-				for (int i=0; i<inputThumbprint.length(); i++) {
-					if (inputThumbprint.get(i)) {
-						System.out.print(""+(char)i);
-					}
-				}
-				System.out.println();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
+
 		
 		/**
 		 * Builds a TextParser using the settings of this Builder
 		 * @return returns a new TextParser
 		 * @throws UnsupportedEncodingException
 		 */
-		public TextHandler build() throws UnsupportedEncodingException {	return new TextHandler(this); }
+		public TextHandler build() throws IOException, InputDetectionException {	return new TextHandler(this); }
 	}
 
-	private TextHandler(Builder builder) throws UnsupportedEncodingException {
+	private TextHandler(Builder builder) throws IOException, InputDetectionException {
 		input = builder.input;
 		output = builder.output;
 		title = builder.title;
@@ -197,10 +137,28 @@ public class TextHandler {
 		language = builder.language;
 		identifier = builder.identifier;
 		if (builder.converterId==null) {
-			converter = builder.detect();
-			if (converter==null) {
-				throw new UnsupportedEncodingException("Cannot detect table.");
+			List<Table> tableCandiates;
+			FileInputStream is = new FileInputStream(input);
+			TextInputDetector tid = new TextInputDetector();
+			tableCandiates = tid.detect(is);
+			if (tableCandiates==null || tableCandiates.size()<1) {
+				throw new InputDetectionException("Cannot detect table.");
 			}
+			if (tableCandiates.size()>1) {
+				StringBuilder sb = new StringBuilder();
+				boolean first = true;
+				for (Table t : tableCandiates) {
+					if (!first) {
+						sb.append(", ");
+					} else {
+						first = false;
+					}
+					sb.append("'" + t.getDisplayName() + "'");
+				}
+				throw new InputDetectionException("Cannot choose a table automatically. Possible matches: " + sb.toString());
+			}
+			System.out.println("Using " + tableCandiates.get(0).getDisplayName());
+			converter = tableCandiates.get(0).newBrailleConverter();
 		} else {
 			TableCatalog b = TableCatalog.newInstance();
 			converter = b.get(builder.converterId).newBrailleConverter();			
@@ -208,7 +166,7 @@ public class TextHandler {
 		duplex = builder.duplex;
 		date = builder.date;
 	}
-
+	
 	/**
 	 * Parse using current settings
 	 * @throws IOException

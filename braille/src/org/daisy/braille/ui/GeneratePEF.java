@@ -57,7 +57,7 @@ public class GeneratePEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return "generate";
+		return BasicUI.generate;
 	}
 
 }

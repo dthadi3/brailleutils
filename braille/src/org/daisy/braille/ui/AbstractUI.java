@@ -1,13 +1,17 @@
 package org.daisy.braille.ui;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.daisy.factory.Factory;
+import org.daisy.factory.FactoryCatalog;
+
 public abstract class AbstractUI {
 	public enum ExitCode {OK, MISSING_ARGUMENT, UNKNOWN_ARGUMENT, FAILED_TO_READ, MISSING_RESOURCE, ILLEGAL_ARGUMENT_VALUE};
-	public static String ARG_PREFIX = "required-";
+	public final static String ARG_PREFIX = "required-";
 	private String delimiter;
 	private String optionalArgumentPrefix;
 
@@ -69,9 +73,36 @@ public abstract class AbstractUI {
 
 	}
 	
+	/**
+	 * Expands the short form of the value with the given key in the provided map using the specified resolver.
+	 * @param map
+	 * @param key
+	 * @param resolver
+	 */
+	public void expandShortForm(Map<String, String> map, String key, ShortFormResolver resolver) {
+		String value = map.get(key);
+		if (value!=null) {
+			String id = resolver.resolve(value);
+			if (id!=null) {
+				map.put(key, id);
+			} else {
+				System.out.println("Unknown value for "+key+": '" + value + "'");
+				System.exit(-ExitCode.ILLEGAL_ARGUMENT_VALUE.ordinal());
+			}
+		}
+	}
+	
+	public List<Definition> getDefinitionList(FactoryCatalog<? extends Factory> catalog, ShortFormResolver resolver) {
+		List<Definition> ret = new ArrayList<Definition>();
+		for (String key : resolver.getShortForms()) {
+			ret.add(new Definition(key, catalog.get(resolver.resolve(key)).getDescription()));
+		}
+		return ret;
+	}
+	
 	public AbstractUI() {
-		this.delimiter = "=";
-		this.optionalArgumentPrefix = "-";
+		setKeyValueDelimiter("=");
+		setOptionalArgumentPrefix("-");
 	}
 	
 	public void setKeyValueDelimiter(String value) {
@@ -79,6 +110,9 @@ public abstract class AbstractUI {
 	}
 	
 	public void setOptionalArgumentPrefix(String value) {
+		if (ARG_PREFIX.equals(value)) {
+			throw new IllegalArgumentException("Prefix is reserved: " + ARG_PREFIX);
+		}
 		optionalArgumentPrefix = value;
 	}
 	
@@ -149,7 +183,7 @@ public abstract class AbstractUI {
 					ps.println("\t\tValues:");
 					for (Definition value : a.getValues()) {
 						ps.print("\t\t\t'"+value.getName() + "' - " + value.getDescription());
-						if (value.equals(a.getDefault())) {
+						if (value.getName().equals(a.getDefault())) {
 							ps.println(" (default)");
 						} else {
 							ps.println();

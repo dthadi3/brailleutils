@@ -71,6 +71,7 @@ braille/src/org/daisy/braille/facade/PEFConverterFacade.java -text svneol=unset#
 braille/src/org/daisy/braille/facade/PEFValidatorFacade.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/facade/package.html -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/Element.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/InputDetectionException.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/NumeralSortString.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFBook.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFFileMerger.java -text svneol=unset#text/plain
@@ -82,6 +83,7 @@ braille/src/org/daisy/braille/pef/PEFValidator.java -text svneol=unset#text/plai
 braille/src/org/daisy/braille/pef/RNG2Schtrn.xsl -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/Range.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/TextHandler.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/TextInputDetector.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/package.html -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/pef-2008-1-full.rng -text
 braille/src/org/daisy/braille/pef/pef-2008-1-light.rng -text
@@ -112,6 +114,7 @@ braille/src/org/daisy/braille/ui/InputHelper.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/MergePEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/PEFParser.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/RawPrint.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/ui/ShortFormResolver.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/SplitPEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/TextParser.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/ValidatePEF.java -text svneol=unset#text/plain
