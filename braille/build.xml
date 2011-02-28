@@ -31,36 +31,28 @@
 	<property name="javadoc-catalog.dir" value="${ant-output.dir}/docs/catalog-javadoc"/>
 
 	<!--
-		Embedded distribution for PEF validation, embossing and to/from text converters
+		Core jars for Braille Utils
 	-->
+	<property name="core-jar.name" value="brailleUtils-core-${release-version}.jar"/>
+	<property name="catalog-jar.name" value="brailleUtils-catalog-${release-version}.jar"/>
 
-	<property name="core-jar.name" value="braille-${release-version}.jar"/>
-	<property name="catalog-jar.name" value="catalog-${release-version}.jar"/>
-	
 	<property name="braille.jar" value="${dist.dir}/${core-jar.name}"/>
 	<property name="catalog.jar" value="${dist.dir}/${catalog-jar.name}"/>
 	
 	<!--
-		Standalone distribution for PEF validation, embossing and to/from text converters
+		UI jar for Braille Utils
 	 -->
-	<property name="brailleUtils.jar" value="${dist.dir}/brailleUtils-${release-version}.jar"/>
-	
+	<property name="brailleUtils.jar" value="${dist.dir}/brailleUtils-ui-${release-version}.jar"/>
+
+	<!--
+		Standalone distribution for Braille Utils
+	 -->	
 	<property name="distribution.zip" value="${dist.dir}/brailleUtils-${ISO-TODAY}.zip"/>
-	
-	<!--
-		Distribution for PEF validation, requires braille.jar and 
-	-->
-	
-	<!--
-		Distribution of common classes needed when creating other implementations
-		as plugins. 
-	-->
-	<property name="common.jar" value="${dist.dir}/common.jar"/>
-	
+
 	<path id="test.classpath">
 		<fileset dir="${dist.dir}">
-			<include name="braille-${release-version}.jar"/>
-			<include name="catalog-${release-version}.jar"/>
+			<include name="${core-jar.name}"/>
+			<include name="${catalog-jar.name}"/>
 			<include name="test.jar"/>
 		</fileset>
 		<fileset dir="${lib.dir}">
@@ -91,20 +83,18 @@
 		<include name="org/daisy/printing/**/*.*"/>
 		<include name="org/daisy/validator/**/*.*"/>
 		<include name="META-INF/**/*.*"/>
-		<exclude name="**/package.html"/>
-	</patternset>
-	
-	<patternset id="catalog-jar.patternset">
-		<include name="**/*.*"/>
-		<exclude name="**/doc-files/**/*.*"/>
+		<exclude name="org/daisy/braille/ui/**/*.*"/>
 		<exclude name="**/package.html"/>
 	</patternset>
 
-	<patternset id="common-jar.patternset">
-		<include name="org/daisy/factory/**/*.*"/>
-		<include name="org/daisy/paper/**/*.*"/>
-		<include name="org/daisy/printing/**/*.*"/>
-		<include name="org/daisy/validator/**/*.*"/>
+	<patternset id="braille-ui-jar.patternset">
+		<include name="org/daisy/braille/ui/**/*.*"/>
+		<exclude name="**/package.html"/>
+	</patternset>
+
+	<patternset id="catalog-jar.patternset">
+		<include name="**/*.*"/>
+		<exclude name="**/doc-files/**/*.*"/>
 		<exclude name="**/package.html"/>
 	</patternset>
 
@@ -290,7 +280,7 @@
 		<delete dir="${build.dir}"/>
 		<delete dir="${test-build.dir}"/>
     	<delete dir="${catalog-build.dir}"/>
-		<!-- <delete deleteonexit="true" file="${dist.dir}/test.jar"/> -->
+		<delete deleteonexit="true" file="${dist.dir}/test.jar"/>
 	</target>
 	
 	<!-- ================================= 
@@ -339,33 +329,19 @@
     <target name="buildJars" depends="buildCoreJar, buildCatalogJar, createDistDir" description="Build jar-files for all packages">
     	<jar destfile="${brailleUtils.jar}" >
     		<fileset dir="${build.dir}">
-    			<patternset refid="braille-jar.patternset"/>
+    			<patternset refid="braille-ui-jar.patternset"/>
     		</fileset>
     		<fileset dir="${src.dir}">
-    			<patternset refid="braille-jar.patternset"/>
-    			<exclude name="**/*.java"/>
+    			<patternset refid="braille-ui-jar.patternset"/>
     		</fileset>
     		<manifest>
-    			<attribute name="Class-Path" value="lib/catalog-${release-version}.jar lib/isorelax.jar lib/jing.jar lib/saxon8.jar lib/xercesImpl.jar lib/xml-apis.jar"/>
+    			<attribute name="Class-Path" value="lib/${core-jar.name} lib/${catalog-jar.name} lib/isorelax.jar lib/jing.jar lib/saxon8.jar lib/xercesImpl.jar lib/xml-apis.jar"/>
     			<attribute name="Main-Class" value="org.daisy.braille.ui.BasicUI"/>
     			<attribute name="Built-By" value="${user.name}"/>
     			<attribute name="Built-On" value="${ISO-TODAY}"/>
     		</manifest>
     	</jar>
-    	
-<!--
-    	<jar destfile="${common.jar}" >
-    		<fileset dir="${build.dir}">
-    			<patternset refid="common-jar.patternset"/>
-    		</fileset>
-    		<fileset dir="${src.dir}">
-    			<patternset refid="common-jar.patternset"/>  			
-    		</fileset>
-    		<manifest>
-    			<attribute name="Built-By" value="${user.name}"/>
-    			<attribute name="Built-On" value="${ISO-TODAY}"/>
-    		</manifest>
-    	</jar>-->
+
     	<delete dir="${build.dir}"/>
     	<delete dir="${catalog-build.dir}"/>
     	<delete dir="${test-build.dir}"/>
@@ -378,6 +354,7 @@
     	<zip destfile="${distribution.zip}">
     		<zipfileset file="${brailleUtils.jar}" prefix="brailleUtils/"/>
     		<zipfileset file="${catalog.jar}" prefix="brailleUtils/lib"/>
+    		<zipfileset file="${braille.jar}" prefix="brailleUtils/lib"/>
     		<zipfileset dir="${lib.dir}" prefix="brailleUtils/lib">
     			<include name="*.jar"/>
     		</zipfileset>
