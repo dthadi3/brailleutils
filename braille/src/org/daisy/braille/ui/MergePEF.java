@@ -47,7 +47,7 @@ public class MergePEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return "merge";
+		return BasicUI.merge;
 	}
 
 	@Override

@@ -3,23 +3,23 @@ package org.daisy.braille.ui;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.daisy.braille.pef.PEFValidator;
 import org.daisy.validator.ValidatorFactory;
 
-class ValidatePEF {
+class ValidatePEF extends AbstractUI {
 	public enum Mode {FULL, LIGHT};
 
 	public static void main(String[] args) throws IOException {
+		ValidatePEF ui = new ValidatePEF();
 		if (args.length<1) {
 			System.out.println("Expected one more argument: input [options ...]");
-			System.out.println("\tmode value\tvalidation mode, available values are:");
-			boolean first=true;
-			for (Mode b : Mode.values()) {
-				System.out.println("\t\t\"" + b.toString().toLowerCase() + "\"" + (first?" (default)":""));
-				first=false;
-			}
-			System.exit(0);
+			System.out.println();
+			ui.displayHelp(System.out);
+			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
 		}
 		File in = new File(args[0]);
 		if (!in.exists()) {
@@ -27,11 +27,15 @@ class ValidatePEF {
 			System.exit(-1);
 		}
 		Mode m = Mode.values()[0];
-		if (args.length==3 && args[1].equalsIgnoreCase("-mode")) {
-			try {
-				m = Mode.valueOf(args[2].toUpperCase());
-			} catch (Exception e) {
-				System.out.println("Could not set mode to '" + args[2] + "'");
+		if (args.length>1) {
+			Map<String, String> p = ui.toMap(args);
+			String mode = p.remove("mode");
+			if (mode!=null) {
+				try {
+					m = Mode.valueOf(mode.toUpperCase());
+				} catch (Exception e) {
+					System.out.println("Could not set mode to '" + mode + "'");
+				}
 			}
 		}  
 		ValidatorFactory factory = ValidatorFactory.newInstance();
@@ -53,6 +57,28 @@ class ValidatePEF {
 			}
 			report.close();
 		}
+	}
+
+	@Override
+	public String getName() {
+		return BasicUI.validate;
+	}
+
+	@Override
+	public List<Argument> getRequiredArguments() {
+		ArrayList<Argument> ret = new ArrayList<Argument>();
+		ret.add(new Argument("input_file", "Path to the input PEF-file"));
+		return ret;
+	}
+
+	@Override
+	public List<OptionalArgument> getOptionalArguments() {
+		ArrayList<OptionalArgument> ret = new ArrayList<OptionalArgument>();
+		ArrayList<Definition> values = new ArrayList<Definition>();
+		values.add(new Definition(Mode.FULL.toString().toLowerCase(), "Validate using full mode"));
+		values.add(new Definition(Mode.LIGHT.toString().toLowerCase(), "Validate using light mode"));
+		ret.add(new OptionalArgument("mode", "Validation mode", values, Mode.FULL.toString().toLowerCase()));
+		return ret;
 	}
 
 }

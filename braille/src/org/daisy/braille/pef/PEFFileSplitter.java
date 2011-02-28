@@ -65,7 +65,7 @@ public class PEFFileSplitter implements ErrorHandler  {
 			
 		}
 		try {
-			return split(new FileInputStream(input), directory, inputName, inputExt);
+			return split(new FileInputStream(input), directory, inputName + "-", inputExt);
 		} catch (FileNotFoundException e) {
 			return false;
 		}

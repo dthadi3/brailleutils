@@ -42,7 +42,9 @@ public class GeneratePEF extends AbstractUI {
 		// pass the optional arguments to the generator
 		PEFGenerator generator = new PEFGenerator(p);
 		// generate
+		System.out.println("Generating test book...");
 		generator.generateTestBook(output);
+		System.out.println("Done!");
 	}
 
 	@Override

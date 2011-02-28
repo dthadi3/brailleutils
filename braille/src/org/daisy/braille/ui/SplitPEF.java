@@ -27,7 +27,7 @@ public class SplitPEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return "split";
+		return BasicUI.split;
 	}
 
 	@Override
