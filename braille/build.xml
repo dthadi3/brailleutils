@@ -47,7 +47,7 @@
 	<!--
 		Standalone distribution for Braille Utils
 	 -->	
-	<property name="distribution.zip" value="${dist.dir}/brailleUtils-${ISO-TODAY}.zip"/>
+	<property name="distribution.zip" value="${dist.dir}/brailleUtils-${release-version}.zip"/>
 
 	<path id="test.classpath">
 		<fileset dir="${dist.dir}">
