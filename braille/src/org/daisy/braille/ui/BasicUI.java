@@ -65,7 +65,7 @@ public class BasicUI extends AbstractUI {
 	 * @throws Exception
 	 */
 	public void run() throws Exception {
-		//setPluginsDir(new File("plugins"));
+		setPluginsDir(new File("plugins"));
 		switch (m) {
 			case EMBOSS:
 				System.out.println("Starting embossing application...");
