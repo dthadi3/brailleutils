@@ -80,13 +80,13 @@ braille/src/org/daisy/braille/pef/PEFGenerator.java -text svneol=unset#text/plai
 braille/src/org/daisy/braille/pef/PEFHandler.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFNamespaceContext.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFValidator.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/RNG2Schtrn.xsl -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/Range.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/TextHandler.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/TextInputDetector.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/package.html -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/pef-2008-1-full.rng -text
-braille/src/org/daisy/braille/pef/pef-2008-1-light.rng -text
+braille/src/org/daisy/braille/pef/resource-files/RNG2Schtrn.xsl -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/resource-files/pef-2008-1-full.rng -text
+braille/src/org/daisy/braille/pef/resource-files/pef-2008-1-light.rng -text
 braille/src/org/daisy/braille/table/AbstractConfigurableTableProvider.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/AbstractTable.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/AdvancedBrailleConverter.java -text svneol=unset#text/plain

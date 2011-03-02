@@ -48,14 +48,14 @@ public class PEFValidator extends AbstractFactory implements org.daisy.validator
 	
 	private boolean validate(URL input, Mode modeLocal) {
 		boolean hasSchematron = true;
-		String schemaPath = "pef-2008-1-full.rng";
+		String schemaPath = "resource-files/pef-2008-1-full.rng";
 		switch (modeLocal) {
 			case FULL_MODE: 
-				schemaPath = "pef-2008-1-full.rng";
+				schemaPath = "resource-files/pef-2008-1-full.rng";
 				hasSchematron = true;
 				break;
 			case LIGHT_MODE: 
-				schemaPath = "pef-2008-1-light.rng";
+				schemaPath = "resource-files/pef-2008-1-light.rng";
 				hasSchematron = false;
 				break;
 		}
@@ -122,7 +122,7 @@ public class PEFValidator extends AbstractFactory implements org.daisy.validator
         // Use XSLT to strip out Schematron rules
         Source xml = new StreamSource(schema.toString());
         
-        Source xslt = new StreamSource(this.getClass().getResourceAsStream("RNG2Schtrn.xsl"));
+        Source xslt = new StreamSource(this.getClass().getResourceAsStream("resource-files/RNG2Schtrn.xsl"));
         TransformerFactory factory = TransformerFactory.newInstance();
         System.err.println(factory.getClass().getName()); 
 		try {

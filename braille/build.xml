@@ -11,6 +11,7 @@
 	<!-- Common properties                                                  -->
 	<!-- ================================================================== -->
 
+	<property name="release-name" value="Braille Utils"/>
 	<property name="release-version" value="1.1.0rc1"/>
 	<property name="ant-build.dir" value="${basedir}/ant-build"/>
 	<property name="ant-output.dir" value="${ant-build.dir}/output"/>
@@ -185,6 +186,9 @@
     		<manifest>
     			<attribute name="Built-By" value="${user.name}"/>
     			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    			<attribute name="Implementation-Title" value="${release-name} Core"/>
+    			<attribute name="Implementation-Version" value="${release-version}"/>
+    			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
     		</manifest>
     	</jar>
     </target>
@@ -220,6 +224,9 @@
     		<manifest>
     			<attribute name="Built-By" value="${user.name}"/>
     			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    			<attribute name="Implementation-Title" value="${release-name} Catalog"/>
+    			<attribute name="Implementation-Version" value="${release-version}"/>
+    			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
     		</manifest>
     	</jar>
     </target>
@@ -339,6 +346,9 @@
     			<attribute name="Main-Class" value="org.daisy.braille.ui.BasicUI"/>
     			<attribute name="Built-By" value="${user.name}"/>
     			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    			<attribute name="Implementation-Title" value="${release-name} UI"/>
+    			<attribute name="Implementation-Version" value="${release-version}"/>
+    			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
     		</manifest>
     	</jar>
 
