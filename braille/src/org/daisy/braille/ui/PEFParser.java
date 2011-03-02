@@ -62,7 +62,11 @@ class PEFParser extends AbstractUI {
 		lbDefs.add(new Definition(StandardLineBreaks.Type.MAC.toString(), "Mac line breaks"));
 		lbDefs.add(new Definition(StandardLineBreaks.Type.UNIX.toString(), "Unix/Linux line breaks"));
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_BREAKS, "line break style", lbDefs, ""));
-		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_FALLBACK, "8-dot fallback method", ""));
+		List<Definition> fallbackDefs = new ArrayList<Definition>();
+		fallbackDefs.add(new Definition("mask", "Mask the 8-dot pattern as a 6-dot pattern by ignoring dots 7 and 8"));
+		fallbackDefs.add(new Definition("replace", "Replace the 8-dot pattern with a fixed 6-dot character"));
+		fallbackDefs.add(new Definition("remove", "Remove the 8-dot pattern (shortens row)"));
+		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_FALLBACK, "8-dot fallback method", fallbackDefs, ""));
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_REPLACEMENT, "replacement character, expressed as a hexadecimal number representing the unicode code point of the replacement character (in the range 2800-283F)", "2800"));
 	}
 	
