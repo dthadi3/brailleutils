@@ -20,7 +20,7 @@ public class ISO216PaperProvider implements PaperProvider {
 		papers.add(new DefaultPaper("A4", "210 mm x 297 mm", PaperSize.A4, 210d, 297d));
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Paper> list() {
 		return papers;
 	}

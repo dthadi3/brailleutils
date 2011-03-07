@@ -20,7 +20,7 @@ public class IndexEverestV3Embosser extends IndexEmbosser {
 		super(name, desc, identifier);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsDimensions(Dimensions dim) {
 		// Supports paper formats smaller than 100 cm wide and 58.5 cm high
 		int width = (int)Math.round(dim.getWidth());
@@ -31,7 +31,7 @@ public class IndexEverestV3Embosser extends IndexEmbosser {
 		return true;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(OutputStream os) {
 		if (!supportsDimensions(getPageFormat())) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());

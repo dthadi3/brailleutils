@@ -42,7 +42,7 @@ public class SupernovaTableProvider extends AbstractConfigurableTableProvider<Su
 		}
 	}
 	
-	@Override
+	//jvm1.6@Override
 	public Collection<Table> list() {
 		return tables;
 	}

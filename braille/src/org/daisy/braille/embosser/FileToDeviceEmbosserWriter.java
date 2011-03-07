@@ -23,87 +23,87 @@ public class FileToDeviceEmbosserWriter implements EmbosserWriter {
 		this.f = f;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public int getRowGap() {
 		return w.getRowGap();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean isClosed() {
 		return w.isClosed();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean isOpen() {
 		return w.isOpen();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void newLine() throws IOException {
 		w.newLine();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void newPage() throws IOException {
 		w.newPage();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void newSectionAndPage(boolean duplex) throws IOException {
 		w.newSectionAndPage(duplex);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void newVolumeSectionAndPage(boolean duplex) throws IOException {
 		w.newVolumeSectionAndPage(duplex);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void open(boolean duplex) throws IOException {
 		w.open(duplex);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void setRowGap(int value) {
 		w.setRowGap(value);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void write(String braille) throws IOException {
 		w.write(braille);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public int getMaxHeight() {
 		return w.getMaxHeight();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public int getMaxWidth() {
 		return w.getMaxWidth();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supports8dot() {
 		return w.supports8dot();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsAligning() {
 		return w.supportsAligning();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsDuplex() {
 		return w.supportsDuplex();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsVolumes() {
 		return w.supportsVolumes();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void close() throws IOException {
 		w.close();
 		try {

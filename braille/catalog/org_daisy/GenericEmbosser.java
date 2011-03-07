@@ -23,7 +23,7 @@ public class GenericEmbosser extends AbstractEmbosser {
 	
 	static {
 		tableFilter = new TableFilter() {
-			@Override
+			//jvm1.6@Override
 			public boolean accept(Table object) {
 				if (object!=null) {
 					return true; 
@@ -38,17 +38,17 @@ public class GenericEmbosser extends AbstractEmbosser {
 		setFeature(EmbosserFeatures.CELL_HEIGHT, 10);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsDimensions(Dimensions dim) {
 		return true;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public TableFilter getTableFilter() {
 		return tableFilter;
 	}
 	
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(OutputStream os) {
 		if (!supportsDimensions(getPageFormat())) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());
@@ -77,7 +77,7 @@ public class GenericEmbosser extends AbstractEmbosser {
 		return b.build();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(Device device) {
 		if (!supportsDimensions(getPageFormat())) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());

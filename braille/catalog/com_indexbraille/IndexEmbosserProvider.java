@@ -26,7 +26,7 @@ public class IndexEmbosserProvider implements EmbosserProvider {
 		embossers.put(EmbosserType.INDEX_BASIC_D_V3, new IndexBasicV3Embosser("Index Braille - Basic-D V3", "Index Basic embosser that talks, with serial, parallel, USB and RJ45 connectors", EmbosserType.INDEX_BASIC_D_V3));
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Embosser> list() {
 		return embossers.values();
 	}

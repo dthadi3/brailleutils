@@ -38,9 +38,12 @@ braille/lib/isorelax.jar -text
 braille/lib/jing.jar -text
 braille/lib/junit-4.4.jar -text
 braille/lib/saxon8.jar -text
+braille/lib/stax-api-1.0.1.jar -text
+braille/lib/wstx-lgpl-3.2.8.jar -text
 braille/lib/xercesImpl.jar -text
 braille/lib/xml-apis.jar -text
 braille/licenses/lgpl.txt -text svneol=unset#text/plain
+braille/src/META-INF/services/javax.xml.transform.TransformerFactory -text
 braille/src/META-INF/services/org.daisy.braille.table.TableProvider -text
 braille/src/META-INF/services/org.daisy.validator.Validator -text
 braille/src/org/daisy/braille/BrailleConstants.java -text svneol=unset#text/plain

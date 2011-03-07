@@ -100,7 +100,7 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 		}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Table> list() {
 		return tables;
 	}

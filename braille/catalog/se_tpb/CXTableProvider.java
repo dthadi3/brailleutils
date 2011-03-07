@@ -48,7 +48,7 @@ public class CXTableProvider extends AbstractConfigurableTableProvider<CXTablePr
 		}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Table> list() {
 		return tables;
 	}

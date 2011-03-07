@@ -24,17 +24,17 @@ public abstract class AbstractFactory implements Factory {
 		this(name, desc, identifier.getClass().getCanonicalName() + "." + identifier.toString());
 	}
 	
-	@Override
+	//jvm1.6@Override
 	public String getDescription() {
 		return desc;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public String getDisplayName() {
 		return name;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public String getIdentifier() {
 		return identifier;
 	}

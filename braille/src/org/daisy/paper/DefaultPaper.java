@@ -26,27 +26,27 @@ public class DefaultPaper extends AbstractFactory implements Paper {
 		}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Object getFeature(String key) {
 		throw new IllegalArgumentException("Unknown feature: " + key);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Object getProperty(String key) {
 		return null;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void setFeature(String key, Object value) {
 		throw new IllegalArgumentException("Unknown feature: " + key);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public double getHeight() {
 		return height;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public double getWidth() {
 		return width;
 	}

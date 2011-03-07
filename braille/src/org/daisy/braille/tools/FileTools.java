@@ -29,7 +29,7 @@ public class FileTools {
 	
 	public static File[] listFiles(File dir, final String ext) {
 		return dir.listFiles(new FilenameFilter(){
-			@Override
+			//jvm1.6@Override
 			public boolean accept(File dir, String name) {
 				return name.endsWith(ext);
 			}});

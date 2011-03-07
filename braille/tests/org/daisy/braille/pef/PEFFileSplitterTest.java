@@ -26,7 +26,7 @@ public class PEFFileSplitterTest {
 				dir));
 		assertEquals("Assert that the number of generated files is correct", 3, dir.listFiles().length);
 		int i = 1;
-		System.out.println(dir);
+		//System.out.println(dir);
 		FileCompare fc = new FileCompare();
 		for (File v : dir.listFiles()) {
 			assertTrue("Assert that file " + i + " begins with the string 'volume-'", v.getName().startsWith("volume-"));

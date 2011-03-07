@@ -22,7 +22,7 @@ public class FA44PaperProvider implements PaperProvider {
 		//papers.add(new DefaultPaper("FA44 (legacy)", "252 mm x 297 mm", PaperSize.FA44_LEGACY, 252d, 297d));
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Paper> list() {
 		return papers;
 	}

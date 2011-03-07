@@ -139,17 +139,17 @@ public class PEFValidator extends AbstractFactory implements org.daisy.validator
 	
 	class TestError implements ErrorHandler {
 
-		@Override
+		//jvm1.6@Override
 		public void warning(SAXParseException exception) throws SAXException {
 			buildErrorMessage("Warning", exception);
 		}
 
-		@Override
+		//jvm1.6@Override
 		public void error(SAXParseException exception) throws SAXException {
 			buildErrorMessage("Error", exception);
 		}
 
-		@Override
+		//jvm1.6@Override
 		public void fatalError(SAXParseException exception) throws SAXException {
 			buildErrorMessage("Fatal error", exception);
 		}

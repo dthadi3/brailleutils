@@ -20,7 +20,7 @@ public class IndexV2Embosser extends IndexEmbosser {
 		super(name, desc, identifier);
 	}
 	
-	@Override
+	//jvm1.6@Override
 	public boolean supportsDimensions(Dimensions dim) {
 		int w = EmbosserTools.getWidth(dim, getCellWidth());
 		if (dim!=null && w <= 99) { 
@@ -28,7 +28,7 @@ public class IndexV2Embosser extends IndexEmbosser {
 		} else { return false; }
 	}
 
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(OutputStream os) {
 		if (!supportsDimensions(getPageFormat())) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());

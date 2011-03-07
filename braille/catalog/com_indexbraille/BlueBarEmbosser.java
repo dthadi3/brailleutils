@@ -23,7 +23,7 @@ public class BlueBarEmbosser extends AbstractEmbosser {
 	private final static String tableId = IndexTableProvider.class.getCanonicalName() + ".TableType.BLUE_BAR";
 	static {
 		tableFilter = new TableFilter() {
-			@Override
+			//jvm1.6@Override
 			public boolean accept(Table object) {
 				return object.getIdentifier().equals(tableId);
 			}
@@ -36,12 +36,12 @@ public class BlueBarEmbosser extends AbstractEmbosser {
 		setFeature(EmbosserFeatures.CELL_HEIGHT, 10);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public TableFilter getTableFilter() {
 		return tableFilter;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsDimensions(Dimensions dim) {
 		//TODO: Verify that this value is correct
 		int w = EmbosserTools.getWidth(dim, getCellWidth());
@@ -50,7 +50,7 @@ public class BlueBarEmbosser extends AbstractEmbosser {
 		} else { return false; }
 	}
 	
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(Device device) {
 		if (!supportsDimensions(getPageFormat())) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());
@@ -66,7 +66,7 @@ public class BlueBarEmbosser extends AbstractEmbosser {
 		throw new IllegalArgumentException("Embosser does not support this feature.");
 	}
 	
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(OutputStream os) {
 		if (!supportsDimensions(getPageFormat())) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());

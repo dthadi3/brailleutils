@@ -46,7 +46,7 @@ public class PageFormat implements Dimensions {
 	 * Gets the width of the page, in mm
 	 * @return returns the width of the page
 	 */
-	@Override
+	//jvm1.6@Override
 	public double getWidth() {
 		switch (orientation) {
 			case REVERSED: return paper.getHeight();
@@ -59,7 +59,7 @@ public class PageFormat implements Dimensions {
 	 * Gets the height of the page, in mm
 	 * @return returns the height of the page
 	 */
-	@Override
+	//jvm1.6@Override
 	public double getHeight() {
 		switch (orientation) {
 			case REVERSED: return paper.getWidth();

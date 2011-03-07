@@ -45,27 +45,27 @@ class DefaultPaperCatalog extends PaperCatalog {
 		}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Object getFeature(String key) {
 		throw new IllegalArgumentException("Unsupported feature: " + key);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void setFeature(String key, Object value) {
 		throw new IllegalArgumentException("Unsupported feature: " + key);
 	}
 	
-	@Override
+	//jvm1.6@Override
 	public Paper get(String identifier) {
 		return map.get(identifier);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Paper> list() {
 		return map.values();
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Paper> list(FactoryFilter<Paper> filter) {
 		Collection<Paper> ret = new ArrayList<Paper>();
 		for (Paper paper : map.values()) {

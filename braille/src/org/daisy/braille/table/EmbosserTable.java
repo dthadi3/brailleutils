@@ -21,22 +21,22 @@ public class EmbosserTable<T> extends AbstractTable {
 		return this;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public BrailleConverter newBrailleConverter() {
 		return provider.newTable(type);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void setFeature(String key, Object value) {
 		provider.setFeature(key, value);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Object getProperty(String key) {
 		return props.get(key);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Object getFeature(String key) {
 		return provider.getFeature(key);
 	}

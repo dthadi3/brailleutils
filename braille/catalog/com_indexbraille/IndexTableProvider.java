@@ -49,7 +49,7 @@ public class IndexTableProvider extends AbstractConfigurableTableProvider<IndexT
 		}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Table> list() {
 		return tables;
 	}

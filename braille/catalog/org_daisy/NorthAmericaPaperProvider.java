@@ -22,7 +22,7 @@ public class NorthAmericaPaperProvider implements PaperProvider {
 		papers.add(new DefaultPaper("11.5 inch x 11 inch", "11.5 inch wide, 11 inch high", PaperSize.W11500THOU_X_H11INCH, 11.5 * INCH_IN_MM, 11 * INCH_IN_MM));
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Paper> list() {
 		return papers;
 	}

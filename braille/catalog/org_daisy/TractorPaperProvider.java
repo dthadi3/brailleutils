@@ -26,7 +26,7 @@ public class TractorPaperProvider implements PaperProvider {
 	//	papers.add(new DefaultPaper("240 mm wide, 12 inch high", "", PaperSize.W240MM_X_H12INCH, 240d, 12*INCH_IN_MM));
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Paper> list() {
 		return papers;
 	}

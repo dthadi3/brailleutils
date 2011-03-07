@@ -29,7 +29,7 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 	private final static byte[] halfInchToSheetLength = new byte[]{	'0', '1', '1', '2', '2', '3', '3', '4', '4', '5',
 																'5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsDimensions(Dimensions dim) {
 		int height = (int)Math.ceil(dim.getHeight()/EmbosserTools.INCH_IN_MM);
 		int width = EmbosserTools.getWidth(dim, getCellWidth());
@@ -46,7 +46,7 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 		super(name, desc, identifier);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(OutputStream os) {
 		try {
 			TableCatalog btb = TableCatalog.newInstance();
@@ -71,7 +71,7 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 		}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(Device device) {
 		if (!supportsDimensions(getPageFormat())) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());

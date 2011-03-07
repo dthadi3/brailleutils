@@ -185,7 +185,7 @@ public class EmbossPEF {
 				this.emb = emb;
 			}
 			
-			@Override
+			//jvm1.6@Override
 			public boolean accept(Paper object) {
 				return emb.supportsDimensions(object);
 			}

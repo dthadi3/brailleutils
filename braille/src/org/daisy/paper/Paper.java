@@ -30,14 +30,14 @@ public interface Paper extends Factory, Dimensions  {
 	 * Gets width of the paper in the most commonly used orientation, in mm.
 	 * @return returns width in mm.
 	 */
-	@Override
+	//jvm1.6@Override
 	public double getWidth();
 	
 	/**
 	 * Gets height of the paper in the most commonly used orientation, in mm.
 	 * @return returns height in mm.
 	 */
-	@Override
+	//jvm1.6@Override
 	public double getHeight();
 
 	/**

@@ -27,7 +27,7 @@ import org.daisy.printing.Device;
  */
 public class Braillo200Embosser extends BrailloEmbosser {
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsDimensions(Dimensions dim) {
 		int height = (int)Math.ceil(2*dim.getHeight()/EmbosserTools.INCH_IN_MM);
 		int width = EmbosserTools.getWidth(dim, 6);
@@ -44,7 +44,7 @@ public class Braillo200Embosser extends BrailloEmbosser {
 		super(name, desc, identifier);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(OutputStream os) {
 		try {
 			TableCatalog btb = TableCatalog.newInstance();
@@ -69,7 +69,7 @@ public class Braillo200Embosser extends BrailloEmbosser {
 		}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(Device device) {
 		if (!supportsDimensions(getPageFormat())) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());

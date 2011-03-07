@@ -42,7 +42,7 @@ public class DefaultTableProvider extends AbstractConfigurableTableProvider<Defa
 		}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Table> list() {
 		return tables;
 	}

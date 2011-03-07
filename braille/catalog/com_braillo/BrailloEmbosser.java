@@ -25,7 +25,7 @@ public abstract class BrailloEmbosser extends AbstractEmbosser {
 		setFeature(EmbosserFeatures.CELL_HEIGHT, 10);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public TableFilter getTableFilter() {
 		return tableFilter;
 	}

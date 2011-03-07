@@ -21,9 +21,11 @@ public class BasicUI extends AbstractUI {
 
 	private final String[] args;
 	private final Mode m;
-	private final static Logger logger = Logger.getLogger(BasicUI.class.getCanonicalName());
+	private final Logger logger;
 	
 	public BasicUI(String[] args) {
+		logger = Logger.getLogger(BasicUI.class.getCanonicalName());
+		logger.fine(System.getProperties().toString());
 		this.args = args;
 		if (args.length<1) {
 			System.out.println("Expected at least one argument.");
@@ -48,7 +50,7 @@ public class BasicUI extends AbstractUI {
 	 * the specified path. 
 	 * @param dir the directory to search for jar-files.
 	 */
-	public static void setPluginsDir(File dir) {
+	public void setPluginsDir(File dir) {
 		// list jars and convert to URL's
 		URL[] jars = FileTools.toURL(FileTools.listFiles(dir, ".jar"));
 		for (URL u : jars) {

@@ -31,7 +31,7 @@ public class BrailloEmbosserProvider implements EmbosserProvider {
 		embossers.put(EmbosserType.BRAILLO_440_SWSF, new Braillo440Embosser("Braillo 440SWSF", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_440_SWSF));
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Embosser> list() {
 		return embossers.values();
 	}

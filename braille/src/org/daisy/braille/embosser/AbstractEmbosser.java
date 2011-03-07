@@ -46,12 +46,12 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		return cellHeight;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public int getMaxHeight(PageFormat pageFormat) {
 		return EmbosserTools.getHeight(pageFormat, cellHeight);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public int getMaxWidth(PageFormat pageFormat) {
 		return EmbosserTools.getWidth(pageFormat, cellWidth);
 	}
@@ -60,7 +60,7 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		return settings.get(key);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Object getProperty(String key) {
 		return props.get(key);
 	}
@@ -100,7 +100,7 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		}
 	}
  	
-	@Override
+ 	//jvm1.6@Override
 	public boolean supportsTable(Table table) {
 		return getTableFilter().accept(table);
 	}

@@ -17,7 +17,7 @@ public class IndexBasicV3Embosser extends IndexEmbosser {
 		super(name, desc, identifier);
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsDimensions(Dimensions dim) {
 		// Supports the following
 		double pw = dim.getWidth();
@@ -31,7 +31,7 @@ public class IndexBasicV3Embosser extends IndexEmbosser {
 		return false;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(OutputStream os) {
 		if (!supportsDimensions(getPageFormat())) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());

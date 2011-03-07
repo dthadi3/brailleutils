@@ -60,7 +60,7 @@ public class BrailleEditorsTableProvider extends AbstractConfigurableTableProvid
 			}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Table> list() {
 		return tables;
 	}

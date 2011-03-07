@@ -18,7 +18,7 @@ public class GenericEmbosserProvider implements EmbosserProvider {
 		embossers.put(EmbosserType.NONE, new GenericEmbosser("Unspecified", "Limited support for unknown embossers", EmbosserType.NONE));
 	}
 
-	@Override
+	//jvm1.6@Override
 	public Collection<Embosser> list() {
 		return embossers.values();
 	}

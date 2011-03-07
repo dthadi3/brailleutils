@@ -38,7 +38,7 @@ public class FileDevice implements Device {
 		this(parent, "job_");
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void transmit(File file) throws PrintException {
 		BufferedInputStream bis;
 		BufferedOutputStream bos;

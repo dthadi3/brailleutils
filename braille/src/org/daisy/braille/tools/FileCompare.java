@@ -14,29 +14,33 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 public class FileCompare {
-	private TransformerFactory factory;
+	//private final static String TRANSFORMER_FACTORY_KEY = "javax.xml.transform.TransformerFactory";
 
-	public FileCompare() {
-        factory = TransformerFactory.newInstance();
-		try {
-			factory.setAttribute("http://saxon.sf.net/feature/version-warning", Boolean.FALSE);
-		} catch (IllegalArgumentException iae) { }
-	}
+	public FileCompare() { }
 
 	public boolean compareXML(InputStream f1, InputStream f2) throws IOException, TransformerException {
-        Source xslt = new StreamSource(this.getClass().getResourceAsStream("resource-files/normalize.xsl"));
-
+		//String originalTransformer = System.getProperty(TRANSFORMER_FACTORY_KEY);
+		//System.setProperty(TRANSFORMER_FACTORY_KEY, "net.sf.saxon.TransformerFactoryImpl");
+		TransformerFactory factory = TransformerFactory.newInstance();
+		try {
+			factory.setAttribute("http://saxon.sf.net/feature/version-warning", Boolean.FALSE);
+		} catch (IllegalArgumentException iae) { 
+			iae.printStackTrace();
+		}
         File t1 = File.createTempFile("FileCompare", ".tmp");
         File t2 = File.createTempFile("FileCompare", ".tmp");
         try {
-	        Transformer transformer = factory.newTransformer(xslt);
 	        StreamSource xml1 = new StreamSource(f1);
 	        StreamSource xml2 = new StreamSource(f2);
+	        Source xslt;
+	        Transformer transformer;
 	        
-	        //t1.deleteOnExit();
-	        
-	        //t2.deleteOnExit();
+	        xslt = new StreamSource(this.getClass().getResourceAsStream("resource-files/normalize.xsl"));
+	        transformer = factory.newTransformer(xslt);
 	        transformer.transform(xml1, new StreamResult(t1));
+	        
+	        xslt = new StreamSource(this.getClass().getResourceAsStream("resource-files/normalize.xsl"));
+	        transformer = factory.newTransformer(xslt);
 	        transformer.transform(xml2, new StreamResult(t2));
 	
 	        return compareBinary(new FileInputStream(t1), new FileInputStream(t2));
@@ -47,6 +51,12 @@ public class FileCompare {
         	if (!t2.delete()) {
         		t2.deleteOnExit();
         	}
+        	/*
+        	if (originalTransformer!=null) {
+        		System.setProperty(TRANSFORMER_FACTORY_KEY, originalTransformer);
+        	} else {
+        		System.clearProperty(TRANSFORMER_FACTORY_KEY);
+        	}*/
         }
 	}
 	

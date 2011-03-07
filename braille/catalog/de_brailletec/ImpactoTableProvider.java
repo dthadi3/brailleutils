@@ -79,7 +79,7 @@ public class ImpactoTableProvider extends AbstractConfigurableTableProvider<Impa
 		}
 	}
 	
-	@Override
+	//jvm1.6@Override
 	public Collection<Table> list() {
 		return tables;
 	}
