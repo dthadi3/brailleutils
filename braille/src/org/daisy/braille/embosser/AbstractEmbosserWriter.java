@@ -5,12 +5,12 @@ import java.io.IOException;
 import org.daisy.braille.table.BrailleConverter;
 
 /**
- * Provides an abstract base for embossers. 
+ * Provides an abstract base for embossers.
  * @author Joel Håkansson, TPB
  *
  */
 public abstract class AbstractEmbosserWriter implements EmbosserWriter {
-	public static enum Padding {BOTH, BEFORE, AFTER, NONE};
+	public static enum Padding {BOTH, BEFORE, AFTER, NONE, NO_FF}; // NO_FF = no formfeed, only a linefeed
 	/*
 	protected boolean supports8dot;
 	protected boolean supportsDuplex;
@@ -31,13 +31,13 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 	public abstract BrailleConverter getTable();
 	protected abstract void add(byte b) throws IOException;
 	protected abstract void addAll(byte[] b) throws IOException;
-	
+
 	protected void init(EmbosserWriterProperties props) {
 		this.props = props;
 		isOpen = false;
 		isClosed = false;
 	}
-	
+
 	public void newLine() throws IOException {
 		for (int i=0; i<((rowgap / 4)+1); i++) {
 			lineFeed();
@@ -51,11 +51,11 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 			rowgap = value;
 		}
 	}
-	
+
 	public int getRowGap() {
 		return rowgap;
 	}
-	
+
 	public void open(boolean duplex) throws IOException {
 		charsOnRow = 0;
 		rowsOnPage = 0;
@@ -64,20 +64,20 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 		isOpen=true;
 		currentDuplex = duplex;
 	}
-	
+
 	public int currentPage() {
 		return currentPage;
 	}
-	
+
 	public boolean pageIsEmpty() {
 		return (charsOnRow+rowsOnPage)==0;
 	}
-	
+
 	public void close() throws IOException {
 		isClosed=true;
 		isOpen=false;
 	}
-	
+
 	public void write(String braille) throws IOException {
 		charsOnRow += braille.length();
 		if (charsOnRow>props.getMaxWidth()) {
@@ -85,7 +85,7 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 		}
 		addAll(String.valueOf(getTable().toText(braille)).getBytes(getTable().getPreferredCharset().name()));
 	}
-	
+
 	protected void lineFeed() throws IOException {
 		rowsOnPage++;
 		charsOnRow = 0;
@@ -106,9 +106,12 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 	    	case BOTH:
 	    		lineFeed();
 	    	case AFTER:
-	    		add((byte)0x0c); 
+	    		add((byte)0x0c);
 	    		lineFeed();
 	    		break;
+                case NO_FF:
+                        lineFeed();
+                        break;
 	    }
         currentPage++;
 	    rowsOnPage = 0;
@@ -137,7 +140,7 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 	public boolean isOpen() {
 		return isOpen;
 	}
-	
+
 	public boolean isClosed() {
 		return isClosed;
 	}

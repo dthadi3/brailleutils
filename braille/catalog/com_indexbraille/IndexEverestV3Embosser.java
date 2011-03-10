@@ -14,8 +14,8 @@ import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Dimensions;
 import org.daisy.paper.PageFormat;
 
-public class IndexEverestV3Embosser extends IndexEmbosser {
-	
+public class IndexEverestV3Embosser extends IndexEmbosserOLD { // CAN BE REMOVED
+
 	public IndexEverestV3Embosser(String name, String desc, Enum<? extends Enum<?>> identifier) {
 		super(name, desc, identifier);
 	}
@@ -58,7 +58,7 @@ public class IndexEverestV3Embosser extends IndexEmbosser {
 			throw new IllegalArgumentException(e);
 		}
 	}
-	
+
 	private byte[] getEverestV3Header(PageFormat pageFormat) throws UnsupportedPaperException {
 		int width = (int)Math.round(pageFormat.getWidth());
 		int height = (int)Math.round(pageFormat.getHeight());
@@ -74,4 +74,20 @@ public class IndexEverestV3Embosser extends IndexEmbosser {
 			0x1b, 0x44, 'D', 'P', '2', ';',
 		};
 	}
+
+    public boolean supportsVolumes() {
+        return false;
+    }
+
+    public boolean supports8dot() {
+        return false;
+    }
+
+    public boolean supportsDuplex() {
+        return true;
+    }
+
+    public boolean supportsAligning() {
+        return true;
+    }
 }

@@ -17,7 +17,7 @@ import org.daisy.braille.tools.StringTranslator.MatchMode;
  * @author Bert Frees
  * @author Joel Håkansson
  */
-public class ImpactoTableProvider extends AbstractConfigurableTableProvider<ImpactoTableProvider.TableType> {
+public class ImpactoTableProvider extends AbstractConfigurableTableProvider<ImpactoTableProvider.TableType> { // CAN BE REMOVED
 	enum TableType {
 		IMPACTO,
 		IMPACTO256

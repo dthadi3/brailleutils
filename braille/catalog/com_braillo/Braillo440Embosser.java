@@ -87,4 +87,19 @@ public class Braillo440Embosser extends BrailloEmbosser {
 		return (int)Math.floor((paper.getWidth()+constant-EmbosserTools.INCH_IN_MM) / getCellWidth());
 	}
 
+    public boolean supports8dot() {
+        return false;
+    }
+
+    public boolean supportsDuplex() {
+        return true;
+    }
+
+    public boolean supportsAligning() {
+        return true;
+    }
+
+    public boolean supportsVolumes() {
+        return true;
+    }
 }

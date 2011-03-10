@@ -25,7 +25,7 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		defaultTable = TableCatalog.newInstance().get(DefaultTableProvider.class.getCanonicalName() + ".TableType.EN_US");
 		setTable = defaultTable;
 	}
-	
+
 	protected void setCellWidth(double val) {
 		cellWidth = val;
 	}
@@ -80,15 +80,17 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 			} catch (ClassCastException e) {
 				throw new IllegalArgumentException("Unsupported value for pageFormat: '" + value + "'", e);
 			}
-		} else if (EmbosserFeatures.TABLE.equals(key)) {
-			try {
-				setTable = (Table)value;
+		} else if (EmbosserFeatures.TABLE.equals(key) && value!=null) {
+			Table t;
+                        try {
+				t = (Table)value;
 			} catch (ClassCastException e) {
-				setTable = TableCatalog.newInstance().get(value.toString());
-				if (setTable == null) {
+				t = TableCatalog.newInstance().get(value.toString());
+				if (t == null) {
 					throw new IllegalArgumentException("Unsupported value for table: '" + value + "'");
 				}
 			}
+                        setTable = t;
 		}
 		else {
 			if (EmbosserFeatures.CELL_WIDTH.equals(key) && !"6".equals(value.toString())) {

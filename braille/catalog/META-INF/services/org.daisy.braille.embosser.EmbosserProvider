@@ -1,3 +1,5 @@
 com_braillo.BrailloEmbosserProvider
 com_indexbraille.IndexEmbosserProvider
+es_once_cidat.CidatEmbosserProvider
+be_interpoint.InterpointEmbosserProvider
 org_daisy.GenericEmbosserProvider

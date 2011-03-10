@@ -111,4 +111,19 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 		};
 	}
 
+    public boolean supports8dot() {
+        return false;
+    }
+
+    public boolean supportsDuplex() {
+        return true;
+    }
+
+    public boolean supportsAligning() {
+        return true;
+    }
+
+    public boolean supportsVolumes() {
+        return false;
+    }
 }

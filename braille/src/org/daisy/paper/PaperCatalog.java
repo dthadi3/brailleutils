@@ -11,21 +11,21 @@ import org.daisy.factory.FactoryCatalog;
  * @author Joel Håkansson, TPB
  */
 public abstract class PaperCatalog implements FactoryCatalog<Paper> {
-	
+
 	protected PaperCatalog() {	}
-	
+
 	/**
-	 * Obtains a new PaperCatalog instance. If at least one implementation can be found 
+	 * Obtains a new PaperCatalog instance. If at least one implementation can be found
 	 * using the Services API, then the first one will be returned. Otherwise the default PaperCatalog
 	 * will be used.
-	 * 
+	 *
 	 * The default PaperCatalog will use the Services API to
 	 * find PaperProviders. The combined result from all PaperProviders are available to
 	 * the catalog.
-	 * @return returns a new PaperCatalog instance. 
+	 * @return returns a new PaperCatalog instance.
 	 */
 	public static PaperCatalog newInstance() {
-		Iterator<PaperCatalog> i = ServiceRegistry.lookupProviders(PaperCatalog.class);
+		Iterator<PaperCatalog> i = ServiceRegistry.lookupProviders(PaperCatalog.class, PaperCatalog.class.getClassLoader()); // use current classloader instead of context class loader
 		while (i.hasNext()) {
 			return i.next();
 		}
@@ -33,13 +33,13 @@ public abstract class PaperCatalog implements FactoryCatalog<Paper> {
 	}
 	/*
 	public abstract Object getFeature(String key);
-	
+
 	public abstract void setFeature(String key, Object value);
-	
+
 	public abstract Paper get(String identifier);
-	
+
 	public abstract Collection<Paper> list();
-	
+
 	public abstract Collection<Paper> list(PaperFilter filter);
 */
 }

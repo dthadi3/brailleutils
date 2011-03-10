@@ -5,17 +5,17 @@ import java.util.Iterator;
 import javax.imageio.spi.ServiceRegistry;
 
 /**
- * Simple factory for instantiating a Validator based on its identifier 
+ * Simple factory for instantiating a Validator based on its identifier
  * @author Joel Håkansson, TPB
  */
 public class ValidatorFactory {
-	
+
 	protected ValidatorFactory() { }
 
 	/**
 	 * Obtains a new instance of a ValidatorFactory.
-	 *  
-	 * @return returns a new ValidatorFactory instance. 
+	 *
+	 * @return returns a new ValidatorFactory instance.
 	 */
 	public static ValidatorFactory newInstance() {
 		return new ValidatorFactory();
@@ -27,7 +27,7 @@ public class ValidatorFactory {
 	 * @return returns a Validator for the given identifier, or null if none is found
 	 */
 	public Validator newValidator(String identifier) {
-		Iterator<Validator> i = ServiceRegistry.lookupProviders(Validator.class);
+		Iterator<Validator> i = ServiceRegistry.lookupProviders(Validator.class, Validator.class.getClassLoader()); // use current classloader instead of context class loader
 		while (i.hasNext()) {
 			Validator v = i.next();
 			if (identifier.equals(v.getIdentifier())) {

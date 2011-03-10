@@ -31,7 +31,7 @@ import org.daisy.printing.Device;
  * @author Joel Håkansson
  *
  */
-public interface Embosser extends Factory {// , EmbosserProperties {
+public interface Embosser extends Factory, EmbosserProperties {
 
 	public boolean supportsDimensions(Dimensions dim);
 	public boolean supportsTable(Table table);

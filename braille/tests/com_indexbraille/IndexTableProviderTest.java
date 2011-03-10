@@ -41,7 +41,7 @@ public class IndexTableProviderTest {
 	@Test
 	public void testBlueBar() {
 		String input = BrailleConstants.BRAILLE_PATTERNS_64;
-		IndexTableProvider.TableType t = IndexTableProvider.TableType.BLUE_BAR;
+		IndexTableProvider.TableType t = IndexTableProvider.TableType.INDEX_TRANSPARENT_6DOT;
 		BrailleConverter ta = bt.newTable(t);
 		String text = ta.toText(input);
 		String braille = ta.toBraille(text);

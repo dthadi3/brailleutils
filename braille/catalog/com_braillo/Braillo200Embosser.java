@@ -110,4 +110,19 @@ public class Braillo200Embosser extends BrailloEmbosser {
 		};
 	}
 
+    public boolean supports8dot() {
+        return false;
+    }
+
+    public boolean supportsDuplex() {
+        return true;
+    }
+
+    public boolean supportsAligning() {
+        return true;
+    }
+
+    public boolean supportsVolumes() {
+        return false;
+    }
 }

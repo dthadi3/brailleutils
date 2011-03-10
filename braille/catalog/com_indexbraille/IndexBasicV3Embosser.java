@@ -11,7 +11,7 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Dimensions;
 
-public class IndexBasicV3Embosser extends IndexEmbosser {
+public class IndexBasicV3Embosser extends IndexEmbosserOLD { // CAN BE REMOVED
 
 	public IndexBasicV3Embosser(String name, String desc, Enum<? extends Enum<?>> identifier) {
 		super(name, desc, identifier);
@@ -61,34 +61,50 @@ public class IndexBasicV3Embosser extends IndexEmbosser {
 			b.header(new byte[]{
 					0x1b, 0x44, 'T', 'D', '0', ';',
 					0x1b, 0x44, 'P', 'L', '1', '0', '0', ';', // 10 inch
-					0x1b, 0x44, 'P', 'W', '0', '8', '2', ';', // Rounding to the next larger fraction which is 8,333 inch, because 21,0 cm is exactly 35 * 6 mm 
+					0x1b, 0x44, 'P', 'W', '0', '8', '2', ';', // Rounding to the next larger fraction which is 8,333 inch, because 21,0 cm is exactly 35 * 6 mm
 					0x1b, 0x44, 'D', 'P', '2', ';',
 					});
 		} else if (pw==210 && ph==11*EmbosserTools.INCH_IN_MM) {
 			b.header(new byte[]{
 					0x1b, 0x44, 'T', 'D', '0', ';',
 					0x1b, 0x44, 'P', 'L', '1', '1', '0', ';', // 11 inch
-					0x1b, 0x44, 'P', 'W', '0', '8', '2', ';', // Rounding to the next larger fraction which is 8,333 inch, because 21,0 cm is exactly 35 * 6 mm 
+					0x1b, 0x44, 'P', 'W', '0', '8', '2', ';', // Rounding to the next larger fraction which is 8,333 inch, because 21,0 cm is exactly 35 * 6 mm
 					0x1b, 0x44, 'D', 'P', '2', ';',
 					});
 		} else if (pw==210 && ph==12*EmbosserTools.INCH_IN_MM) {
 			b.header(new byte[]{
 					0x1b, 0x44, 'T', 'D', '0', ';',
 					0x1b, 0x44, 'P', 'L', '1', '2', '0', ';', // 12 inch
-					0x1b, 0x44, 'P', 'W', '0', '8', '2', ';', // Rounding to the next larger fraction which is 8,333 inch, because 21,0 cm is exactly 35 * 6 mm 
+					0x1b, 0x44, 'P', 'W', '0', '8', '2', ';', // Rounding to the next larger fraction which is 8,333 inch, because 21,0 cm is exactly 35 * 6 mm
 					0x1b, 0x44, 'D', 'P', '2', ';',
 					});
-			
+
 		} else if (pw==240 && ph==12*EmbosserTools.INCH_IN_MM) {
 			b.header(new byte[]{
 					0x1b, 0x44, 'T', 'D', '0', ';',
 					0x1b, 0x44, 'P', 'L', '1', '2', '0', ';', // 12 inch
-					0x1b, 0x44, 'P', 'W', '0', '9', '3', ';', // Rounding to the next larger fraction which is 8,333 inch, because 21,0 cm is exactly 35 * 6 mm 
+					0x1b, 0x44, 'P', 'W', '0', '9', '3', ';', // Rounding to the next larger fraction which is 8,333 inch, because 21,0 cm is exactly 35 * 6 mm
 					0x1b, 0x44, 'D', 'P', '2', ';',
-					});						
+					});
 		} else {
 			throw new IllegalArgumentException(unsupportedPaperFormat);
 		}
 		return b.build();
 	}
+
+    public boolean supportsVolumes() {
+        return false;
+    }
+
+    public boolean supports8dot() {
+        return false;
+    }
+
+    public boolean supportsDuplex() {
+        return true;
+    }
+
+    public boolean supportsAligning() {
+        return true;
+    }
 }

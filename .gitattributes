@@ -7,6 +7,8 @@ braille/build.xml -text svneol=unset#text/plain
 braille/catalog/META-INF/services/org.daisy.braille.embosser.EmbosserProvider -text
 braille/catalog/META-INF/services/org.daisy.braille.table.TableProvider -text
 braille/catalog/META-INF/services/org.daisy.paper.PaperProvider -text
+braille/catalog/be_interpoint/Interpoint55Embosser.java -text
+braille/catalog/be_interpoint/InterpointEmbosserProvider.java -text
 braille/catalog/com_braillo/Braillo200Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo200_270_400_v12_16Embosser.java -text
 braille/catalog/com_braillo/Braillo440Embosser.java -text svneol=unset#text/plain
@@ -19,17 +21,31 @@ braille/catalog/com_indexbraille/BlueBarEmbosser.java -text svneol=unset#text/pl
 braille/catalog/com_indexbraille/BlueBarEmbosserWriter.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexBasicV3Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexEmbosser.java -text svneol=unset#text/plain
+braille/catalog/com_indexbraille/IndexEmbosserOLD.java -text
 braille/catalog/com_indexbraille/IndexEmbosserProvider.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexEverestV3Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexTableProvider.java -text svneol=unset#text/plain
+braille/catalog/com_indexbraille/IndexTransparentEmbosserWriter.java -text
 braille/catalog/com_indexbraille/IndexV2Embosser.java -text svneol=unset#text/plain
+braille/catalog/com_indexbraille/IndexV2EmbosserOLD.java -text
+braille/catalog/com_indexbraille/IndexV3Embosser.java -text
+braille/catalog/com_indexbraille/IndexV4Embosser.java -text
 braille/catalog/com_yourdolphin/SupernovaTableProvider.java -text svneol=unset#text/plain
 braille/catalog/de_brailletec/ImpactoTableProvider.java -text svneol=unset#text/plain
+braille/catalog/es_once_cidat/CidatEmbosser.java -text
+braille/catalog/es_once_cidat/CidatEmbosserProvider.java -text
+braille/catalog/es_once_cidat/CidatLineBreaks.java -text
+braille/catalog/es_once_cidat/CidatTableProvider.java -text
+braille/catalog/es_once_cidat/ImpactoEmbosser.java -text
+braille/catalog/es_once_cidat/PortathielBlueEmbosser.java -text
+braille/catalog/org_daisy/BrailleEditorsFileFormat.java -text
+braille/catalog/org_daisy/BrailleEditorsFileFormatProvider.java -text
 braille/catalog/org_daisy/BrailleEditorsTableProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/EmbosserTableProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/GenericEmbosser.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/GenericEmbosserProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/ISO216PaperProvider.java -text svneol=unset#text/plain
+braille/catalog/org_daisy/MicroBrailleFileFormatWriter.java -text
 braille/catalog/org_daisy/NorthAmericaPaperProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/TractorPaperProvider.java -text svneol=unset#text/plain
 braille/catalog/se_tpb/CXTableProvider.java -text svneol=unset#text/plain
@@ -43,6 +59,12 @@ braille/lib/wstx-lgpl-3.2.8.jar -text
 braille/lib/xercesImpl.jar -text
 braille/lib/xml-apis.jar -text
 braille/licenses/lgpl.txt -text svneol=unset#text/plain
+braille/manifest.mf -text
+braille/nbbuild.xml -text
+braille/nbproject/build-impl.xml -text
+braille/nbproject/genfiles.properties -text
+braille/nbproject/project.properties -text
+braille/nbproject/project.xml -text
 braille/src/META-INF/services/javax.xml.transform.TransformerFactory -text
 braille/src/META-INF/services/org.daisy.braille.table.TableProvider -text
 braille/src/META-INF/services/org.daisy.validator.Validator -text
@@ -62,6 +84,9 @@ braille/src/org/daisy/braille/embosser/EmbosserProvider.java -text svneol=unset#
 braille/src/org/daisy/braille/embosser/EmbosserTools.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/EmbosserWriter.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/EmbosserWriterProperties.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/embosser/FileFormat.java -text
+braille/src/org/daisy/braille/embosser/FileFormatProperties.java -text
+braille/src/org/daisy/braille/embosser/FileFormatProvider.java -text
 braille/src/org/daisy/braille/embosser/FileToDeviceEmbosserWriter.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/LineBreaks.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/SimpleEmbosserProperties.java -text svneol=unset#text/plain

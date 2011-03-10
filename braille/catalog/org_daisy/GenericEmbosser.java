@@ -93,4 +93,19 @@ public class GenericEmbosser extends AbstractEmbosser {
 		throw new IllegalArgumentException("Embosser does not support this feature.");
 	}
 
+    public boolean supportsVolumes() {
+        return false;
+    }
+
+    public boolean supports8dot() {
+        return true;
+    }
+
+    public boolean supportsDuplex() {
+        return true;
+    }
+
+    public boolean supportsAligning() {
+        return false;
+    }
 }
