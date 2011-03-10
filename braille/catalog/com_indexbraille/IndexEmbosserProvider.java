@@ -34,22 +34,22 @@ public class IndexEmbosserProvider implements EmbosserProvider {
 	public IndexEmbosserProvider() {
                 embossers = new HashMap<EmbosserType, Embosser>();
                 embossers.put(EmbosserType.INDEX_BASIC_BLUE_BAR, new BlueBarEmbosser("Index Braille - Basic \"blue bar\"", "Early Index Basic embosser"));
-                //embossers.put(EmbosserType.INDEX_BASIC_D_V2,     new IndexV2EmbosserOLD("Index Braille - 3.30 Basic V2", "Index Basic embosser that talks, with serial and parallel connectors only", EmbosserType.INDEX_BASIC_D_V2));
-                //embossers.put(EmbosserType.INDEX_EVEREST_D_V2,   new IndexV2EmbosserOLD("Index Braille - 9.20 Everest V2", "Index Everest embosser that talks, with serial and parallel connectors only", EmbosserType.INDEX_EVEREST_D_V2));
-                embossers.put(EmbosserType.INDEX_BASIC_S_V2,     new IndexV2Embosser("","", EmbosserType.INDEX_BASIC_S_V2));
-                embossers.put(EmbosserType.INDEX_BASIC_D_V2,     new IndexV2Embosser("","", EmbosserType.INDEX_BASIC_D_V2));
-                embossers.put(EmbosserType.INDEX_EVEREST_D_V2,   new IndexV2Embosser("","", EmbosserType.INDEX_EVEREST_D_V2));
-                embossers.put(EmbosserType.INDEX_4X4_PRO_V2,     new IndexV2Embosser("","", EmbosserType.INDEX_4X4_PRO_V2));
-                //embossers.put(EmbosserType.INDEX_BASIC_D_V3,     new IndexBasicV3Embosser("Index Braille - Basic-D V3", "Index Basic embosser that talks, with serial, parallel, USB and RJ45 connectors", EmbosserType.INDEX_BASIC_D_V3));
-                //embossers.put(EmbosserType.INDEX_EVEREST_D_V3,   new IndexEverestV3Embosser("Index Braille - Everest V3", "Index Everest embosser that talks, with serial, parallel, USB and RJ45 connectors", EmbosserType.INDEX_EVEREST_D_V3));
-                embossers.put(EmbosserType.INDEX_EVEREST_D_V3,   new IndexV3Embosser("","", EmbosserType.INDEX_EVEREST_D_V3));
-                embossers.put(EmbosserType.INDEX_BASIC_S_V3,     new IndexV3Embosser("","", EmbosserType.INDEX_BASIC_S_V3));
-                embossers.put(EmbosserType.INDEX_BASIC_D_V3,     new IndexV3Embosser("","", EmbosserType.INDEX_BASIC_D_V3));
-                embossers.put(EmbosserType.INDEX_4X4_PRO_V3,     new IndexV3Embosser("","", EmbosserType. INDEX_4X4_PRO_V3));
-                embossers.put(EmbosserType.INDEX_4WAVES_PRO_V3,  new IndexV3Embosser("","", EmbosserType. INDEX_4WAVES_PRO_V3));
-                //embossers.put(EmbosserType.INDEX_BASIC_D_V4,     new IndexV4Embosser("","", EmbosserType. INDEX_BASIC_D_V4));
-                //embossers.put(EmbosserType.INDEX_EVEREST_D_V4,   new IndexV4Embosser("","", EmbosserType. INDEX_EVEREST_D_V4));
-                //embossers.put(EmbosserType.INDEX_BRAILLE_BOX_V4, new IndexV4Embosser("","", EmbosserType. INDEX_BRAILLE_BOX_V4));
+                embossers.put(EmbosserType.INDEX_BASIC_D_V2,     new IndexV2EmbosserOLD("Index Braille - 3.30 Basic V2", "Index Basic embosser that talks, with serial and parallel connectors only", EmbosserType.INDEX_BASIC_D_V2));
+                embossers.put(EmbosserType.INDEX_EVEREST_D_V2,   new IndexV2EmbosserOLD("Index Braille - 9.20 Everest V2", "Index Everest embosser that talks, with serial and parallel connectors only", EmbosserType.INDEX_EVEREST_D_V2));
+//                embossers.put(EmbosserType.INDEX_BASIC_S_V2,     new IndexV2Embosser("","", EmbosserType.INDEX_BASIC_S_V2));
+//                embossers.put(EmbosserType.INDEX_BASIC_D_V2,     new IndexV2Embosser("","", EmbosserType.INDEX_BASIC_D_V2));
+//                embossers.put(EmbosserType.INDEX_EVEREST_D_V2,   new IndexV2Embosser("","", EmbosserType.INDEX_EVEREST_D_V2));
+//                embossers.put(EmbosserType.INDEX_4X4_PRO_V2,     new IndexV2Embosser("","", EmbosserType.INDEX_4X4_PRO_V2));
+                embossers.put(EmbosserType.INDEX_BASIC_D_V3,     new IndexBasicV3Embosser("Index Braille - Basic-D V3", "Index Basic embosser that talks, with serial, parallel, USB and RJ45 connectors", EmbosserType.INDEX_BASIC_D_V3));
+                embossers.put(EmbosserType.INDEX_EVEREST_D_V3,   new IndexEverestV3Embosser("Index Braille - Everest V3", "Index Everest embosser that talks, with serial, parallel, USB and RJ45 connectors", EmbosserType.INDEX_EVEREST_D_V3));
+//                embossers.put(EmbosserType.INDEX_EVEREST_D_V3,   new IndexV3Embosser("","", EmbosserType.INDEX_EVEREST_D_V3));
+//                embossers.put(EmbosserType.INDEX_BASIC_S_V3,     new IndexV3Embosser("","", EmbosserType.INDEX_BASIC_S_V3));
+//                embossers.put(EmbosserType.INDEX_BASIC_D_V3,     new IndexV3Embosser("","", EmbosserType.INDEX_BASIC_D_V3));
+//                embossers.put(EmbosserType.INDEX_4X4_PRO_V3,     new IndexV3Embosser("","", EmbosserType. INDEX_4X4_PRO_V3));
+//                embossers.put(EmbosserType.INDEX_4WAVES_PRO_V3,  new IndexV3Embosser("","", EmbosserType. INDEX_4WAVES_PRO_V3));
+//                embossers.put(EmbosserType.INDEX_BASIC_D_V4,     new IndexV4Embosser("","", EmbosserType. INDEX_BASIC_D_V4));
+//                embossers.put(EmbosserType.INDEX_EVEREST_D_V4,   new IndexV4Embosser("","", EmbosserType. INDEX_EVEREST_D_V4));
+//                embossers.put(EmbosserType.INDEX_BRAILLE_BOX_V4, new IndexV4Embosser("","", EmbosserType. INDEX_BRAILLE_BOX_V4));
         }
 
 	//jvm1.6@Override

@@ -43,7 +43,7 @@ public abstract class TableCatalog implements FactoryCatalog<Table> {
 	 * @return returns a new TableCatalog instance.
 	 */
 	public static TableCatalog newInstance() {
-		Iterator<TableCatalog> i = ServiceRegistry.lookupProviders(TableCatalog.class, TableCatalog.class.getClassLoader()); // use current classloader instead of context class loader
+		Iterator<TableCatalog> i = ServiceRegistry.lookupProviders(TableCatalog.class);
 		while (i.hasNext()) {
 			return i.next();
 		}

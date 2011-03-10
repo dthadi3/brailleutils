@@ -19,16 +19,21 @@ import org.daisy.braille.tools.StringTranslator.MatchMode;
  */
 public class CidatTableProvider extends AbstractConfigurableTableProvider<CidatTableProvider.TableType> {
     
-    enum TableType {    IMPACTO_TRANSPARENT_6DOT,
-                        IMPACTO_TRANSPARENT_8DOT     };
+    enum TableType { IMPACTO_TRANSPARENT_6DOT,
+                     IMPACTO_TRANSPARENT_8DOT,
+                     PORTATHIEL_TRANSPARENT_6DOT,
+                     //PORTATHIEL_TRANSPARENT_8DOT
+    };
 
     private final ArrayList<Table> tables;
 
     public CidatTableProvider() {
         super(EightDotFallbackMethod.values()[0], '\u2800');
         tables = new ArrayList<Table>();
-        tables.add(new EmbosserTable<TableType>("Impacto 6-dot", "Impacto 6-dot table", TableType.IMPACTO_TRANSPARENT_6DOT, this));
-        tables.add(new EmbosserTable<TableType>("Impacto 8-dot", "Impacto 8-dot table", TableType.IMPACTO_TRANSPARENT_8DOT, this));
+        tables.add(new EmbosserTable<TableType>("Impacto 6-dot", "Impacto 6-dot in transparent mode", TableType.IMPACTO_TRANSPARENT_6DOT, this));
+        tables.add(new EmbosserTable<TableType>("Impacto 8-dot", "Impacto 8-dot in transparent mode", TableType.IMPACTO_TRANSPARENT_8DOT, this));
+        tables.add(new EmbosserTable<TableType>("Portathiel 6-dot", "Portathiel 6-dot in transparent mode", TableType.PORTATHIEL_TRANSPARENT_6DOT, this));
+        //tables.add(new EmbosserTable<TableType>("Portathiel 8-dot", "Portathiel 8-dot in transparent mode", TableType.PORTATHIEL_TRANSPARENT_8DOT, this));
     }
 
     /**
@@ -64,6 +69,21 @@ public class CidatTableProvider extends AbstractConfigurableTableProvider<CidatT
                     al.add(String.valueOf((char)i));
                 }
                 al.add(String.copyValueOf(new char[]{(char)0x1b,(char)0x1b}));
+                for (int i=0x1c; i<256; i++) {
+                    al.add(String.valueOf((char)i));
+                }
+                return new AdvancedBrailleConverter(
+                    al.toArray(new String[al.size()]),
+                    Charset.forName("ISO-8859-1"),
+                    false,
+                    MatchMode.RELUCTANT);
+            }
+            case PORTATHIEL_TRANSPARENT_6DOT: {
+                ArrayList<String> al = new ArrayList<String>();
+                for (int i=0; i<0x1b; i++) {
+                    al.add(String.valueOf((char)i));
+                }
+                al.add(String.copyValueOf(new char[]{(char)0xcd,(char)0xda}));
                 for (int i=0x1c; i<256; i++) {
                     al.add(String.valueOf((char)i));
                 }

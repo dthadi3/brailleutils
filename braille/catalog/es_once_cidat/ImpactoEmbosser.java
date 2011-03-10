@@ -69,7 +69,7 @@ public class ImpactoEmbosser extends CidatEmbosser {
             Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
 
             ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
-                .breaks(new CidatLineBreaks())
+                .breaks(new CidatLineBreaks(CidatLineBreaks.Type.IMPACTO_TRANSPARENT))
                 .padNewline(ConfigurableEmbosser.Padding.NONE)
                 .footer(footer)
                 .embosserProperties(
@@ -88,9 +88,9 @@ public class ImpactoEmbosser extends CidatEmbosser {
 
     private byte[] getImpactoHeader() throws EmbosserFactoryException {
 
-        boolean eightDots = supports8dot() && false;     // examine PEF file: rowgap / char > 283F => Contract ?
-        boolean duplex = supportsDuplex() && false;        // examine PEF file: duplex
-        int pageCount = 1;             // examine PEF file
+        boolean eightDots = supports8dot() && false;    // examine PEF file: rowgap / char > 283F => Contract ?
+        boolean duplex = supportsDuplex() && false;     // examine PEF file: duplex
+        int pageCount = 1;                              // examine PEF file
 
         PageFormat page = getPageFormat();
         int pageLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM);
@@ -103,17 +103,17 @@ public class ImpactoEmbosser extends CidatEmbosser {
 
         StringBuffer header = new StringBuffer();
 
-        header.append((char)0x1b); header.append(')');                          // Transparent mode
+        header.append((char)0x1b); header.append(')');                          // Transparent mode ON
         header.append((char)0x1b); header.append(eightDots?'+':'*');            // 6- or 8-dot matrix
         header.append((char)0x1b); header.append('.');
                                    header.append((char)(0x30 + pageLength));    // Page length in inches
-        header.append((char)0x1b); header.append("/1");                         // Line spacing in tenths of an inch
+        header.append((char)0x1b); header.append("/1");                         // Line spacing = 1/10 inch
         header.append((char)0x1b); header.append('0');
                                    header.append((char)(0x30 + charsPerLine));  // Characters per line
         header.append((char)0x1b); header.append('1');
                                    header.append((char)(0x30 + linesPerPage));  // Lines per page
         header.append((char)0x1b); header.append('3');                          // Cut off words
-        header.append((char)0x1b); header.append(duplex?'Q':'P');               // Front-side of double-sided embossing
+        header.append((char)0x1b); header.append(duplex?'Q':'P');               // Front-side or double-sided embossing
         header.append((char)0x1b); header.append("EP");
                                    header.append(String.valueOf(pageCount));
                                    header.append('\n');                         // Number of last page to emboss
@@ -123,11 +123,11 @@ public class ImpactoEmbosser extends CidatEmbosser {
         header.append((char)0x1b); header.append("ML0\n");                      // Left margin in characters = 0
         header.append((char)0x1b); header.append("MR0\n");                      // Right margin in characters = 0
         header.append((char)0x1b); header.append("MT0\n");                      // Top margin in tenths of an inch = 0
-        header.append((char)0x1b); header.append("NC1\n");                      // Number of copies
-        header.append((char)0x1b); header.append("PM0\n");                      // Embossing mode
-        header.append((char)0x1b); header.append("PN0\n");                      // Number pages
-        header.append((char)0x1b); header.append("PI0\n");                      // Parameter influence
-        header.append((char)0x1b); header.append("SP1\n");                      // Number of first page to emboss
+        header.append((char)0x1b); header.append("NC1\n");                      // Number of copies = 1
+        header.append((char)0x1b); header.append("PM0\n");                      // Embossing mode = text embossing mode
+        header.append((char)0x1b); header.append("PN0\n");                      // Number pages = no
+        header.append((char)0x1b); header.append("PI0\n");                      // Parameter influence = only present job
+        header.append((char)0x1b); header.append("SP1\n");                      // Number of first page to emboss = 1
 
         return header.toString().getBytes();
     }

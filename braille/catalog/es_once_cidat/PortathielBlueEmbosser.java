@@ -22,11 +22,11 @@ import es_once_cidat.CidatEmbosserProvider.EmbosserType;
  *
  * @author Bert Frees
  */
-public class PortathielBlueEmbosser extends CidatEmbosser { // COMING SOON
+public class PortathielBlueEmbosser extends CidatEmbosser {
 
     private final static TableFilter tableFilter;
-    private final static String table6dot = CidatTableProvider.class.getCanonicalName() + ".TableType.IMPACTO_TRANSPARENT_6DOT";
-    private final static String table8dot = CidatTableProvider.class.getCanonicalName() + ".TableType.IMPACTO_TRANSPARENT_8DOT";
+    private final static String table6dot = CidatTableProvider.class.getCanonicalName() + ".TableType.PORTATHIEL_TRANSPARENT_6DOT";
+    private final static String table8dot = CidatTableProvider.class.getCanonicalName() + ".TableType.PORTATHIEL_TRANSPARENT_8DOT";
     private final static Collection<String> supportedTableIds = new ArrayList<String>();
 
     static {
@@ -64,14 +64,12 @@ public class PortathielBlueEmbosser extends CidatEmbosser { // COMING SOON
         try {
 
             byte[] header = getPortathielHeader();
-//            byte[] footer = new byte[]{0x1b,0x54};
 
             Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
 
             ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
-//                .breaks(new CidatLineBreaks())
+                .breaks(new CidatLineBreaks(CidatLineBreaks.Type.PORTATHIEL_TRANSPARENT))
                 .padNewline(ConfigurableEmbosser.Padding.NONE)
-//                .footer(footer)
                 .embosserProperties(
                     new SimpleEmbosserProperties(cellsInWidth, linesInHeight)
                         .supportsDuplex(duplexEnabled)
@@ -102,51 +100,18 @@ public class PortathielBlueEmbosser extends CidatEmbosser { // COMING SOON
 
         StringBuffer header = new StringBuffer();
 
-        header.append(  "\u001b!DT");  header.append(eightDots?'6':'8');                        // 6 or 8 dots
+        header.append(  "\u001b!TP");                                                           // Transparent mode ON
+        header.append("\r\u001b!DT");  header.append(eightDots?'6':'8');                        // 6 or 8 dots
+        header.append("\r\u001b!DS");  header.append(duplex?'1':'0');                           // Front-side or double-sided embossing
         header.append("\r\u001b!LM0");                                                          // Left margin
-        header.append("\r\u001b!SL0");                                                          // Interline space
+        header.append("\r\u001b!SL1");                                                          // Interline space = 1/10 inch
         header.append("\r\u001b!PL");  header.append(EmbosserTools.toBytes(pageLength, 2));     // Page length in inches
         header.append("\r\u001b!LP");  header.append(EmbosserTools.toBytes(linesPerPage, 2));   // Lines per page
         header.append("\r\u001b!CL");  header.append(EmbosserTools.toBytes(charsPerLine, 2));   // Characters per line
         header.append("\r\u001b!CT1");                                                          // Cut off words
-        header.append("\r\u001b!NI1");                                                          // Not indent
-        header.append("\r\u001b!TP");                                                           // Transparent mode
-        header.append("\r\u001b!");
-        header.append("\r\u001b!");
-        header.append("\r\u001b!");
-        header.append("\r\u001b!");
-        header.append("\r\u001b!");
-        header.append("\r\u001b!");
-        header.append("\r\u001b!");
-        header.append("\r\u001b!");
+        header.append("\r\u001b!NI1");                                                          // No indent
+        header.append("\r\u001b!JB0");                                                          // Jumbo mode OFF
         header.append('\r');
-
-
-//        header.append((char)0x1b); header.append(')');                          // Transparent mode
-//        header.append((char)0x1b); header.append(eightDots?'+':'*');            // 6- or 8-dot matrix
-//        header.append((char)0x1b); header.append('.');
-//                                   header.append((char)(0x30 + pageLength));    // Page length in inches
-//        header.append((char)0x1b); header.append("/1");                         // Line spacing in tenths of an inch
-//        header.append((char)0x1b); header.append('0');
-//                                   header.append((char)(0x30 + charsPerLine));  // Characters per line
-//        header.append((char)0x1b); header.append('1');
-//                                   header.append((char)(0x30 + linesPerPage));  // Lines per page
-//        header.append((char)0x1b); header.append('3');                          // Cut off words
-//        header.append((char)0x1b); header.append(duplex?'Q':'P');               // Front-side of double-sided embossing
-//        header.append((char)0x1b); header.append("EP");
-//                                   header.append(String.valueOf(pageCount));
-//                                   header.append('\n');                         // Number of last page to emboss
-//        header.append((char)0x1b); header.append("GU0\n");                      // Gutter (binding margin) = 0
-//        header.append((char)0x1b); header.append("IN0\n");                      // Indent first line of paragraph = 0
-//        header.append((char)0x1b); header.append("MB0\n");                      // Bottom margin in tenths of an inch = 0
-//        header.append((char)0x1b); header.append("ML0\n");                      // Left margin in characters = 0
-//        header.append((char)0x1b); header.append("MR0\n");                      // Right margin in characters = 0
-//        header.append((char)0x1b); header.append("MT0\n");                      // Top margin in tenths of an inch = 0
-//        header.append((char)0x1b); header.append("NC1\n");                      // Number of copies
-//        header.append((char)0x1b); header.append("PM0\n");                      // Embossing mode
-//        header.append((char)0x1b); header.append("PN0\n");                      // Number pages
-//        header.append((char)0x1b); header.append("PI0\n");                      // Parameter influence
-//        header.append((char)0x1b); header.append("SP1\n");                      // Number of first page to emboss
 
         return header.toString().getBytes();
     }

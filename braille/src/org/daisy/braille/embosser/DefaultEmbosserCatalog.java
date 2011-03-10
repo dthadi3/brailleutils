@@ -31,7 +31,7 @@ class DefaultEmbosserCatalog extends EmbosserCatalog {
 
 	protected DefaultEmbosserCatalog() {
 		map = new HashMap<String, Embosser>();
-		Iterator<EmbosserProvider> i = ServiceRegistry.lookupProviders(EmbosserProvider.class, EmbosserProvider.class.getClassLoader()); // use current classloader instead of context class loader
+		Iterator<EmbosserProvider> i = ServiceRegistry.lookupProviders(EmbosserProvider.class);
 		while (i.hasNext()) {
 			EmbosserProvider provider = i.next();
 			for (Embosser embosser : provider.list()) {

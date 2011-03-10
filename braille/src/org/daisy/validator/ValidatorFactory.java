@@ -27,7 +27,7 @@ public class ValidatorFactory {
 	 * @return returns a Validator for the given identifier, or null if none is found
 	 */
 	public Validator newValidator(String identifier) {
-		Iterator<Validator> i = ServiceRegistry.lookupProviders(Validator.class, Validator.class.getClassLoader()); // use current classloader instead of context class loader
+		Iterator<Validator> i = ServiceRegistry.lookupProviders(Validator.class);
 		while (i.hasNext()) {
 			Validator v = i.next();
 			if (identifier.equals(v.getIdentifier())) {

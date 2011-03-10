@@ -31,7 +31,7 @@ class DefaultTableCatalog extends TableCatalog {
 
 	protected DefaultTableCatalog() {
 		map = new HashMap<String, Table>();
-		Iterator<TableProvider> i = ServiceRegistry.lookupProviders(TableProvider.class, TableProvider.class.getClassLoader()); // use current classloader instead of context class loader
+		Iterator<TableProvider> i = ServiceRegistry.lookupProviders(TableProvider.class);
 		while (i.hasNext()) {
 			TableProvider provider = i.next();
 			for (Table table : provider.list()) {

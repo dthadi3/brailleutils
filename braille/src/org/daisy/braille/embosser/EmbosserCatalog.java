@@ -43,7 +43,7 @@ public abstract class EmbosserCatalog implements FactoryCatalog<Embosser> {
 	 * @return returns a new EmbosserCatalog instance.
 	 */
 	public static EmbosserCatalog newInstance() {
-		Iterator<EmbosserCatalog> i = ServiceRegistry.lookupProviders(EmbosserCatalog.class, EmbosserCatalog.class.getClassLoader()); // use current classloader instead of context class loader
+		Iterator<EmbosserCatalog> i = ServiceRegistry.lookupProviders(EmbosserCatalog.class);
 		while (i.hasNext()) {
 			return i.next();
 		}

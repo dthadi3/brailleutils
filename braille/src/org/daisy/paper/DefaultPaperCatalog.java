@@ -36,7 +36,7 @@ class DefaultPaperCatalog extends PaperCatalog {
 
 	protected DefaultPaperCatalog() {
 		map = new HashMap<String, Paper>();
-		Iterator<PaperProvider> i = ServiceRegistry.lookupProviders(PaperProvider.class, PaperProvider.class.getClassLoader()); // use current classloader instead of context class loader
+		Iterator<PaperProvider> i = ServiceRegistry.lookupProviders(PaperProvider.class);
 		while (i.hasNext()) {
 			PaperProvider provider = i.next();
 			for (Paper paper : provider.list()) {

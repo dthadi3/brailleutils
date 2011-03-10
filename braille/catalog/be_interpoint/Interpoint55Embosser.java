@@ -40,9 +40,9 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     private double minPaperWidth = 50d;              // ???
     private double minPaperHeight = 50d;             // ???
 
-    public Interpoint55Embosser() {
+    public Interpoint55Embosser(String name, String desc) {
 
-        super("Interpoint55", "", EmbosserType.INTERPOINT_55);
+        super(name, desc, EmbosserType.INTERPOINT_55);
 
         setCellWidth(6d);
         setCellHeight(10d);

@@ -31,7 +31,6 @@ braille/catalog/com_indexbraille/IndexV2EmbosserOLD.java -text
 braille/catalog/com_indexbraille/IndexV3Embosser.java -text
 braille/catalog/com_indexbraille/IndexV4Embosser.java -text
 braille/catalog/com_yourdolphin/SupernovaTableProvider.java -text svneol=unset#text/plain
-braille/catalog/de_brailletec/ImpactoTableProvider.java -text svneol=unset#text/plain
 braille/catalog/es_once_cidat/CidatEmbosser.java -text
 braille/catalog/es_once_cidat/CidatEmbosserProvider.java -text
 braille/catalog/es_once_cidat/CidatLineBreaks.java -text

@@ -25,7 +25,7 @@ public abstract class PaperCatalog implements FactoryCatalog<Paper> {
 	 * @return returns a new PaperCatalog instance.
 	 */
 	public static PaperCatalog newInstance() {
-		Iterator<PaperCatalog> i = ServiceRegistry.lookupProviders(PaperCatalog.class, PaperCatalog.class.getClassLoader()); // use current classloader instead of context class loader
+		Iterator<PaperCatalog> i = ServiceRegistry.lookupProviders(PaperCatalog.class);
 		while (i.hasNext()) {
 			return i.next();
 		}
