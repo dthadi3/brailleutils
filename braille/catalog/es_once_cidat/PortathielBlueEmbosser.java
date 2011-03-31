@@ -59,7 +59,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
         PageFormat page = getPageFormat();
         int cellsInWidth = EmbosserTools.getWidth(page, getCellWidth());
-        int linesInHeight = EmbosserTools.getHeight(page, getCellHeight());
+        int linesInHeight = EmbosserTools.getHeight(page, getCellHeight()); // depends on cell heigth -> depends on rowgap
 
         try {
 
@@ -92,7 +92,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
         PageFormat page = getPageFormat();
         int pageLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM);
         int charsPerLine = EmbosserTools.getWidth(page, getCellWidth());
-        int linesPerPage = EmbosserTools.getHeight(page, getCellHeight());
+        int linesPerPage = EmbosserTools.getHeight(page, getCellHeight()); // depends on cell heigth -> depends on rowgap
 
         if (pageLength   < 8  || pageLength   > 13) { throw new UnsupportedPaperException("Paper height = " + pageLength + " inches, must be in [8,13]"); }
         if (charsPerLine < 12 || charsPerLine > 42) { throw new UnsupportedPaperException("Characters per line = " + charsPerLine + ", must be in [12,42]"); }
@@ -111,6 +111,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
         header.append("\r\u001b!CT1");                                                          // Cut off words
         header.append("\r\u001b!NI1");                                                          // No indent
         header.append("\r\u001b!JB0");                                                          // Jumbo mode OFF
+        header.append("\r\u001b!FF1");                                                          // Form feeds ON
         header.append('\r');
 
         return header.toString().getBytes();

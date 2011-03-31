@@ -9,6 +9,10 @@ braille/catalog/META-INF/services/org.daisy.braille.table.TableProvider -text
 braille/catalog/META-INF/services/org.daisy.paper.PaperProvider -text
 braille/catalog/be_interpoint/Interpoint55Embosser.java -text
 braille/catalog/be_interpoint/InterpointEmbosserProvider.java -text
+braille/catalog/com_brailler/EnablingTechnologiesDoubleSidedEmbosser.java -text
+braille/catalog/com_brailler/EnablingTechnologiesEmbosser.java -text
+braille/catalog/com_brailler/EnablingTechnologiesEmbosserProvider.java -text
+braille/catalog/com_brailler/EnablingTechnologiesSingleSidedEmbosser.java -text
 braille/catalog/com_braillo/Braillo200Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo200_270_400_v12_16Embosser.java -text
 braille/catalog/com_braillo/Braillo440Embosser.java -text svneol=unset#text/plain
@@ -19,15 +23,11 @@ braille/catalog/com_braillo/BrailloTableProvider.java -text svneol=unset#text/pl
 braille/catalog/com_braillo/BrailloVolumeWriter.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/BlueBarEmbosser.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/BlueBarEmbosserWriter.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexBasicV3Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexEmbosserOLD.java -text
 braille/catalog/com_indexbraille/IndexEmbosserProvider.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexEverestV3Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexTableProvider.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexTransparentEmbosserWriter.java -text
 braille/catalog/com_indexbraille/IndexV2Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexV2EmbosserOLD.java -text
 braille/catalog/com_indexbraille/IndexV3Embosser.java -text
 braille/catalog/com_indexbraille/IndexV4Embosser.java -text
 braille/catalog/com_yourdolphin/SupernovaTableProvider.java -text svneol=unset#text/plain

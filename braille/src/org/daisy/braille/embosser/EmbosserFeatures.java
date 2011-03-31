@@ -9,5 +9,6 @@ public class EmbosserFeatures {
 	public static final String TABLE = "table";
 	//public static final String PAPER = "paper";
 	public static final String PAGE_FORMAT = "pageFormat";
+        public static final String NUMBER_OF_COPIES = "copies";
 
 }

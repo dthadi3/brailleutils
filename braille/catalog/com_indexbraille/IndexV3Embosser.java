@@ -23,7 +23,7 @@ import org.daisy.braille.embosser.EmbosserFactoryException;
 public class IndexV3Embosser extends IndexEmbosser {
 	
     private final static TableFilter tableFilter;
-    private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";;
+    private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
     private final static String table8dot = IndexEmbosserProvider.class.getCanonicalName() + ".TableType.INDEX_TRANSPARENT_8DOT";
     private final static Collection<String> supportedTableIds = new ArrayList<String>();
 
@@ -49,7 +49,8 @@ public class IndexV3Embosser extends IndexEmbosser {
     @Override
     public boolean supportsDimensions(Dimensions dim) {
 
-        if (type==EmbosserType.INDEX_BASIC_D_V3) {
+        if (type==EmbosserType.INDEX_BASIC_D_V3 ||
+            type==EmbosserType.INDEX_BASIC_S_V3) {
             double w = dim.getWidth();
             double h = dim.getHeight();
             return super.supportsDimensions(dim) && (w==210 && (h==10*EmbosserTools.INCH_IN_MM ||
@@ -145,6 +146,7 @@ public class IndexV3Embosser extends IndexEmbosser {
         //header.append(",MI1");                                    // Multiple impact = 1
         header.append(",PN0");                                      // No page number
         switch (type) {
+            case INDEX_BASIC_S_V3:
             case INDEX_BASIC_D_V3:
                 iPart = Math.floor(paperLenght/EmbosserTools.INCH_IN_MM);
                 fPart = (paperLenght/EmbosserTools.INCH_IN_MM - iPart);

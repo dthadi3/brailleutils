@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
+import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.table.Table;
@@ -56,10 +57,15 @@ public class ImpactoEmbosser extends CidatEmbosser {
 
         boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
         boolean eightDots = supports8dot() && false;
+        int numberOfCopies = getNumberOfCopies();
+
+        if (numberOfCopies > 32767 || numberOfCopies < 1) {
+            throw new IllegalArgumentException(new EmbosserFactoryException("Invalid number of copies: " + numberOfCopies + " is not in [1, 32767]"));
+        }
 
         PageFormat page = getPageFormat();
         int cellsInWidth = EmbosserTools.getWidth(page, getCellWidth());
-        int linesInHeight = EmbosserTools.getHeight(page, getCellHeight());
+        int linesInHeight = EmbosserTools.getHeight(page, getCellHeight()); // depends on cell heigth -> depends on rowgap
         
         try {
 
@@ -91,11 +97,12 @@ public class ImpactoEmbosser extends CidatEmbosser {
         boolean eightDots = supports8dot() && false;    // examine PEF file: rowgap / char > 283F => Contract ?
         boolean duplex = supportsDuplex() && false;     // examine PEF file: duplex
         int pageCount = 1;                              // examine PEF file
+        int copies = getNumberOfCopies();
 
         PageFormat page = getPageFormat();
         int pageLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM);
         int charsPerLine = EmbosserTools.getWidth(page, getCellWidth());
-        int linesPerPage = EmbosserTools.getHeight(page, getCellHeight());
+        int linesPerPage = EmbosserTools.getHeight(page, getCellHeight()); // depends on cell heigth -> depends on rowgap
         
         if (pageLength   < 6  || pageLength   > 13) { throw new UnsupportedPaperException("Paper height = " + pageLength + " inches, must be in [6,13]"); }
         if (charsPerLine < 12 || charsPerLine > 42) { throw new UnsupportedPaperException("Characters per line = " + charsPerLine + ", must be in [12,42]"); }
@@ -123,12 +130,28 @@ public class ImpactoEmbosser extends CidatEmbosser {
         header.append((char)0x1b); header.append("ML0\n");                      // Left margin in characters = 0
         header.append((char)0x1b); header.append("MR0\n");                      // Right margin in characters = 0
         header.append((char)0x1b); header.append("MT0\n");                      // Top margin in tenths of an inch = 0
-        header.append((char)0x1b); header.append("NC1\n");                      // Number of copies = 1
+        header.append((char)0x1b); header.append("NC1");
+                                   header.append(String.valueOf(copies));
+                                   header.append('\n');                         // Number of copies
+        header.append((char)0x1b); header.append("SC1\n");                      // Collate copies (one full copy at a time)
         header.append((char)0x1b); header.append("PM0\n");                      // Embossing mode = text embossing mode
         header.append((char)0x1b); header.append("PN0\n");                      // Number pages = no
         header.append((char)0x1b); header.append("PI0\n");                      // Parameter influence = only present job
         header.append((char)0x1b); header.append("SP1\n");                      // Number of first page to emboss = 1
 
         return header.toString().getBytes();
+    }
+
+    protected int getNumberOfCopies() {
+
+        int numberOfCopies = 1;
+        Object value = getFeature(EmbosserFeatures.NUMBER_OF_COPIES);
+        if (value != null) {
+            try {
+                numberOfCopies = (Integer)value;
+            } catch (ClassCastException e) {
+            }
+        }
+        return numberOfCopies;
     }
 }

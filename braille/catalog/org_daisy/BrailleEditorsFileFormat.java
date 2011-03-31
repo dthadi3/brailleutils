@@ -33,6 +33,8 @@ public class BrailleEditorsFileFormat implements FileFormat {
 
     public BrailleEditorsFileFormat(FileType identifier) {
 
+        type = identifier;
+
         switch (identifier) {
             case BRF:
                 supportedTableIds.add("org.daisy.braille.table.DefaultTableProvider.TableType.EN_US");

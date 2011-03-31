@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.daisy.braille.embosser.AbstractEmbosser;
 import org.daisy.braille.embosser.EmbosserTools;
+import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
 import org.daisy.paper.Dimensions;
@@ -58,6 +59,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
                 maxPaperWidth = 297d;
                 maxPaperHeight = 500d;
                 break;
+            case INDEX_BASIC_S_V3:
             case INDEX_BASIC_D_V3:
                 minPaperWidth = 90d;
                 minPaperHeight = 1*EmbosserTools.INCH_IN_MM;
@@ -105,6 +107,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_EVEREST_D_V2:
             case INDEX_4X4_PRO_V2:
                 return true;
+            case INDEX_BASIC_S_V3:
             case INDEX_BASIC_D_V3:
             case INDEX_EVEREST_D_V3:
             case INDEX_4X4_PRO_V3:
@@ -131,6 +134,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
                 return true;
             case INDEX_BASIC_BLUE_BAR:
             case INDEX_BASIC_S_V2:
+            case INDEX_BASIC_S_V3:
             default:
                 return false;
         }
@@ -151,7 +155,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     protected int getNumberOfCopies() {
 
         int numberOfCopies = 1;
-        Object value = getFeature("numberOfCopies");
+        Object value = getFeature(EmbosserFeatures.NUMBER_OF_COPIES);
         if (value != null) {
             try {
                 numberOfCopies = (Integer)value;

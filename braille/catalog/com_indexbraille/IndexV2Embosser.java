@@ -12,6 +12,7 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.Dimensions;
 
 import com_indexbraille.IndexEmbosserProvider.EmbosserType;
 
@@ -43,6 +44,22 @@ public class IndexV2Embosser extends IndexEmbosser {
         return tableFilter;
     }
 
+    @Override
+    public boolean supportsDimensions(Dimensions dim) {
+
+        if (type==EmbosserType.INDEX_BASIC_D_V2 ||
+            type==EmbosserType.INDEX_BASIC_S_V2) {
+            double w = dim.getWidth();
+            double h = dim.getHeight();
+            return super.supportsDimensions(dim) && (w==210 && (h==10*EmbosserTools.INCH_IN_MM ||
+                                                                h==11*EmbosserTools.INCH_IN_MM ||
+                                                                h==12*EmbosserTools.INCH_IN_MM)
+                                                  || w==240 &&  h==12*EmbosserTools.INCH_IN_MM);
+        } else {
+            return super.supportsDimensions(dim);
+        }
+    }
+
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
         boolean duplexEnabled = supportsDuplex() && false; // ??? examine PEF file: duplex => Contract ?
@@ -63,7 +80,7 @@ public class IndexV2Embosser extends IndexEmbosser {
 
         PageFormat page = getPageFormat();
         int cellsInWidth = EmbosserTools.getWidth(page, getCellWidth());
-        int linesInHeight = EmbosserTools.getHeight(page, getCellHeight());
+        int linesInHeight = EmbosserTools.getHeight(page, getCellHeight()); // depends on cell heigth -> depends on rowgap
 
         byte[] header = getIndexV2Header();
         byte[] footer = new byte[]{0x1a};

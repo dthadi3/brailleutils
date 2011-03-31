@@ -1,7 +1,7 @@
 com_braillo.BrailloTableProvider
 com_indexbraille.IndexTableProvider
 com_yourdolphin.SupernovaTableProvider
-de_brailletec.ImpactoTableProvider
+es_once_cidat.CidatTableProvider
 org_daisy.EmbosserTableProvider
 org_daisy.BrailleEditorsTableProvider
 se_tpb.CXTableProvider
