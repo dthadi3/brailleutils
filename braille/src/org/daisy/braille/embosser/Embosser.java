@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -29,14 +29,41 @@ import org.daisy.printing.Device;
 /**
  * Provides an interface for common properties of an Embosser.
  * @author Joel Håkansson
- *
  */
-public interface Embosser extends Factory {// , EmbosserProperties {
+public interface Embosser extends Factory {
 
+	/**
+	 * Returns true if dimension is supported
+	 * @param dim the dimension to test
+	 * @return returns true if dimension is supported
+	 */
 	public boolean supportsDimensions(Dimensions dim);
+	
+	/**
+	 * Returns true if table is supported
+	 * @param table the table to test
+	 * @return returns true if table is supported
+	 */
 	public boolean supportsTable(Table table);
+	
+	/**
+	 * Gets a table filter that returns true if supportsTable returns true
+	 * @return returns a table filter
+	 */
 	public TableFilter getTableFilter();
+
+	/**
+	 * Gets a new EmbosserWriter that writes to the supplied OutputStream
+	 * @param os the OutputStream that the EmbosserWriter should use
+	 * @return returns a new EmbosserWriter
+	 */
 	public EmbosserWriter newEmbosserWriter(OutputStream os);
+	
+	/**
+	 * Gets a new EmbosserWriter that writes to the supplied Device
+	 * @param device the device that the EmbosserWriter should use
+	 * @return returns a new EmbosserWriter
+	 */
 	public EmbosserWriter newEmbosserWriter(Device device);
 
 	/**

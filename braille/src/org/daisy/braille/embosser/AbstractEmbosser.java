@@ -1,3 +1,20 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.embosser;
 
 import java.util.HashMap;
@@ -8,6 +25,11 @@ import org.daisy.braille.table.TableCatalog;
 import org.daisy.factory.AbstractFactory;
 import org.daisy.paper.PageFormat;
 
+/**
+ * Provides an abstract base for Embossers, implementing basic features
+ * such as the ability to set page format, table, and cell height and width.
+ * @author Joel Håkansson
+ */
 public abstract class AbstractEmbosser extends AbstractFactory implements Embosser {
 	private final HashMap<String, Object> props;
 	private final HashMap<String, String> settings;
@@ -17,7 +39,12 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 	private PageFormat pageFormat;
 	protected Table setTable;
 
-
+	/**
+	 * Creates a new AbstractEmbosser with the supplied name, description and identifier
+	 * @param name the embosser name
+	 * @param desc the embosser description
+	 * @param identifier an identifier
+	 */
 	public AbstractEmbosser(String name, String desc,  Enum<? extends Enum<?>> identifier) {
 		super(name, desc, identifier);
 		this.props = new HashMap<String, Object>();
@@ -26,22 +53,42 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		setTable = defaultTable;
 	}
 	
+	/**
+	 * Set cell width, in millimeters
+	 * @param val the width, in millimeters
+	 */
 	protected void setCellWidth(double val) {
 		cellWidth = val;
 	}
 	
+	/**
+	 * Set cell height, in millimeters
+	 * @param val the height, in millimeters
+	 */
 	protected void setCellHeight(double val) {
 		cellHeight = val;
 	}
 	
+	/**
+	 * Gets the page format
+	 * @return returns the page format
+	 */
 	protected PageFormat getPageFormat() {
 		return pageFormat;
 	}
 	
+	/**
+	 * Gets cell width, in millimeters
+	 * @return returns cell width, in millimeters
+	 */
 	public double getCellWidth() {
 		return cellWidth;
 	}
 	
+	/**
+	 * Gets cell height, in millimeters
+	 * @return returns cell height, in millimeters
+	 */
 	public double getCellHeight() {
 		return cellHeight;
 	}

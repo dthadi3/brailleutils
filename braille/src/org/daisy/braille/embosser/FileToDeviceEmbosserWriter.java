@@ -1,3 +1,20 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.embosser;
 
 import java.io.File;
@@ -8,15 +25,20 @@ import javax.print.PrintException;
 import org.daisy.printing.Device;
 
 /**
- * Provides a bridge between a PrinterDevice and file based EmbosserWriter
- * @author joha
- *
+ * Provides a bridge between a Device and file based EmbosserWriter
+ * @author Joel Håkansson
  */
 public class FileToDeviceEmbosserWriter implements EmbosserWriter {
 	private final EmbosserWriter w;
 	private final File f;
 	private final Device bd;
 	
+	/**
+	 * Creates a new file-to-device embosser writer.
+	 * @param w the underlying EmbosserWriter
+	 * @param f the file used by the supplied EmbosserWriter
+	 * @param bd the device to send the file to
+	 */
 	public FileToDeviceEmbosserWriter(EmbosserWriter w, File f, Device bd) {
 		this.w = w;
 		this.bd = bd;

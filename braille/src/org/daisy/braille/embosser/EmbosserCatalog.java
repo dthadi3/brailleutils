@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -25,8 +25,7 @@ import org.daisy.factory.FactoryCatalog;
 
 /**
  * Provides a catalog of Embosser factories.
- * @author Joel Håkansson, TPB
- *
+ * @author Joel Håkansson
  */
 public abstract class EmbosserCatalog implements FactoryCatalog<Embosser> {
 	
@@ -49,15 +48,4 @@ public abstract class EmbosserCatalog implements FactoryCatalog<Embosser> {
 		}
 		return new DefaultEmbosserCatalog();
 	}
-/*	
-	public abstract Object getFeature(String key);
-	
-	public abstract void setFeature(String key, Object value);
-	
-	public abstract Embosser get(String identifier);
-	
-	public abstract Collection<Embosser> list();
-	
-	public abstract Collection<Embosser> list(EmbosserFilter filter);
-*/
 }

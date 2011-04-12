@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -48,8 +48,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Provides a facade for PEFHandler
- * @author Joel Håkansson, TPB
- *
+ * @author Joel Håkansson
  */
 public class PEFConverterFacade {
 	public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");

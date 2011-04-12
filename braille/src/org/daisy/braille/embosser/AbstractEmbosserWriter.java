@@ -1,3 +1,20 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.embosser;
 
 import java.io.IOException;
@@ -6,17 +23,12 @@ import org.daisy.braille.table.BrailleConverter;
 
 /**
  * Provides an abstract base for embossers. 
- * @author Joel Håkansson, TPB
+ * @author Joel Håkansson
  *
  */
 public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 	public static enum Padding {BOTH, BEFORE, AFTER, NONE};
-	/*
-	protected boolean supports8dot;
-	protected boolean supportsDuplex;
-	protected boolean supportsAligning;
-	protected int maxHeight;
-	protected int maxWidth;*/
+
 	private int rowgap;
 	private boolean isOpen;
 	private boolean isClosed;
@@ -65,10 +77,18 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 		currentDuplex = duplex;
 	}
 	
+	/**
+	 * Gets the current page number, where the first page is 1.
+	 * @return returns the current page number
+	 */
 	public int currentPage() {
 		return currentPage;
 	}
 	
+	/**
+	 * Returns true if page is empty
+	 * @return returns true if page is empty
+	 */
 	public boolean pageIsEmpty() {
 		return (charsOnRow+rowsOnPage)==0;
 	}

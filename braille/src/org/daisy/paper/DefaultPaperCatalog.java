@@ -28,7 +28,7 @@ import org.daisy.factory.FactoryFilter;
 
 /**
  * Provides a default PaperCatalog that will add all available PaperProviders
- * @author Joel Håkansson, TPB
+ * @author Joel Håkansson
  *
  */
 class DefaultPaperCatalog extends PaperCatalog {
