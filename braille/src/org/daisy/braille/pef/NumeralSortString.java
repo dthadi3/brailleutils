@@ -19,6 +19,13 @@ package org.daisy.braille.pef;
 
 import java.util.ArrayList;
 
+/**
+ * Provides a sorting algorithm that splits groups of digits and sorts these
+ * segments as numbers, for example "sample-1, sample-2, sample-10" will be
+ * sorted in that order. String sorting would sort this "sample-1, sample-10, sample-2". 
+ * @author Joel Håkansson
+ *
+ */
 public class NumeralSortString implements Comparable<NumeralSortString> {
 	private ArrayList<Part> parts;
 	private String str;

@@ -19,14 +19,18 @@ package org.daisy.paper;
 
 import org.daisy.factory.AbstractFactory;
 
+/**
+ * Provides a default implementation for Paper.
+ * @author Joel Håkansson
+ */
 public class DefaultPaper extends AbstractFactory implements Paper {
 	private final double width, height;
 	private final Shape shape;
 
 	/**
-	 * 
-	 * @param name
-	 * @param desc
+	 * Creates a new default paper.
+	 * @param name the name of the paper
+	 * @param desc the description of the paper
 	 * @param width width, in mm
 	 * @param height height, in mm
 	 */

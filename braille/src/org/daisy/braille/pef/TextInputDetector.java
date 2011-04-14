@@ -33,10 +33,16 @@ import org.daisy.braille.table.BrailleConverter;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 
+/**
+ * Provides a method for detecting a table based on text input.
+ * @author Joel Håkansson
+ */
 public class TextInputDetector {
 	
+	/**
+	 * Creates a new TextInputDetector
+	 */
 	public TextInputDetector() {
-		
 	}
 
 	private BitSet analyze(InputStream is) throws IOException {

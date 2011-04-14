@@ -25,7 +25,7 @@ import org.daisy.braille.table.BrailleConverter;
 /**
  * Provides a configurable embosser. Outputs to a single OutputStream. 
  * 
- * @author  Joel Hakansson, TPB
+ * @author  Joel Håkansson
  * @version 22 okt 2008
  */
 public class ConfigurableEmbosser extends AbstractEmbosserWriter {

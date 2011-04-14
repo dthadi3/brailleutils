@@ -27,6 +27,10 @@ import java.io.IOException;
 
 import javax.print.PrintException;
 
+/**
+ * Provides a way of writing the files transmitted using the Device interface to files
+ * @author Joel Håkansson
+ */
 public class FileDevice implements Device {
 	private final File parent;
 	private final String prefix;
@@ -34,8 +38,11 @@ public class FileDevice implements Device {
 	private int i;
 	
 	/**
-	 * @param parent
-	 * @param prefix
+	 * Creates a new FileDevice, using the supplied settings.
+	 * @param parent the parent folder
+	 * @param prefix the file prefix
+	 * @param suffix the file suffix
+	 * @throws IllegalArgumentException if parent is not a directory
 	 */
 	public FileDevice(File parent, String prefix, String suffix) {
 		if (!parent.isDirectory()) {
@@ -47,10 +54,23 @@ public class FileDevice implements Device {
 		this.i = 1;
 	}
 	
+	/**
+	 * Creates a new FileDevice, using the supplied settings. File extension
+	 * will be ".prn"
+	 * @param parent the parent folder
+	 * @param prefix the file prefix
+	 * @throws IllegalArgumentException if parent is not a directory
+	 */
 	public FileDevice(File parent, String prefix) {
 		this(parent, prefix, ".prn");
 	}
 	
+	/**
+	 * Creates a new FileDevice, using the supplied settings. File extension
+	 * will be ".prn" and file prefix will be "job_"
+	 * @param parent the parent folder
+	 * @throws IllegalArgumentException if parent is not a directory
+	 */
 	public FileDevice(File parent) {
 		this(parent, "job_");
 	}

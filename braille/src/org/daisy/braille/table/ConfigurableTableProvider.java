@@ -19,19 +19,35 @@ package org.daisy.braille.table;
 
 
 /**
- * 
- * @author joha
+ * Provides a TableProvider which creates tables a specific type of
+ * identifier
+ * @author Joel Håkansson
  *
  * @param <T> Identifier type used when creating a new Table
  */
 public interface ConfigurableTableProvider<T> extends TableProvider {
 
-	public Object getFeature(String key);
-	public void setFeature(String key, Object value);
 	/**
-	 * 
-	 * @param t
-	 * @return returns a new BrailleConverter of type T
+	 * Gets a feature for the provider
+	 * @param key the key
+	 * @return returns the value
+	 * @throws IllegalArgumentException if the feature is unknown 
+	 */
+	public Object getFeature(String key);
+	
+	/**
+	 * Sets a feature for the provider.
+	 * @param key the key
+	 * @param value the value
+	 * @throws IllegalArgumentException if the feature is unknown
+	 */
+	public void setFeature(String key, Object value);
+
+	/**
+	 * Gets a new BrailleConverter based on the factory's current settings.
+	 * @param t the type to return
+	 * @return returns a new BrailleConverter of type t
+	 * @throws IllegalArgumentException if the type is unknown
 	 */
 	public BrailleConverter newTable(T t);
 

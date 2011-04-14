@@ -43,22 +43,39 @@ import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.ValidationDriver;
 
+/**
+ * Validates PEF-documents against the official Relax NG schema. Optionally performes additional
+ * checks, see the different modes. 
+ * @author Joel Håkansson
+ */
 public class PEFValidator extends AbstractFactory implements org.daisy.validator.Validator {
+	/**
+	 * Key for getFeature/setFeature,
+	 * corresponding value should be a {@link Mode} value
+	 */
 	public final static String FEATURE_MODE = "validator mode";
-	public enum Mode {LIGHT_MODE, FULL_MODE};
+	public enum Mode {
+		/**
+		 * Light mode validation only validates the document against the Relax NG schema
+		 */
+		LIGHT_MODE, 
+		/**
+		 * In addition to schema validation, performs other tests required by the PEF-specification.
+		 */
+		FULL_MODE
+	};
 	private File report;
 	private Mode mode;
 	
+	/**
+	 * Creates a new PEFValidator
+	 */
 	public PEFValidator() {
-		this(null);
+		super("PEF Validator", "A validator for PEF 1.0 files.", PEFValidator.class.getCanonicalName());
 		this.report = null;
 		this.mode = Mode.FULL_MODE;
 	}
-	
-	private PEFValidator(String id) {
-		super("PEF Validator", "A validator for PEF 1.0 files.", PEFValidator.class.getCanonicalName());
-	}
-	
+
 	public boolean validate(URL input) {
 		return validate(input, mode);
 	}

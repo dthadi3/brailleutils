@@ -33,14 +33,12 @@ import javax.print.PrintServiceLookup;
 import javax.print.attribute.DocAttributeSet;
 
 /**
- * 
  * Printer device class of type DocFlavor.INPUT_STREAM.AUTOSENSE
  * 
  * This class can be used when sending a file to a printer.
  * 
- * @author  Joel Hakansson, TPB
+ * @author  Joel Håkansson
  * @version 3 jul 2008
- * @since 1.0
  */
 public class PrinterDevice implements Device {
 	//private final static DocFlavor FLAVOR = DocFlavor.BYTE_ARRAY.AUTOSENSE;

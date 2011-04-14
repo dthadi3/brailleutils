@@ -57,17 +57,20 @@ public class PEFFileMerger {
 	public enum SortType {NUMERAL_GROUPING, STANDARD};
 	private Logger logger;
 
+	/**
+	 * Creates a new PEFFileMerger
+	 */
 	public PEFFileMerger() {
 		logger = Logger.getLogger(this.getClass().getCanonicalName());
 	}
 
 	/**
-	 * Merge several PEF-files into one.
+	 * Merges several PEF-files into one.
 	 * @param input input directory
 	 * @param output output file
 	 * @param identifier identifier of the new publication
 	 * @param sort sort type
-	 * @return
+	 * @return returns true if merge was successful, false otherwise
 	 */
 	public boolean merge(File input, OutputStream os, String identifier, SortType sort) {
 		//progress(0);

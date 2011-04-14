@@ -32,10 +32,23 @@ import org.daisy.validator.ValidatorFactory;
  */
 public class PEFValidatorFacade {
 	
+	/**
+	 * Validates the supplied PEF-file
+	 * @param in the PEF-file to validate
+	 * @return returns true if PEF-file is valid and validation was successful, false otherwise 
+	 * @throws IOException throws IOException if an error occurred
+	 */
 	public static boolean validate(File in) throws IOException {
 		return validate(in, null);
 	}
 	
+	/**
+	 * Validates the supplied PEF-file and sends the validator messages to the supplied PrintStream
+	 * @param in the PEF-file to validate
+	 * @param msg the PrintStream to send validator messages to
+	 * @return returns true if PEF-file is valid and validation was successful, false otherwise 
+	 * @throws IOException throws IOException if an error occurred
+	 */
 	public static boolean validate(File in, PrintStream msg) throws IOException {
 		if (!in.exists()) {
 			throw new FileNotFoundException("File does not exist: " + in);
@@ -64,5 +77,4 @@ public class PEFValidatorFacade {
 		}
 		return ok;
 	}
-
 }

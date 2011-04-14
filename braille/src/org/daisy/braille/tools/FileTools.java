@@ -29,9 +29,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+/**
+ * Provides common file tools useful for braille.
+ * @author Joel Håkansson
+ */
 public class FileTools {
 	private final static Logger logger = Logger.getLogger(FileTools.class.getCanonicalName());
 	
+	/**
+	 * Copies an input stream to an output stream
+	 * @param is the input stream
+	 * @param os the output stream
+	 * @throws IOException if IO fails
+	 */
 	public static void copy(InputStream is, OutputStream os) throws IOException {
 		InputStream bis = new BufferedInputStream(is);
 		OutputStream bos = new BufferedOutputStream(os);
@@ -44,6 +54,12 @@ public class FileTools {
 		bis.close();
 	}
 	
+	/**
+	 * Lists files in a directory with a given extension.
+	 * @param dir the directory to list files in
+	 * @param ext the extension to test
+	 * @return returns an array of files with the specified extension 
+	 */
 	public static File[] listFiles(File dir, final String ext) {
 		return dir.listFiles(new FilenameFilter(){
 			//jvm1.6@Override
@@ -52,20 +68,25 @@ public class FileTools {
 			}});
 	}
 	
+	/**
+	 * Converts an array of File objects into URL's
+	 * @param files the files to convert
+	 * @return returns an array of URL's
+	 */
 	public static URL[] toURL(File[] files) {
-		ArrayList<URL> jars = new ArrayList<URL>();
+		ArrayList<URL> urls = new ArrayList<URL>();
 		if (files!=null && files.length>0) {
 			int i = 0;
 			for (File f : files) {
 				try {
-					jars.add(f.toURI().toURL());
+					urls.add(f.toURI().toURL());
 				} catch (MalformedURLException e) {
 					logger.warning("Failed to convert " + f + " into an URL.");
 				}
 				i++;
 			}
 		}
-		return jars.toArray(new URL[]{});
+		return urls.toArray(new URL[]{});
 	}
 
 }

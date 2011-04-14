@@ -48,15 +48,4 @@ public abstract class PaperCatalog implements FactoryCatalog<Paper> {
 		}
 		return new DefaultPaperCatalog();
 	}
-	/*
-	public abstract Object getFeature(String key);
-	
-	public abstract void setFeature(String key, Object value);
-	
-	public abstract Paper get(String identifier);
-	
-	public abstract Collection<Paper> list();
-	
-	public abstract Collection<Paper> list(PaperFilter filter);
-*/
 }

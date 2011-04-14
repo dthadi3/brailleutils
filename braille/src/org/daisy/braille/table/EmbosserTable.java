@@ -19,6 +19,11 @@ package org.daisy.braille.table;
 
 import java.util.HashMap;
 
+/**
+ * @author Joel Håkansson
+ *
+ * @param <T>
+ */
 public class EmbosserTable<T> extends AbstractTable {
 	private final HashMap<String, Object> props;
 	private final T type;

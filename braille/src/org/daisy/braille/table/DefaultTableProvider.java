@@ -23,6 +23,10 @@ import java.util.Collection;
 
 import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
 
+/**
+ * Provides a default table, for convenience.
+ * @author Joel Håkansson
+ */
 public class DefaultTableProvider extends AbstractConfigurableTableProvider<DefaultTableProvider.TableType> {
 	
 	enum TableType {
@@ -32,6 +36,9 @@ public class DefaultTableProvider extends AbstractConfigurableTableProvider<Defa
 
 	private final ArrayList<Table> tables;
 
+	/**
+	 * Creates a new DefaultTableProvider
+	 */
 	public DefaultTableProvider() {
 		super(EightDotFallbackMethod.values()[0], '\u2800');
 		tables = new ArrayList<Table>(); 

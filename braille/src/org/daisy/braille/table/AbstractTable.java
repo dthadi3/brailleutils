@@ -19,8 +19,19 @@ package org.daisy.braille.table;
 
 import org.daisy.factory.AbstractFactory;
 
+/**
+ * Provides an abstract base for Table factories.
+ * @author Joel Håkansson
+ *
+ */
 public abstract class AbstractTable extends AbstractFactory implements Table {
 	
+	/**
+	 * Creates a new AbstractTable with the supplied settings.
+	 * @param name the name of the Table 
+	 * @param desc the description of the Table
+	 * @param identifier the Table identifier
+	 */
 	public AbstractTable(String name, String desc, String identifier) {
 		super(name, desc, identifier);
 	}

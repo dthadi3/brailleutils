@@ -31,9 +31,8 @@ import org.daisy.braille.table.TableCatalog;
 /**
  * Reads a PEF-file and outputs a text file.
  * 
- * @author  Joel Hakansson, TPB
+ * @author  Joel Håkansson
  * @version 2 jul 2008
- * @since 1.0
  */
 class PEFParser extends AbstractUI {
 	private final List<Argument> reqArgs;

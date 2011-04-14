@@ -17,18 +17,45 @@
  */
 package org.daisy.braille.embosser;
 
+import java.awt.print.PageFormat;
+
+import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
+
 /**
  * Provides common embosser features to be used when configuring an Embosser factory.
  * @author Joel Håkansson
  *
  */
 public class EmbosserFeatures {
+	/**
+	 * Embosser feature key,
+	 * corresponding value should be a number, in millimeters
+	 */
 	public static final String CELL_WIDTH = "cellWidth";
+	/**
+	 * Embosser feature key,
+	 * corresponding value should be a number, in millimeters
+	 */
 	public static final String CELL_HEIGHT = "cellHeight";
+	/**
+	 * Embosser feature key,
+	 * corresponding value should match a value in {@link EightDotFallbackMethod}
+	 */
 	public static final String UNSUPPORTED_CELL_FALLBACK_METHOD = "fallback";
+	/**
+	 * Embosser feature key,
+	 * corresponding value should be a character in the range 0x2800-0x283F
+	 */
 	public static final String UNSUPPORTED_CELL_REPLACEMENT = "replacement";
-
+	/**
+	 * Embosser feature key,
+	 * corresponding value should match a table identifier
+	 */
 	public static final String TABLE = "table";
+	/**
+	 * Embosser feature key,
+	 * corresponding value should be a {@link PageFormat} object
+	 */
 	public static final String PAGE_FORMAT = "pageFormat";
-	
+
 }

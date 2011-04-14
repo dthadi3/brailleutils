@@ -30,7 +30,7 @@ import java.io.IOException;
  * <li>newVolumeSectionAndPage</li>
  * </ul>
  * 
- * @author  Joel Hakansson, TPB
+ * @author  Joel Håkansson
  */
 public interface EmbosserWriter extends EmbosserWriterProperties, Closeable {
 	/**

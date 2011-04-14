@@ -26,6 +26,10 @@ import java.util.Map;
 import org.daisy.factory.Factory;
 import org.daisy.factory.FactoryCatalog;
 
+/**
+ * Provides an abstract base for command line UI's.
+ * @author Joel Håkansson
+ */
 public abstract class AbstractUI {
 	public enum ExitCode {OK, MISSING_ARGUMENT, UNKNOWN_ARGUMENT, FAILED_TO_READ, MISSING_RESOURCE, ILLEGAL_ARGUMENT_VALUE};
 	public final static String ARG_PREFIX = "required-";

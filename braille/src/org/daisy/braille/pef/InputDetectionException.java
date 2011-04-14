@@ -19,6 +19,11 @@ package org.daisy.braille.pef;
 
 import java.io.IOException;
 
+/**
+ * Provides an input detection exception
+ * @author Joel Håkansson
+ *
+ */
 public class InputDetectionException extends IOException {
 	/**
 	 * 

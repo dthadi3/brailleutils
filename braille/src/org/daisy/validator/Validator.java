@@ -31,7 +31,7 @@ public interface Validator extends Factory {
 	/**
 	 * Validates the resource at the given URL
 	 * @param input the resource URL
-	 * @return returns true if validation was successful, false otherwise
+	 * @return returns true if validation was successful and resource is valid, false otherwise
 	 */
 	public boolean validate(URL input);
 	

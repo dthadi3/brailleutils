@@ -26,7 +26,6 @@ import org.daisy.factory.FactoryCatalog;
 /**
  * Provides a catalog of Table factories.
  * @author Joel Håkansson
- *
  */
 public abstract class TableCatalog implements FactoryCatalog<Table> {
 	
@@ -49,15 +48,5 @@ public abstract class TableCatalog implements FactoryCatalog<Table> {
 		}
 		return new DefaultTableCatalog();
 	}
-	/*
-	public abstract Object getFeature(String key);
-	
-	public abstract void setFeature(String key, Object value);
-	
-	public abstract Table get(String identifier);
-	
-	public abstract Collection<Table> list();
-	
-	public abstract Collection<Table> list(TableFilter filter);*/
 
 }

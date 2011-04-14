@@ -20,8 +20,6 @@ package org.daisy.braille.table;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
-
-
 /**
  * Provides a simple TableConverter implementation. It 
  * provides a one-to-one mapping between braille and

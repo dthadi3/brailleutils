@@ -56,15 +56,18 @@ public class PEFFileSplitter implements ErrorHandler  {
 	enum State {HEADER, BODY, FOOTER};
 	private Logger logger;
 
+	/**
+	 * Creates a new PEFFileSplitter object.
+	 */
 	public PEFFileSplitter() {
 		logger = Logger.getLogger(PEFFileSplitter.class.getCanonicalName());
 	}
 	
 	/**
 	 * 
-	 * @param input
-	 * @param directory
-	 * @return
+	 * @param input input PEF-file
+	 * @param directory output directory
+	 * @return returns true if split was successful, false otherwise
 	 * @throws IllegalArgumentException if input is not a file
 	 */
 	public boolean split(File input, File directory) {

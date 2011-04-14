@@ -29,7 +29,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  * Provides a handler for reading a PEF-file and sending the contents to an Embosser.
  * Constructor is private on purpose, use a Builder to create a new PEFHandler.
- * @author  Joel Hakansson, TPB
+ * @author  Joel Håkansson
  * @author Bert Frees
  * @version 3 sep 2008
  */
@@ -39,6 +39,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class PEFHandler extends DefaultHandler {
 	private static final String PEF_NS="http://www.daisy.org/ns/2008/pef";
+	/**
+	 * @deprecated deprecated in public API, use Alignment
+	 */
 	public static enum AlignmentFallback {LEFT, CENTER_LEFT, CENTER_RIGHT, RIGHT, ABORT};
 	public static enum Alignment {
 		/**

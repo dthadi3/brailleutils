@@ -35,7 +35,6 @@ import org.daisy.braille.table.TableCatalog;
 /**
  * Provides a handler for reading text and writing a PEF-file.
  * @author Joel Håkansson
- *
  */
 public class TextHandler {
 	public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -57,9 +56,8 @@ public class TextHandler {
 	 * 
 	 * Provides a Builder for TextHandler
 	 * 
-	 * @author  Joel Hakansson, TPB
+	 * @author  Joel Håkansson
 	 * @version 3 sep 2008
-	 * @since 1.0
 	 */
 	public static class Builder {
 		// required params

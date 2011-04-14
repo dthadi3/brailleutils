@@ -19,6 +19,13 @@ package org.daisy.braille.table;
 
 import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
 
+/**
+ * Provides an abstract base for TableProviders, implementing basic features
+ * such as the ability to set page fallback action and replacement character.
+ * @author Joel Håkansson
+ *
+ * @param <T>
+ */
 public abstract class AbstractConfigurableTableProvider<T> implements ConfigurableTableProvider<T> {
 	
 	protected EightDotFallbackMethod fallback;
