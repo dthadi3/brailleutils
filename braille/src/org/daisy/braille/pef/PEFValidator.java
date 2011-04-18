@@ -54,6 +54,9 @@ public class PEFValidator extends AbstractFactory implements org.daisy.validator
 	 * corresponding value should be a {@link Mode} value
 	 */
 	public final static String FEATURE_MODE = "validator mode";
+	/**
+	 * Defines the modes available to the validator.
+	 */
 	public enum Mode {
 		/**
 		 * Light mode validation only validates the document against the Relax NG schema

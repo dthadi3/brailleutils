@@ -27,8 +27,23 @@ import java.util.HashMap;
  * @author Joel Håkansson
  */
 public class EmbosserBrailleConverter implements BrailleConverter {
+	/**
+	 * Defines the fallback action when a character in the range 0x2840-0x28FF is
+	 * encountered.
+	 */
 	public enum EightDotFallbackMethod {
-		MASK, REPLACE, REMOVE
+		/**
+		 * Mask the character. Treat it as if dots 7 and 8 were off
+		 */
+		MASK,
+		/**
+		 * Replace the character with a fixed replacement character 
+		 */
+		REPLACE,
+		/**
+		 * Remove the character from output
+		 */
+		REMOVE
 	}; // , FAIL
 	private HashMap<Character, Character> b2t;
 	private HashMap<Character, Character> t2b;
@@ -41,10 +56,10 @@ public class EmbosserBrailleConverter implements BrailleConverter {
 	/**
 	 * Creates a new EmbosserBrailleConverter
 	 * @param table the characters in the table, in Unicode order. Must contain 64 or 256 characters.
-	 * @param charset 
-	 * @param fallback
-	 * @param replacement
-	 * @param ignoreCase
+	 * @param charset the preferred charset as defined in the BrailleConverter interface
+	 * @param fallback the fallback method to use when encountering a character in the range 0x2840-0x28FF
+	 * @param replacement the replacement character, must be in the range 0x2800-0x283F
+	 * @param ignoreCase set to true to ignore character case
 	 * @throws throws IllegalArgumentException if the table length isn't equal to 64 or 256.
 	 */
 	public EmbosserBrailleConverter(String table, Charset charset, EightDotFallbackMethod fallback, char replacement, boolean ignoreCase) {

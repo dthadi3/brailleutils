@@ -53,7 +53,7 @@ public interface BrailleConverter {
 	public Charset getPreferredCharset();
 
 	/**
-	 * 
+	 * Returns true if 8-dot braille is supported, false otherwise
 	 * @return returns true if 8-dot braille is supported, false otherwise
 	 */
 	public boolean supportsEightDot();

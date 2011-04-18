@@ -26,6 +26,9 @@ import java.util.HashMap;
  *
  */
 public class StringTranslator {
+	/**
+	 * Defines the mode to use when matching patterns in the StringTranslator.
+	 */
 	public enum MatchMode {
 		/**
 		 * Defines the greedy approach to matching, where as much of the input as possible is used

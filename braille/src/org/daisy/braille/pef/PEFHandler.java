@@ -43,6 +43,9 @@ public class PEFHandler extends DefaultHandler {
 	 * @deprecated deprecated in public API, use Alignment
 	 */
 	public static enum AlignmentFallback {LEFT, CENTER_LEFT, CENTER_RIGHT, RIGHT, ABORT};
+	/**
+	 * Defines alignment values
+	 */
 	public static enum Alignment {
 		/**
 		 * Align left
@@ -99,7 +102,6 @@ public class PEFHandler extends DefaultHandler {
 	/**
 	 * Provides a Builder for PEFHandler
 	 * @author Joel Håkansson
-	 *
 	 */
 	public static class Builder {
 		//required params
@@ -115,13 +117,16 @@ public class PEFHandler extends DefaultHandler {
 
 		/**
 		 * Create a new PEFHandler builder
-		 * @param embosser 
+		 * @param embosser the embosser writer to use
 		 */
 		public Builder(EmbosserWriter embosser) {
 			this.embosser = embosser;
 		}
 		
 		//init optional params here
+		/**
+		 * Sets the range of pages to output
+		 */
 		public Builder range(Range value) {
 			if (value!=null && !"".equals(value)) {
 				range = value;
@@ -157,6 +162,11 @@ public class PEFHandler extends DefaultHandler {
 			mirrorAlign = value;
 			return this;
 		}
+		/**
+		 * Sets page alignment to use if the physical paper is bigger than the pages 
+		 * @param value the value to use
+		 * @return returns this object
+		 */
 		public Builder align(Alignment value) {
 			switch (value) {
 				case LEFT:
@@ -192,16 +202,30 @@ public class PEFHandler extends DefaultHandler {
 			}
 			return this;
 		}
+		/**
+		 * Sets the page margin offset where positive numbers adjust towards
+		 * the right side of the paper, and negative numbers adjust towards the
+		 * left side.
+		 * @param value the offset
+		 * @return returns this object
+		 */
 		public Builder offset(int value) {
 			offset = value;
 			return this;
 		}
 //**** Added by Bert Frees *****************************************
+		/**
+		 * Sets the top offset.
+		 */
 		public Builder topOffset(int value) {
 			topOffset = value;
 			return this;
 		}
 //****************************************************************** 
+		/**
+		 * Builds a PEFHandler from this builder's current configuration.
+		 * @return returns a new PEFHandler 
+		 */
 		public PEFHandler build() throws IOException {
 			return new PEFHandler(this);
 		}

@@ -40,24 +40,30 @@ public class AdvancedBrailleConverter implements BrailleConverter {
 	private final boolean supports8dot;
 	
 	/**
-	 * Creates a new 6-dot table
-	 * @param table
-	 * @param charset
-	 * @param fallback
-	 * @param replacement
-	 * @param ignoreCase
-	 * @param mode
+	 * Creates a new 6-dot table. Each string in the table array represents a braille character.
+	 * The string at index <tt>i</tt> in the array is interpreted as the 
+	 * translation for the braille character with Unicode value 0x2800+i.
+	 * @param table the table data, 64 entries
+	 * @param charset the preferred charset as defined in the BrailleConverter interface
+	 * @param fallback the fallback method to use when encountering a character in the range 0x2840-0x28FF
+	 * @param replacement the replacement character, must be in the range 0x2800-0x283F
+	 * @param ignoreCase set to true to ignore character case
+	 * @param mode the match mode to use
+	 * @throws throws IllegalArgumentException if the table length isn't equal to 64
 	 */
 	public AdvancedBrailleConverter(String[] table, Charset charset, EightDotFallbackMethod fallback, char replacement, boolean ignoreCase, MatchMode mode) {
 		this(table, charset, fallback, replacement, ignoreCase, false, mode);
 	}
 	
 	/**
-	 * Creates a new 8-dot table
-	 * @param table
-	 * @param charset
-	 * @param ignoreCase
-	 * @param mode
+	 * Creates a new 8-dot table. Each string in the table array represents a braille character.
+	 * The string at index <tt>i</tt> in the array is interpreted as the 
+	 * translation for the braille character with Unicode value 0x2800+i.
+	 * @param table the table data, 256 entries
+	 * @param charset the preferred charset as defined in the BrailleConverter interface
+	 * @param ignoreCase set to true to ignore character case
+	 * @param mode the match mode to use
+	 * @throws throws IllegalArgumentException if the table length isn't equal to 256
 	 */
 	public AdvancedBrailleConverter(String[] table, Charset charset, boolean ignoreCase, MatchMode mode) {
 		this(table, charset, EightDotFallbackMethod.MASK, null, ignoreCase, true, mode);

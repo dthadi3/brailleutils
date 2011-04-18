@@ -20,6 +20,9 @@ package org.daisy.braille.table;
 import java.util.HashMap;
 
 /**
+ * Provides an embosser table implementation. This implementation
+ * assumes that each character matches a single braille pattern,
+ * and vice versa. 
  * @author Joel Håkansson
  *
  * @param <T>
@@ -29,6 +32,13 @@ public class EmbosserTable<T> extends AbstractTable {
 	private final T type;
 	private final ConfigurableTableProvider<T> provider;
 	
+	/**
+	 * Creates a new EmbosserTable with the supplied settings
+	 * @param name the name for the table
+	 * @param desc the description for the table
+	 * @param type the type of table
+	 * @param provider the provider
+	 */
 	public EmbosserTable(String name, String desc, T type, ConfigurableTableProvider<T> provider) {
 		super(name, desc, type.getClass().getCanonicalName() + "." + type.toString());
 		this.type = type;
