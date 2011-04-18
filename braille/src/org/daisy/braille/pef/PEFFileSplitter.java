@@ -51,7 +51,13 @@ import org.xml.sax.SAXParseException;
  *
  */
 public class PEFFileSplitter implements ErrorHandler  {
+	/**
+	 * Defines the default prefix for generated file names.
+	 */
 	public final static String PREFIX = "volume-";
+	/**
+	 * Defines the default postfix for generated file names.
+	 */
 	public final static String POSTFIX = ".pef";
 	enum State {HEADER, BODY, FOOTER};
 	private Logger logger;
@@ -64,7 +70,7 @@ public class PEFFileSplitter implements ErrorHandler  {
 	}
 	
 	/**
-	 * 
+	 * Splits a PEF-file into several single volume PEF-files.
 	 * @param input input PEF-file
 	 * @param directory output directory
 	 * @return returns true if split was successful, false otherwise
@@ -91,10 +97,26 @@ public class PEFFileSplitter implements ErrorHandler  {
 		}
 	}
 
+	/**
+	 * Splits the PEF-document provided as an input stream into several single volume PEF-files using
+	 * the default file name pre- and postfix.
+	 * @param is the input stream to the PEF-document
+	 * @param directory the output directory
+	 * @return returns true if split was successful, false otherwise
+	 */
 	public boolean split(InputStream is, File directory) {
 		return split(is, directory, PREFIX, POSTFIX);
 	}
 
+	/**
+	 * Splits the PEF-document provided as an input stream into several single volume PEF-files using
+	 * the supplied file name pre- and postfix.
+	 * @param is the input stream to the PEF-document
+	 * @param directory the output directory
+	 * @param prefix the prefix to use
+	 * @param postfix the postfix to use
+	 * @return returns true if split was successful, false otherwise
+	 */
 	public boolean split(InputStream is, File directory, String prefix, String postfix) {
 		//progress(0);
 

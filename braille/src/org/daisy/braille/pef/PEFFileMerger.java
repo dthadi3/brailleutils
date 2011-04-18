@@ -54,7 +54,19 @@ import org.daisy.validator.ValidatorFactory;
  * @author Joel Håkansson
  */
 public class PEFFileMerger {
-	public enum SortType {NUMERAL_GROUPING, STANDARD};
+	/**
+	 * Defines sorting types
+	 */
+	public enum SortType {
+		/**
+		 * Sort groups of digits as numbers
+		 */
+		NUMERAL_GROUPING,
+		/**
+		 * Sort alphabetically
+		 */
+		STANDARD
+		};
 	private Logger logger;
 
 	/**

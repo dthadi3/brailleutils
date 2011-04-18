@@ -45,7 +45,7 @@ public class BufferedVolumeEmbosser extends AbstractEmbosserWriter {
 	private final boolean lineFeedOnEmptySheet;
 	
 	/**
-	 * Provides a Builder for a BufferedVolumeEmbosser
+	 * Provides a builder for a BufferedVolumeEmbosser
 	 * @author Joel Håkansson
 	 */
 	public static class Builder {
@@ -74,9 +74,9 @@ public class BufferedVolumeEmbosser extends AbstractEmbosserWriter {
 			this.ep = ep;
 		}
 		/**
-		 * Sets the LineBreaks style
+		 * Sets the line break style
 		 * @param value one of dos, unix, mac or default
-		 * @return returns this builder
+		 * @return returns this object
 		 */
 		public Builder breaks(String value) { 
 			if (value!=null && !"".equals(value)) {
@@ -84,18 +84,42 @@ public class BufferedVolumeEmbosser extends AbstractEmbosserWriter {
 			}
 			return this;
 		}
+		/**
+		 * Sets the line break style
+		 * @param value the line break style to use
+		 * @return returns this object
+		 */
 		public Builder breaks(LineBreaks value) {
 			breaks = value; return this;
 		}
+		/**
+		 * Sets the padding style
+		 * @param value a padding style
+		 * @return returns this object
+		 */
 		public Builder padNewline(String value) {
 			if (value!=null && !"".equals(value)) {
 				return padNewline(Padding.valueOf(value.toUpperCase()));
 			}
 			return this;
 		}
+		/**
+		 * Sets the padding style
+		 * @param value the padding style to use
+		 * @return returns this object
+		 */
 		public Builder padNewline(Padding value) { padNewline = value; return this; }
+		/**
+		 * Sets the auto line feed on empty page policy.
+		 * @param value set to true, to add line feed on empty page, false otherwise.
+		 * @return returns this object
+		 */
 		public Builder autoLineFeedOnEmptyPage(boolean value) { lineFeedOnEmptySheet = value; return this; }
 		
+		/**
+		 * Builds a new BufferedVolumeEmbosser based on this builders current configuration.
+		 * @return returns a new BufferedVolumeEmbosser
+		 */
 		public BufferedVolumeEmbosser build() {
 			return new BufferedVolumeEmbosser(this);
 		}

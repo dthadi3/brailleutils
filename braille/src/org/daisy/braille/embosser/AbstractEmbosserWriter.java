@@ -27,7 +27,27 @@ import org.daisy.braille.table.BrailleConverter;
  *
  */
 public abstract class AbstractEmbosserWriter implements EmbosserWriter {
-	public static enum Padding {BOTH, BEFORE, AFTER, NONE};
+	/**
+	 * Defines form feed padding style.
+	 */
+	public static enum Padding {
+		/**
+		 * Pad both before and after form feed.
+		 */
+		BOTH,
+		/**
+		 * Pad only before form feed.
+		 */
+		BEFORE,
+		/**
+		 * Pad only after form feed.
+		 */
+		AFTER, 
+		/**
+		 * Do not pad form feed.
+		 */
+		NONE
+	};
 
 	private int rowgap;
 	private boolean isOpen;
@@ -38,10 +58,32 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 	private int rowsOnPage;
 	private EmbosserWriterProperties props;
 
+	/**
+	 * Gets the line break style for the EmbosserWriter
+	 * @return returns the line break style for the EmbosserWriter
+	 */
 	public abstract LineBreaks getLinebreakStyle();
+	/**
+	 * Gets the form feed padding style for the EmbosserWriter
+	 * @return returns the padding style for the EmbosserWriter
+	 */
 	public abstract Padding getPaddingStyle();
+	/**
+	 * Gets the table for the EmbosserWriter
+	 * @return returns the table for the EmbosserWriter
+	 */
 	public abstract BrailleConverter getTable();
+	/**
+	 * Adds a byte to the EmbosserWriter output.
+	 * @param b the byte to add
+	 * @throws IOException if IO fails.
+	 */
 	protected abstract void add(byte b) throws IOException;
+	/**
+	 * Adds bytes to the EmbosserWriter output.
+	 * @param b the bytes to add
+	 * @throws IOException if IO fails
+	 */
 	protected abstract void addAll(byte[] b) throws IOException;
 	
 	protected void init(EmbosserWriterProperties props) {
@@ -106,12 +148,20 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 		addAll(String.valueOf(getTable().toText(braille)).getBytes(getTable().getPreferredCharset().name()));
 	}
 	
+	/**
+	 * Performs a line feed on the EmbosserWriter
+	 * @throws IOException if IO fails
+	 */
 	protected void lineFeed() throws IOException {
 		rowsOnPage++;
 		charsOnRow = 0;
 		addAll(getLinebreakStyle().getString().getBytes());
 	}
 
+	/**
+	 * Performs a form feed on the EmbosserWriter
+	 * @throws IOException if IO fails
+	 */
 	protected void formFeed() throws IOException {
 		rowsOnPage++;
 		if (rowsOnPage>props.getMaxHeight()) {

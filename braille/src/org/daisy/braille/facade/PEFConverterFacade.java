@@ -173,7 +173,7 @@ public class PEFConverterFacade {
 	}
 	
 	/**
-	 * 
+	 * Parses the given PEF-file input using the supplied output stream and settings.
 	 * @param input
 	 * @param os
 	 * @param settings

@@ -94,6 +94,10 @@ public class NumeralSortString implements Comparable<NumeralSortString> {
 
 	}
 
+	/**
+	 * Creates a new NumeralSortString for the supplied string
+	 * @param str the string to apply numeral sorting on
+	 */
 	public NumeralSortString(String str) {
 		parts = new ArrayList<Part>();
 		this.str = str;
@@ -103,14 +107,27 @@ public class NumeralSortString implements Comparable<NumeralSortString> {
 		}
 	}
 	
+	/**
+	 * Gets the part of the string with the specified index.
+	 * @param index index of the part to return
+	 * @return returns the part
+	 */
 	public Part getPart(int index) {
 		return parts.get(index);
 	}
 	
+	/**
+	 * Gets the number of parts
+	 * @return returns the number of parts
+	 */
 	public int getPartCount() {
 		return parts.size();
 	}
 	
+	/**
+	 * Gets the value for this object.
+	 * @return returns the value
+	 */
 	public String getValue() {
 		return str;
 	}

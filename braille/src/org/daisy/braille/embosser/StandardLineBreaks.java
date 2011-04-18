@@ -22,7 +22,27 @@ package org.daisy.braille.embosser;
  * @author Joel Håkansson
  */
 public class StandardLineBreaks implements LineBreaks {
-	public static enum Type {DOS, UNIX, MAC, DEFAULT};
+	/**
+	 * Defines standard line break types
+	 */
+	public static enum Type {
+		/**
+		 * Indicates windows/dos line breaks
+		 */
+		DOS,
+		/**
+		 * Indicates unix line breaks
+		 */
+		UNIX,
+		/**
+		 * Indicates classic mac line breaks
+		 */
+		MAC,
+		/**
+		 * Indicates system default line breaks
+		 */
+		DEFAULT
+	};
 	private final String newline;
 	
 	/**
@@ -43,7 +63,11 @@ public class StandardLineBreaks implements LineBreaks {
 	public String getString() {
 		return newline;
 	}
-	
+	/**
+	 * Gets the string used to represent line breaks
+	 * @param t the type of line breaks
+	 * @return returns the string used to represent line breaks
+	 */
 	public static String getString(Type t) {
         switch (t) {
 	    	case UNIX: return "\n";

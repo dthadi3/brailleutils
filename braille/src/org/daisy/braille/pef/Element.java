@@ -30,9 +30,10 @@ public class Element {
 	private Map<String, String> atts;
 	
 	/**
-	 * 
-	 * @param uri
-	 * @param localName
+	 * Creates a new Element
+	 * @param uri the namespace uri for the element
+	 * @param localName the local name for the element
+	 * @param attributes the attributes for the element
 	 */
 	public Element(String uri, String localName, Map<String, String> attributes) {
 		this.uri = uri;

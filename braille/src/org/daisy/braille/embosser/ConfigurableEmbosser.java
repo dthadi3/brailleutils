@@ -39,6 +39,10 @@ public class ConfigurableEmbosser extends AbstractEmbosserWriter {
 	private final boolean fillSheet;
 	private final boolean lineFeedOnEmptySheet;
 	
+	/**
+	 * Provides a builder for ConfigurableEmbosser
+	 * @author Joel Håkansson
+	 */
 	public static class Builder {
 		// required params
 		private OutputStream os;
@@ -53,37 +57,90 @@ public class ConfigurableEmbosser extends AbstractEmbosserWriter {
 		private boolean lineFeedOnEmptySheet = false;
 		EmbosserWriterProperties props = new SimpleEmbosserProperties(Integer.MAX_VALUE, Integer.MAX_VALUE);
 		
+		/**
+		 * Creates a new builder with the suppled output stream and braille converter.
+		 * @param os the output stream to use
+		 * @param bt the braille converter to use
+		 */
 		public Builder(OutputStream os, BrailleConverter bt) {
 			this.os = os;
 			this.bt = bt;
 		}
 		
+		/**
+		 * Sets the embosser properties for this object.
+		 * @param props the embosser properties to use
+		 * @return returns this object
+		 */
 		public Builder embosserProperties(EmbosserWriterProperties props) {
 			this.props = props;
 			return this;
 		}
-
+		/**
+		 * Sets the line break style
+		 * @param value one of dos, unix, mac or default
+		 * @return returns this object
+		 */
 		public Builder breaks(String value) { 
 			if (value!=null && !"".equals(value)) {
 				return breaks(new StandardLineBreaks(StandardLineBreaks.Type.valueOf(value.toUpperCase())));
 			}
 			return this;
 		}
+		/**
+		 * Sets the line break style
+		 * @param value the line break style to use
+		 * @return returns this object
+		 */
 		public Builder breaks(LineBreaks value) {
 			breaks = value; return this;
 		}
+		/**
+		 * Sets the padding style
+		 * @param value a padding style
+		 * @return returns this object
+		 */
 		public Builder padNewline(String value) {
 			if (value!=null && !"".equals(value)) {
 				return padNewline(Padding.valueOf(value.toUpperCase()));
 			}
 			return this;
 		}
+		/**
+		 * Sets the padding style
+		 * @param value the padding style to use
+		 * @return returns this object
+		 */
 		public Builder padNewline(Padding value) { padNewline = value; return this; }
+		/**
+		 * Sets the communication header
+		 * @param value the header to use
+		 * @return returns this object
+		 */
 		public Builder header(byte[] value) { header = value; return this; }
+		/**
+		 * Sets the communication footer
+		 * @param value the footer to use
+		 * @return returns this object
+		 */
 		public Builder footer(byte[] value) { footer = value; return this; }
+		/**
+		 * Sets the fill sheet policy. Set to true to fill the last sheet by adding a form
+		 * feed before closing the communication if the last page has an odd number.
+		 * @param value the value
+		 * @return returns this object
+		 */
 		public Builder fillSheet(boolean value) { fillSheet = value; return this; }
+		/**
+		 * Sets the auto line feed on empty page policy.
+		 * @param value set to true, to add line feed on empty page, false otherwise.
+		 * @return returns this object
+		 */
 		public Builder autoLineFeedOnEmptyPage(boolean value) { lineFeedOnEmptySheet = value; return this; }
-
+		/**
+		 * Builds a new ConfigurableEmbosser based on this builders current configuration.
+		 * @return returns a new ConfigurableEmbosser
+		 */
 		public ConfigurableEmbosser build() {
 			return new ConfigurableEmbosser(this);
 		}

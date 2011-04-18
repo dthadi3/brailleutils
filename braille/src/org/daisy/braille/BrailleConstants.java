@@ -17,6 +17,10 @@
  */
 package org.daisy.braille;
 
+/**
+ * Provides constants for braille.
+ * @author Joel Håkansson
+ */
 public final class BrailleConstants {
 
 	/**
