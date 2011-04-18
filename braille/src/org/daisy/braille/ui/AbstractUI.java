@@ -31,11 +31,46 @@ import org.daisy.factory.FactoryCatalog;
  * @author Joel Håkansson
  */
 public abstract class AbstractUI {
-	public enum ExitCode {OK, MISSING_ARGUMENT, UNKNOWN_ARGUMENT, FAILED_TO_READ, MISSING_RESOURCE, ILLEGAL_ARGUMENT_VALUE};
+	/**
+	 * Provides exit codes to be used by implementing classes.
+	 */
+	public enum ExitCode {
+		/**
+		 * Normal application termination
+		 */
+		OK,
+		/**
+		 * Missing a required argument
+		 */
+		MISSING_ARGUMENT,
+		/**
+		 * Argument is unknown to the application
+		 */
+		UNKNOWN_ARGUMENT,
+		/**
+		 * 
+		 */
+		FAILED_TO_READ,
+		/**
+		 * 
+		 */
+		MISSING_RESOURCE,
+		/**
+		 * Argument value is illegal
+		 */
+		ILLEGAL_ARGUMENT_VALUE
+	};
+	/**
+	 * Prefix used for required arguments in the arguments map
+	 */
 	public final static String ARG_PREFIX = "required-";
 	private String delimiter;
 	private String optionalArgumentPrefix;
 
+	/**
+	 * Provides a definition, that is a name and a description
+	 * @author Joel Håkansson
+	 */
 	public static class Definition {
 		private final String name;
 		private final String desc;
@@ -53,41 +88,86 @@ public abstract class AbstractUI {
 			return desc;
 		}
 	}
-	
+
+	/**
+	 * Provides the information needed by an application argument.
+	 * @author Joel Håkansson
+	 */
 	public static class Argument extends Definition {
 		private final List<Definition> values;
 		
+		/**
+		 * Creates a new Argument.
+		 * @param name the name of the argument
+		 * @param desc the description of the argument
+		 */
 		public Argument(String name, String desc) {
 			this(name, desc, null);
 		}
 		
+		/**
+		 * Creates a new Argument with a finite list of acceptable values.
+		 * @param name the name of the argument
+		 * @param desc the description of the argument
+		 * @param values the list of acceptable values
+		 */
 		public Argument(String name, String desc, List<Definition> values) {
 			super(name, desc);
 			this.values = values;
 		}
 
+		/**
+		 * Returns true if this argument has a finite list of acceptable values.
+		 * @return returns true if a finite list of acceptable values exist, false otherwise
+		 */
 		public boolean hasValues() {
 			return values!=null && values.size()>0;
 		}
 		
+		/**
+		 * Gets the list of acceptable values.
+		 * @return returns the list of acceptable values, or null if the list of possible values 
+		 * is infinite
+		 */
 		public List<Definition> getValues() {
 			return values;
 		}
 	}
 
+	/**
+	 * Provides the information needed by an optional argument.
+	 * @author Joel Håkansson
+	 */
 	public static class OptionalArgument extends Argument {
 		private final String defaultValue;
 		
+		/**
+		 * Creates a new optional argument
+		 * @param name the name of the argument
+		 * @param description the description of the argument
+		 * @param defaultValue the default value for the argument
+		 */
 		public OptionalArgument(String name, String description, String defaultValue) {
 			super(name, description);
 			this.defaultValue = defaultValue;
 		}
 		
+		/**
+		 * Creates a new optional argument with a finite list of acceptable values.
+		 * @param name the name of the argument
+		 * @param description the description of the argument
+		 * @param values the list of acceptable values
+		 * @param defaultValue the default value for the argument
+		 */
 		public OptionalArgument(String name, String description, List<Definition> values, String defaultValue) {
 			super(name, description, values);
 			this.defaultValue = defaultValue;
 		}
 		
+		/**
+		 * Gets the default value.
+		 * @return returns the default value for the argument
+		 */
 		public String getDefault() {
 			return defaultValue;
 		}
@@ -96,7 +176,7 @@ public abstract class AbstractUI {
 	
 	/**
 	 * Expands the short form of the value with the given key in the provided map using the specified resolver.
-	 * @param map
+	 * @param map 
 	 * @param key
 	 * @param resolver
 	 */
@@ -113,6 +193,12 @@ public abstract class AbstractUI {
 		}
 	}
 	
+	/**
+	 * Creates a list of definitions based on the contents of the supplied FactoryCatalog.
+	 * @param catalog the catalog to create definitions for
+	 * @param resolver 
+	 * @return returns a list of definitions
+	 */
 	public List<Definition> getDefinitionList(FactoryCatalog<? extends Factory> catalog, ShortFormResolver resolver) {
 		List<Definition> ret = new ArrayList<Definition>();
 		for (String key : resolver.getShortForms()) {
@@ -121,15 +207,29 @@ public abstract class AbstractUI {
 		return ret;
 	}
 	
+	/**
+	 * Creates a new AbstractUI using the default key/value delimiter '=' and
+	 * the default optional argument prefix '-'
+	 */
 	public AbstractUI() {
 		setKeyValueDelimiter("=");
 		setOptionalArgumentPrefix("-");
 	}
-	
+
+	/**
+	 * Sets the delimiter to use between key and value in the argument
+	 * strings passed to the UI.
+	 * @param value the delimiter to use
+	 */
 	public void setKeyValueDelimiter(String value) {
 		delimiter = value;
 	}
 	
+	/**
+	 * Sets the optional argument prefix to use in argument strings passed to
+	 * the UI.
+	 * @param value the prefix to use
+	 */
 	public void setOptionalArgumentPrefix(String value) {
 		if (ARG_PREFIX.equals(value)) {
 			throw new IllegalArgumentException("Prefix is reserved: " + ARG_PREFIX);
@@ -143,10 +243,27 @@ public abstract class AbstractUI {
 	 */
 	public abstract String getName();
 	
+	/**
+	 * Gets required arguments
+	 * @return returns a list of required arguments that can be
+	 * passed to the UI on startup
+	 */
 	public abstract List<Argument> getRequiredArguments();
 	
+	/**
+	 * Gets optional arguments
+	 * @return returns a list of optional arguments that can be
+	 * passed to the UI on startup
+	 */
 	public abstract List<OptionalArgument> getOptionalArguments();
 
+	/**
+	 * Converts a string based definition of UI arguments, typically 
+	 * passed by the main method, into a key-value map as described
+	 * by displayHelp
+	 * @param args the arguments passed to the application
+	 * @return returns a map of application arguments
+	 */
 	public Map<String, String> toMap(String[] args) {
 		Hashtable<String, String> p = new Hashtable<String, String>();
 		int i = 0;
@@ -164,6 +281,11 @@ public abstract class AbstractUI {
 		return p;
 	}
 	
+	/**
+	 * Displays a help text for the UI based on the implementation of 
+	 * the methods getName, getOptionalArguments and getRequiredArguments. 
+	 * @param ps The print stream to use, typically System.out
+	 */
 	public void displayHelp(PrintStream ps) {
 		ps.print(getName());
 		if (getRequiredArguments()!=null && getRequiredArguments().size()>0) {

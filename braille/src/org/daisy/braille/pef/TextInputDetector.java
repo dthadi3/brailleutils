@@ -115,11 +115,11 @@ public class TextInputDetector {
 	}
 	
 	/**
-	 * Detects tables matching the supplied input. Only tables that create
+	 * Detects tables matching the supplied text input. Only tables that create
 	 * non-identical output are included. Therefore, more than one match
 	 * indicates that the output would look different depending on the
 	 * table chosen.
-	 * @param input
+	 * @param is text input stream
 	 * @return returns a list of matching tables
 	 * @throws IOException if input cannot be read
 	 */

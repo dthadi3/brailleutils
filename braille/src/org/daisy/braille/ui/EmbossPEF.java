@@ -45,6 +45,13 @@ import org.daisy.paper.PaperFilter;
 import org.daisy.printing.PrinterDevice;
 import org.xml.sax.SAXException;
 
+/**
+ * Provides a UI for embossing a PEF-file. 
+ * @author Joel Håkansson
+ * @deprecated Not for public use.
+ *    This class is expected to be retained only as a package
+ *    class. Use BasicUI
+ */
 public class EmbossPEF {
 	public static String DEVICE_NAME = "device name";
 	public static String EMBOSSER_TYPE = "embosser type";

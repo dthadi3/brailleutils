@@ -25,6 +25,13 @@ import java.util.Map;
 
 import org.daisy.braille.pef.PEFGenerator;
 
+/**
+ * Provides a UI for generating PEF-files. 
+ * @author Joel Håkansson
+ * @deprecated Not for public use.
+ *    This class is expected to be retained only as a package
+ *    class. Use BasicUI
+ */
 public class GeneratePEF extends AbstractUI {
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;

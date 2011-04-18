@@ -37,7 +37,6 @@ import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.EmbosserFactoryException;
 import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
-import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.embosser.UnsupportedWidthException;
 import org.daisy.braille.pef.PEFHandler;
 import org.daisy.braille.pef.PEFHandler.Alignment;
@@ -66,7 +65,7 @@ public class PEFConverterFacade {
 	public final static String KEY_TABLE = "table";
 	/**
 	 * Key for parsePefFile setting,
-	 * corresponding settings value should match a value in {@link StandardLineBreaks.Type}
+	 * corresponding settings value should match a value in StandardLineBreaks.Type
 	 */
 	public final static String KEY_BREAKS = "breaks";
 	/**
@@ -304,8 +303,10 @@ public class PEFConverterFacade {
 
 	/**
 	 * Parses a text file and outputs a PEF-file based on the contents of the file
-	 * @param args 
-	 * @throws IOException 
+	 * @param input input text file
+	 * @param output output PEF-file
+	 * @param settings settings
+	 * @throws IOException if IO fails
 	 */
 	public static void parseTextFile(File input, File output, Map<String, String> settings) throws IOException {
 		TextHandler.Builder builder = new TextHandler.Builder(input, output);

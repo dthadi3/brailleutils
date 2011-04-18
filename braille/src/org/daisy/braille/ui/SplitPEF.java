@@ -23,6 +23,13 @@ import java.util.List;
 
 import org.daisy.braille.pef.PEFFileSplitter;
 
+/**
+ * Provides a UI for splitting a PEF-file. 
+ * @author Joel Håkansson
+ * @deprecated Not for public use.
+ *    This class is expected to be retained only as a package
+ *    class. Use BasicUI
+ */
 public class SplitPEF extends AbstractUI {
 
 	/**

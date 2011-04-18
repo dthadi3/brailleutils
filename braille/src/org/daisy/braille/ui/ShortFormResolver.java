@@ -26,14 +26,19 @@ import java.util.List;
 import org.daisy.factory.Factory;
 
 /**
- * Provides shorter names for factory identifiers, to be used in command line user interfaces. 
+ * Provides shorter names for factory identifiers, to be used in command line user interfaces.
+ * The short forms are guaranteed to be consistent between executions as long as
+ * the identifiers in the collection remains the same.  
  * @author Joel Håkansson
- *
  */
 public class ShortFormResolver {
 	private final HashMap<String, String> idents;
 	private final HashMap<String, String> shorts;
 	
+	/**
+	 * Creates a new ShortFormResolver for the supplied collection of factory objects.
+	 * @param obj the factory objects to create short forms for
+	 */
 	public ShortFormResolver(Collection<? extends Factory> obj) {
 		this.idents = new HashMap<String, String>();
 		this.shorts = new HashMap<String, String>();
@@ -68,16 +73,32 @@ public class ShortFormResolver {
 		}
 	}
 
+	/**
+	 * Gets all short forms.
+	 * @return returns a list of short forms
+	 */
 	public List<String> getShortForms() {
 		ArrayList<String> ret = new ArrayList<String>(idents.keySet());
 		Collections.sort(ret);
 		return ret;
 	}
 	
+	/**
+	 * Get the short form for the specified identifier.
+	 * @param id the identifier to get the short form for
+	 * @return returns the short form for the identifier, or null if the identifier 
+	 * does not have a short form
+	 */
 	public String getShortForm(String id) {
 		return shorts.get(id);
 	}
 	
+	/**
+	 * Resolves a short form.
+	 * @param shortForm the short form to resolve
+	 * @return returns the full id for the supplied short form, or null if the short
+	 * form does not have an identifier
+	 */
 	public String resolve(String shortForm) {
 		return idents.get(shortForm.toLowerCase());
 	}

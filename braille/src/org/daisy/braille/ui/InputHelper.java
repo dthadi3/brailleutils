@@ -26,15 +26,30 @@ import java.util.prefs.Preferences;
 
 import org.daisy.factory.Factory;
 
+/**
+ * Provides a command line input helper for setting arguments interactively and 
+ * storing them in the users preferences.
+ * @author Joel Håkansson
+ */
 public class InputHelper {
 	private Preferences pr;
 	private LineNumberReader ln;
 	
+	/**
+	 * Creates a new InputHelper for the specified class. The package name
+	 * for the specified class will be used to locate an appropriate storage
+	 * location in the user preferences.
+	 * @param c the class to create a InputHelper for
+	 */
 	public InputHelper(@SuppressWarnings("rawtypes") Class c) {
 		pr = Preferences.userNodeForPackage(c);
 		ln =  new LineNumberReader(new InputStreamReader(System.in));
 	}
 	
+	/**
+	 * Creates a new InputHelper with the default storage location (determined by
+	 * the calling class's package name)
+	 */
 	public InputHelper() {
 		// Determining the calling class.
 		// ca[0] is the anonymous security manager
@@ -45,6 +60,14 @@ public class InputHelper {
 		);
 	}
 
+	/**
+	 * Selects the value for a key.
+	 * @param key the key to select a value for
+	 * @param select the list of available values
+	 * @param name a display name for the key
+	 * @param verify if true, and no value is found, lets user select a value
+	 * @return returns the value for the key.
+	 */
 	public String select(String key, String[] select, String name, boolean verify) {
 		String value = getKey(key);
 		if (value!=null) {
@@ -84,6 +107,14 @@ public class InputHelper {
 		return value;
 	}
 	
+	/**
+	 * Selects the value for a key.
+	 * @param key the key to get a value for
+	 * @param select the list of available values
+	 * @param name the display name for the key
+	 * @param verify if true, and no value is found, lets user select a value
+	 * @return returns the value for the key.
+	 */
 	public String select(String key, List<Factory> select, String name, boolean verify) {
 		String value = getKey(key);
 		if (value!=null) {
@@ -124,10 +155,22 @@ public class InputHelper {
 		return value;
 	}
 	
+	/**
+	 * Gets the value for a key.
+	 * @param key the key to get a value for
+	 * @return returns the value for the key
+	 */
 	public String getKey(String key) {
 		return pr.get(key, null);
 	}
 	
+	/**
+	 * Gets a integer from user. The assumption is that this value should be a non-zero
+	 * positive integer, that is the user selects a value from a list starting with one.
+	 * If the input is an empty string, 0 is returned. If an IO error occurs, -1 is returned.
+	 * @return returns the integer value suppled by the user on the command line.
+	 * @throws NumberFormatException if the suppled input cannot be parsed as an integer.
+	 */
 	public int getInput()  {
 		System.out.print("Input: ");
 		try {
@@ -142,6 +185,13 @@ public class InputHelper {
 		}
 	}
 	
+	/**
+	 * Clears the settings associated with this object from storage.
+	 * @throws BackingStoreException if this operation cannot be completed 
+	 * due to a failure in the backing store, or inability to communicate with it.
+     * @throws IllegalStateException if the associated node (or an ancestor) has 
+     * 		been removed with the removeNode() method.
+	 */
 	public void clearSettings() throws BackingStoreException {
 		pr.clear();
 		pr.flush();

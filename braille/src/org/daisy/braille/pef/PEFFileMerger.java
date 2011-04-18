@@ -67,7 +67,7 @@ public class PEFFileMerger {
 	/**
 	 * Merges several PEF-files into one.
 	 * @param input input directory
-	 * @param output output file
+	 * @param os output file
 	 * @param identifier identifier of the new publication
 	 * @param sort sort type
 	 * @return returns true if merge was successful, false otherwise
