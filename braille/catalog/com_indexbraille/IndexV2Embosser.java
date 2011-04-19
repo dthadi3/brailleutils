@@ -1,8 +1,6 @@
 package com_indexbraille;
 
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
@@ -23,15 +21,12 @@ public class IndexV2Embosser extends IndexEmbosser {
     private final static TableFilter tableFilter;
     private final static String table6dot = IndexEmbosserProvider.class.getCanonicalName() + ".TableType.INDEX_TRANSPARENT_6DOT";
     private final static String table8dot = IndexEmbosserProvider.class.getCanonicalName() + ".TableType.INDEX_TRANSPARENT_8DOT";
-    private final static Collection<String> supportedTableIds = new ArrayList<String>();
 
     static {
-        supportedTableIds.add(table6dot);
-        //supportedTableIds.add(table8dot);
         tableFilter = new TableFilter() {
-            @Override
+            //jvm1.6@Override
             public boolean accept(Table object) {
-                return supportedTableIds.contains(object.getIdentifier());
+                return false;
             }
         };
     }
@@ -116,7 +111,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append((char)0x02);
         header.append("x,");                            // 0: Activated braille code
         header.append("0,");                            // 1: Type of braille code      = Computer
-        header.append("1,");                            // 2: 6/8 dot braille           = 8 dot
+        header.append(eightDots?'1':'0');               // 2: 6/8 dot braille
         header.append("x,");                            // 3: Capital prefix
         header.append("x,");                            // 4: Baud rate
         header.append("x,");                            // 5: Number of data bits
@@ -131,8 +126,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append("0,");                            // 11: Binding margin           = 0 characters
         header.append("0,");                            // 12: Top margin               = 0 lines
         header.append("0,");                            // 13: Bottom margin            = 0 lines
-        header.append(eightDots?'4':'0');               // 14: Line spacing             = 2.5 mm (6 dot) or 5 mm (8 dot)
-        header.append(",");
+        header.append("0,");                            // 14: Line spacing             = 5 mm
         if (saddleStitch) { header.append('4'); } else
         if (zFolding)     { header.append('3'); } else
         if (duplex)       { header.append('2'); } else

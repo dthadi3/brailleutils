@@ -1,8 +1,6 @@
 package es_once_cidat;
 
 import java.io.OutputStream;
-import java.util.Collection;
-import java.util.ArrayList;
 
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
@@ -27,15 +25,12 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
     private final static TableFilter tableFilter;
     private final static String table6dot = CidatTableProvider.class.getCanonicalName() + ".TableType.PORTATHIEL_TRANSPARENT_6DOT";
     private final static String table8dot = CidatTableProvider.class.getCanonicalName() + ".TableType.PORTATHIEL_TRANSPARENT_8DOT";
-    private final static Collection<String> supportedTableIds = new ArrayList<String>();
 
     static {
-        supportedTableIds.add(table6dot);
-        //supportedTableIds.add(table8dot);
         tableFilter = new TableFilter() {
-            @Override
+            //jvm1.6@Override
             public boolean accept(Table object) {
-                return supportedTableIds.contains(object.getIdentifier());
+                return false;
             }
         };
     }

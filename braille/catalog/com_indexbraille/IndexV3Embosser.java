@@ -1,8 +1,6 @@
 package com_indexbraille;
 
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
@@ -25,15 +23,12 @@ public class IndexV3Embosser extends IndexEmbosser {
     private final static TableFilter tableFilter;
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
     private final static String table8dot = IndexEmbosserProvider.class.getCanonicalName() + ".TableType.INDEX_TRANSPARENT_8DOT";
-    private final static Collection<String> supportedTableIds = new ArrayList<String>();
 
     static {
-        supportedTableIds.add(table6dot);
-        //supportedTableIds.add(table8dot);
         tableFilter = new TableFilter() {
-            @Override
+            //jvm1.6@Override
             public boolean accept(Table object) {
-                return supportedTableIds.contains(object.getIdentifier());
+                return false;
             }
         };
     }
@@ -129,10 +124,10 @@ public class IndexV3Embosser extends IndexEmbosser {
 
         header.append((char)0x1b);
         header.append("D");                                         // Activate temporary formatting properties of a document
-        header.append(",BT0");                                      // Default braille table
-        header.append("TD0");                                       // Text dot distance = 2.5 mm
+        header.append("BT0");                                       // Default braille table
+        header.append(",TD0");                                      // Text dot distance = 2.5 mm
         header.append(",LS");
-        header.append(eightDots?'4':'0');                           // Line spacing = 2.5 mm or 5 mm
+        header.append(",LS50");                                     // Line spacing = 5 mm
         header.append(",DP");
         if (saddleStitch)       { header.append('4'); } else
         if (zFolding && duplex) { header.append('3'); } else

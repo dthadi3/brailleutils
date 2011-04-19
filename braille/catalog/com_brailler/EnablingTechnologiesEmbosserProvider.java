@@ -61,7 +61,7 @@ public class EnablingTechnologiesEmbosserProvider implements EmbosserProvider {
         embossers.put(EmbosserType.BRAILLE_PLACE,       new EnablingTechnologiesDoubleSidedEmbosser("BraillePlace",        "", EmbosserType.BRAILLE_PLACE));
     }
 
-    @Override
+    //jvm1.6@Override
     public Collection<Embosser> list() {
         return embossers.values();
     }

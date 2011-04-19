@@ -59,9 +59,13 @@ public class BrailleEditorsFileFormat implements FileFormat {
         }
 
         tableFilter = new TableFilter() {
-            @Override
+            //jvm1.6@Override
             public boolean accept(Table object) {
-                return supportedTableIds.contains(object.getIdentifier());
+                if (supportedTableIds.size() > 1) {
+                    return supportedTableIds.contains(object.getIdentifier());
+                } else {
+                    return false;
+                }
             }
         };
 

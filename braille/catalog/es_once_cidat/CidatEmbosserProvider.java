@@ -27,7 +27,7 @@ public class CidatEmbosserProvider implements EmbosserProvider {
         embossers.put(EmbosserType.PORTATHIEL_BLUE, new PortathielBlueEmbosser("Portathiel Blue", "Small, lightweight, portable double-sided embosser", EmbosserType.PORTATHIEL_BLUE));
     }
 
-    @Override
+    //jvm1.6@Override
     public Collection<Embosser> list() {
         return embossers.values();
     }

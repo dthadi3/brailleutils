@@ -29,7 +29,7 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
     static {
         tableFilter = new TableFilter() {
-            @Override
+            //jvm1.6@Override
             public boolean accept(Table object) {
                 return object.getIdentifier().equals(table6dot);
             }

@@ -1,7 +1,5 @@
 package com_brailler;
 
-import java.util.Collection;
-import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.File;
 import java.io.OutputStream;
@@ -39,15 +37,12 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
 
     private final static TableFilter tableFilter;
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
-    private final static Collection<String> supportedTableIds = new ArrayList<String>();
 
     static {
-        supportedTableIds.add(table6dot);
-        //supportedTableIds.add(table8dot);
         tableFilter = new TableFilter() {
-            @Override
+            //jvm1.6@Override
             public boolean accept(Table object) {
-                return supportedTableIds.contains(object.getIdentifier());
+                return false;
             }
         };
     }

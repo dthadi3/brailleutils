@@ -19,9 +19,9 @@ public class BlueBarEmbosser extends IndexEmbosser {
     
     static {
         tableFilter = new TableFilter() {
-            @Override
+            //jvm1.6@Override
             public boolean accept(Table object) {
-                return object.getIdentifier().equals(table6dot);
+                return false;
             }
         };
     }

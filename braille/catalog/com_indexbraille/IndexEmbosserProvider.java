@@ -33,19 +33,19 @@ public class IndexEmbosserProvider implements EmbosserProvider {
 
 	public IndexEmbosserProvider() {
                 embossers = new HashMap<EmbosserType, Embosser>();
-                embossers.put(EmbosserType.INDEX_BASIC_BLUE_BAR, new BlueBarEmbosser("Index Braille - Basic \"blue bar\"", "Early Index Basic embosser"));
-                embossers.put(EmbosserType.INDEX_BASIC_S_V2,     new IndexV2Embosser("Index Braille - Basic-S V2","", EmbosserType.INDEX_BASIC_S_V2));
-                embossers.put(EmbosserType.INDEX_BASIC_D_V2,     new IndexV2Embosser("Index Braille - Basic-D V2","", EmbosserType.INDEX_BASIC_D_V2));
-                embossers.put(EmbosserType.INDEX_EVEREST_D_V2,   new IndexV2Embosser("Index Braille - Everest-D V2","", EmbosserType.INDEX_EVEREST_D_V2));
-                embossers.put(EmbosserType.INDEX_4X4_PRO_V2,     new IndexV2Embosser("Index Braille - 4X4 Pro V2","", EmbosserType.INDEX_4X4_PRO_V2));
-                embossers.put(EmbosserType.INDEX_EVEREST_D_V3,   new IndexV3Embosser("Index Braille - Everest-D V3","", EmbosserType.INDEX_EVEREST_D_V3));
-                embossers.put(EmbosserType.INDEX_BASIC_S_V3,     new IndexV3Embosser("Index Braille - Basic-S V3","", EmbosserType.INDEX_BASIC_S_V3));
-                embossers.put(EmbosserType.INDEX_BASIC_D_V3,     new IndexV3Embosser("Index Braille - Basic-D V3","", EmbosserType.INDEX_BASIC_D_V3));
-                embossers.put(EmbosserType.INDEX_4X4_PRO_V3,     new IndexV3Embosser("Index Braille - 4X4 Pro V3","", EmbosserType.INDEX_4X4_PRO_V3));
-                embossers.put(EmbosserType.INDEX_4WAVES_PRO_V3,  new IndexV3Embosser("Index Braille - 4Waves Pro","", EmbosserType.INDEX_4WAVES_PRO_V3));
-//                embossers.put(EmbosserType.INDEX_BASIC_D_V4,     new IndexV4Embosser("","", EmbosserType. INDEX_BASIC_D_V4));
-//                embossers.put(EmbosserType.INDEX_EVEREST_D_V4,   new IndexV4Embosser("","", EmbosserType. INDEX_EVEREST_D_V4));
-//                embossers.put(EmbosserType.INDEX_BRAILLE_BOX_V4, new IndexV4Embosser("","", EmbosserType. INDEX_BRAILLE_BOX_V4));
+                embossers.put(EmbosserType.INDEX_BASIC_BLUE_BAR, new BlueBarEmbosser("Index Basic Blue-Bar", "Early Index Basic embosser"));
+                embossers.put(EmbosserType.INDEX_BASIC_S_V2,     new IndexV2Embosser("Index Basic-S V2","", EmbosserType.INDEX_BASIC_S_V2));
+                embossers.put(EmbosserType.INDEX_BASIC_D_V2,     new IndexV2Embosser("Index Basic-D V2","", EmbosserType.INDEX_BASIC_D_V2));
+                embossers.put(EmbosserType.INDEX_EVEREST_D_V2,   new IndexV2Embosser("Index Everest-D V2","", EmbosserType.INDEX_EVEREST_D_V2));
+                embossers.put(EmbosserType.INDEX_4X4_PRO_V2,     new IndexV2Embosser("Index 4X4 Pro V2","", EmbosserType.INDEX_4X4_PRO_V2));
+                embossers.put(EmbosserType.INDEX_EVEREST_D_V3,   new IndexV3Embosser("Index Everest-D V3","", EmbosserType.INDEX_EVEREST_D_V3));
+                embossers.put(EmbosserType.INDEX_BASIC_S_V3,     new IndexV3Embosser("Index Basic-S V3","", EmbosserType.INDEX_BASIC_S_V3));
+                embossers.put(EmbosserType.INDEX_BASIC_D_V3,     new IndexV3Embosser("Index Basic-D V3","", EmbosserType.INDEX_BASIC_D_V3));
+                embossers.put(EmbosserType.INDEX_4X4_PRO_V3,     new IndexV3Embosser("Index 4X4 Pro V3","", EmbosserType.INDEX_4X4_PRO_V3));
+                embossers.put(EmbosserType.INDEX_4WAVES_PRO_V3,  new IndexV3Embosser("Index 4Waves Pro","", EmbosserType.INDEX_4WAVES_PRO_V3));
+//                embossers.put(EmbosserType.INDEX_BASIC_D_V4,     new IndexV4Embosser("Index Basic-D V4","", EmbosserType. INDEX_BASIC_D_V4));
+//                embossers.put(EmbosserType.INDEX_EVEREST_D_V4,   new IndexV4Embosser("Index Everest-D V4","", EmbosserType. INDEX_EVEREST_D_V4));
+//                embossers.put(EmbosserType.INDEX_BRAILLE_BOX_V4, new IndexV4Embosser("Index Braille Box","", EmbosserType. INDEX_BRAILLE_BOX_V4));
         }
 
 	//jvm1.6@Override
