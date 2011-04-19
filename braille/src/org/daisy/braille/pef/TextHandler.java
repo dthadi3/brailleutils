@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -34,8 +34,7 @@ import org.daisy.braille.table.TableCatalog;
 
 /**
  * Provides a handler for reading text and writing a PEF-file.
- * @author Joel Håkansson, TPB
- *
+ * @author Joel Håkansson
  */
 public class TextHandler {
 	public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -57,9 +56,8 @@ public class TextHandler {
 	 * 
 	 * Provides a Builder for TextHandler
 	 * 
-	 * @author  Joel Hakansson, TPB
+	 * @author  Joel Håkansson
 	 * @version 3 sep 2008
-	 * @since 1.0
 	 */
 	public static class Builder {
 		// required params
@@ -91,42 +89,78 @@ public class TextHandler {
 		}
 
 		//init optional params here
+		/**
+		 * Sets the title for publications created using TextHandlers created with this builder.
+		 * @param value the title
+		 * @return returns this object
+		 */
 		public Builder title(String value) {
 			if (value==null) throw new IllegalArgumentException("Null value not accepted.");
 			title = value; return this; 
 		}
+		/**
+		 * Sets the author for publications created using TextHandlers created with this builder.
+		 * @param value the author
+		 * @return returns this object
+		 */
 		public Builder author(String value) {
 			if (value==null) throw new IllegalArgumentException("Null value not accepted.");
 			author = value; return this;
 		}
+		/**
+		 * Sets the language for publications created using TextHandlers created with this builder.
+		 * @param value the language
+		 * @return returns this object
+		 */
 		public Builder language(String value) {
 			if (value==null) throw new IllegalArgumentException("Null value not accepted.");
 			language = value; return this;
 		}
+		/**
+		 * Sets the identifier for publications created using TextHandlers created with this builder.
+		 * @param value the identifier
+		 * @return returns this object
+		 */
 		public Builder identifier(String value) {
 			if (value==null) throw new IllegalArgumentException("Null value not accepted.");
 			identifier = value; return this;
 		}
+		/**
+		 * Sets the converter identifier to be used when creating a TextHandler. See TableCatalog
+		 * for available values. If none is suppled, the builder will attempt to select one
+		 * based on file input characteristics.
+		 * @param value the identifier for the converter
+		 * @return returns this object
+		 */
 		public Builder converterId(String value) {
 			converterId = value;
 			return this;
 		}
+		/**
+		 * Sets the duplex property for publications created using TextHandlers created with this builder.
+		 * @param value the duplex value
+		 * @return returns this object
+		 */
 		public Builder duplex(boolean value) {
 			duplex = value; return this;
 		}
+		/**
+		 * Sets the date for publications created using TextHandlers created with this builder.
+		 * @param value the date to use
+		 * @return returns this object
+		 */
 		public Builder date(Date value) {
 			if (value==null) throw new IllegalArgumentException("Null value not accepted.");
 			date = value; return this;
 		}
-		
-
-		
 		/**
 		 * Builds a TextParser using the settings of this Builder
 		 * @return returns a new TextParser
 		 * @throws UnsupportedEncodingException
 		 */
-		public TextHandler build() throws IOException, InputDetectionException {	return new TextHandler(this); }
+		public TextHandler build() throws IOException, InputDetectionException {
+			return new TextHandler(this);
+		}
 	}
 
 	private TextHandler(Builder builder) throws IOException, InputDetectionException {

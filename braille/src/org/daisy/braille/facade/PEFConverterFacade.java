@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -42,36 +42,112 @@ import org.daisy.braille.pef.PEFHandler;
 import org.daisy.braille.pef.PEFHandler.Alignment;
 import org.daisy.braille.pef.Range;
 import org.daisy.braille.pef.TextHandler;
+import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.PaperCatalog;
 import org.xml.sax.SAXException;
 
 /**
- * Provides a facade for PEFHandler
- * @author Joel Håkansson, TPB
- *
+ * Provides a facade for both PEFHandler and TextHandler
+ * @author Joel Håkansson
  */
 public class PEFConverterFacade {
 	public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should match an embosser identifier
+	 */
 	public final static String KEY_EMBOSSER = "embosser";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should match a table identifier
+	 */
 	public final static String KEY_TABLE = "table";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should match a value in StandardLineBreaks.Type
+	 */
 	public final static String KEY_BREAKS = "breaks";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should match a range
+	 */
 	public final static String KEY_RANGE = "range";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should match a value in {@link EightDotFallbackMethod}
+	 */
 	public final static String KEY_FALLBACK = "fallback";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should be a character in the range 0x2800-0x283F
+	 */
 	public final static String KEY_REPLACEMENT = "replacement";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should match a padding style
+	 */
 	public final static String KEY_PADDING = "pad";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should be the number of characters to offset alignment by  
+	 */
 	public final static String KEY_ALIGNMENT_OFFSET = "alignmentOffset";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should match a value in {@link Alignment}
+	 */
 	public final static String KEY_ALIGN = "align";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should match a paper identifier
+	 */
 	public final static String KEY_PAGE_FORMAT = "papersize";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should be a number, in millimeters
+	 */
 	public final static String KEY_CELL_WIDTH = "cellWidth";
+	/**
+	 * Key for parsePefFile setting,
+	 * corresponding settings value should be a number, in millimeters 
+	 */
 	public final static String KEY_CELL_HEIGHT = "cellHeight";
-	
+
+	/**
+	 * Key for parseTextFile setting,
+	 * corresponding settings value should contain the title of the publication
+	 */
 	public final static String KEY_TITLE = "title";
+	/**
+	 * Key for parseTextFile setting,
+	 * corresponding settings value should contain the author of the publication
+	 */
 	public final static String KEY_AUTHOR = "author";
+	/**
+	 * Key for parseTextFile setting,
+	 * corresponding settings value should contain the identifier for the publication 
+	 */
 	public final static String KEY_IDENTIFIER = "identifier";
+	/**
+	 * Key for parseTextFile setting,
+	 * corresponding settings value should match the table to use
+	 */
 	public final static String KEY_MODE = "mode";
+	/**
+	 * Key for parseTextFile setting,
+	 * corresponding settings value should contain the language of the publication
+	 */
 	public final static String KEY_LANGUAGE = "language";
+	/**
+	 * Key for parseTextFile setting,
+	 * corresponding settings value should be "true" for duplex or "false" for simplex
+	 */
 	public final static String KEY_DUPLEX = "duplex";
+	/**
+	 * Key for parseTextFile setting,
+	 * corresponding settings value should be a string containing a valid date on the form yyyy-MM-dd
+	 */
 	public final static String KEY_DATE = "date";
 
 	/**
@@ -82,6 +158,7 @@ public class PEFConverterFacade {
 	 * @throws ParserConfigurationException 
 	 * @throws NumberFormatException 
 	 * @throws EmbosserFactoryException 
+	 * @deprecated use parsePefFile(input, output, settings)
 	 */
 	public static void parsePefFile(String[] args) throws NumberFormatException, ParserConfigurationException, SAXException, IOException, EmbosserFactoryException, UnsupportedWidthException {
 		if (args.length < 2 || args.length % 2 != 0) {
@@ -95,6 +172,18 @@ public class PEFConverterFacade {
 		}
 	}
 	
+	/**
+	 * Parses the given PEF-file input using the supplied output stream and settings.
+	 * @param input
+	 * @param os
+	 * @param settings
+	 * @throws NumberFormatException
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws EmbosserFactoryException
+	 * @throws UnsupportedWidthException
+	 */
 	public static void parsePefFile(File input, OutputStream os, Map<String, String> settings) throws NumberFormatException, ParserConfigurationException, SAXException, IOException, EmbosserFactoryException, UnsupportedWidthException {
 		Range range = null;
 		EmbosserCatalog ef = EmbosserCatalog.newInstance();
@@ -194,6 +283,12 @@ public class PEFConverterFacade {
 		}		
 	}
 
+	/**
+	 * String based method matching main args
+	 * @param args
+	 * @throws IOException
+	 * @deprecated use parseTextFile(input, output, settings) instead
+	 */
 	public static void parseTextFile(String[] args) throws IOException {
 		if (args.length < 2 || args.length % 2 != 0) {
 			throw new IllegalArgumentException("Wrong number of arguments");
@@ -207,9 +302,11 @@ public class PEFConverterFacade {
 	}
 
 	/**
-	 * String based method matching main args
-	 * @param args
-	 * @throws IOException 
+	 * Parses a text file and outputs a PEF-file based on the contents of the file
+	 * @param input input text file
+	 * @param output output PEF-file
+	 * @param settings settings
+	 * @throws IOException if IO fails
 	 */
 	public static void parseTextFile(File input, File output, Map<String, String> settings) throws IOException {
 		TextHandler.Builder builder = new TextHandler.Builder(input, output);

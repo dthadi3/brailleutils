@@ -1,3 +1,20 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.pef;
 
 import java.io.ByteArrayInputStream;
@@ -16,10 +33,16 @@ import org.daisy.braille.table.BrailleConverter;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 
+/**
+ * Provides a method for detecting a table based on text input.
+ * @author Joel Håkansson
+ */
 public class TextInputDetector {
 	
+	/**
+	 * Creates a new TextInputDetector
+	 */
 	public TextInputDetector() {
-		
 	}
 
 	private BitSet analyze(InputStream is) throws IOException {
@@ -92,11 +115,11 @@ public class TextInputDetector {
 	}
 	
 	/**
-	 * Detects tables matching the supplied input. Only tables that create
+	 * Detects tables matching the supplied text input. Only tables that create
 	 * non-identical output are included. Therefore, more than one match
 	 * indicates that the output would look different depending on the
 	 * table chosen.
-	 * @param input
+	 * @param is text input stream
 	 * @return returns a list of matching tables
 	 * @throws IOException if input cannot be read
 	 */

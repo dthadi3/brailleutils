@@ -1,3 +1,20 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.pef;
 
 import java.io.File;
@@ -37,20 +54,35 @@ import org.daisy.validator.ValidatorFactory;
  * @author Joel Håkansson
  */
 public class PEFFileMerger {
-	public enum SortType {NUMERAL_GROUPING, STANDARD};
+	/**
+	 * Defines sorting types
+	 */
+	public enum SortType {
+		/**
+		 * Sort groups of digits as numbers
+		 */
+		NUMERAL_GROUPING,
+		/**
+		 * Sort alphabetically
+		 */
+		STANDARD
+		};
 	private Logger logger;
 
+	/**
+	 * Creates a new PEFFileMerger
+	 */
 	public PEFFileMerger() {
 		logger = Logger.getLogger(this.getClass().getCanonicalName());
 	}
 
 	/**
-	 * Merge several PEF-files into one.
+	 * Merges several PEF-files into one.
 	 * @param input input directory
-	 * @param output output file
+	 * @param os output file
 	 * @param identifier identifier of the new publication
 	 * @param sort sort type
-	 * @return
+	 * @return returns true if merge was successful, false otherwise
 	 */
 	public boolean merge(File input, OutputStream os, String identifier, SortType sort) {
 		//progress(0);

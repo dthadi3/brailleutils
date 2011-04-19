@@ -1,3 +1,20 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.ui;
 
 import java.io.File;
@@ -9,6 +26,11 @@ import java.util.logging.Logger;
 
 import org.daisy.braille.tools.FileTools;
 
+/**
+ * Provides a basic command line UI for core functionality in
+ * org.daisy.braille.
+ * @author Joel Håkansson
+ */
 public class BasicUI extends AbstractUI {
 	public final static String emboss = "emboss";
 	public final static String text2pef = "text2pef";
@@ -17,12 +39,21 @@ public class BasicUI extends AbstractUI {
 	public final static String split = "split";
 	public final static String merge = "merge";
 	public final static String generate = "generate";
+	/**
+	 * @deprecated Not for public use.
+	 *    This enum is expected to be retained only as a package
+	 *    private method. Use BasicUI
+	 */
 	public enum Mode {EMBOSS, TEXT2PEF, PEF2TEXT, VALIDATE, SPLIT, MERGE, GENERATE};
 
 	private final String[] args;
 	private final Mode m;
 	private final Logger logger;
 	
+	/**
+	 * Creates a new Basic UI
+	 * @param args the application arguments
+	 */
 	public BasicUI(String[] args) {
 		logger = Logger.getLogger(BasicUI.class.getCanonicalName());
 		logger.fine(System.getProperties().toString());
@@ -63,9 +94,10 @@ public class BasicUI extends AbstractUI {
 	}
 
 	/**
-	 * 
-	 * @throws Exception
+	 * Runs the application.
+	 * @throws Exception if something bad happens
 	 */
+	@SuppressWarnings("deprecation")
 	public void run() throws Exception {
 		setPluginsDir(new File("plugins"));
 		switch (m) {
@@ -103,7 +135,8 @@ public class BasicUI extends AbstractUI {
 	}
 	
 	/**
-	 * @param args
+	 * Command line entry point
+	 * @param args the application arguments
 	 */
 	public static void main(String[] args) throws Exception {
 		BasicUI ui = new BasicUI(args);

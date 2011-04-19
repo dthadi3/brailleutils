@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -39,8 +39,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Provides metadata about a PEF-file. 
- * 
+ * Provides useful information about a PEF-document. 
+ * @author Joel Håkansson
  */
 public class PEFBook {
 	private static final Pattern eightDotPattern = Pattern.compile("[\u2840-\u28ff]");
@@ -81,6 +81,11 @@ public class PEFBook {
 		}
 	}
 	
+	/**
+	 * Loads information about a PEF-document from the supplied uri.
+	 * @param uri the uri to a PEF-document
+	 * @return returns a PEFBook object containing the information collected from the supplied PEF-document
+	 */
 	public static PEFBook load(URI uri) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
 		return load(uri, false);
 	}

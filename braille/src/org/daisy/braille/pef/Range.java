@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -19,11 +19,9 @@ package org.daisy.braille.pef;
 
 /**
  * Provides a range data object.
- * @author  Joel Hakansson, TPB
- * @version 3 sep 2008
+ * @author  Joel Håkansson
  */
 public class Range {
-
 	private int from;
 	private int to;
 	
@@ -83,5 +81,4 @@ public class Range {
 		if (value>=from && value<=to) return true;
 		return false;
 	}
-
 }

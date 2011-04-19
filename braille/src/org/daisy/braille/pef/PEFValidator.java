@@ -1,3 +1,20 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.pef;
 
 import java.io.File;
@@ -26,22 +43,42 @@ import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.ValidationDriver;
 
+/**
+ * Validates PEF-documents against the official Relax NG schema. Optionally performes additional
+ * checks, see the different modes. 
+ * @author Joel Håkansson
+ */
 public class PEFValidator extends AbstractFactory implements org.daisy.validator.Validator {
+	/**
+	 * Key for getFeature/setFeature,
+	 * corresponding value should be a {@link Mode} value
+	 */
 	public final static String FEATURE_MODE = "validator mode";
-	public enum Mode {LIGHT_MODE, FULL_MODE};
+	/**
+	 * Defines the modes available to the validator.
+	 */
+	public enum Mode {
+		/**
+		 * Light mode validation only validates the document against the Relax NG schema
+		 */
+		LIGHT_MODE, 
+		/**
+		 * In addition to schema validation, performs other tests required by the PEF-specification.
+		 */
+		FULL_MODE
+	};
 	private File report;
 	private Mode mode;
 	
+	/**
+	 * Creates a new PEFValidator
+	 */
 	public PEFValidator() {
-		this(null);
+		super("PEF Validator", "A validator for PEF 1.0 files.", PEFValidator.class.getCanonicalName());
 		this.report = null;
 		this.mode = Mode.FULL_MODE;
 	}
-	
-	private PEFValidator(String id) {
-		super("PEF Validator", "A validator for PEF 1.0 files.", PEFValidator.class.getCanonicalName());
-	}
-	
+
 	public boolean validate(URL input) {
 		return validate(input, mode);
 	}

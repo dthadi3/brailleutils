@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -24,8 +24,19 @@ import javax.print.PrintException;
 
 import org.daisy.printing.PrinterDevice;
 
+/**
+ * Provides a command line UI for sending a file straight to a
+ * printer.
+ * @author Joel Håkansson
+ */
 public class RawPrint {
 	
+	/**
+	 * Executes the application.
+	 * @param args
+	 * @throws FileNotFoundException
+	 * @throws PrintException
+	 */
 	public static void main(String[] args) throws FileNotFoundException, PrintException {
 		if (args.length != 2) {
 			System.out.println("Expected two arguments: device_name path_to_file");

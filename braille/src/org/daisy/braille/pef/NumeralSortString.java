@@ -1,7 +1,31 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.pef;
 
 import java.util.ArrayList;
 
+/**
+ * Provides a sorting algorithm that splits groups of digits and sorts these
+ * segments as numbers, for example "sample-1, sample-2, sample-10" will be
+ * sorted in that order. String sorting would sort this "sample-1, sample-10, sample-2". 
+ * @author Joel Håkansson
+ *
+ */
 public class NumeralSortString implements Comparable<NumeralSortString> {
 	private ArrayList<Part> parts;
 	private String str;
@@ -70,6 +94,10 @@ public class NumeralSortString implements Comparable<NumeralSortString> {
 
 	}
 
+	/**
+	 * Creates a new NumeralSortString for the supplied string
+	 * @param str the string to apply numeral sorting on
+	 */
 	public NumeralSortString(String str) {
 		parts = new ArrayList<Part>();
 		this.str = str;
@@ -79,14 +107,27 @@ public class NumeralSortString implements Comparable<NumeralSortString> {
 		}
 	}
 	
+	/**
+	 * Gets the part of the string with the specified index.
+	 * @param index index of the part to return
+	 * @return returns the part
+	 */
 	public Part getPart(int index) {
 		return parts.get(index);
 	}
 	
+	/**
+	 * Gets the number of parts
+	 * @return returns the number of parts
+	 */
 	public int getPartCount() {
 		return parts.size();
 	}
 	
+	/**
+	 * Gets the value for this object.
+	 * @return returns the value
+	 */
 	public String getValue() {
 		return str;
 	}

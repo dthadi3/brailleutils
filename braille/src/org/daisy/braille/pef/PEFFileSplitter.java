@@ -1,3 +1,20 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.pef;
 
 import java.io.File;
@@ -34,20 +51,29 @@ import org.xml.sax.SAXParseException;
  *
  */
 public class PEFFileSplitter implements ErrorHandler  {
+	/**
+	 * Defines the default prefix for generated file names.
+	 */
 	public final static String PREFIX = "volume-";
+	/**
+	 * Defines the default postfix for generated file names.
+	 */
 	public final static String POSTFIX = ".pef";
 	enum State {HEADER, BODY, FOOTER};
 	private Logger logger;
 
+	/**
+	 * Creates a new PEFFileSplitter object.
+	 */
 	public PEFFileSplitter() {
 		logger = Logger.getLogger(PEFFileSplitter.class.getCanonicalName());
 	}
 	
 	/**
-	 * 
-	 * @param input
-	 * @param directory
-	 * @return
+	 * Splits a PEF-file into several single volume PEF-files.
+	 * @param input input PEF-file
+	 * @param directory output directory
+	 * @return returns true if split was successful, false otherwise
 	 * @throws IllegalArgumentException if input is not a file
 	 */
 	public boolean split(File input, File directory) {
@@ -71,10 +97,26 @@ public class PEFFileSplitter implements ErrorHandler  {
 		}
 	}
 
+	/**
+	 * Splits the PEF-document provided as an input stream into several single volume PEF-files using
+	 * the default file name pre- and postfix.
+	 * @param is the input stream to the PEF-document
+	 * @param directory the output directory
+	 * @return returns true if split was successful, false otherwise
+	 */
 	public boolean split(InputStream is, File directory) {
 		return split(is, directory, PREFIX, POSTFIX);
 	}
 
+	/**
+	 * Splits the PEF-document provided as an input stream into several single volume PEF-files using
+	 * the supplied file name pre- and postfix.
+	 * @param is the input stream to the PEF-document
+	 * @param directory the output directory
+	 * @param prefix the prefix to use
+	 * @param postfix the postfix to use
+	 * @return returns true if split was successful, false otherwise
+	 */
 	public boolean split(InputStream is, File directory, String prefix, String postfix) {
 		//progress(0);
 

@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -33,12 +33,9 @@ import org.daisy.braille.table.TableCatalog;
  * In addition to the 64/256 defined code points defined in translation Mode, the
  * characters 0x0a, 0x0d (new row) and 0x0c (new page) may occur in the file. 
  * 
- * @author  Joel Hakansson, TPB
+ * @author  Joel Håkansson
  * @version 28 aug 2008
- * @since 1.0
  */
-//TODO: Add rows and cols params. Implement support for maximum page size. If exceeded, break row or page.
-
 class TextParser extends AbstractUI {
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;

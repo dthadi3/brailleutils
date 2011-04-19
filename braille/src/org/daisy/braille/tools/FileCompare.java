@@ -1,3 +1,20 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package org.daisy.braille.tools;
 
 import java.io.BufferedInputStream;
@@ -13,11 +30,29 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+/**
+ * Provides functionality to check if files are equal. Both binary and a looser XML-file compare
+ * are provided. 
+ * @author Joel Håkansson
+ */
 public class FileCompare {
 	//private final static String TRANSFORMER_FACTORY_KEY = "javax.xml.transform.TransformerFactory";
 
+	/**
+	 * Creates a new FileCompare object
+	 */
 	public FileCompare() { }
 
+	/**
+	 * Compare the input streams as XML. THe files are considered equal if they are binary equal once
+	 * transformed through the same transparent XSLT (whitespace is normalized on text nodes)
+	 * using the same transformer implementation.
+	 * @param f1 the first input stream
+	 * @param f2 the second input stream
+	 * @return returns true if the streams are equal, false otherwise
+	 * @throws IOException if IO fails
+	 * @throws TransformerException if transformation fails
+	 */
 	public boolean compareXML(InputStream f1, InputStream f2) throws IOException, TransformerException {
 		//String originalTransformer = System.getProperty(TRANSFORMER_FACTORY_KEY);
 		//System.setProperty(TRANSFORMER_FACTORY_KEY, "net.sf.saxon.TransformerFactoryImpl");
@@ -60,6 +95,13 @@ public class FileCompare {
         }
 	}
 	
+	/**
+	 * Compares the input streams binary.
+	 * @param f1 the first input stream
+	 * @param f2 the second input stream
+	 * @return returns true if the streams are equal, false otherwise
+	 * @throws IOException if IO fails
+	 */
 	public boolean compareBinary(InputStream f1, InputStream f2) throws IOException {
 		InputStream bf1 = new BufferedInputStream(f1);
 		InputStream bf2 = new BufferedInputStream(f2);

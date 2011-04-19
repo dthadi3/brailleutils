@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -17,6 +17,10 @@
  */
 package org.daisy.braille;
 
+/**
+ * Provides constants for braille.
+ * @author Joel Håkansson
+ */
 public final class BrailleConstants {
 
 	/**

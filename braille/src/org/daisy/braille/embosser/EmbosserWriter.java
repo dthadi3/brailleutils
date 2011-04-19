@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -30,11 +30,11 @@ import java.io.IOException;
  * <li>newVolumeSectionAndPage</li>
  * </ul>
  * 
- * @author  Joel Hakansson, TPB
+ * @author  Joel Håkansson
  */
 public interface EmbosserWriter extends EmbosserWriterProperties, Closeable {
 	/**
-	 * Write a string of braille to the embosser.
+	 * Writes a string of braille to the embosser.
 	 * Values must be between 0x2800 and 0x28FF. An implementation may supply
 	 * a complete row of braille in a single chunk. However, an implementation
 	 * may also call this method repeatedly without any other calls in between.
@@ -43,7 +43,7 @@ public interface EmbosserWriter extends EmbosserWriterProperties, Closeable {
 	 */
 	public void write(String braille) throws IOException;
 	/**
-	 * Start a new line
+	 * Starts a new line
 	 * @throws IOException
 	 */
 	public void newLine() throws IOException;

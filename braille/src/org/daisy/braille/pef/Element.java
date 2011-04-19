@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * Provides an XML element data object.
- * @author Joel Håkansson, TPB
+ * @author Joel Håkansson
  *
  */
 public class Element {
@@ -30,9 +30,10 @@ public class Element {
 	private Map<String, String> atts;
 	
 	/**
-	 * 
-	 * @param uri
-	 * @param localName
+	 * Creates a new Element
+	 * @param uri the namespace uri for the element
+	 * @param localName the local name for the element
+	 * @param attributes the attributes for the element
 	 */
 	public Element(String uri, String localName, Map<String, String> attributes) {
 		this.uri = uri;

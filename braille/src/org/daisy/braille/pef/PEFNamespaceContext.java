@@ -1,5 +1,5 @@
 /*
- * Braille Utils (C) 2010 Daisy Consortium 
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
  * 
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -26,31 +26,41 @@ import javax.xml.namespace.NamespaceContext;
 /**
  * Provides a NamespaceContext implementation for PEF 1.0.
  * It includes namespace prefix mapping for namespaces in PEF 1.0, namely:
- * <dl>
- * 	<dt>pef</dt>
- * 	<dd>http://www.daisy.org/ns/2008/pef</dd>
- * 	<dt>dc</dt>
- * 	<dd>http://purl.org/dc/elements/1.1/</dd>
- * </dl>
+ * <ul>
+ * 	<li>http://www.daisy.org/ns/2008/pef</li>
+ * 	<li>http://purl.org/dc/elements/1.1/</li>
+ * </ul>
  *  
- * @author Joel Håkansson, TPB
+ * @author Joel Håkansson
  *
  */
 public class PEFNamespaceContext implements NamespaceContext {
-	private final static HashMap<String, String> namespaces;
-	private final static HashMap<String, String> prefixes;
+	private HashMap<String, String> namespaces;
+	private HashMap<String, String> prefixes;
 	
-	static {
-		namespaces = new HashMap<String, String>();
-		prefixes = new HashMap<String, String>();
-		namespaces.put("pef", "http://www.daisy.org/ns/2008/pef");
-		namespaces.put("dc", "http://purl.org/dc/elements/1.1/");
-		for (String s : namespaces.keySet()) {
-			prefixes.put(namespaces.get(s), s);
-		}		
+	/**
+	 * Creates a new PEFNamespaceContext using the prefixes
+	 * <strong>pef</strong> for <tt>http://www.daisy.org/ns/2008/pef</tt> and <strong>dc</strong> for
+	 * <tt>http://purl.org/dc/elements/1.1/</tt>
+	 */
+	public PEFNamespaceContext() {
+		this("pef", "dc");
 	}
 	
-	public PEFNamespaceContext() {}
+	/**
+	 * Creates a new PEFNamespaceContext using the supplied prefixes
+	 * @param pefPrefix the prefix to use for <tt>http://www.daisy.org/ns/2008/pef</tt>
+	 * @param dcPrefix the prefix to use for <tt>http://purl.org/dc/elements/1.1/</tt>
+	 */
+	public PEFNamespaceContext(String pefPrefix, String dcPrefix) {
+		namespaces = new HashMap<String, String>();
+		prefixes = new HashMap<String, String>();
+		namespaces.put(pefPrefix, "http://www.daisy.org/ns/2008/pef");
+		namespaces.put(dcPrefix, "http://purl.org/dc/elements/1.1/");
+		for (String s : namespaces.keySet()) {
+			prefixes.put(namespaces.get(s), s);
+		}
+	}
 
 	public String getNamespaceURI(String prefix) {
 		return namespaces.get(prefix);
