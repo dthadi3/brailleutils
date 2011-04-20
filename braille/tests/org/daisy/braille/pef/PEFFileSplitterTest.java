@@ -31,7 +31,7 @@ public class PEFFileSplitterTest {
 		FileCompare fc = new FileCompare();
 		File[] res = dir.listFiles();
 		Arrays.sort(res);
-		for (File v : dir.listFiles()) {
+		for (File v : res) {
 			assertTrue("Assert that file " + i + " begins with the string 'volume-'", v.getName().startsWith("volume-"));
 			assertTrue("Assert that file " + i + " ends with the string '.pef'", v.getName().endsWith(".pef"));
 			assertTrue("Assert that contents of file " + i + " is as expected", fc.compareXML(new FileInputStream(v), this.getClass().getResourceAsStream("resource-files/PEFFileSplitterTestExpected-" + i + ".pef")));
