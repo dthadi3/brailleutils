@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.xml.transform.TransformerException;
 
@@ -27,8 +28,10 @@ public class PEFFileSplitterTest {
 		assertEquals("Assert that the number of generated files is correct", 3, dir.listFiles().length);
 		int i = 1;
 		//System.out.println(dir);
-		FileCompare fc = new FileCompare(true);
-		for (File v : dir.listFiles()) {
+		FileCompare fc = new FileCompare();
+		File[] res = dir.listFiles();
+		Arrays.sort(res);
+		for (File v : res) {
 			assertTrue("Assert that file " + i + " begins with the string 'volume-'", v.getName().startsWith("volume-"));
 			assertTrue("Assert that file " + i + " ends with the string '.pef'", v.getName().endsWith(".pef"));
 			boolean equal = fc.compareXML(new FileInputStream(v), this.getClass().getResourceAsStream("resource-files/PEFFileSplitterTestExpected-" + i + ".pef"));
