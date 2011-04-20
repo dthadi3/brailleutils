@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.xml.transform.TransformerException;
 
@@ -28,6 +29,8 @@ public class PEFFileSplitterTest {
 		int i = 1;
 		//System.out.println(dir);
 		FileCompare fc = new FileCompare();
+		File[] res = dir.listFiles();
+		Arrays.sort(res);
 		for (File v : dir.listFiles()) {
 			assertTrue("Assert that file " + i + " begins with the string 'volume-'", v.getName().startsWith("volume-"));
 			assertTrue("Assert that file " + i + " ends with the string '.pef'", v.getName().endsWith(".pef"));
