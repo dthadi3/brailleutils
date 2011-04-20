@@ -27,11 +27,12 @@ public class PEFFileSplitterTest {
 		assertEquals("Assert that the number of generated files is correct", 3, dir.listFiles().length);
 		int i = 1;
 		//System.out.println(dir);
-		FileCompare fc = new FileCompare();
+		FileCompare fc = new FileCompare(true);
 		for (File v : dir.listFiles()) {
 			assertTrue("Assert that file " + i + " begins with the string 'volume-'", v.getName().startsWith("volume-"));
 			assertTrue("Assert that file " + i + " ends with the string '.pef'", v.getName().endsWith(".pef"));
-			assertTrue("Assert that contents of file " + i + " is as expected", fc.compareXML(new FileInputStream(v), this.getClass().getResourceAsStream("resource-files/PEFFileSplitterTestExpected-" + i + ".pef")));
+			boolean equal = fc.compareXML(new FileInputStream(v), this.getClass().getResourceAsStream("resource-files/PEFFileSplitterTestExpected-" + i + ".pef"));
+			assertTrue("Assert that contents of file " + i + " is as expected: " + fc.getFileOne() + " vs. " + fc.getFileTwo() + " differs at byte position " + fc.getPos(), equal);
 			i++;
 			// clean up
 			if (!v.delete()) {

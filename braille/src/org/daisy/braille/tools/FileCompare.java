@@ -37,11 +37,27 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class FileCompare {
 	//private final static String TRANSFORMER_FACTORY_KEY = "javax.xml.transform.TransformerFactory";
+	private final boolean keepTempFiles;
+	private File t1;
+	private File t2;
+	private int pos;
 
 	/**
 	 * Creates a new FileCompare object
 	 */
-	public FileCompare() { }
+	public FileCompare() {
+		this(false);
+	}
+	
+	/**
+	 * Creates a new FileCompare object
+	 * @param keepTempFiles
+	 */
+	public FileCompare(boolean keepTempFiles) {
+		this.keepTempFiles = keepTempFiles;
+		this.t1 = null;
+		this.t2 = null;
+	}
 
 	/**
 	 * Compare the input streams as XML. THe files are considered equal if they are binary equal once
@@ -62,8 +78,8 @@ public class FileCompare {
 		} catch (IllegalArgumentException iae) { 
 			iae.printStackTrace();
 		}
-        File t1 = File.createTempFile("FileCompare", ".tmp");
-        File t2 = File.createTempFile("FileCompare", ".tmp");
+        t1 = File.createTempFile("FileCompare", ".tmp");
+        t2 = File.createTempFile("FileCompare", ".tmp");
         try {
 	        StreamSource xml1 = new StreamSource(f1);
 	        StreamSource xml2 = new StreamSource(f2);
@@ -80,11 +96,13 @@ public class FileCompare {
 	
 	        return compareBinary(new FileInputStream(t1), new FileInputStream(t2));
         } finally {
-        	if (!t1.delete()) {
-        		t1.deleteOnExit();
-        	}
-        	if (!t2.delete()) {
-        		t2.deleteOnExit();
+        	if (!keepTempFiles) {
+	        	if (!t1.delete()) {
+	        		t1.deleteOnExit();
+	        	}
+	        	if (!t2.delete()) {
+	        		t2.deleteOnExit();
+	        	}
         	}
         	/*
         	if (originalTransformer!=null) {
@@ -95,6 +113,45 @@ public class FileCompare {
         }
 	}
 	
+	/**
+	 * Gets the intermediary file created  
+	 * from the first argument of the latest call to compareXML 
+	 * (as base for the post normalization binary compare).
+	 * @return returns the first file
+	 * @throws IllegalStateException if temporary files are not kept
+	 * or if compareXML has not been called.
+	 */
+	public File getFileOne() {
+		if (!keepTempFiles || t1==null) {
+			throw new IllegalStateException();
+		}
+		return t1;
+	}
+
+	/**
+	 * Gets the intermediary file created  
+	 * from the second argument of the latest call to compareXML 
+	 * (as base for the post normalization binary compare).
+	 * @return returns the second file
+	 * @throws IllegalStateException if temporary files are not kept
+	 * or if compareXML has not been called.
+	 */
+	public File getFileTwo() {
+		if (!keepTempFiles || t2==null) {
+			throw new IllegalStateException();
+		}
+		return t2;
+	}
+
+	/**
+	 * Gets the byte position where the latest call to compareBinary or compareXML failed, or -1
+	 * if compare was successful
+	 * @return returns the byte position
+	 */
+	public int getPos() {
+		return pos;
+	}
+
 	/**
 	 * Compares the input streams binary.
 	 * @param f1 the first input stream
@@ -108,12 +165,15 @@ public class FileCompare {
 		try {
 			int b1;
 			int b2;
-			while ((b1 = bf1.read())!=-1 & b1 == (b2 = bf2.read())) { 
+			pos = 0;
+			while ((b1 = bf1.read())!=-1 & b1 == (b2 = bf2.read())) {
+				pos++;
 				//continue
 			}
 			if (b1!=-1 || b2!=-1) {
 				return false;
 			}
+			pos = -1;
 			return true;
 		} finally {
 			bf1.close();
