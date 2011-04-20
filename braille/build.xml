@@ -49,6 +49,7 @@
 		Standalone distribution for Braille Utils
 	 -->	
 	<property name="distribution.zip" value="${dist.dir}/brailleUtils-${release-version}.zip"/>
+	<property name="javadoc.zip" value="${dist.dir}/brailleUtils-${release-version}-javadoc.zip"/>
 
 	<path id="test.classpath">
 		<fileset dir="${dist.dir}">
@@ -369,6 +370,17 @@
     			<include name="*.jar"/>
     		</zipfileset>
     		<zipfileset dir="${basedir}/licenses" prefix="brailleUtils/licenses/">
+    			<include name="**/*.*"/>
+    		</zipfileset>
+    	</zip>
+    </target>
+	
+	<!-- ================================= 
+          target: buildJavadocZip 
+         ================================= -->
+    <target name="buildJavadocZip" depends="buildJavadoc, createDistDir" description="Build zip javadoc">
+    	<zip destfile="${javadoc.zip}">
+    		<zipfileset dir="${javadoc.dir}" prefix="brailleUtils/docs/api">
     			<include name="**/*.*"/>
     		</zipfileset>
     	</zip>
