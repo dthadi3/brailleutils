@@ -30,17 +30,19 @@ public class TractorPaperProvider implements PaperProvider {
 		W210MM_X_H10INCH, 
 		W210MM_X_H11INCH, 
 		W210MM_X_H12INCH,
-		//W240MM_X_H12INCH
+		W240MM_X_H12INCH,
+		W280MM_X_H12INCH
 	};
 	
 	private final ArrayList<Paper> papers;
 	
 	public TractorPaperProvider() {
 		papers = new ArrayList<Paper>();
-		papers.add(new DefaultPaper("210 mm wide, 10 inch high", "Tractor paper: 210 mm wide (excluding paper guides)", PaperSize.W210MM_X_H10INCH, 210d, 10*INCH_IN_MM));
-		papers.add(new DefaultPaper("210 mm wide, 11 inch high", "Tractor paper: 210 mm wide (excluding paper guides)", PaperSize.W210MM_X_H11INCH, 210d, 11*INCH_IN_MM));
-		papers.add(new DefaultPaper("210 mm wide, 12 inch high", "Tractor paper: 210 mm wide (excluding paper guides)", PaperSize.W210MM_X_H12INCH, 210d, 12*INCH_IN_MM));
-	//	papers.add(new DefaultPaper("240 mm wide, 12 inch high", "", PaperSize.W240MM_X_H12INCH, 240d, 12*INCH_IN_MM));
+		papers.add(new DefaultPaper("210 mm x 10 inch", "Tractor paper: 210 mm wide (excluding paper guides)", PaperSize.W210MM_X_H10INCH, 210d, 10*INCH_IN_MM));
+		papers.add(new DefaultPaper("210 mm x 11 inch", "Tractor paper: 210 mm wide (excluding paper guides)", PaperSize.W210MM_X_H11INCH, 210d, 11*INCH_IN_MM));
+		papers.add(new DefaultPaper("210 mm x 12 inch", "Tractor paper: 210 mm wide (excluding paper guides)", PaperSize.W210MM_X_H12INCH, 210d, 12*INCH_IN_MM));
+		papers.add(new DefaultPaper("240 mm x 12 inch", "Tractor paper: 240 mm wide (excluding paper guides)", PaperSize.W240MM_X_H12INCH, 240d, 12*INCH_IN_MM));
+		papers.add(new DefaultPaper("280 mm x 12 inch", "Tractor paper: 280 mm wide (excluding paper guides)", PaperSize.W280MM_X_H12INCH, 280d, 12*INCH_IN_MM));
 	}
 
 	//jvm1.6@Override
