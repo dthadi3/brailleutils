@@ -6,6 +6,7 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.embosser.AbstractEmbosser;
+import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserWriterProperties;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
@@ -13,6 +14,10 @@ import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.embosser.AbstractEmbosserWriter.Padding;
 import org.daisy.paper.Dimensions;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.PrintPage;
+import org.daisy.paper.PrintPage.PrintDirection;
+import org.daisy.paper.PrintPage.PrintMode;
 import org.daisy.printing.Device;
 
 import be_interpoint.InterpointEmbosserProvider.EmbosserType;
@@ -35,10 +40,12 @@ public class Interpoint55Embosser extends AbstractEmbosser {
             }
         };
     }
-    private double maxPaperWidth = Double.MAX_VALUE; // ???
-    private double maxPaperHeight = 340d;
-    private double minPaperWidth = 50d;              // ???
-    private double minPaperHeight = 50d;             // ???
+    private double maxPaperWidth = 340d;
+    private double maxPaperHeight = Double.MAX_VALUE; // ???
+    private double minPaperWidth = 50d;               // ???
+    private double minPaperHeight = 50d;              // ???
+
+    private boolean saddleStitchEnabled = false;
 
     public Interpoint55Embosser(String name, String desc) {
 
@@ -75,24 +82,23 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     }
 
     public boolean supportsAligning() {
-        return false;
+        return true;
     }
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        if (!supportsDimensions(getPageFormat())) {
-            throw new IllegalArgumentException("Unsupported paper");
-        }
-
         boolean duplexEnabled = supportsDuplex() && false; // ??? examine PEF file => Contract?
         boolean eightDots = supports8dot() && false;       // ???
-        int cols = 25;                                     // ???
-        int rows = 40;                                     // ???
+        PageFormat page = getPageFormat();
+
+        if (!supportsDimensions(page)) {
+            throw new IllegalArgumentException("Unsupported paper");
+        }
 
         Table table = TableCatalog.newInstance().list(tableFilter).iterator().next();
 
         EmbosserWriterProperties props =
-            new SimpleEmbosserProperties(cols, rows)
+            new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
                 .supports8dot(eightDots)
                 .supportsDuplex(duplexEnabled)
                 .supportsAligning(supportsAligning());
@@ -114,5 +120,42 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     public EmbosserWriter newX55EmbosserWriter(OutputStream os) {
         // write to ".x55" file format (special interpoint xml file)
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void writeConfigurationFile() {
+        // write embosser settings to configuration (.ini) file that is used as input for wprint55
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setFeature(String key, Object value) {
+
+        if (EmbosserFeatures.SADDLE_STITCH.equals(key)) {
+            try {
+                saddleStitchEnabled = (Boolean)value;
+            } catch (ClassCastException e) {
+                throw new IllegalArgumentException("Unsupported value for saddle stitch.");
+            }
+        } else {
+            super.setFeature(key, value);
+        }
+    }
+
+    @Override
+    public Object getFeature(String key) {
+
+        if (EmbosserFeatures.SADDLE_STITCH.equals(key)) {
+            return saddleStitchEnabled;
+        } else {
+            return super.getFeature(key);
+        }
+    }
+
+    @Override
+    public PrintPage getPrintPage(PageFormat pageFormat) {
+
+        PrintDirection direction = PrintDirection.SIDEWAYS;
+        PrintMode mode = saddleStitchEnabled?PrintMode.MAGAZINE:PrintMode.REGULAR;
+        return new PrintPage(pageFormat, direction, mode);
     }
 }

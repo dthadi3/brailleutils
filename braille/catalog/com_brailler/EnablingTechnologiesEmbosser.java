@@ -16,8 +16,10 @@ import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
+import org.daisy.paper.Area;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Dimensions;
+import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
 import com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType;
@@ -34,6 +36,21 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
     private double maxPaperHeight = Double.MAX_VALUE;
     private double minPaperWidth = 50d;
     private double minPaperHeight = 50d;
+
+    private int marginInner = 0;
+    private int marginOuter = 0;
+    private int marginTop = 0;
+    private int marginBottom = 0;
+
+    private int minMarginInner = 0;
+    private int minMarginOuter = 0;
+    private int minMarginTop = 0;
+    private int minMarginBottom = 0;
+
+    private int maxMarginInner = 0;
+    private int maxMarginOuter = 0;
+    private int maxMarginTop = 0;
+    private int maxMarginBottom = 0;
 
     private final static TableFilter tableFilter;
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
@@ -100,6 +117,13 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
         }
+
+        maxMarginTop = (int)Math.floor(9.9 * EmbosserTools.INCH_IN_MM / getCellHeight());
+
+        marginInner =  Math.min(maxMarginInner,  Math.max(minMarginInner,  marginInner));
+        marginOuter =  Math.min(maxMarginOuter,  Math.max(minMarginOuter,  marginOuter));
+        marginTop =    Math.min(maxMarginTop,    Math.max(minMarginTop,    marginTop));
+        marginBottom = Math.min(maxMarginBottom, Math.max(minMarginBottom, marginBottom));
         
     }
 
@@ -130,7 +154,7 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
     }
 
     public boolean supportsAligning() {
-        return false;
+        return true;
     }
 
     public EmbosserWriter newEmbosserWriter(Device device) {
@@ -147,16 +171,15 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        if (!supportsDimensions(getPageFormat())) {
+        boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
+        boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
+        PageFormat page = getPageFormat();
+
+        if (!supportsDimensions(page)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
 
-        boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
-        boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
-        int cellsPerLine = 40;                             // examine PEF file: cols
-        int linesPerPage = 25;                             // examine PEF file: rows
-
-        byte[] header = getHeader();
+        byte[] header = getHeader(duplexEnabled, eightDots);
         byte[] footer = new byte[0];
 
         Table table = TableCatalog.newInstance().get(table6dot);
@@ -166,7 +189,7 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
             .padNewline(ConfigurableEmbosser.Padding.NONE)
             .footer(footer)
             .embosserProperties(
-                new SimpleEmbosserProperties(cellsPerLine, linesPerPage)
+                new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
                     .supportsDuplex(duplexEnabled)
                     .supportsAligning(supportsAligning())
                     .supports8dot(eightDots)
@@ -175,16 +198,16 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         return b.build();
     }
 
-    private byte[] getHeader() {
+    private byte[] getHeader(boolean duplex,
+                             boolean eightDots) {
 
-        boolean eightDots = supports8dot() && false;     // examine PEF file: rowgap / char > 283F => Contract ?
-        boolean duplex = supportsDuplex() && false;      // examine PEF file: duplex
-        int cellsPerLine = 40;                           // examine PEF file: cols
-        int linesPerPage = 25;                           // examine PEF file: rows
         PageFormat page = getPageFormat();
+        int cellsPerLine = getMaxWidth(page);
+        int linesPerPage = getMaxHeight(page);
         double paperLenght = page.getHeight();
-        int marginInner = 0;
-        int marginTop = 0;
+        
+        int pageLenght = (int)Math.ceil(paperLenght/EmbosserTools.INCH_IN_MM-3);
+        int topOffFormOffset = (int)Math.ceil(marginTop*getCellHeight()/EmbosserTools.INCH_IN_MM*10);
 
         StringBuffer header = new StringBuffer();
 
@@ -195,17 +218,27 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         header.append(new char[]{0x1b,0x0f}); header.append((char)1);                           // Paper sensor = ON
         header.append(new char[]{0x1b,0x11}); header.append((char)linesPerPage);                // Lines per page
         header.append(new char[]{0x1b,0x12}); header.append((char)(cellsPerLine+marginInner));  // Right margin
-        header.append(new char[]{0x1b,0x14});
-            int pageLenght = (int)Math.ceil(paperLenght/EmbosserTools.INCH_IN_MM-3);
-                                              header.append((char)pageLenght);                  // Page length
+        header.append(new char[]{0x1b,0x14}); header.append((char)pageLenght);                  // Page length
         header.append(new char[]{0x1b,0x17}); header.append((char)0);                           // Word wrap = OFF
         header.append(new char[]{0x1b,0x23}); header.append((char)0);                           // Horizontal page centering = OFF
         header.append(new char[]{0x1b,0x29}); header.append((char)(duplex?0:1));                // Interpoint mode
         header.append(new char[]{0x1b,0x33}); header.append((char)(eightDots?3:0));             // DBS mode
-        header.append(new char[]{0x1b,0x34});
-            int topOffFormOffset = (int)Math.ceil(marginTop*getCellHeight()/EmbosserTools.INCH_IN_MM*10);
-                                              header.append((char)topOffFormOffset);            // Top of form offset
+        header.append(new char[]{0x1b,0x34}); header.append((char)topOffFormOffset);            // Top of form offset
 
         return header.toString().getBytes();
+    }
+
+    @Override
+    public Area getPrintableArea(PageFormat pageFormat) {
+
+        PrintPage printPage = getPrintPage(pageFormat);
+
+        double cellWidth = getCellWidth();
+        double cellHeight = getCellHeight();
+
+        return new Area(printPage.getWidth() - (marginInner + marginOuter) * cellWidth,
+                        printPage.getHeight() - (marginTop + marginBottom) * cellHeight,
+                        marginInner * cellWidth,
+                        marginTop * cellHeight);
     }
 }

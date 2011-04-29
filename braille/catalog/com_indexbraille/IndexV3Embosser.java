@@ -17,6 +17,7 @@ import org.daisy.paper.Dimensions;
 import com_indexbraille.IndexEmbosserProvider.EmbosserType;
 
 import org.daisy.braille.embosser.EmbosserFactoryException;
+import org.daisy.braille.embosser.UnsupportedPaperException;
 
 public class IndexV3Embosser extends IndexEmbosser {
 	
@@ -34,7 +35,37 @@ public class IndexV3Embosser extends IndexEmbosser {
     }
 
     public IndexV3Embosser(String name, String desc, EmbosserType identifier) {
+
         super(name, desc, identifier);
+
+        switch (type) {
+            case INDEX_EVEREST_D_V3:
+            case INDEX_BASIC_S_V3:
+                supportsSaddleStitch = false;
+                supportsZFolding = false;
+                break;
+            case INDEX_BASIC_D_V3:
+            case INDEX_4WAVES_PRO_V3:
+                supportsSaddleStitch = false;
+                supportsZFolding = true;
+                break;
+            case INDEX_4X4_PRO_V3:
+                supportsSaddleStitch = true;
+                supportsZFolding = false;
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported embosser type");
+        }
+
+        maxNumberOfCopies = 10000;
+        maxCellsInWidth = 42;
+        maxMarginInner = 10;
+        maxMarginOuter = 10;
+        maxMarginTop = 10;
+
+        if (type == EmbosserType.INDEX_4X4_PRO_V3) {
+            minMarginInner = 1;
+        }
     }
 
     public TableFilter getTableFilter() {
@@ -60,25 +91,30 @@ public class IndexV3Embosser extends IndexEmbosser {
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
         boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
-        int cellsPerLine = 40;                             // examine PEF file: cols
-        int linesPerPage = 25;                             // examine PEF file: rows
         boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
-        int numberOfCopies = getNumberOfCopies();
+        PageFormat page = getPageFormat();
 
-        if (!supportsDimensions(getPageFormat())) {
-            throw new IllegalArgumentException(new EmbosserFactoryException("Unsupported paper"));
+        if (!supportsDimensions(page)) {
+            throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
         }
-        if (numberOfCopies > 10000 || numberOfCopies < 1) {
+
+        getPrintableArea(page);
+        int cellsInWidth = (int)Math.floor(printablePageWidth/getCellWidth());
+
+        if (cellsInWidth > maxCellsInWidth) {
+            throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
+        }
+        if (numberOfCopies > maxNumberOfCopies || numberOfCopies < 1) {
             throw new IllegalArgumentException(new EmbosserFactoryException("Invalid number of copies: " + numberOfCopies + " is not in [1, 10000]"));
         }
 
-        byte[] header = getIndexV3Header();
+        byte[] header = getIndexV3Header(eightDots, duplexEnabled);
         byte[] footer = new byte[0];
 
         Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
 
         EmbosserWriterProperties props =
-            new SimpleEmbosserProperties(cellsPerLine, linesPerPage)
+            new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
                 .supports8dot(eightDots)
                 .supportsDuplex(duplexEnabled)
                 .supportsAligning(supportsAligning());
@@ -100,20 +136,13 @@ public class IndexV3Embosser extends IndexEmbosser {
         }
     }
 
-    private byte[] getIndexV3Header() {
+    private byte[] getIndexV3Header(boolean eightDots,
+                                    boolean duplex) {
 
-        boolean eightDots = supports8dot() && false;     // examine PEF file: rowgap / char > 283F => Contract ?
-        boolean duplex = supportsDuplex() && false;      // examine PEF file: duplex
-        boolean saddleStitch = false;
-        boolean zFolding = false;
-        int numberOfCopies = getNumberOfCopies();
         PageFormat page = getPageFormat();
         double paperWidth = page.getWidth();
         double paperLenght = page.getHeight();
-        int cellsInWidth = EmbosserTools.getWidth(page, getCellWidth());
-        int marginInner = 0;
-        int marginOuter = 0;
-        int marginTop = 0;
+        int cellsInWidth = (int)Math.floor(printablePageWidth/getCellWidth());
 
         byte[] xx;
         byte y;
@@ -129,11 +158,11 @@ public class IndexV3Embosser extends IndexEmbosser {
         header.append(",LS");
         header.append(",LS50");                                     // Line spacing = 5 mm
         header.append(",DP");
-        if (saddleStitch)       { header.append('4'); } else
-        if (zFolding && duplex) { header.append('3'); } else
-        if (zFolding)           { header.append('5'); } else
-        if (duplex)             { header.append('2'); } else
-                                { header.append('1'); }             // Page mode
+        if (saddleStitchEnabled)       { header.append('4'); } else
+        if (zFoldingEnabled && duplex) { header.append('3'); } else
+        if (zFoldingEnabled)           { header.append('5'); } else
+        if (duplex)                    { header.append('2'); } else
+                                       { header.append('1'); }      // Page mode
         if (numberOfCopies > 1) {
             header.append(",MC");
             header.append(String.valueOf(numberOfCopies));          // Multiple copies
@@ -194,7 +223,8 @@ public class IndexV3Embosser extends IndexEmbosser {
         header.append(String.valueOf(marginOuter));                 // Outer margin
         header.append(",TM");
         header.append(String.valueOf(marginTop));                   // Top margin
-        header.append(",BM0");                                      // Bottom margin = 0
+        header.append(",BM");
+        header.append(String.valueOf(marginBottom));                // Bottom margin
         header.append(";");
 
         return header.toString().getBytes();

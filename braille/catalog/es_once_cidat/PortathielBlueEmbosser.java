@@ -45,20 +45,17 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        if (!supportsDimensions(getPageFormat())) {
+        boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
+        boolean eightDots = supports8dot() && false;
+        PageFormat page = getPageFormat();
+        
+        if (!supportsDimensions(page)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
 
-        boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
-        boolean eightDots = supports8dot() && false;
-
-        PageFormat page = getPageFormat();
-        int cellsInWidth = EmbosserTools.getWidth(page, getCellWidth());
-        int linesInHeight = EmbosserTools.getHeight(page, getCellHeight()); // depends on cell heigth -> depends on rowgap
-
         try {
 
-            byte[] header = getPortathielHeader();
+            byte[] header = getPortathielHeader(duplexEnabled, eightDots);
 
             Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
 
@@ -66,7 +63,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
                 .breaks(new CidatLineBreaks(CidatLineBreaks.Type.PORTATHIEL_TRANSPARENT))
                 .padNewline(ConfigurableEmbosser.Padding.NONE)
                 .embosserProperties(
-                    new SimpleEmbosserProperties(cellsInWidth, linesInHeight)
+                    new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
                         .supportsDuplex(duplexEnabled)
                         .supportsAligning(true)
                         .supports8dot(eightDots)
@@ -79,10 +76,9 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
         }
     }
 
-    private byte[] getPortathielHeader() throws EmbosserFactoryException {
-
-        boolean eightDots = supports8dot() && false;     // examine PEF file: rowgap / char > 283F => Contract ?
-        boolean duplex = supportsDuplex() && false;      // examine PEF file: duplex
+    private byte[] getPortathielHeader(boolean duplex,
+                                       boolean eightDots)
+                                throws EmbosserFactoryException {
 
         PageFormat page = getPageFormat();
         int pageLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM);

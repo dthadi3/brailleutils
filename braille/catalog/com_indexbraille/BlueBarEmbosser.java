@@ -2,13 +2,13 @@ package com_indexbraille;
 
 import java.io.OutputStream;
 
-import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserWriterProperties;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.TableFilter;
+import org.daisy.paper.PageFormat;
 
 import com_indexbraille.IndexEmbosserProvider.EmbosserType;
 
@@ -36,18 +36,21 @@ public class BlueBarEmbosser extends IndexEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        if (!supportsDimensions(getPageFormat())) {
+        boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
+        boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
+        PageFormat page = getPageFormat();
+
+        if (!supportsDimensions(page)) {
             throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());
         }
 
         Table table = TableCatalog.newInstance().get(table6dot);
 
         EmbosserWriterProperties props =
-                new SimpleEmbosserProperties(EmbosserTools.getWidth(getPageFormat(), getCellWidth()),
-                                             EmbosserTools.getHeight(getPageFormat(), getCellHeight()))
-                    .supports8dot(false)
-                    .supportsDuplex(false)
-                    .supportsAligning(true);
+                new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
+                    .supports8dot(eightDots)
+                    .supportsDuplex(duplexEnabled)
+                    .supportsAligning(supportsAligning());
 
         return new IndexTransparentEmbosserWriter(os,
                                                   table.newBrailleConverter(),

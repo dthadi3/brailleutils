@@ -98,7 +98,7 @@ public class GenericEmbosser extends AbstractEmbosser {
     }
 
     public boolean supports8dot() {
-        return true;
+        return false;
     }
 
     public boolean supportsDuplex() {

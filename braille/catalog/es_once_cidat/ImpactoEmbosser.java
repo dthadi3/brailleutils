@@ -36,6 +36,9 @@ public class ImpactoEmbosser extends CidatEmbosser {
         };
     }
 
+    private int numberOfCopies = 1;
+    private int maxNumberOfCopies = 32767;
+
     public ImpactoEmbosser(String name, String desc, EmbosserType identifier) {
         super(name, desc, identifier);
     }
@@ -46,25 +49,20 @@ public class ImpactoEmbosser extends CidatEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        if (!supportsDimensions(getPageFormat())) {
-            throw new IllegalArgumentException("Unsupported paper");
-        }
-
         boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
         boolean eightDots = supports8dot() && false;
-        int numberOfCopies = getNumberOfCopies();
-
+        PageFormat page = getPageFormat();
+        
+        if (!supportsDimensions(page)) {
+            throw new IllegalArgumentException("Unsupported paper");
+        }
         if (numberOfCopies > 32767 || numberOfCopies < 1) {
             throw new IllegalArgumentException(new EmbosserFactoryException("Invalid number of copies: " + numberOfCopies + " is not in [1, 32767]"));
         }
-
-        PageFormat page = getPageFormat();
-        int cellsInWidth = EmbosserTools.getWidth(page, getCellWidth());
-        int linesInHeight = EmbosserTools.getHeight(page, getCellHeight()); // depends on cell heigth -> depends on rowgap
         
         try {
 
-            byte[] header = getImpactoHeader();
+            byte[] header = getImpactoHeader(duplexEnabled, eightDots);
             byte[] footer = new byte[]{0x1b,0x54};
 
             Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
@@ -74,7 +72,7 @@ public class ImpactoEmbosser extends CidatEmbosser {
                 .padNewline(ConfigurableEmbosser.Padding.NONE)
                 .footer(footer)
                 .embosserProperties(
-                    new SimpleEmbosserProperties(cellsInWidth, linesInHeight)
+                    new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
                         .supportsDuplex(duplexEnabled)
                         .supportsAligning(supportsAligning())
                         .supports8dot(eightDots)
@@ -87,13 +85,11 @@ public class ImpactoEmbosser extends CidatEmbosser {
         }
     }
 
-    private byte[] getImpactoHeader() throws EmbosserFactoryException {
+    private byte[] getImpactoHeader(boolean duplex,
+                                    boolean eightDots)
+                             throws EmbosserFactoryException {
 
-        boolean eightDots = supports8dot() && false;    // examine PEF file: rowgap / char > 283F => Contract ?
-        boolean duplex = supportsDuplex() && false;     // examine PEF file: duplex
         int pageCount = 1;                              // examine PEF file
-        int copies = getNumberOfCopies();
-
         PageFormat page = getPageFormat();
         int pageLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM);
         int charsPerLine = EmbosserTools.getWidth(page, getCellWidth());
@@ -126,7 +122,7 @@ public class ImpactoEmbosser extends CidatEmbosser {
         header.append((char)0x1b); header.append("MR0\n");                      // Right margin in characters = 0
         header.append((char)0x1b); header.append("MT0\n");                      // Top margin in tenths of an inch = 0
         header.append((char)0x1b); header.append("NC1");
-                                   header.append(String.valueOf(copies));
+                                   header.append(String.valueOf(numberOfCopies));
                                    header.append('\n');                         // Number of copies
         header.append((char)0x1b); header.append("SC1\n");                      // Collate copies (one full copy at a time)
         header.append((char)0x1b); header.append("PM0\n");                      // Embossing mode = text embossing mode
@@ -137,16 +133,31 @@ public class ImpactoEmbosser extends CidatEmbosser {
         return header.toString().getBytes();
     }
 
-    protected int getNumberOfCopies() {
+    @Override
+    public void setFeature(String key, Object value) {
 
-        int numberOfCopies = 1;
-        Object value = getFeature(EmbosserFeatures.NUMBER_OF_COPIES);
-        if (value != null) {
+        if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
             try {
-                numberOfCopies = (Integer)value;
+                int copies = (Integer)value;
+                if (copies < 1 || copies > maxNumberOfCopies) {
+                    throw new IllegalArgumentException("Unsupported value for number of copies.");
+                }
+                numberOfCopies = copies;
             } catch (ClassCastException e) {
+                throw new IllegalArgumentException("Unsupported value for number of copies.");
             }
+        } else {
+            super.setFeature(key, value);
         }
-        return numberOfCopies;
+    }
+
+    @Override
+    public Object getFeature(String key) {
+
+        if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
+            return numberOfCopies;
+        } else {
+            return super.getFeature(key);
+        }
     }
 }
