@@ -24,6 +24,8 @@ import org.daisy.braille.table.TableFilter;
 import org.daisy.factory.Factory;
 import org.daisy.paper.Dimensions;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.Area;
+import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
 /**
@@ -52,5 +54,19 @@ public interface Embosser extends Factory, EmbosserProperties {
 	 * @return returns the max height for the specified page format
 	 */
 	public int getMaxHeight(PageFormat pageFormat);
+
+        /**
+	 * Gets the dimensions of one print page for the specified page format
+         * @param pageFormat the page format
+         * @return returns the dimensions of one print page for the specified page format
+	 */
+        public PrintPage getPrintPage(PageFormat pageFormat);
+
+        /**
+	 * Gets the printable area for the specified page format
+         * @param pageFormat the page format
+         * @return returns the printable area for the specified page format
+	 */
+        public Area getPrintableArea(PageFormat pageFormat);
 
 }

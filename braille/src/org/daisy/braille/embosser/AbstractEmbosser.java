@@ -7,6 +7,8 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.factory.AbstractFactory;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.Area;
+import org.daisy.paper.PrintPage;
 
 public abstract class AbstractEmbosser extends AbstractFactory implements Embosser {
 	private final HashMap<String, Object> props;
@@ -16,7 +18,6 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 	protected final Table defaultTable;
 	private PageFormat pageFormat;
 	protected Table setTable;
-
 
 	public AbstractEmbosser(String name, String desc,  Enum<? extends Enum<?>> identifier) {
 		super(name, desc, identifier);
@@ -46,14 +47,25 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		return cellHeight;
 	}
 
-	//jvm1.6@Override
+        //jvm1.6@Override
 	public int getMaxHeight(PageFormat pageFormat) {
-		return EmbosserTools.getHeight(pageFormat, cellHeight);
+		return EmbosserTools.getHeight(getPrintableArea(pageFormat), cellHeight);
 	}
 
 	//jvm1.6@Override
 	public int getMaxWidth(PageFormat pageFormat) {
-		return EmbosserTools.getWidth(pageFormat, cellWidth);
+		return EmbosserTools.getWidth(getPrintableArea(pageFormat), cellWidth);
+	}
+
+	//jvm1.6@Override
+	public Area getPrintableArea(PageFormat pageFormat) {
+		PrintPage printPage = getPrintPage(pageFormat);
+		return new Area(printPage.getWidth(), printPage.getHeight(), 0, 0);
+	}
+
+	//jvm1.6@Override
+	public PrintPage getPrintPage(PageFormat pageFormat) {
+		return new PrintPage(pageFormat);
 	}
 
 	public Object getFeature(String key) {
@@ -97,7 +109,13 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 				throw new IllegalArgumentException("Changing cell width has not been implemented.");
 			} else if (EmbosserFeatures.CELL_HEIGHT.equals(key) && !"10".equals(value.toString())) {
 				throw new IllegalArgumentException("Changing cell height has not been implemented.");
-			}
+			} else if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key)) {
+				throw new IllegalArgumentException("Unsupported feature 'number of copies'.");
+                        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key)) {
+				throw new IllegalArgumentException("Unsupported feature 'saddle stich mode'.");
+                        } else if (EmbosserFeatures.Z_FOLDING.equals(key)) {
+				throw new IllegalArgumentException("Unsupported feature 'z folding mode'.");
+                        }
 			settings.put(key, value.toString());
 		}
 	}

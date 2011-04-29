@@ -154,6 +154,7 @@ braille/src/org/daisy/factory/FactoryCatalog.java -text svneol=unset#text/plain
 braille/src/org/daisy/factory/FactoryFilter.java -text svneol=unset#text/plain
 braille/src/org/daisy/factory/Provider.java -text svneol=unset#text/plain
 braille/src/org/daisy/factory/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/paper/Area.java -text
 braille/src/org/daisy/paper/DefaultPaper.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/DefaultPaperCatalog.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/Dimensions.java -text svneol=unset#text/plain
@@ -162,6 +163,7 @@ braille/src/org/daisy/paper/Paper.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/PaperCatalog.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/PaperFilter.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/PaperProvider.java -text svneol=unset#text/plain
+braille/src/org/daisy/paper/PrintPage.java -text
 braille/src/org/daisy/paper/package.html -text svneol=unset#text/plain
 braille/src/org/daisy/printing/Device.java -text svneol=unset#text/plain
 braille/src/org/daisy/printing/FileDevice.java -text svneol=unset#text/plain
