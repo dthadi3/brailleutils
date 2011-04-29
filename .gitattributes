@@ -50,6 +50,9 @@ braille/catalog/org_daisy/ISO216PaperProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/MicroBrailleFileFormatWriter.java -text
 braille/catalog/org_daisy/NorthAmericaPaperProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/TractorPaperProvider.java -text svneol=unset#text/plain
+braille/catalog/pl_com_harpo/HarpoEmbosserProvider.java -text
+braille/catalog/pl_com_harpo/MountbattenEmbosser.java -text
+braille/catalog/pl_com_harpo/MountbattenLineBreaks.java -text
 braille/catalog/se_tpb/CXTableProvider.java -text svneol=unset#text/plain
 braille/catalog/se_tpb/FA44PaperProvider.java -text svneol=unset#text/plain
 braille/lib/isorelax.jar -text
