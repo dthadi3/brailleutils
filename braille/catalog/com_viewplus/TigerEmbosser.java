@@ -62,30 +62,37 @@ public class TigerEmbosser extends AbstractEmbosser {
 
         type = identifier;
 
-        setCellWidth(6d);
-        setCellHeight(10d);
+        setCellWidth(0.25*EmbosserTools.INCH_IN_MM);
+        setCellHeight(0.4*EmbosserTools.INCH_IN_MM);
+
+        minPaperWidth = 176d;  // B5
+        minPaperHeight = 250d;
 
         switch (type) {
             case PREMIER_80:
             case PREMIER_100:
             case ELITE_150:
             case ELITE_200:
+                maxPaperWidth = 12*EmbosserTools.INCH_IN_MM;
+                maxPaperHeight = 22*EmbosserTools.INCH_IN_MM;
                 break;
             case PRO_GEN_II:
-                minPaperWidth = 4*EmbosserTools.INCH_IN_MM;
-                maxPaperWidth = 17*EmbosserTools.INCH_IN_MM;
+                maxPaperWidth = 16*EmbosserTools.INCH_IN_MM;
+                maxPaperHeight = 22*EmbosserTools.INCH_IN_MM;
                 break;
             case CUB:
             case CUB_JR:
-                minPaperWidth = 4*EmbosserTools.INCH_IN_MM;
-                maxPaperWidth = 9.5*EmbosserTools.INCH_IN_MM;
+            case EMPRINT_SPOTDOT:
+                maxPaperWidth = 8.5*EmbosserTools.INCH_IN_MM;
+                maxPaperHeight = 14*EmbosserTools.INCH_IN_MM;
                 break;
             case MAX:
-                minPaperWidth = 4*EmbosserTools.INCH_IN_MM;
                 maxPaperWidth = 14*EmbosserTools.INCH_IN_MM;
+                maxPaperHeight = 22*EmbosserTools.INCH_IN_MM;
                 break;
             case EMFUSE:
-            case EMPRINT_SPOTDOT:
+                maxPaperWidth =  Math.max(297d, 11*EmbosserTools.INCH_IN_MM);   // A3, Tabloid
+                maxPaperHeight = Math.max(420d, 17*EmbosserTools.INCH_IN_MM);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
@@ -125,6 +132,17 @@ public class TigerEmbosser extends AbstractEmbosser {
     public boolean supportsDuplex() {
 
         switch (type) {
+            case PREMIER_80:
+            case PREMIER_100:
+            case ELITE_150:
+            case ELITE_200:
+            case EMFUSE:
+                return true;
+            case PRO_GEN_II:
+            case CUB:
+            case CUB_JR:
+            case MAX:
+            case EMPRINT_SPOTDOT:
             default:
                 return false;
         }
@@ -188,7 +206,7 @@ public class TigerEmbosser extends AbstractEmbosser {
 
         int formWidth = (int)Math.ceil(page.getWidth()/EmbosserTools.INCH_IN_MM*2);
         int formLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM*2);
-        int topOffset = (int)Math.ceil(getPrintableArea(page).getOffsetY()/EmbosserTools.INCH_IN_MM*20);
+        int topOffset = (int)Math.floor(getPrintableArea(page).getOffsetY()/EmbosserTools.INCH_IN_MM*20);
 
         if (formWidth > 42)  { throw new UnsupportedPaperException("Form width cannot > 21 inch"); }
         if (formLength > 42) { throw new UnsupportedPaperException("Form lenght cannot > 21 inch"); }
@@ -198,11 +216,9 @@ public class TigerEmbosser extends AbstractEmbosser {
         header.append((char)0x1b); header.append('@');                              // System reset
         header.append((char)0x1b); header.append("W@");                             // Word wrap = OFF
         header.append((char)0x1b); header.append('K');
-//                                 header.append((char)(40+topOffset));             // Top margin
-                                   header.append('@');                              // Top margin = 0
+                                   header.append((char)(40+topOffset));             // Top margin
         header.append((char)0x1b); header.append('L');
-//                                 header.append((char)(40+marginInner));           // Left margin
-                                   header.append('@');                              // Left margin = 0
+                                   header.append((char)(40+marginInner));           // Left margin
         header.append((char)0x1b); header.append('Q');
                                    header.append((char)(40+linesPerPage));          // Lines per page
         header.append((char)0x1b); header.append('S');            
@@ -211,8 +227,10 @@ public class TigerEmbosser extends AbstractEmbosser {
                                    header.append((char)(40+formLength));            // Form length
         header.append((char)0x1b); header.append('F');
                                    header.append(eightDots?'B':'@');                // 6/8 dot
+        if (supportsDuplex()) {
         header.append((char)0x1b); header.append('I');
                                    header.append(duplex?'A':'@');                   // Interpoint
+        }
         header.append((char)0x1b); header.append("AA");                             // US Braille table
 //      header.append((char)0x1b); header.append("M@");                             // Media type = Braille paper
 //      header.append((char)0x1b); header.append("BA");                             // Dot height = NORMAL

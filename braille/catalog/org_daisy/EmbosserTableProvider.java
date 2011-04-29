@@ -38,7 +38,7 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 				// "Braillo ENGLAND 6 DOT 044.00" which is identical to
 				// "Braillo USA 6 DOT 001.00"
 		DA_DK, 
-		DE_DE, 
+		DE_DE,
 		ES_ES,
 		ES_ES_TABLE_2,
 		IT_IT_FIRENZE, 
@@ -97,12 +97,10 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 					new String(
 							" a,b.k;l'cif/msp@e:h}o+r^djg|ntq_1?2-u<v{3960x$&\"5*8>z=(%4w7#y)\\"),
 					Charset.forName("UTF-8"), fallback, replacement, true);
-//**** Added by Bert Frees ***************************************** 
 		case ES_ES_TABLE_2:
 				return new EmbosserBrailleConverter(
 						new String(" a,b.k;l'cifímsp@e:h}o+r^djgÌntq_1?2-u<v{396óxé&\"5*8>z=á%4w7#yú\\"),
 						Charset.forName("UTF-8"), fallback, replacement, false);
-//****************************************************************** 
 		case IT_IT_FIRENZE:
 			return new EmbosserBrailleConverter(
 					new String(

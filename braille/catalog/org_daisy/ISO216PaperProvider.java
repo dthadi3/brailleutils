@@ -27,16 +27,24 @@ import org.daisy.paper.PaperProvider;
 public class ISO216PaperProvider implements PaperProvider {
 	public static final double INCH_IN_MM = 25.4;
 	enum PaperSize {
+		A3,
 		A4,
-		A3
+                A5,
+                B3,
+                B4,
+                B5
 	};
 
 	private final ArrayList<Paper> papers;
 	
 	public ISO216PaperProvider() {
 		papers = new ArrayList<Paper>();
-		papers.add(new DefaultPaper("A4", "210 mm x 297 mm", PaperSize.A4, 210d, 297d));
 		papers.add(new DefaultPaper("A3", "297 mm x 420 mm", PaperSize.A3, 297d, 420d));
+		papers.add(new DefaultPaper("A4", "210 mm x 297 mm", PaperSize.A4, 210d, 297d));
+                papers.add(new DefaultPaper("A5", "148 mm x 210 mm", PaperSize.A5, 148d, 210d));
+                papers.add(new DefaultPaper("B3", "353 mm x 500 mm", PaperSize.B3, 353d, 500d));
+                papers.add(new DefaultPaper("B4", "250 mm x 353 mm", PaperSize.B4, 250d, 353d));
+                papers.add(new DefaultPaper("B5", "176 mm x 250 mm", PaperSize.B5, 176d, 250d));
 	}
 
 	//jvm1.6@Override

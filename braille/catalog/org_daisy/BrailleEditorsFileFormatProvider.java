@@ -19,9 +19,9 @@ public class BrailleEditorsFileFormatProvider implements FileFormatProvider {
 
     public BrailleEditorsFileFormatProvider() {
             map = new HashMap<FileType,FileFormat>();
-            map.put(FileType.BRF, new BrailleEditorsFileFormat(FileType.BRF));
-            map.put(FileType.BRA, new BrailleEditorsFileFormat(FileType.BRA));
-            //map.put(FileType.BRL, new BrailleEditorsFileFormat(FileType.BRL));
+            map.put(FileType.BRF, new BrailleEditorsFileFormat("BRF (Braille Formatted)", "Duxbury Braille file",      FileType.BRF));
+            map.put(FileType.BRA, new BrailleEditorsFileFormat("BRA",                     "Spanish Braille file",      FileType.BRA));
+          //map.put(FileType.BRL, new BrailleEditorsFileFormat("BRL",                     "MicroBraille Braille file", FileType.BRL));
     }
 
     public Collection<FileFormat> list() {

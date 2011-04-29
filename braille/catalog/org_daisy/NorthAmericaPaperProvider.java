@@ -28,6 +28,10 @@ public class NorthAmericaPaperProvider implements PaperProvider {
 	public static final double INCH_IN_MM = 25.4;
 	enum PaperSize {
 		LETTER,
+                LEGAL,
+                JUNIOR_LEGAL,
+                LEDGER,
+                TABLOID,
 		W11500THOU_X_H11INCH
 	};
 
@@ -36,6 +40,10 @@ public class NorthAmericaPaperProvider implements PaperProvider {
 	public NorthAmericaPaperProvider() {
 		papers = new ArrayList<Paper>();
 		papers.add(new DefaultPaper("Letter", "8.5 inch x 11 inch", PaperSize.LETTER, 8.5 * INCH_IN_MM, 11 * INCH_IN_MM));
+                papers.add(new DefaultPaper("Legal", " 8.5 inch x 14 inch", PaperSize.LEGAL, 8.5 * INCH_IN_MM, 14 * INCH_IN_MM));
+                papers.add(new DefaultPaper("Junior Legal", "8 inch x 5 inch", PaperSize.JUNIOR_LEGAL, 8 * INCH_IN_MM, 5 * INCH_IN_MM));
+                papers.add(new DefaultPaper("Ledger", "17 inch x 11 inch", PaperSize.LEDGER, 17 * INCH_IN_MM, 11 * INCH_IN_MM));
+                papers.add(new DefaultPaper("Tabloid", " inch x  inch", PaperSize.TABLOID, 11 * INCH_IN_MM, 17 * INCH_IN_MM));
 		papers.add(new DefaultPaper("11.5 inch x 11 inch", "11.5 inch wide, 11 inch high", PaperSize.W11500THOU_X_H11INCH, 11.5 * INCH_IN_MM, 11 * INCH_IN_MM));
 	}
 

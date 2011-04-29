@@ -15,6 +15,7 @@ import org.daisy.braille.embosser.EmbosserWriterProperties;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.AbstractEmbosserWriter.Padding;
+import org.daisy.factory.AbstractFactory;
 
 import org_daisy.BrailleEditorsFileFormatProvider.FileType;
 
@@ -23,7 +24,7 @@ import org_daisy.BrailleEditorsFileFormatProvider.FileType;
  *
  * @author Bert Frees
  */
-public class BrailleEditorsFileFormat implements FileFormat {
+public class BrailleEditorsFileFormat extends AbstractFactory implements FileFormat {
 
     private FileType type;
     private Table table;
@@ -31,11 +32,13 @@ public class BrailleEditorsFileFormat implements FileFormat {
     private TableFilter tableFilter;
     private final Collection<String> supportedTableIds = new ArrayList<String>();
 
-    public BrailleEditorsFileFormat(FileType identifier) {
+    public BrailleEditorsFileFormat(String name, String desc, FileType identifier) {
+
+        super(name, desc, identifier);
 
         type = identifier;
 
-        switch (identifier) {
+        switch (type) {
             case BRF:
                 supportedTableIds.add("org.daisy.braille.table.DefaultTableProvider.TableType.EN_US");
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.EN_GB");
@@ -125,10 +128,6 @@ public class BrailleEditorsFileFormat implements FileFormat {
                 return null;
         }
     }
-
-    public String getIdentifier() {
-        return type.getClass().getCanonicalName() + "." + type.toString();
-    }
     
     public String getFileExtension() {
         return "." + type.name().toLowerCase();
@@ -151,14 +150,6 @@ public class BrailleEditorsFileFormat implements FileFormat {
     }
 
     public Object getFeature(String key) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public String getDisplayName() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public String getDescription() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
