@@ -4,3 +4,5 @@ es_once_cidat.CidatEmbosserProvider
 be_interpoint.InterpointEmbosserProvider
 com_brailler.EnablingTechnologiesEmbosserProvider
 org_daisy.GenericEmbosserProvider
+com_viewplus.ViewPlusEmbosserProvider
+#pl_com_harpo.HarpoEmbosserProvider
