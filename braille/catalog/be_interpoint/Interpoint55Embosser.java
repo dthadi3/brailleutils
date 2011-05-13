@@ -87,7 +87,7 @@ public class Interpoint55Embosser extends AbstractEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex() && false; // ??? examine PEF file => Contract?
+        boolean duplexEnabled = supportsDuplex();          // ??? examine PEF file => Contract?
         boolean eightDots = supports8dot() && false;       // ???
         PageFormat page = getPageFormat();
 

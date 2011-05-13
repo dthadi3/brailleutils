@@ -97,7 +97,7 @@ public class MountbattenEmbosser extends AbstractEmbosser {
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
         boolean eightDots = supports8dot() && false;
-        boolean duplexEnabled = supportsDuplex() && false;
+        boolean duplexEnabled = supportsDuplex();
         PageFormat page = getPageFormat();
 
         if (!supportsDimensions(page)) {

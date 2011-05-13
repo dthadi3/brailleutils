@@ -98,13 +98,13 @@ public class BrailleEditorsFileFormat extends AbstractFactory implements FileFor
             throw new IllegalArgumentException("Unsupported table: " + table.getDisplayName());
         }
 
-        boolean duplexEnabled = supportsDuplex() && false; // ??? examine PEF file => Contract?
+        boolean duplexEnabled = supportsDuplex();          // ??? examine PEF file => Contract?
         boolean eightDots = supports8dot() && false;       // ???
-        int cols = 25;                                     // ???
-        int rows = 40;                                     // ???
+        int maxCols = 1000;                                // ???
+        int maxRows = 1000;                                // ???
 
         EmbosserWriterProperties props =
-            new SimpleEmbosserProperties(cols, rows)
+            new SimpleEmbosserProperties(maxCols, maxRows)
                 .supports8dot(eightDots)
                 .supportsDuplex(duplexEnabled)
                 .supportsAligning(false);

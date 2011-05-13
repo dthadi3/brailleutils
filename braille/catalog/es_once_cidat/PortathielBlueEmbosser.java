@@ -45,7 +45,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
+        boolean duplexEnabled = supportsDuplex();     // examine PEF file: duplex => Contract ?
         boolean eightDots = supports8dot() && false;
         PageFormat page = getPageFormat();
         

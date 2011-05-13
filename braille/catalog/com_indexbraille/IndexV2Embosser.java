@@ -80,7 +80,7 @@ public class IndexV2Embosser extends IndexEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex() && false; // ??? examine PEF file: duplex => Contract ?
+        boolean duplexEnabled = supportsDuplex();          // ??? examine PEF file: duplex => Contract ?
         int pageCount = 1;                                 // ???
         boolean eightDots = supports8dot() && false;       // ???
         boolean magazine = false;

@@ -90,7 +90,7 @@ public class IndexV3Embosser extends IndexEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex() && false; // examine PEF file: duplex => Contract ?
+        boolean duplexEnabled = supportsDuplex();          // examine PEF file: duplex => Contract ?
         boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
         PageFormat page = getPageFormat();
 
