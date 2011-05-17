@@ -10,7 +10,7 @@ import org.daisy.braille.table.BrailleConverter;
  *
  */
 public abstract class AbstractEmbosserWriter implements EmbosserWriter {
-	public static enum Padding {BOTH, BEFORE, AFTER, NONE, NO_FF}; // NO_FF = no formfeed, only a linefeed
+	public static enum Padding {BOTH, BEFORE, AFTER, NONE};
 	/*
 	protected boolean supports8dot;
 	protected boolean supportsDuplex;
@@ -25,6 +25,7 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 	private int charsOnRow;
 	private int rowsOnPage;
 	private EmbosserWriterProperties props;
+        protected PageBreaks pagebreaks = new StandardPageBreaks();
 
 	public abstract LineBreaks getLinebreakStyle();
 	public abstract Padding getPaddingStyle();
@@ -97,26 +98,30 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 		if (rowsOnPage>props.getMaxHeight()) {
 			throw new IOException("The maximum number of rows on a page was exceeded (page is too short)");
 		}
-        switch (getPaddingStyle()) {
-	    	case BEFORE:
-	    		lineFeed();
-	    	case NONE:
-	    		add((byte)0x0c);
-	    		break;
-	    	case BOTH:
-	    		lineFeed();
-	    	case AFTER:
-	    		add((byte)0x0c);
-	    		lineFeed();
-	    		break;
-                case NO_FF:
-                        lineFeed();
-                        break;
-	    }
-        currentPage++;
-	    rowsOnPage = 0;
-	    charsOnRow = 0;
+		switch (getPaddingStyle()) {
+			case BEFORE:
+				lineFeed();
+			case NONE:
+				addAll(getPagebreakStyle().getString().getBytes());
+				break;
+			case BOTH:
+				lineFeed();
+			case AFTER:
+				addAll(getPagebreakStyle().getString().getBytes());
+				lineFeed();
+				break;
+
+                
+
+		}
+		currentPage++;
+		rowsOnPage = 0;
+		charsOnRow = 0;
 	}
+
+        protected PageBreaks getPagebreakStyle() {
+            return pagebreaks;
+        }
 
 	public void newPage() throws IOException {
 		if (props.supportsDuplex() && !currentDuplex && (currentPage % 2)==1) {

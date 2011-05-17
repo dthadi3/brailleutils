@@ -8,6 +8,7 @@ import org.daisy.braille.embosser.AbstractEmbosserWriter;
 import org.daisy.braille.embosser.AbstractEmbosserWriter.Padding;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.embosser.LineBreaks;
+import org.daisy.braille.embosser.PageBreaks;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.table.BrailleConverter;
 
@@ -34,7 +35,8 @@ public class MicroBrailleFileFormatWriter extends AbstractEmbosserWriter {
         this.os = os;
         header = ("$" + rows).getBytes();
         breaks = new StandardLineBreaks(StandardLineBreaks.Type.DOS);
-        padding = Padding.NO_FF;
+        pagebreaks = new NoPageBreaks();
+        padding = Padding.AFTER;
         table = new BrailleEditorsTableProvider().newTable(TableType.MICROBRAILLE);
 
         SimpleEmbosserProperties props = new SimpleEmbosserProperties(cols, rows)

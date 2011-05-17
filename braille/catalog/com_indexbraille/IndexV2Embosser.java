@@ -81,7 +81,7 @@ public class IndexV2Embosser extends IndexEmbosser {
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
         boolean duplexEnabled = supportsDuplex();          // ??? examine PEF file: duplex => Contract ?
-        int pageCount = 1;                                 // ???
+      //int pageCount = 1;                                 // ???
         boolean eightDots = supports8dot() && false;       // ???
         boolean magazine = false;
         PageFormat page = getPageFormat();
@@ -99,9 +99,9 @@ public class IndexV2Embosser extends IndexEmbosser {
         if (numberOfCopies > maxNumberOfCopies || numberOfCopies < 1) {
             throw new IllegalArgumentException(new UnsupportedPaperException("Invalid number of copies: " + numberOfCopies + " is not in [1, 999]"));
         }
-        if (magazine && pageCount > 200) {
-            throw new IllegalArgumentException(new UnsupportedPaperException("Number of pages = " + pageCount +  "; cannot exceed 200 when in magazine style mode"));
-        }
+      //if (magazine && pageCount > 200) {
+      //    throw new IllegalArgumentException(new UnsupportedPaperException("Number of pages = " + pageCount +  "; cannot exceed 200 when in magazine style mode"));
+      //}
        
         byte[] header = getIndexV2Header(duplexEnabled, eightDots);
         byte[] footer = new byte[]{0x1a};

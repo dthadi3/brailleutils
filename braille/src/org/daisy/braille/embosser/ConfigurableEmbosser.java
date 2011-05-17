@@ -50,6 +50,7 @@ public class ConfigurableEmbosser extends AbstractEmbosserWriter {
 		
 		// optional params
 		private LineBreaks breaks = new StandardLineBreaks(StandardLineBreaks.Type.DEFAULT);
+                private PageBreaks pagebreaks = new StandardPageBreaks();
 		private Padding padNewline = Padding.values()[0];
 		private byte[] header = new byte[0];
 		private byte[] footer = new byte[0];
@@ -94,6 +95,14 @@ public class ConfigurableEmbosser extends AbstractEmbosserWriter {
 		 */
 		public Builder breaks(LineBreaks value) {
 			breaks = value; return this;
+		}
+                /**
+		 * Sets the page break style
+		 * @param value the page break style to use
+		 * @return returns this object
+		 */
+		public Builder pagebreaks(PageBreaks value) {
+			pagebreaks = value; return this;
 		}
 		/**
 		 * Sets the padding style
@@ -156,6 +165,7 @@ public class ConfigurableEmbosser extends AbstractEmbosserWriter {
 	private ConfigurableEmbosser(Builder builder) {
 		bf = builder.bt;
 		breaks = builder.breaks;
+                pagebreaks = builder.pagebreaks;
 		padNewline = builder.padNewline;
 		header = builder.header;
 		footer = builder.footer;

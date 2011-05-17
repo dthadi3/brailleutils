@@ -61,6 +61,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
             ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
                 .breaks(new CidatLineBreaks(CidatLineBreaks.Type.PORTATHIEL_TRANSPARENT))
+                .pagebreaks(new CidatPageBreaks(CidatPageBreaks.Type.PORTATHIEL_TRANSPARENT))
                 .padNewline(ConfigurableEmbosser.Padding.NONE)
                 .embosserProperties(
                     new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))

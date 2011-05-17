@@ -20,7 +20,7 @@ public class CidatLineBreaks implements LineBreaks {
                 newline = "\u001b\n";
                 break;
             case PORTATHIEL_TRANSPARENT:
-                newline = "\u00c7";
+                newline = "\u00cd\u00da";
                 break;
             default:
                 newline = "";

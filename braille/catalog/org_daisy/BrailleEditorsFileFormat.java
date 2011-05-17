@@ -119,7 +119,8 @@ public class BrailleEditorsFileFormat extends AbstractFactory implements FileFor
             case BRA:
                 return new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
                                     .breaks(new StandardLineBreaks(StandardLineBreaks.Type.UNIX))
-                                    .padNewline(Padding.NO_FF)
+                                    .pagebreaks(new NoPageBreaks())
+                                    .padNewline(Padding.AFTER)
                                     .embosserProperties(props)
                                     .build();
             case BRL:

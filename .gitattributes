@@ -22,7 +22,6 @@ braille/catalog/com_braillo/BrailloEmbosserProvider.java -text svneol=unset#text
 braille/catalog/com_braillo/BrailloTableProvider.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/BrailloVolumeWriter.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/BlueBarEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/BlueBarEmbosserWriter.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexEmbosser.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexEmbosserProvider.java -text svneol=unset#text/plain
 braille/catalog/com_indexbraille/IndexTableProvider.java -text svneol=unset#text/plain
@@ -37,6 +36,7 @@ braille/catalog/com_yourdolphin/SupernovaTableProvider.java -text svneol=unset#t
 braille/catalog/es_once_cidat/CidatEmbosser.java -text
 braille/catalog/es_once_cidat/CidatEmbosserProvider.java -text
 braille/catalog/es_once_cidat/CidatLineBreaks.java -text
+braille/catalog/es_once_cidat/CidatPageBreaks.java -text
 braille/catalog/es_once_cidat/CidatTableProvider.java -text
 braille/catalog/es_once_cidat/ImpactoEmbosser.java -text
 braille/catalog/es_once_cidat/PortathielBlueEmbosser.java -text
@@ -48,6 +48,7 @@ braille/catalog/org_daisy/GenericEmbosser.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/GenericEmbosserProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/ISO216PaperProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/MicroBrailleFileFormatWriter.java -text
+braille/catalog/org_daisy/NoPageBreaks.java -text
 braille/catalog/org_daisy/NorthAmericaPaperProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/TractorPaperProvider.java -text svneol=unset#text/plain
 braille/catalog/pl_com_harpo/HarpoEmbosserProvider.java -text
@@ -94,8 +95,10 @@ braille/src/org/daisy/braille/embosser/FileFormatProperties.java -text
 braille/src/org/daisy/braille/embosser/FileFormatProvider.java -text
 braille/src/org/daisy/braille/embosser/FileToDeviceEmbosserWriter.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/LineBreaks.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/embosser/PageBreaks.java -text
 braille/src/org/daisy/braille/embosser/SimpleEmbosserProperties.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/StandardLineBreaks.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/embosser/StandardPageBreaks.java -text
 braille/src/org/daisy/braille/embosser/UnsupportedPaperException.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/UnsupportedWidthException.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/VolumeWriter.java -text svneol=unset#text/plain

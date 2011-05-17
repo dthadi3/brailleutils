@@ -92,8 +92,11 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 			} catch (ClassCastException e) {
 				throw new IllegalArgumentException("Unsupported value for pageFormat: '" + value + "'", e);
 			}
-		} else if (EmbosserFeatures.TABLE.equals(key) && value!=null) {
+		} else if (EmbosserFeatures.TABLE.equals(key)) {
 			Table t;
+			if (value == null) {
+				throw new IllegalArgumentException("Unsupported value for table: value = null");
+			}
                         try {
 				t = (Table)value;
 			} catch (ClassCastException e) {
