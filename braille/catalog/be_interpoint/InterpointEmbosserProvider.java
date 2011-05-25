@@ -19,7 +19,9 @@ public class InterpointEmbosserProvider implements EmbosserProvider {
     
     public InterpointEmbosserProvider() {
         embossers = new HashMap<EmbosserType, Embosser>();
-        embossers.put(EmbosserType.INTERPOINT_55, new Interpoint55Embosser("Interpoint 55", "Robust, high-quality, high-speed (2000 pages per hour) double-sided embosser with paper supply from rolls"));
+        embossers.put(EmbosserType.INTERPOINT_55,
+                new Interpoint55Embosser("Interpoint 55",
+                                         "Robust, high-quality, high-speed (2000 pages per hour) double-sided embosser with paper supply from rolls"));
     }
 
     public Collection<Embosser> list() {

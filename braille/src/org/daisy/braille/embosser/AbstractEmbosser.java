@@ -114,11 +114,15 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 				throw new IllegalArgumentException("Changing cell height has not been implemented.");
 			} else if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key)) {
 				throw new IllegalArgumentException("Unsupported feature 'number of copies'.");
-                        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key)) {
+			} else if (EmbosserFeatures.SADDLE_STITCH.equals(key)) {
 				throw new IllegalArgumentException("Unsupported feature 'saddle stich mode'.");
-                        } else if (EmbosserFeatures.Z_FOLDING.equals(key)) {
+			} else if (EmbosserFeatures.Z_FOLDING.equals(key)) {
 				throw new IllegalArgumentException("Unsupported feature 'z folding mode'.");
-                        }
+			} else if (EmbosserFeatures.DUPLEX.equals(key)) {
+				throw new IllegalArgumentException("Unsupported feature 'duplex'.");
+			} else if (EmbosserFeatures.PAGES_IN_QUIRE.equals(key)) {
+				throw new IllegalArgumentException("Unsupported feature 'pages in quire'.");
+			}
 			settings.put(key, value.toString());
 		}
 	}

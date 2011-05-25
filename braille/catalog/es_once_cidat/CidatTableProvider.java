@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.daisy.braille.table.AbstractConfigurableTableProvider;
 import org.daisy.braille.table.AdvancedBrailleConverter;
 import org.daisy.braille.table.BrailleConverter;
+import org.daisy.braille.table.EmbosserBrailleConverter;
 import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
 import org.daisy.braille.table.EmbosserTable;
 import org.daisy.braille.table.Table;
@@ -79,19 +80,20 @@ public class CidatTableProvider extends AbstractConfigurableTableProvider<CidatT
                     MatchMode.RELUCTANT);
             }
             case PORTATHIEL_TRANSPARENT_6DOT: {
-                ArrayList<String> al = new ArrayList<String>();
+                StringBuilder sb = new StringBuilder();
                 for (int i=0; i<0x1b; i++) {
-                    al.add(String.valueOf((char)i));
+                    sb.append((char)i);
                 }
-                al.add(String.copyValueOf(new char[]{(char)0xcd,(char)0xda}));
-                for (int i=0x1c; i<256; i++) {
-                    al.add(String.valueOf((char)i));
+                sb.append((char)0xf7);
+                for (int i=0x1c; i<64; i++) {
+                    sb.append((char)i);
                 }
-                return new AdvancedBrailleConverter(
-                    al.toArray(new String[al.size()]),
-                    Charset.forName("ISO-8859-1"),
-                    false,
-                    MatchMode.RELUCTANT);
+                return new EmbosserBrailleConverter(
+                        sb.toString(),
+                        Charset.forName("ISO-8859-1"),
+                        fallback,
+                        replacement,
+                        false);
             }
             default:
                 throw new IllegalArgumentException("Cannot find table type " + t);

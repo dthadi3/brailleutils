@@ -181,6 +181,11 @@ braille/src/org/daisy/printing/package.html -text svneol=unset#text/plain
 braille/src/org/daisy/validator/Validator.java -text svneol=unset#text/plain
 braille/src/org/daisy/validator/ValidatorFactory.java -text svneol=unset#text/plain
 braille/src/org/daisy/validator/package.html -text svneol=unset#text/plain
+braille/tests/be_interpoint/Interpoint55EmbosserTest.java -text
+braille/tests/be_interpoint/resource-files/interpoint55_double_sided.pef -text
+braille/tests/be_interpoint/resource-files/interpoint55_double_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/be_interpoint/resource-files/interpoint55_single_sided.pef -text
+braille/tests/be_interpoint/resource-files/interpoint55_single_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_braillo/BrailloTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_indexbraille/IndexEmbosserProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_indexbraille/IndexTableProviderTest.java -text svneol=unset#text/plain
