@@ -52,6 +52,8 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
     private int maxMarginTop = 0;
     private int maxMarginBottom = 0;
 
+    protected boolean duplexEnabled = false;
+
     private final static TableFilter tableFilter;
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
 
@@ -149,10 +151,6 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         return false;
     }
 
-    public boolean supportsDuplex() {
-        return false;
-    }
-
     public boolean supportsAligning() {
         return true;
     }
@@ -171,7 +169,6 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex();          // examine PEF file: duplex => Contract ?
         boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
         PageFormat page = getPageFormat();
 
@@ -221,7 +218,8 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         header.append(new char[]{0x1b,0x14}); header.append((char)pageLenght);                  // Page length
         header.append(new char[]{0x1b,0x17}); header.append((char)0);                           // Word wrap = OFF
         header.append(new char[]{0x1b,0x23}); header.append((char)0);                           // Horizontal page centering = OFF
-        header.append(new char[]{0x1b,0x29}); header.append((char)(duplex?0:1));                // Interpoint mode
+        if (supportsDuplex()) {
+            header.append(new char[]{0x1b,0x29}); header.append((char)(duplex?0:1)); }          // Interpoint mode
         header.append(new char[]{0x1b,0x33}); header.append((char)(eightDots?3:0));             // DBS mode
         header.append(new char[]{0x1b,0x34}); header.append((char)topOffFormOffset);            // Top of form offset
 

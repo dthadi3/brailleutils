@@ -5,8 +5,11 @@ import java.io.FileOutputStream;
 
 import java.io.IOException;
 
+import org.daisy.braille.table.Table;
+import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.embosser.AbstractEmbosser;
 import org.daisy.braille.embosser.EmbosserTools;
+import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
 import org.daisy.paper.Dimensions;
@@ -26,6 +29,8 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
     private double maxPaperHeight = Double.MAX_VALUE;
     private double minPaperWidth = 50d;
     private double minPaperHeight = 50d;
+
+    protected boolean duplexEnabled = true;
 
     public CidatEmbosser(String name, String desc, EmbosserType identifier) {
 
@@ -91,5 +96,43 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
         } catch (IOException e) {
         }
         throw new IllegalArgumentException("Embosser does not support this feature.");
+    }
+
+    @Override
+    public void setFeature(String key, Object value) {
+
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            Table t;
+            try {
+                t = (Table)value;
+            } catch (ClassCastException e) {
+                t = TableCatalog.newInstance().get(value.toString());
+            }
+            if (getTableFilter().accept(t)) {
+                setTable = t;
+            } else {
+                throw new IllegalArgumentException("Unsupported value for table.");
+            }
+        } else if (EmbosserFeatures.DUPLEX.equals(key) && supportsDuplex()) {
+            try {
+                duplexEnabled = (Boolean)value;
+            } catch (ClassCastException e) {
+                throw new IllegalArgumentException("Unsupported value for duplex.");
+            }
+        } else {
+            super.setFeature(key, value);
+        }
+    }
+
+    @Override
+    public Object getFeature(String key) {
+
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            return setTable;
+        } else if (EmbosserFeatures.DUPLEX.equals(key) && supportsDuplex()) {
+            return duplexEnabled;
+        } else {
+            return super.getFeature(key);
+        }
     }
 }

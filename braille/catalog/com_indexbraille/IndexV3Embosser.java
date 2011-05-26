@@ -39,19 +39,14 @@ public class IndexV3Embosser extends IndexEmbosser {
         super(name, desc, identifier);
 
         switch (type) {
-            case INDEX_EVEREST_D_V3:
             case INDEX_BASIC_S_V3:
-                supportsSaddleStitch = false;
-                supportsZFolding = false;
+                duplexEnabled = false;
                 break;
             case INDEX_BASIC_D_V3:
+            case INDEX_EVEREST_D_V3:
             case INDEX_4WAVES_PRO_V3:
-                supportsSaddleStitch = false;
-                supportsZFolding = true;
-                break;
             case INDEX_4X4_PRO_V3:
-                supportsSaddleStitch = true;
-                supportsZFolding = false;
+                duplexEnabled = true;
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
@@ -76,21 +71,44 @@ public class IndexV3Embosser extends IndexEmbosser {
     public boolean supportsDimensions(Dimensions dim) {
 
         if (type==EmbosserType.INDEX_BASIC_D_V3 ||
-            type==EmbosserType.INDEX_BASIC_S_V3) {
+            type==EmbosserType.INDEX_BASIC_S_V3 ||
+            type==EmbosserType.INDEX_4WAVES_PRO_V3) {
             double w = dim.getWidth();
             double h = dim.getHeight();
             return super.supportsDimensions(dim) && (w==210 && (h==10*EmbosserTools.INCH_IN_MM ||
                                                                 h==11*EmbosserTools.INCH_IN_MM ||
                                                                 h==12*EmbosserTools.INCH_IN_MM)
-                                                  || w==240 &&  h==12*EmbosserTools.INCH_IN_MM);
+                                                  || w==240 &&  h==12*EmbosserTools.INCH_IN_MM
+                                                  || w==280 &&  h==12*EmbosserTools.INCH_IN_MM);
         } else {
             return super.supportsDimensions(dim);
         }
     }
 
+    protected boolean supportsSaddleStitch() {
+
+        switch (type) {
+            case INDEX_4X4_PRO_V3:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    protected boolean supportsZFolding() {
+
+        switch (type) {
+            case INDEX_BASIC_S_V3:
+            case INDEX_BASIC_D_V3:
+            case INDEX_4WAVES_PRO_V3:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex();          // examine PEF file: duplex => Contract ?
         boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
         PageFormat page = getPageFormat();
 
@@ -155,7 +173,6 @@ public class IndexV3Embosser extends IndexEmbosser {
         header.append("D");                                         // Activate temporary formatting properties of a document
         header.append("BT0");                                       // Default braille table
         header.append(",TD0");                                      // Text dot distance = 2.5 mm
-        header.append(",LS");
         header.append(",LS50");                                     // Line spacing = 5 mm
         header.append(",DP");
         if (saddleStitchEnabled)       { header.append('4'); } else

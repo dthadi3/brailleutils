@@ -6,6 +6,8 @@ import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
+import org.daisy.braille.embosser.StandardLineBreaks;
+import org.daisy.braille.embosser.StandardPageBreaks;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
@@ -23,20 +25,25 @@ import es_once_cidat.CidatEmbosserProvider.EmbosserType;
 public class PortathielBlueEmbosser extends CidatEmbosser {
 
     private final static TableFilter tableFilter;
-    private final static String table6dot = CidatTableProvider.class.getCanonicalName() + ".TableType.PORTATHIEL_TRANSPARENT_6DOT";
-    private final static String table8dot = CidatTableProvider.class.getCanonicalName() + ".TableType.PORTATHIEL_TRANSPARENT_8DOT";
+    private final static String transparentTable = "es_once_cidat.CidatTableProvider.TableType.PORTATHIEL_TRANSPARENT_6DOT";
+    private final static String mitTable = "org_daisy.EmbosserTableProvider.TableType.MIT";
 
     static {
         tableFilter = new TableFilter() {
             //jvm1.6@Override
             public boolean accept(Table object) {
+                if (object == null) { return false; }
+                if (object.getIdentifier().equals(transparentTable)) { return true; }
+                if (object.getIdentifier().equals(mitTable))         { return true; }
                 return false;
             }
         };
     }
 
     public PortathielBlueEmbosser(String name, String desc, EmbosserType identifier) {
+        
         super(name, desc, identifier);
+        setTable = TableCatalog.newInstance().get(transparentTable);
     }
 
     public TableFilter getTableFilter() {
@@ -45,7 +52,6 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex();     // examine PEF file: duplex => Contract ?
         boolean eightDots = supports8dot() && false;
         PageFormat page = getPageFormat();
         
@@ -55,13 +61,10 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
         try {
 
-            byte[] header = getPortathielHeader(duplexEnabled, eightDots);
+            boolean transparentMode = (setTable.getIdentifier().equals(transparentTable));
+            byte[] header = getPortathielHeader(duplexEnabled, eightDots, transparentMode);
 
-            Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
-
-            ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
-                .breaks(new CidatLineBreaks(CidatLineBreaks.Type.PORTATHIEL_TRANSPARENT))
-                .pagebreaks(new CidatPageBreaks(CidatPageBreaks.Type.PORTATHIEL_TRANSPARENT))
+            ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, setTable.newBrailleConverter())
                 .padNewline(ConfigurableEmbosser.Padding.NONE)
                 .embosserProperties(
                     new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
@@ -70,6 +73,15 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
                         .supports8dot(eightDots)
                 )
                 .header(header);
+
+            if (transparentMode) {
+                b = b.breaks(new CidatLineBreaks(CidatLineBreaks.Type.PORTATHIEL_TRANSPARENT))
+                     .pagebreaks(new CidatPageBreaks(CidatPageBreaks.Type.PORTATHIEL_TRANSPARENT));
+            } else {
+                b = b.breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS))
+                     .pagebreaks(new StandardPageBreaks());
+            }
+
             return b.build();
 
         } catch (EmbosserFactoryException e) {
@@ -78,13 +90,14 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
     }
 
     private byte[] getPortathielHeader(boolean duplex,
-                                       boolean eightDots)
+                                       boolean eightDots,
+                                       boolean transparentMode)
                                 throws EmbosserFactoryException {
 
         PageFormat page = getPageFormat();
         int pageLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM);
         int charsPerLine = EmbosserTools.getWidth(page, getCellWidth());
-        int linesPerPage = EmbosserTools.getHeight(page, getCellHeight()); // depends on cell heigth -> depends on rowgap
+        int linesPerPage = EmbosserTools.getHeight(page, getCellHeight()); // depends on rowgap
 
         if (pageLength   < 8  || pageLength   > 13) { throw new UnsupportedPaperException("Paper height = " + pageLength + " inches, must be in [8,13]"); }
         if (charsPerLine < 12 || charsPerLine > 42) { throw new UnsupportedPaperException("Characters per line = " + charsPerLine + ", must be in [12,42]"); }
@@ -93,7 +106,11 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
         StringBuffer header = new StringBuffer();
         byte[] bytes;
 
-        header.append(  "\u001b!TP");                                                   // Transparent mode ON
+        if (transparentMode) {
+            header.append("\u001b!TP");                                                 // Transparent mode ON
+        } else {
+            header.append("\u001b!CS2");                                                // Character set = MIT
+        }
         header.append("\r\u001b!DT");  header.append(eightDots?'6':'8');                // 6 or 8 dots
         header.append("\r\u001b!DS");  header.append(duplex?'1':'0');                   // Front-side or double-sided embossing
         header.append("\r\u001b!LM0");                                                  // Left margin

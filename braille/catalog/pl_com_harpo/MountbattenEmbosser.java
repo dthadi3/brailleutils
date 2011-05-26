@@ -33,7 +33,7 @@ public class MountbattenEmbosser extends AbstractEmbosser {
     private double minPaperHeight = 98d;
 
     private final static TableFilter tableFilter;
-    private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
+    private final static String table6dot = "org_daisy.EmbosserTableProvider.TableType.NABCC";
 
     static {
         tableFilter = new TableFilter() {

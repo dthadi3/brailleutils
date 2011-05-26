@@ -8,7 +8,6 @@ import org.daisy.braille.BrailleConstants;
 import org.daisy.braille.table.BrailleConverter;
 import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
 import org.junit.Test;
-import org_daisy.EmbosserTableProvider;
 
 public class EmbosserTableProviderTest {
 	
@@ -72,4 +71,13 @@ public class EmbosserTableProviderTest {
 		assertEquals("Assert that UTF-8 is the preferred charset", Charset.forName("UTF-8"), ta.getPreferredCharset());
 	}
 
+	@Test
+	public void testNABCC() {
+		EmbosserTableProvider bt = new EmbosserTableProvider();
+		String input = BrailleConstants.BRAILLE_PATTERNS_64;
+		BrailleConverter nabcc = bt.newTable(EmbosserTableProvider.TableType.NABCC);
+		BrailleConverter nabcc8dot = bt.newTable(EmbosserTableProvider.TableType.NABCC_8DOT);
+		assertEquals("Assert that first 64 characters of NABCC and NABCC_8DOT are equal",
+				nabcc.toText(input), nabcc8dot.toText(input));
+	}
 }

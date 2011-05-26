@@ -39,7 +39,7 @@ public class IndexTableProviderTest {
 	}
 	
 	@Test
-	public void testBlueBar() {
+	public void testTransparent6dotTable() {
 		String input = BrailleConstants.BRAILLE_PATTERNS_64;
 		IndexTableProvider.TableType t = IndexTableProvider.TableType.INDEX_TRANSPARENT_6DOT;
 		BrailleConverter ta = bt.newTable(t);

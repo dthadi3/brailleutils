@@ -30,4 +30,12 @@ public class IndexV4Embosser extends IndexEmbosser { // COMING SOON
     public TableFilter getTableFilter() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    protected boolean supportsZFolding() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    protected boolean supportsSaddleStitch() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

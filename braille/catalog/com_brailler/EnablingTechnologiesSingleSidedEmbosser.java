@@ -26,5 +26,11 @@ public class EnablingTechnologiesSingleSidedEmbosser extends EnablingTechnologie
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
         }
+
+        duplexEnabled = false;
+    }
+
+    public boolean supportsDuplex() {
+        return false;
     }
 }

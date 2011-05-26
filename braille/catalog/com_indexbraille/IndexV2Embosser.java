@@ -19,8 +19,8 @@ import org.daisy.braille.embosser.UnsupportedPaperException;
 public class IndexV2Embosser extends IndexEmbosser {
 
     private final static TableFilter tableFilter;
-    private final static String table6dot = IndexEmbosserProvider.class.getCanonicalName() + ".TableType.INDEX_TRANSPARENT_6DOT";
-    private final static String table8dot = IndexEmbosserProvider.class.getCanonicalName() + ".TableType.INDEX_TRANSPARENT_8DOT";
+    private final static String table6dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_6DOT";
+    private final static String table8dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_8DOT";
 
     static {
         tableFilter = new TableFilter() {
@@ -36,18 +36,13 @@ public class IndexV2Embosser extends IndexEmbosser {
         super(name, desc, identifier);
 
         switch (type) {
-            case INDEX_BASIC_D_V2:
-                supportsSaddleStitch = false;
-                supportsZFolding = true;
-                break;
             case INDEX_BASIC_S_V2:
-            case INDEX_EVEREST_D_V2:
-                supportsSaddleStitch = false;
-                supportsZFolding = false;
+                duplexEnabled = false;
                 break;
+            case INDEX_BASIC_D_V2:
+            case INDEX_EVEREST_D_V2:
             case INDEX_4X4_PRO_V2:
-                supportsSaddleStitch = true;
-                supportsZFolding = false;
+                duplexEnabled = true;
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
@@ -72,15 +67,35 @@ public class IndexV2Embosser extends IndexEmbosser {
             return super.supportsDimensions(dim) && (w==210 && (h==10*EmbosserTools.INCH_IN_MM ||
                                                                 h==11*EmbosserTools.INCH_IN_MM ||
                                                                 h==12*EmbosserTools.INCH_IN_MM)
-                                                  || w==240 &&  h==12*EmbosserTools.INCH_IN_MM);
+                                                  || w==240 &&  h==12*EmbosserTools.INCH_IN_MM
+                                                  || w==280 &&  h==12*EmbosserTools.INCH_IN_MM);
         } else {
             return super.supportsDimensions(dim);
         }
     }
 
+    protected boolean supportsSaddleStitch() {
+
+        switch (type) {
+            case INDEX_4X4_PRO_V2:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    protected boolean supportsZFolding() {
+
+        switch (type) {
+            case INDEX_BASIC_D_V2:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex();          // ??? examine PEF file: duplex => Contract ?
       //int pageCount = 1;                                 // ???
         boolean eightDots = supports8dot() && false;       // ???
         boolean magazine = false;
@@ -134,7 +149,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append("x,");                                    // 0: Activated braille code
         header.append("0,");                                    // 1: Type of braille code    = Computer
         header.append(eightDots?'1':'0');                       // 2: 6/8 dot braille
-        header.append("x,");                                    // 3: Capital prefix
+        header.append(",x,");                                   // 3: Capital prefix
         header.append("x,");                                    // 4: Baud rate
         header.append("x,");                                    // 5: Number of data bits
         header.append("x,");                                    // 6: Parity

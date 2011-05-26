@@ -32,10 +32,9 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     protected int numberOfCopies = 1;
     protected boolean zFoldingEnabled = false;
     protected boolean saddleStitchEnabled = false;
+    protected boolean duplexEnabled = false;
 
     protected int maxNumberOfCopies = 1;
-    protected boolean supportsZFolding = false;
-    protected boolean supportsSaddleStitch = false;
 
     protected double printablePageWidth;
     protected double printablePageHeight;
@@ -161,6 +160,9 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         }
     }
 
+    protected abstract boolean supportsZFolding();
+    protected abstract boolean supportsSaddleStitch();
+
     public EmbosserWriter newEmbosserWriter(Device device) {
 
         try {
@@ -186,7 +188,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException("Unsupported value for number of copies.");
             }
-        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsSaddleStitch) {
+        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsSaddleStitch()) {
             try {
                 saddleStitchEnabled = (Boolean)value;
                 if (type == EmbosserType.INDEX_4X4_PRO_V2) {
@@ -195,11 +197,23 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException("Unsupported value for saddle stitch.");
             }
-        } else if (EmbosserFeatures.Z_FOLDING.equals(key) && supportsZFolding) {
+        } else if (EmbosserFeatures.Z_FOLDING.equals(key) && supportsZFolding()) {
             try {
                 zFoldingEnabled = (Boolean)value;
+                if (type==EmbosserType.INDEX_BASIC_D_V2) {
+                    duplexEnabled = duplexEnabled || zFoldingEnabled;
+                }
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException("Unsupported value for z-folding.");
+            }
+        } else if (EmbosserFeatures.DUPLEX.equals(key) && supportsDuplex()) {
+            try {
+                duplexEnabled = (Boolean)value;
+                if (type==EmbosserType.INDEX_BASIC_D_V2) {
+                    zFoldingEnabled = zFoldingEnabled && duplexEnabled;
+                }
+            } catch (ClassCastException e) {
+                throw new IllegalArgumentException("Unsupported value for duplex.");
             }
         } else {
             super.setFeature(key, value);
@@ -211,10 +225,12 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
 
         if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
             return numberOfCopies;
-        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsSaddleStitch) {
+        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsSaddleStitch()) {
             return saddleStitchEnabled;
-        } else if (EmbosserFeatures.Z_FOLDING.equals(key) && supportsZFolding) {
+        } else if (EmbosserFeatures.Z_FOLDING.equals(key) && supportsZFolding()) {
             return zFoldingEnabled;
+        } else if (EmbosserFeatures.DUPLEX.equals(key) && supportsDuplex()) {
+            return duplexEnabled;
         } else {
             return super.getFeature(key);
         }

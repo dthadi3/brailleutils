@@ -22,9 +22,9 @@ public class CidatEmbosserProvider implements EmbosserProvider {
 
     public CidatEmbosserProvider() {
         embossers = new HashMap<EmbosserType, Embosser>();
-        embossers.put(EmbosserType.IMPACTO_600, new ImpactoEmbosser("Impacto 600", "High-quality, high-speed (600 pages per hour) double-sided embosser", EmbosserType.IMPACTO_600));
-        embossers.put(EmbosserType.IMPACTO_TEXTO, new ImpactoEmbosser("Impacto Texto","High-quality, high-speed (800 pages per hour) double-sided embosser", EmbosserType.IMPACTO_TEXTO));
-        embossers.put(EmbosserType.PORTATHIEL_BLUE, new PortathielBlueEmbosser("Portathiel Blue", "Small, lightweight, portable double-sided embosser", EmbosserType.PORTATHIEL_BLUE));
+        embossers.put(EmbosserType.IMPACTO_600, new ImpactoEmbosser("Cidat - Impacto 600", "High-quality, high-speed (600 pages per hour) double-sided embosser", EmbosserType.IMPACTO_600));
+        embossers.put(EmbosserType.IMPACTO_TEXTO, new ImpactoEmbosser("Cidat - Impacto Texto","High-quality, high-speed (800 pages per hour) double-sided embosser", EmbosserType.IMPACTO_TEXTO));
+        embossers.put(EmbosserType.PORTATHIEL_BLUE, new PortathielBlueEmbosser("Cidat - Portathiel Blue", "Small, lightweight, portable double-sided embosser", EmbosserType.PORTATHIEL_BLUE));
     }
 
     //jvm1.6@Override

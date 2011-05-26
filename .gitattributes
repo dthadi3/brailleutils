@@ -182,14 +182,51 @@ braille/src/org/daisy/validator/Validator.java -text svneol=unset#text/plain
 braille/src/org/daisy/validator/ValidatorFactory.java -text svneol=unset#text/plain
 braille/src/org/daisy/validator/package.html -text svneol=unset#text/plain
 braille/tests/be_interpoint/Interpoint55EmbosserTest.java -text
-braille/tests/be_interpoint/resource-files/interpoint55_double_sided.pef -text
+braille/tests/be_interpoint/resource-files/double_sided.pef -text
 braille/tests/be_interpoint/resource-files/interpoint55_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/be_interpoint/resource-files/interpoint55_single_sided.pef -text
 braille/tests/be_interpoint/resource-files/interpoint55_single_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/be_interpoint/resource-files/single_sided.pef -text
+braille/tests/com_brailler/EnablingTechnologiesEmbosserTest.java -text
+braille/tests/com_brailler/resource-files/double_sided.pef -text
+braille/tests/com_brailler/resource-files/juliet_pro_double_sided.prn -text
+braille/tests/com_brailler/resource-files/juliet_pro_single_sided.prn -text
+braille/tests/com_brailler/resource-files/single_sided.pef -text
+braille/tests/com_brailler/resource-files/thomas_single_sided.prn -text
 braille/tests/com_braillo/BrailloTableProviderTest.java -text svneol=unset#text/plain
+braille/tests/com_indexbraille/BlueBarEmbosserTest.java -text
 braille/tests/com_indexbraille/IndexEmbosserProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_indexbraille/IndexTableProviderTest.java -text svneol=unset#text/plain
+braille/tests/com_indexbraille/IndexV2EmbosserTest.java -text
+braille/tests/com_indexbraille/IndexV3EmbosserTest.java -text
+braille/tests/com_indexbraille/resource-files/4x4_pro_v2_double_sided.prn -text
+braille/tests/com_indexbraille/resource-files/4x4_pro_v2_saddle_stitch.prn -text
+braille/tests/com_indexbraille/resource-files/4x4_pro_v3_double_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/4x4_pro_v3_saddle_stitch.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/basic_d_v2_double_sided.prn -text
+braille/tests/com_indexbraille/resource-files/basic_d_v2_single_sided.prn -text
+braille/tests/com_indexbraille/resource-files/basic_d_v2_zfolding.prn -text
+braille/tests/com_indexbraille/resource-files/basic_d_v3_double_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/basic_d_v3_single_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/basic_d_v3_zfolding_double_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/basic_d_v3_zfolding_single_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/basic_s_v2_single_sided.prn -text
+braille/tests/com_indexbraille/resource-files/basic_s_v3_single_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/bluebar_single_sided.prn -text
+braille/tests/com_indexbraille/resource-files/double_sided.pef -text
+braille/tests/com_indexbraille/resource-files/everest_v2_double_sided.prn -text
+braille/tests/com_indexbraille/resource-files/everest_v3_double_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/single_sided.pef -text
 braille/tests/com_yourdolphin/SupernovaTableProviderTest.java -text svneol=unset#text/plain
+braille/tests/es_once_cidat/ImpactoEmbosserTest.java -text
+braille/tests/es_once_cidat/PortathielBlueEmbosserTest.java -text
+braille/tests/es_once_cidat/resource-files/double_sided.pef -text
+braille/tests/es_once_cidat/resource-files/impacto_double_sided.prn -text
+braille/tests/es_once_cidat/resource-files/impacto_single_sided.prn -text
+braille/tests/es_once_cidat/resource-files/portathiel_mit_double_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/es_once_cidat/resource-files/portathiel_mit_single_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/es_once_cidat/resource-files/portathiel_transparent_double_sided.prn -text
+braille/tests/es_once_cidat/resource-files/portathiel_transparent_single_sided.prn -text
+braille/tests/es_once_cidat/resource-files/single_sided.pef -text
 braille/tests/org/daisy/MainTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/PEFFileMergerTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/PEFFileSplitterTest.java -text svneol=unset#text/plain

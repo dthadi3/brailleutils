@@ -1,4 +1,4 @@
-package be_interpoint;
+package es_once_cidat;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.daisy.paper.PageFormat;
-import org.daisy.paper.Dimensions;
 import org.daisy.paper.PaperCatalog;
 import org.daisy.braille.embosser.Embosser;
 import org.daisy.braille.embosser.EmbosserWriter;
@@ -30,52 +29,26 @@ import org.daisy.braille.embosser.UnsupportedWidthException;
  *
  * @author Bert Frees
  */
-public class Interpoint55EmbosserTest {
+public class PortathielBlueEmbosserTest {
 
     private static EmbosserCatalog ec = EmbosserCatalog.newInstance();
-    private static Embosser e = ec.get("be_interpoint.InterpointEmbosserProvider.EmbosserType.INTERPOINT_55");
+    private static Embosser e = ec.get("es_once_cidat.CidatEmbosserProvider.EmbosserType.PORTATHIEL_BLUE");
+
     private static PaperCatalog pc = PaperCatalog.newInstance();
-    private static PageFormat a3 = new PageFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), PageFormat.Orientation.DEFAULT);
-    private static PageFormat a4 = new PageFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), PageFormat.Orientation.REVERSED);
-
-    @Test
-    public void testDimensions() {
-
-        Dimensions dim;
-        dim = new Dimensions() { public double getWidth()  { return 340d; }
-                                 public double getHeight() { return 297d; }};
-
-        assertTrue("Assert that paper of width 340mm is supported", e.supportsDimensions(dim));
-
-        dim = new Dimensions() { public double getWidth()  { return 341d; }
-                                 public double getHeight() { return 297d; }};
-        
-        assertTrue("Assert that paper wider than 340mm is not supported", !e.supportsDimensions(dim));
-
-        // Assert that an Exception is thrown when creating an EmbosserWriter with an unsupported PageFormat ?
-    }
+    private static PageFormat a4 = new PageFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), PageFormat.Orientation.DEFAULT);
 
     @Test
     public void testPrintableArea() {
 
-        e.setFeature(EmbosserFeatures.SADDLE_STITCH, false);
-
-        assertEquals("Assert that max width for an A3 paper is 70 cells (if saddle stitch mode is off)", e.getMaxWidth(a3),  70);
-        assertEquals("Assert that max height for an A3 paper is 29 lines",                               e.getMaxHeight(a3), 29);
-
-        e.setFeature(EmbosserFeatures.SADDLE_STITCH, true);
-
-        assertEquals("Assert that max width for an A3 paper is 35 cells (if saddle stitch mode is on)",  e.getMaxWidth(a3),  35);
-
-        // Assert that an Exception is thrown when parsing a PEF with too many cells or lines ?
+        assertEquals("Assert that max width for a A4 paper is 33 cells",  e.getMaxWidth(a4),  33);
+        assertEquals("Assert that max height for a A4 paper is 29 lines", e.getMaxHeight(a4), 29);
     }
 
     @Test
     public void testTableFilter() {
 
         TableCatalog tc = TableCatalog.newInstance();
-
-	assertTrue("Assert that encoding cannot be modified", tc.list(e.getTableFilter()).size() <= 1);
+	assertTrue("Assert that number of character sets is 2", tc.list(e.getTableFilter()).size() == 2);
     }
 
     @Test
@@ -99,18 +72,17 @@ public class Interpoint55EmbosserTest {
                                             SAXException,
                                             UnsupportedWidthException {
 
-        File prn1 = File.createTempFile("test_interpoint55_", ".prn");
-        File prn2 = File.createTempFile("test_interpoint55_", ".prn");
-        File pef =  File.createTempFile("test_interpoint55_", ".pef");
-        
+        File prn1 = File.createTempFile("test_portathiel_", ".prn");
+        File prn2 = File.createTempFile("test_portathiel_", ".prn");
+        File pef =  File.createTempFile("test_portathiel_", ".pef");
+
         FileCompare fc = new FileCompare();
         PEFHandler.Builder builder;
         EmbosserWriter w;
 
         e.setFeature(EmbosserFeatures.PAGE_FORMAT, a4);
-        e.setFeature(EmbosserFeatures.SADDLE_STITCH, false);
 
-        // Single sided
+        // Single sided, transparent mode
 
         w = e.newEmbosserWriter(new FileOutputStream(prn1));
         builder = new PEFHandler.Builder(w)
@@ -120,13 +92,13 @@ public class Interpoint55EmbosserTest {
                           .topOffset(0);
 
         FileTools.copy(this.getClass().getResourceAsStream("resource-files/single_sided.pef"), new FileOutputStream(pef));
-        FileTools.copy(this.getClass().getResourceAsStream("resource-files/interpoint55_single_sided.prn"), new FileOutputStream(prn2));
+        FileTools.copy(this.getClass().getResourceAsStream("resource-files/portathiel_transparent_single_sided.prn"), new FileOutputStream(prn2));
         PEFConverterFacade.parsePefFile(pef, builder.build());
         assertTrue("Assert that the contents of the file is as expected.",
                 fc.compareBinary(new FileInputStream(prn1), new FileInputStream(prn2))
         );
 
-        // Double sided
+        // Double sided, transparent mode
 
         w = e.newEmbosserWriter(new FileOutputStream(prn1));
         builder = new PEFHandler.Builder(w)
@@ -136,7 +108,40 @@ public class Interpoint55EmbosserTest {
                           .topOffset(0);
 
         FileTools.copy(this.getClass().getResourceAsStream("resource-files/double_sided.pef"), new FileOutputStream(pef));
-        FileTools.copy(this.getClass().getResourceAsStream("resource-files/interpoint55_double_sided.prn"), new FileOutputStream(prn2));
+        FileTools.copy(this.getClass().getResourceAsStream("resource-files/portathiel_transparent_double_sided.prn"), new FileOutputStream(prn2));
+        PEFConverterFacade.parsePefFile(pef, builder.build());
+        assertTrue("Assert that the contents of the file is as expected.",
+                fc.compareBinary(new FileInputStream(prn1), new FileInputStream(prn2))
+        );
+
+        // Single sided, MIT set
+
+        e.setFeature(EmbosserFeatures.TABLE, "org_daisy.EmbosserTableProvider.TableType.MIT");
+        w = e.newEmbosserWriter(new FileOutputStream(prn1));
+        builder = new PEFHandler.Builder(w)
+                          .range(null)
+                          .align(org.daisy.braille.pef.PEFHandler.Alignment.INNER)
+                          .offset(0)
+                          .topOffset(0);
+
+        FileTools.copy(this.getClass().getResourceAsStream("resource-files/single_sided.pef"), new FileOutputStream(pef));
+        FileTools.copy(this.getClass().getResourceAsStream("resource-files/portathiel_mit_single_sided.prn"), new FileOutputStream(prn2));
+        PEFConverterFacade.parsePefFile(pef, builder.build());
+        assertTrue("Assert that the contents of the file is as expected.",
+                fc.compareBinary(new FileInputStream(prn1), new FileInputStream(prn2))
+        );
+
+        // Double sided, MIT set
+
+        w = e.newEmbosserWriter(new FileOutputStream(prn1));
+        builder = new PEFHandler.Builder(w)
+                          .range(null)
+                          .align(org.daisy.braille.pef.PEFHandler.Alignment.INNER)
+                          .offset(0)
+                          .topOffset(0);
+
+        FileTools.copy(this.getClass().getResourceAsStream("resource-files/double_sided.pef"), new FileOutputStream(pef));
+        FileTools.copy(this.getClass().getResourceAsStream("resource-files/portathiel_mit_double_sided.prn"), new FileOutputStream(prn2));
         PEFConverterFacade.parsePefFile(pef, builder.build());
         assertTrue("Assert that the contents of the file is as expected.",
                 fc.compareBinary(new FileInputStream(prn1), new FileInputStream(prn2))

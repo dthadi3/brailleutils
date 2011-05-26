@@ -24,13 +24,14 @@ import es_once_cidat.CidatEmbosserProvider.EmbosserType;
 public class ImpactoEmbosser extends CidatEmbosser {
 
     private final static TableFilter tableFilter;
-    private final static String table6dot = CidatTableProvider.class.getCanonicalName() + ".TableType.IMPACTO_TRANSPARENT_6DOT";
-    private final static String table8dot = CidatTableProvider.class.getCanonicalName() + ".TableType.IMPACTO_TRANSPARENT_8DOT";
+    private final static String transparentTable = CidatTableProvider.class.getCanonicalName() + ".TableType.IMPACTO_TRANSPARENT_6DOT";
 
     static {
         tableFilter = new TableFilter() {
             //jvm1.6@Override
             public boolean accept(Table object) {
+                if (object == null) { return false; }
+                if (object.getIdentifier().equals(transparentTable)) { return true; }
                 return false;
             }
         };
@@ -40,7 +41,9 @@ public class ImpactoEmbosser extends CidatEmbosser {
     private int maxNumberOfCopies = 32767;
 
     public ImpactoEmbosser(String name, String desc, EmbosserType identifier) {
+
         super(name, desc, identifier);
+        setTable = TableCatalog.newInstance().get(transparentTable);
     }
 
     public TableFilter getTableFilter() {
@@ -49,15 +52,15 @@ public class ImpactoEmbosser extends CidatEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex();     // examine PEF file: duplex => Contract ?
-        boolean eightDots = supports8dot() && false;
+        boolean eightDots = supports8dot() && false;   // ??
         PageFormat page = getPageFormat();
         
         if (!supportsDimensions(page)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
-        if (numberOfCopies > 32767 || numberOfCopies < 1) {
-            throw new IllegalArgumentException(new EmbosserFactoryException("Invalid number of copies: " + numberOfCopies + " is not in [1, 32767]"));
+        if (numberOfCopies > maxNumberOfCopies || numberOfCopies < 1) {
+            throw new IllegalArgumentException(new EmbosserFactoryException(
+                    "Invalid number of copies: " + numberOfCopies + " is not in [1, " + maxNumberOfCopies + "]"));
         }
         
         try {
@@ -65,9 +68,7 @@ public class ImpactoEmbosser extends CidatEmbosser {
             byte[] header = getImpactoHeader(duplexEnabled, eightDots);
             byte[] footer = new byte[]{0x1b,0x54};
 
-            Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
-
-            ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
+            ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, setTable.newBrailleConverter())
                 .breaks(new CidatLineBreaks(CidatLineBreaks.Type.IMPACTO_TRANSPARENT))
                 .pagebreaks(new CidatPageBreaks(CidatPageBreaks.Type.IMPACTO_TRANSPARENT))
                 .padNewline(ConfigurableEmbosser.Padding.NONE)
@@ -122,7 +123,7 @@ public class ImpactoEmbosser extends CidatEmbosser {
         header.append((char)0x1b); header.append("ML0\n");                      // Left margin in characters = 0
         header.append((char)0x1b); header.append("MR0\n");                      // Right margin in characters = 0
         header.append((char)0x1b); header.append("MT0\n");                      // Top margin in tenths of an inch = 0
-        header.append((char)0x1b); header.append("NC1");
+        header.append((char)0x1b); header.append("NC");
                                    header.append(String.valueOf(numberOfCopies));
                                    header.append('\n');                         // Number of copies
         header.append((char)0x1b); header.append("SC1\n");                      // Collate copies (one full copy at a time)

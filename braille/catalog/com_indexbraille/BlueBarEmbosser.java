@@ -34,9 +34,16 @@ public class BlueBarEmbosser extends IndexEmbosser {
         return tableFilter;
     }
 
+    protected boolean supportsZFolding() {
+        return false;
+    }
+
+    protected boolean supportsSaddleStitch() {
+        return false;
+    }
+
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex();          // examine PEF file: duplex => Contract ?
         boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
         PageFormat page = getPageFormat();
 
