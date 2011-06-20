@@ -3,6 +3,7 @@ braille/.classpath -text svneol=unset#text/plain
 braille/.project -text svneol=unset#text/plain
 braille/ant-build/resources/javase-6/package-list -text
 braille/ant-build/resources/nsisant-1.2.jar -text
+braille/build.debian.properties -text
 braille/build.xml -text svneol=unset#text/plain
 braille/catalog/META-INF/services/org.daisy.braille.embosser.EmbosserProvider -text
 braille/catalog/META-INF/services/org.daisy.braille.table.TableProvider -text

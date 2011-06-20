@@ -31,6 +31,9 @@
 	<property name="javadoc.dir" value="${ant-output.dir}/docs/javadoc"/>
 	<property name="javadoc-catalog.dir" value="${ant-output.dir}/docs/catalog-javadoc"/>
 
+	<property name="javac.source" value="1.5"/>
+	<property name="javac.target" value="1.5"/>
+
 	<!--
 		Core jars for Braille Utils
 	-->
@@ -103,7 +106,73 @@
 	<!-- ================================================================== -->
 	<!-- Private targets                                                    -->
 	<!-- ================================================================== -->
-	
+
+        <!-- - - - - - - - - - - - - - - - - -
+          target: -core-classpath-attribute
+         - - - - - - - - - - - - - - - - - -->
+
+        <target name="-core-classpath-attribute" depends="-detect-os,-debian-properties">
+
+            <property name="file.reference.saxon"      value="lib/saxon8.jar"/>
+            <property name="file.reference.stax-api"   value="lib/stax-api-1.0.1.jar"/>
+            <property name="file.reference.wstx"       value="lib/wstx-lgpl-3.2.8.jar"/>
+            <property name="file.reference.jing"       value="lib/jing.jar"/>
+            <property name="file.reference.xercesImpl" value="lib/xercesImpl.jar"/>
+            <property name="file.reference.xml-apis"   value="lib/xml-apis.jar"/>
+            <property name="file.reference.isorelax"   value="lib/isorelax.jar"/>
+
+            <pathconvert property="core.classpath.attribute" pathsep=" " dirsep="/">
+                <path>
+                    <pathelement location="${file.reference.saxon}"/>
+                    <pathelement location="${file.reference.stax-api}"/>
+                    <pathelement location="${file.reference.wstx}"/>
+                    <pathelement location="${file.reference.jing}"/>
+                    <pathelement location="${file.reference.xercesImpl}"/>
+                    <pathelement location="${file.reference.xml-apis}"/>
+                    <pathelement location="${file.reference.isorelax}"/>
+                </path>
+                <flattenmapper/>
+            </pathconvert>
+
+        </target>
+
+        <!-- - - - - - - - - - - - - - - - - -
+          target: -detect-os
+         - - - - - - - - - - - - - - - - - -->
+
+        <target name="-detect-os">
+            <condition property="is.windows">
+                <os family="windows"/>
+            </condition>
+            <condition property="is.macosx">
+               <and>
+                   <os family="mac"/>
+                   <os family="unix"/>
+               </and>
+            </condition>
+            <condition property="is.linux">
+                <and>
+                    <os family="unix"/>
+                    <not><os family="mac"/></not>
+                    <not><contains string="${os.name}" substring="debian" casesensitive="no"/></not>
+                </and>
+            </condition>
+            <condition property="is.debian">
+                <and>
+                    <os family="unix"/>
+                    <contains string="${os.name}" substring="debian" casesensitive="no"/>
+                </and>
+            </condition>
+        </target>
+
+        <!-- - - - - - - - - - - - - - - - - -
+          target: -debian-properties
+         - - - - - - - - - - - - - - - - - -->
+
+        <target name="-debian-properties" if="is.debian" depends="-detect-os">
+            <property file="build.debian.properties"/>
+        </target>
+
 	<!-- - - - - - - - - - - - - - - - - - 
           target: emptyBuildDir                      
          - - - - - - - - - - - - - - - - - -->
@@ -163,7 +232,7 @@
          - - - - - - - - - - - - - - - - - -->
     <target name="compile" depends="emptyBuildDir">
     	<!-- Compile core files -->
-        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" debug="true" encoding="UTF-8">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" debug="true" encoding="UTF-8" source="${javac.source}" target="${javac.target}" compiler="javac1.5">
 			<classpath>
 				<fileset dir="${lib.dir}">
 					<include name="*.jar"/>
@@ -176,7 +245,7 @@
 	<!-- - - - - - - - - - - - - - - - - - 
           target: buildCoreJar                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="buildCoreJar" depends="compile, createDistDir">
+    <target name="buildCoreJar" depends="compile, createDistDir, -core-classpath-attribute">
     	<jar destfile="${braille.jar}">
     		<fileset dir="${build.dir}">
     			<patternset refid="braille-jar.patternset"/>
@@ -190,6 +259,7 @@
     			<attribute name="Implementation-Title" value="${release-name} Core"/>
     			<attribute name="Implementation-Version" value="${release-version}"/>
     			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
+                        <attribute name="Class-Path" value="${core.classpath.attribute}"/>
     		</manifest>
     	</jar>
     </target>
@@ -199,7 +269,7 @@
          - - - - - - - - - - - - - - - - - -->
     <target name="compileCatalog" depends="buildCoreJar, emptyCatalogBuildDir">
     	<!-- Compile catalog files -->
-        <javac srcdir="${catalog-src.dir}" destdir="${catalog-build.dir}" includeantruntime="false" debug="true" encoding="UTF-8">
+        <javac srcdir="${catalog-src.dir}" destdir="${catalog-build.dir}" includeantruntime="false" debug="true" encoding="UTF-8" source="${javac.source}" target="${javac.target}" compiler="javac1.5">
 			<classpath>
 				<fileset dir="${dist.dir}">
 					<include name="${core-jar.name}"/>
@@ -237,7 +307,7 @@
          - - - - - - - - - - - - - - - - - -->
     <target name="compileTests" depends="buildCoreJar, buildCatalogJar, emptyTestBuildDir">
     	<!-- Compile test files -->
-	    <javac srcdir="${test-src.dir}" destdir="${test-build.dir}" includeantruntime="false" debug="true" encoding="UTF-8">
+	    <javac srcdir="${test-src.dir}" destdir="${test-build.dir}" includeantruntime="false" debug="true" encoding="UTF-8" source="${javac.source}" target="${javac.target}" compiler="javac1.5">
 			<classpath>
 				<fileset dir="${dist.dir}">
 					<include name="*.jar"/>
