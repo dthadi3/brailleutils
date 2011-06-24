@@ -39,6 +39,8 @@ public class MountbattenEmbosser extends AbstractEmbosser {
         tableFilter = new TableFilter() {
             //jvm1.6@Override
             public boolean accept(Table object) {
+                if (object == null) { return false; }
+                if (object.getIdentifier().equals(table6dot))     { return true; }
                 return false;
             }
         };
@@ -51,6 +53,8 @@ public class MountbattenEmbosser extends AbstractEmbosser {
     public MountbattenEmbosser(String name, String desc, EmbosserType identifier) {
 
         super(name, desc, identifier);
+
+        setTable = TableCatalog.newInstance().get(table6dot);
 
         setCellWidth(5.9d);
         setCellHeight(10.1d);
@@ -96,8 +100,6 @@ public class MountbattenEmbosser extends AbstractEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean eightDots = supports8dot() && false;
-        boolean duplexEnabled = supportsDuplex();
         PageFormat page = getPageFormat();
 
         if (!supportsDimensions(page)) {
@@ -107,15 +109,13 @@ public class MountbattenEmbosser extends AbstractEmbosser {
         byte[] header = getMountbattenHeader();
         byte[] footer = getMountbattenFooter();
 
-        Table table = TableCatalog.newInstance().get(table6dot);
-
         EmbosserWriterProperties props =
             new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
-                .supports8dot(eightDots)
-                .supportsDuplex(duplexEnabled)
+                .supports8dot(supports8dot())
+                .supportsDuplex(supportsDuplex())
                 .supportsAligning(supportsAligning());
 
-        return new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
+        return new ConfigurableEmbosser.Builder(os, setTable.newBrailleConverter())
                         .breaks(new MountbattenLineBreaks())
                         .padNewline(ConfigurableEmbosser.Padding.NONE)
                         .footer(footer)

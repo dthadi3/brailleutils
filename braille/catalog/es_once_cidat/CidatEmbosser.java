@@ -31,6 +31,7 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
     private double minPaperHeight = 50d;
 
     protected boolean duplexEnabled = true;
+    protected boolean eightDotsEnabled = false;
 
     public CidatEmbosser(String name, String desc, EmbosserType identifier) {
 
@@ -39,7 +40,7 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
         type = identifier;
 
         setCellWidth(0.25*EmbosserTools.INCH_IN_MM);
-        setCellHeight(0.4*EmbosserTools.INCH_IN_MM);
+        setCellHeight((eightDotsEnabled?0.5:0.4)*EmbosserTools.INCH_IN_MM);
         
         switch (type) {
             case IMPACTO_600:
@@ -102,6 +103,9 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
     public void setFeature(String key, Object value) {
 
         if (EmbosserFeatures.TABLE.equals(key)) {
+            if (value == null) {
+                throw new IllegalArgumentException("Unsupported value for table");
+            }
             Table t;
             try {
                 t = (Table)value;
@@ -110,6 +114,8 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
             }
             if (getTableFilter().accept(t)) {
                 setTable = t;
+              //eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
+              //setCellHeight((eightDotsEnabled?0.5:0.4)*EmbosserTools.INCH_IN_MM);
             } else {
                 throw new IllegalArgumentException("Unsupported value for table.");
             }

@@ -10,6 +10,8 @@ import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
+import org.daisy.braille.table.Table;
+import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Area;
 import org.daisy.paper.PrintPage.PrintDirection;
 import org.daisy.paper.PrintPage.PrintMode;
@@ -33,6 +35,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     protected boolean zFoldingEnabled = false;
     protected boolean saddleStitchEnabled = false;
     protected boolean duplexEnabled = false;
+    protected boolean eightDotsEnabled = false;
 
     protected int maxNumberOfCopies = 1;
 
@@ -66,7 +69,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         type = identifier;
 
         setCellWidth(6d);
-        setCellHeight(10d);
+        setCellHeight(eightDotsEnabled?12.5d:10d);
 
         switch (type) {
             case INDEX_BASIC_BLUE_BAR:
@@ -96,12 +99,14 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
                 break;
             case INDEX_BASIC_S_V3:
             case INDEX_BASIC_D_V3:
+            case INDEX_BASIC_D_V4:
                 minPaperWidth = 90d;
                 minPaperHeight = 1*EmbosserTools.INCH_IN_MM;
                 maxPaperWidth = 295d;
                 maxPaperHeight = 17*EmbosserTools.INCH_IN_MM;
                 break;
             case INDEX_EVEREST_D_V3:
+            case INDEX_EVEREST_D_V4:
             case INDEX_4X4_PRO_V3:
                 minPaperWidth = 130d;
                 minPaperHeight = 120d;
@@ -151,6 +156,8 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_EVEREST_D_V3:
             case INDEX_4X4_PRO_V3:
             case INDEX_4WAVES_PRO_V3:
+            case INDEX_BASIC_D_V4:
+            case INDEX_EVEREST_D_V4:
                 return true;
             case INDEX_BASIC_BLUE_BAR:
             case INDEX_BASIC_S_V2:
@@ -178,7 +185,24 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     @Override
     public void setFeature(String key, Object value) {
 
-        if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            if (value == null) {
+                throw new IllegalArgumentException("Unsupported value for table");
+            }
+            Table t;
+            try {
+                t = (Table)value;
+            } catch (ClassCastException e) {
+                t = TableCatalog.newInstance().get(value.toString());
+            }
+            if (getTableFilter().accept(t)) {
+                setTable = t;
+              //eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
+              //setCellHeight(eightDotsEnabled?12.5d:10d);
+            } else {
+                throw new IllegalArgumentException("Unsupported value for table.");
+            }
+        } else if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
             try {
                 int copies = (Integer)value;
                 if (copies < 1 || copies > maxNumberOfCopies) {
@@ -223,7 +247,9 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     @Override
     public Object getFeature(String key) {
 
-        if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            return setTable;
+        } else if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
             return numberOfCopies;
         } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsSaddleStitch()) {
             return saddleStitchEnabled;
@@ -246,6 +272,9 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_4X4_PRO_V2:
             case INDEX_4X4_PRO_V3:
                 direction = PrintDirection.SIDEWAYS;
+                break;
+            case INDEX_EVEREST_D_V4:
+                direction = saddleStitchEnabled?PrintDirection.SIDEWAYS:PrintDirection.UPRIGHT;
                 break;
             default:
                 direction = PrintDirection.UPRIGHT;
@@ -276,6 +305,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_BASIC_D_V2:
             case INDEX_BASIC_S_V3:
             case INDEX_BASIC_D_V3:
+            case INDEX_BASIC_D_V4:
             case INDEX_4WAVES_PRO_V3:
                 printablePageWidth = Math.min(inputPageWidth, 248.5);
                 break;
@@ -288,8 +318,9 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         double unprintableTop = 0;
 
         switch (type) {
-            case INDEX_BASIC_D_V3:
             case INDEX_BASIC_S_V3:
+            case INDEX_BASIC_D_V3:
+            case INDEX_BASIC_D_V4:
                 unprintableInner = Math.max(0, inputPageWidth - 276.4);
                 break;
             case INDEX_EVEREST_D_V3:

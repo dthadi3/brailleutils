@@ -6,11 +6,11 @@
             <name>BrailleUtils</name>
             <explicit-platform explicit-source-supported="true"/>
             <source-roots>
-                <root id="src.dir"/>
-                <root id="catalog.dir"/>
+                <root id="src.dir" name="src"/>
+                <root id="catalog.dir" name="catalog"/>
             </source-roots>
             <test-roots>
-                <root id="test.src.dir"/>
+                <root id="test.src.dir" name="test"/>
             </test-roots>
         </data>
     </configuration>

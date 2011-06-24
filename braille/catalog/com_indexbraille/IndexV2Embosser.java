@@ -20,12 +20,16 @@ public class IndexV2Embosser extends IndexEmbosser {
 
     private final static TableFilter tableFilter;
     private final static String table6dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_6DOT";
-    private final static String table8dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_8DOT";
+  //private final static String table8dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_8DOT";
 
     static {
         tableFilter = new TableFilter() {
             //jvm1.6@Override
             public boolean accept(Table object) {
+                if (object == null) { return false; }
+                String tableID = object.getIdentifier();
+                if (tableID.equals(table6dot)) { return true; }
+              //if (tableID.equals(table8dot)) { return true; }
                 return false;
             }
         };
@@ -34,6 +38,8 @@ public class IndexV2Embosser extends IndexEmbosser {
     public IndexV2Embosser(String name, String desc, EmbosserType identifier) {
 
         super(name, desc, identifier);
+
+        setTable = TableCatalog.newInstance().get(table6dot);
 
         switch (type) {
             case INDEX_BASIC_S_V2:
@@ -97,10 +103,9 @@ public class IndexV2Embosser extends IndexEmbosser {
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
       //int pageCount = 1;                                 // ???
-        boolean eightDots = supports8dot() && false;       // ???
-        boolean magazine = false;
+      //boolean magazine = false;
+        
         PageFormat page = getPageFormat();
-
         if (!supportsDimensions(page)) {
             throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
         }
@@ -118,19 +123,17 @@ public class IndexV2Embosser extends IndexEmbosser {
       //    throw new IllegalArgumentException(new UnsupportedPaperException("Number of pages = " + pageCount +  "; cannot exceed 200 when in magazine style mode"));
       //}
        
-        byte[] header = getIndexV2Header(duplexEnabled, eightDots);
+        byte[] header = getIndexV2Header(duplexEnabled, eightDotsEnabled);
         byte[] footer = new byte[]{0x1a};
-
-        Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
 
         EmbosserWriterProperties props =
             new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
-                .supports8dot(eightDots)
+                .supports8dot(eightDotsEnabled)
                 .supportsDuplex(duplexEnabled)
                 .supportsAligning(supportsAligning());
 
         return new IndexTransparentEmbosserWriter(os,
-                                                  table.newBrailleConverter(),
+                                                  setTable.newBrailleConverter(),
                                                   header,
                                                   footer,
                                                   props);

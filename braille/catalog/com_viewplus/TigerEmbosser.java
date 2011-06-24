@@ -9,6 +9,7 @@ import java.io.IOException;
 import org.daisy.braille.embosser.AbstractEmbosser;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserTools;
+import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
 import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
@@ -36,14 +37,21 @@ public class TigerEmbosser extends AbstractEmbosser {
     private double minPaperWidth = 50d;
     private double minPaperHeight = 50d;
 
+    private boolean duplexEnabled = false;
+    private boolean eightDotsEnabled = false;
+
     private final static TableFilter tableFilter;
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
-    private final static String table8dot = ViewPlusTableProvider.class.getCanonicalName() + ".TableType.TIGER_INLINE_SUBSTITUTION_8DOT";
+  //private final static String table8dot = "com_viewplusViewPlusTableProvider.TableType.TIGER_INLINE_SUBSTITUTION_8DOT";
 
     static {
         tableFilter = new TableFilter() {
             //jvm1.6@Override
             public boolean accept(Table object) {
+                if (object == null) { return false; }
+                String tableID = object.getIdentifier();
+                if (tableID.equals(table6dot)) { return true; }
+              //if (tableID.equals(table8dot)) { return true; }
                 return false;
             }
         };
@@ -62,8 +70,11 @@ public class TigerEmbosser extends AbstractEmbosser {
 
         type = identifier;
 
+        setTable = TableCatalog.newInstance().get(table6dot);
+
         setCellWidth(0.25*EmbosserTools.INCH_IN_MM);
         setCellHeight(0.4*EmbosserTools.INCH_IN_MM);
+      //setCellHeight((eightDotsEnabled?0.x:0.4)*EmbosserTools.INCH_IN_MM);
 
         minPaperWidth = 176d;  // B5
         minPaperHeight = 250d;
@@ -162,8 +173,6 @@ public class TigerEmbosser extends AbstractEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean duplexEnabled = supportsDuplex();          // examine PEF file: duplex => Contract ?
-        boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
         PageFormat page = getPageFormat();
 
         if (!supportsDimensions(page)) {
@@ -172,12 +181,10 @@ public class TigerEmbosser extends AbstractEmbosser {
 
         try {
 
-            byte[] header = getHeader(duplexEnabled, eightDots);
+            byte[] header = getHeader(duplexEnabled, eightDotsEnabled);
             byte[] footer = new byte[0];
 
-            Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
-
-            ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
+            ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, setTable.newBrailleConverter())
                 .breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS))
                 .padNewline(ConfigurableEmbosser.Padding.NONE)
                 .footer(footer)
@@ -185,7 +192,7 @@ public class TigerEmbosser extends AbstractEmbosser {
                     new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
                         .supportsDuplex(duplexEnabled)
                         .supportsAligning(supportsAligning())
-                        .supports8dot(eightDots)
+                        .supports8dot(eightDotsEnabled)
                 )
                 .header(header);
             return b.build();
@@ -239,6 +246,41 @@ public class TigerEmbosser extends AbstractEmbosser {
 //      header.append((char)0x1b); header.append("H@");                             // Standard Ink text quality
 
         return header.toString().getBytes();
+    }
+
+    @Override
+    public void setFeature(String key, Object value) {
+
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            if (value == null) {
+                throw new IllegalArgumentException("Unsupported value for table");
+            }
+            Table t;
+            try {
+                t = (Table)value;
+            } catch (ClassCastException e) {
+                t = TableCatalog.newInstance().get(value.toString());
+            }
+            if (getTableFilter().accept(t)) {
+                setTable = t;
+              //eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
+              //setCellHeight((eightDotsEnabled?0.x:0.4)*EmbosserTools.INCH_IN_MM);
+            } else {
+                throw new IllegalArgumentException("Unsupported value for table.");
+            }
+        } else {
+            super.setFeature(key, value);
+        }
+    }
+
+    @Override
+    public Object getFeature(String key) {
+
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            return setTable;
+        } else {
+            return super.getFeature(key);
+        }
     }
 
     @Override

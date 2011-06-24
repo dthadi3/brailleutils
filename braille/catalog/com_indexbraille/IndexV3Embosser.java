@@ -23,12 +23,16 @@ public class IndexV3Embosser extends IndexEmbosser {
 	
     private final static TableFilter tableFilter;
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
-    private final static String table8dot = IndexEmbosserProvider.class.getCanonicalName() + ".TableType.INDEX_TRANSPARENT_8DOT";
+  //private final static String table8dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_8DOT";
 
     static {
         tableFilter = new TableFilter() {
             //jvm1.6@Override
             public boolean accept(Table object) {
+                if (object == null) { return false; }
+                String tableID = object.getIdentifier();
+                if (tableID.equals(table6dot)) { return true; }
+              //if (tableID.equals(table8dot)) { return true; }
                 return false;
             }
         };
@@ -37,6 +41,8 @@ public class IndexV3Embosser extends IndexEmbosser {
     public IndexV3Embosser(String name, String desc, EmbosserType identifier) {
 
         super(name, desc, identifier);
+
+        setTable = TableCatalog.newInstance().get(table6dot);
 
         switch (type) {
             case INDEX_BASIC_S_V3:
@@ -109,9 +115,7 @@ public class IndexV3Embosser extends IndexEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
         PageFormat page = getPageFormat();
-
         if (!supportsDimensions(page)) {
             throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
         }
@@ -126,25 +130,23 @@ public class IndexV3Embosser extends IndexEmbosser {
             throw new IllegalArgumentException(new EmbosserFactoryException("Invalid number of copies: " + numberOfCopies + " is not in [1, 10000]"));
         }
 
-        byte[] header = getIndexV3Header(eightDots, duplexEnabled);
+        byte[] header = getIndexV3Header(eightDotsEnabled, duplexEnabled);
         byte[] footer = new byte[0];
-
-        Table table = TableCatalog.newInstance().get(eightDots?table8dot:table6dot);
 
         EmbosserWriterProperties props =
             new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
-                .supports8dot(eightDots)
+                .supports8dot(eightDotsEnabled)
                 .supportsDuplex(duplexEnabled)
                 .supportsAligning(supportsAligning());
 
-        if (eightDots) {
+        if (eightDotsEnabled) {
             return new IndexTransparentEmbosserWriter(os,
-                                                      table.newBrailleConverter(),
+                                                      setTable.newBrailleConverter(),
                                                       header,
                                                       footer,
                                                       props);
         } else {
-            return new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
+            return new ConfigurableEmbosser.Builder(os, setTable.newBrailleConverter())
                             .breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS))
                             .padNewline(ConfigurableEmbosser.Padding.NONE)
                             .footer(footer)

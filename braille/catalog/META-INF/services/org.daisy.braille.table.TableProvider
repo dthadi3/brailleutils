@@ -6,3 +6,4 @@ org_daisy.EmbosserTableProvider
 org_daisy.BrailleEditorsTableProvider
 se_tpb.CXTableProvider
 com_viewplus.ViewPlusTableProvider
+be_interpoint.InterpointTableProvider

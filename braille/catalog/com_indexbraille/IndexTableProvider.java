@@ -27,7 +27,7 @@ public class IndexTableProvider extends AbstractConfigurableTableProvider<IndexT
 		super(EightDotFallbackMethod.values()[0], '\u2800');
 		tables = new ArrayList<Table>();
 		tables.add(new EmbosserTable<TableType>("Index transparent 6 dot", "Table for transparent mode, 6 dot", TableType.INDEX_TRANSPARENT_6DOT, this));
-                tables.add(new EmbosserTable<TableType>("Index transparent 8 dot", "Table for transparent mode, 8 dot", TableType.INDEX_TRANSPARENT_8DOT, this));
+              //tables.add(new EmbosserTable<TableType>("Index transparent 8 dot", "Table for transparent mode, 8 dot", TableType.INDEX_TRANSPARENT_8DOT, this));
 	}
 
 	/**

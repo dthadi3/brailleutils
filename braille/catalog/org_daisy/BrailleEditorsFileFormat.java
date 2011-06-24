@@ -32,6 +32,9 @@ public class BrailleEditorsFileFormat extends AbstractFactory implements FileFor
     private TableFilter tableFilter;
     private final Collection<String> supportedTableIds = new ArrayList<String>();
 
+    private final boolean duplexEnabled = false;
+    private final boolean eightDotsEnabled = false;
+
     public BrailleEditorsFileFormat(String name, String desc, FileType identifier) {
 
         super(name, desc, identifier);
@@ -40,7 +43,9 @@ public class BrailleEditorsFileFormat extends AbstractFactory implements FileFor
 
         switch (type) {
             case BRF:
-                supportedTableIds.add("org.daisy.braille.table.DefaultTableProvider.TableType.EN_US");
+                supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.MIT");
+                supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.NABCC");
+                supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.NABCC_8DOT");
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.EN_GB");
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.NL_NL");
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.EN_GB");
@@ -73,7 +78,7 @@ public class BrailleEditorsFileFormat extends AbstractFactory implements FileFor
         };
 
         tableCatalog = TableCatalog.newInstance();
-        table = tableCatalog.list(tableFilter).iterator().next();
+        table = tableCatalog.get("org_daisy.EmbosserTableProvider.TableType.MIT");
     }
 
     public TableFilter getTableFilter() {
@@ -98,14 +103,12 @@ public class BrailleEditorsFileFormat extends AbstractFactory implements FileFor
             throw new IllegalArgumentException("Unsupported table: " + table.getDisplayName());
         }
 
-        boolean duplexEnabled = supportsDuplex();          // ??? examine PEF file => Contract?
-        boolean eightDots = supports8dot() && false;       // ???
-        int maxCols = 1000;                                // ???
-        int maxRows = 1000;                                // ???
+        int maxCols = 1000;
+        int maxRows = 1000;
 
         EmbosserWriterProperties props =
             new SimpleEmbosserProperties(maxCols, maxRows)
-                .supports8dot(eightDots)
+                .supports8dot(eightDotsEnabled)
                 .supportsDuplex(duplexEnabled)
                 .supportsAligning(false);
 
@@ -136,22 +139,33 @@ public class BrailleEditorsFileFormat extends AbstractFactory implements FileFor
 
     public void setFeature(String key, Object value) {
 
-        if (EmbosserFeatures.TABLE.equals(key) && value!=null) {
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            if (value == null) {
+                throw new IllegalArgumentException("Unsupported value for table");
+            }
             Table t;
             try {
                 t = (Table)value;
             } catch (ClassCastException e) {
-                t = tableCatalog.get(value.toString());
-                if (t == null) {
-                    throw new IllegalArgumentException("Unsupported value for table: '" + value + "'");
-                }
+                t = TableCatalog.newInstance().get(value.toString());
             }
-            table = t;
+            if (getTableFilter().accept(t)) {
+                table = t;
+            } else {
+                throw new IllegalArgumentException("Unsupported value for table.");
+            }
+        } else {
+            throw new IllegalArgumentException("Unsupported feature " + key);
         }
     }
 
     public Object getFeature(String key) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            return table;
+        } else {
+            throw new IllegalArgumentException("Unsupported feature " + key);
+        }
     }
 
     public Object getProperty(String key) {

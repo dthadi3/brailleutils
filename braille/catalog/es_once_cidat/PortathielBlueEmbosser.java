@@ -26,6 +26,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
     private final static TableFilter tableFilter;
     private final static String transparentTable = "es_once_cidat.CidatTableProvider.TableType.PORTATHIEL_TRANSPARENT_6DOT";
+  //private final static String transparent8dotTable = CidatTableProvider.class.getCanonicalName() + ".TableType.PORTATHIEL_TRANSPARENT_8DOT";
     private final static String mitTable = "org_daisy.EmbosserTableProvider.TableType.MIT";
 
     static {
@@ -33,8 +34,9 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
             //jvm1.6@Override
             public boolean accept(Table object) {
                 if (object == null) { return false; }
-                if (object.getIdentifier().equals(transparentTable)) { return true; }
-                if (object.getIdentifier().equals(mitTable))         { return true; }
+                if (object.getIdentifier().equals(transparentTable))     { return true; }
+              //if (object.getIdentifier().equals(transparent8dotTable)) { return true; }
+                if (object.getIdentifier().equals(mitTable))             { return true; }
                 return false;
             }
         };
@@ -52,7 +54,6 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean eightDots = supports8dot() && false;
         PageFormat page = getPageFormat();
         
         if (!supportsDimensions(page)) {
@@ -62,7 +63,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
         try {
 
             boolean transparentMode = (setTable.getIdentifier().equals(transparentTable));
-            byte[] header = getPortathielHeader(duplexEnabled, eightDots, transparentMode);
+            byte[] header = getPortathielHeader(duplexEnabled, eightDotsEnabled, transparentMode);
 
             ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, setTable.newBrailleConverter())
                 .padNewline(ConfigurableEmbosser.Padding.NONE)
@@ -70,7 +71,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
                     new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
                         .supportsDuplex(duplexEnabled)
                         .supportsAligning(true)
-                        .supports8dot(eightDots)
+                        .supports8dot(eightDotsEnabled)
                 )
                 .header(header);
 

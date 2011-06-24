@@ -40,15 +40,26 @@ import org.daisy.braille.embosser.EmbosserFactoryException;
 public class Interpoint55Embosser extends AbstractEmbosser {
 
     private final static TableFilter tableFilter;
-    private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
+    private final static String table_US1 =     "org_daisy.EmbosserTableProvider.TableType.MIT";
+    private final static String table_US2 =     "org_daisy.EmbosserTableProvider.TableType.NABCC";
+    private final static String table_DE =      "org_daisy.EmbosserTableProvider.TableType.DE_DE";
+  //private final static String table_US_8dot = "be_interpoint.InterpointTableProvider.TableType.USA1_8";
+
     static {
         tableFilter = new TableFilter() {
             //jvm1.6@Override
             public boolean accept(Table object) {
+                if (object == null) { return false; }
+                String tableID = object.getIdentifier();
+                if (tableID.equals(table_US1))      { return true; }
+                if (tableID.equals(table_US2))      { return true; }
+                if (tableID.equals(table_DE))       { return true; }
+              //if (tableID.equals(table_US_8dot))  { return true; }
                 return false;
             }
         };
     }
+
     private double maxPaperWidth = 340d;
     private double maxPaperHeight = Double.MAX_VALUE; // ???
     private double minPaperWidth = 50d;               // ???
@@ -61,6 +72,7 @@ public class Interpoint55Embosser extends AbstractEmbosser {
 
     private boolean saddleStitchEnabled = false;
     private boolean duplexEnabled = true;
+    private boolean eightDotsEnabled = false;
     private int maxPagesInQuire = 0;                  // 0 == no quires
     private int numberOfCopies = 1;
 
@@ -68,8 +80,10 @@ public class Interpoint55Embosser extends AbstractEmbosser {
 
         super(name, desc, EmbosserType.INTERPOINT_55);
 
+        setTable = TableCatalog.newInstance().get(table_US1);
+
         setCellWidth(6d);
-        setCellHeight(10d);
+        setCellHeight(eightDotsEnabled?12.5d:10d);
     }
 
     public TableFilter getTableFilter() {
@@ -104,22 +118,18 @@ public class Interpoint55Embosser extends AbstractEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean eightDots = supports8dot() && false;       // ???
         PageFormat page = getPageFormat();
-
         if (!supportsDimensions(page)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
 
-        Table table = TableCatalog.newInstance().get(table6dot);
-
         EmbosserWriterProperties props =
             new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
-                .supports8dot(eightDots)
+                .supports8dot(eightDotsEnabled)
                 .supportsDuplex(duplexEnabled)
                 .supportsAligning(supportsAligning());
 
-        return new ConfigurableEmbosser.Builder(os, table.newBrailleConverter())
+        return new ConfigurableEmbosser.Builder(os, setTable.newBrailleConverter())
                             .breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS))
                             .padNewline(Padding.NONE)
                             .embosserProperties(props)
@@ -179,6 +189,11 @@ public class Interpoint55Embosser extends AbstractEmbosser {
             throw new IllegalArgumentException("Unsupported paper");
         }
 
+        String tableID = setTable.getIdentifier();
+
+        properties.setProperty("TableName",         tableID.equals(table_DE)      ?"WIEN_6":
+                                                  //tableID.equals(table_US_8dot) ?"USA1_8":
+                                                                                   "USA1_6");
         properties.setProperty("Mode",              saddleStitchEnabled?"4":duplexEnabled?"3":"1");
         properties.setProperty("MirrorMargins",     "1");
         properties.setProperty("CharactersPerLine", String.valueOf(getMaxWidth(page)));
@@ -187,7 +202,6 @@ public class Interpoint55Embosser extends AbstractEmbosser {
         properties.setProperty("RightMargin",       String.valueOf(marginOuter));
         properties.setProperty("TopMargin",         String.valueOf(marginTop));
         properties.setProperty("MaxPagesInQuire",   String.valueOf(maxPagesInQuire));
-        properties.setProperty("TableName",         "USA1_6");
         properties.setProperty("Copies",            String.valueOf(numberOfCopies));
 
         OutputStream os = new FileOutputStream(file);
@@ -212,7 +226,24 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     @Override
     public void setFeature(String key, Object value) {
 
-        if (EmbosserFeatures.SADDLE_STITCH.equals(key)) {
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            if (value == null) {
+                throw new IllegalArgumentException("Unsupported value for table");
+            }
+            Table t;
+            try {
+                t = (Table)value;
+            } catch (ClassCastException e) {
+                t = TableCatalog.newInstance().get(value.toString());
+            }
+            if (getTableFilter().accept(t)) {
+                setTable = t;
+                eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
+                setCellHeight(eightDotsEnabled?12.5d:10d);
+            } else {
+                throw new IllegalArgumentException("Unsupported value for table.");
+            }
+        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key)) {
             try {
                 saddleStitchEnabled = (Boolean)value;
                 duplexEnabled = duplexEnabled || saddleStitchEnabled;
@@ -254,7 +285,9 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     @Override
     public Object getFeature(String key) {
 
-        if (EmbosserFeatures.SADDLE_STITCH.equals(key)) {
+        if (EmbosserFeatures.TABLE.equals(key)) {
+            return setTable;
+        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key)) {
             return saddleStitchEnabled;
         } else if (EmbosserFeatures.DUPLEX.equals(key)) {
             return duplexEnabled;

@@ -10,6 +10,7 @@ braille/catalog/META-INF/services/org.daisy.braille.table.TableProvider -text
 braille/catalog/META-INF/services/org.daisy.paper.PaperProvider -text
 braille/catalog/be_interpoint/Interpoint55Embosser.java -text
 braille/catalog/be_interpoint/InterpointEmbosserProvider.java -text
+braille/catalog/be_interpoint/InterpointTableProvider.java -text
 braille/catalog/com_brailler/EnablingTechnologiesDoubleSidedEmbosser.java -text
 braille/catalog/com_brailler/EnablingTechnologiesEmbosser.java -text
 braille/catalog/com_brailler/EnablingTechnologiesEmbosserProvider.java -text
@@ -66,10 +67,7 @@ braille/lib/wstx-lgpl-3.2.8.jar -text
 braille/lib/xercesImpl.jar -text
 braille/lib/xml-apis.jar -text
 braille/licenses/lgpl.txt -text svneol=unset#text/plain
-braille/manifest.mf -text
 braille/nbbuild.xml -text
-braille/nbproject/build-impl.xml -text
-braille/nbproject/genfiles.properties -text
 braille/nbproject/project.properties -text
 braille/nbproject/project.xml -text
 braille/src/META-INF/services/javax.xml.transform.TransformerFactory -text

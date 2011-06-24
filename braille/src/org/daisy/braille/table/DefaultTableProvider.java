@@ -42,7 +42,7 @@ public class DefaultTableProvider extends AbstractConfigurableTableProvider<Defa
 	public DefaultTableProvider() {
 		super(EightDotFallbackMethod.values()[0], '\u2800');
 		tables = new ArrayList<Table>(); 
-		tables.add(new EmbosserTable<TableType>("US computer braille", "Commonly used embosser table", TableType.EN_US, this));
+		tables.add(new EmbosserTable<TableType>("US", "Commonly used embosser table", TableType.EN_US, this));
 	}
 
 	/**

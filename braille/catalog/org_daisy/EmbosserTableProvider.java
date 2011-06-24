@@ -54,13 +54,13 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 	public EmbosserTableProvider() {
 		super(EightDotFallbackMethod.values()[0], '\u2800');
 		tables = new ArrayList<Table>(); 
-		//tables.add(new EmbosserTable<TableType>("US computer braille", "Commonly used embosser table", TableType.EN_US, this));
-		tables.add(new EmbosserTable<TableType>("British computer braille", "", TableType.EN_GB, this));
-		tables.add(new EmbosserTable<TableType>("Danish computer braille", "", TableType.DA_DK, this));
-		tables.add(new EmbosserTable<TableType>("German computer braille", "", TableType.DE_DE, this));
-		tables.add(new EmbosserTable<TableType>("Spanish computer braille (classic)", "Classic Spanish braille table", TableType.ES_ES, this));
-		tables.add(new EmbosserTable<TableType>("Spanish computer braille (modern)", "Modern Spanish braille table", TableType.ES_ES_TABLE_2, this));
-		tables.add(new EmbosserTable<TableType>("Italian computer braille", "", TableType.IT_IT_FIRENZE, this));
+		//tables.add(new EmbosserTable<TableType>("US", "Commonly used embosser table", TableType.EN_US, this));
+		tables.add(new EmbosserTable<TableType>("British", "", TableType.EN_GB, this));
+		tables.add(new EmbosserTable<TableType>("Danish", "", TableType.DA_DK, this));
+		tables.add(new EmbosserTable<TableType>("German", "", TableType.DE_DE, this));
+		tables.add(new EmbosserTable<TableType>("Spanish (classic)", "Classic Spanish braille table", TableType.ES_ES, this));
+		tables.add(new EmbosserTable<TableType>("Spanish (modern)", "Modern Spanish braille table", TableType.ES_ES_TABLE_2, this));
+		tables.add(new EmbosserTable<TableType>("Italian", "", TableType.IT_IT_FIRENZE, this));
 		tables.add(new EmbosserTable<TableType>("Unicode braille", "", TableType.UNICODE_BRAILLE, this));
                 tables.add(new EmbosserTable<TableType>("US (MIT)", "Commonly used embosser table", TableType.MIT, this));
                 tables.add(new EmbosserTable<TableType>("US (NABCC)", "North American Braille Computer Code", TableType.NABCC, this));
@@ -153,7 +153,7 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 					(char)208, (char)193, (char)219, (char)201, (char)222, (char)21,  (char)204, (char)22,
 					(char)209, (char)205, (char)27,  (char)221, (char)199, (char)24,  (char)214, (char)196,
 					(char)213, (char)218, (char)212, (char)28,  (char)217, (char)26,  (char)200, (char)207,
-					(char)31,  (char)211, (char)23,  (char)29,  (char)223, (char)25,  (char)220, (char)203 };                        
+					(char)31,  (char)211, (char)23,  (char)29,  (char)223, (char)25,  (char)220, (char)203 };
 			StringBuffer sb = new StringBuffer();
                         sb.append(table);
 			return new EmbosserBrailleConverter(sb.toString(), Charset.forName("ISO-8859-1"), fallback, replacement, true);

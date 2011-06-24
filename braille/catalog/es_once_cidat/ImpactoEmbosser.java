@@ -25,13 +25,15 @@ public class ImpactoEmbosser extends CidatEmbosser {
 
     private final static TableFilter tableFilter;
     private final static String transparentTable = CidatTableProvider.class.getCanonicalName() + ".TableType.IMPACTO_TRANSPARENT_6DOT";
+  //private final static String transparent8dotTable = CidatTableProvider.class.getCanonicalName() + ".TableType.IMPACTO_TRANSPARENT_8DOT";
 
     static {
         tableFilter = new TableFilter() {
             //jvm1.6@Override
             public boolean accept(Table object) {
                 if (object == null) { return false; }
-                if (object.getIdentifier().equals(transparentTable)) { return true; }
+                if (object.getIdentifier().equals(transparentTable))     { return true; }
+              //if (object.getIdentifier().equals(transparent8dotTable)) { return true; }
                 return false;
             }
         };
@@ -52,7 +54,6 @@ public class ImpactoEmbosser extends CidatEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        boolean eightDots = supports8dot() && false;   // ??
         PageFormat page = getPageFormat();
         
         if (!supportsDimensions(page)) {
@@ -65,7 +66,7 @@ public class ImpactoEmbosser extends CidatEmbosser {
         
         try {
 
-            byte[] header = getImpactoHeader(duplexEnabled, eightDots);
+            byte[] header = getImpactoHeader(duplexEnabled, eightDotsEnabled);
             byte[] footer = new byte[]{0x1b,0x54};
 
             ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, setTable.newBrailleConverter())
@@ -77,7 +78,7 @@ public class ImpactoEmbosser extends CidatEmbosser {
                     new SimpleEmbosserProperties(getMaxWidth(page), getMaxHeight(page))
                         .supportsDuplex(duplexEnabled)
                         .supportsAligning(supportsAligning())
-                        .supports8dot(eightDots)
+                        .supports8dot(eightDotsEnabled)
                 )
                 .header(header);
             return b.build();
