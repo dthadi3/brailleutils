@@ -54,32 +54,6 @@
 	<property name="distribution.zip" value="${dist.dir}/brailleUtils-${release-version}.zip"/>
 	<property name="javadoc.zip" value="${dist.dir}/brailleUtils-${release-version}-javadoc.zip"/>
 
-	<path id="test.classpath">
-		<fileset dir="${dist.dir}">
-			<include name="${core-jar.name}"/>
-			<include name="${catalog-jar.name}"/>
-			<include name="test.jar"/>
-		</fileset>
-		<fileset dir="${lib.dir}">
-			<include name="*.jar"/>
-		</fileset>
-	</path>
-	
-    <path id="javadoc.classpath">
-      <fileset dir="${basedir}/lib">
-        <include name="**/**/*.jar"/>
-       </fileset>
-    </path>
-	
-    <path id="catalog-javadoc.classpath">
-		<fileset dir="${basedir}/lib">
-			<include name="**/**/*.jar"/>
-		</fileset>
-    	<fileset dir="${dist.dir}">
-    		<include name="**/*.jar"/>
-    	</fileset>
-    </path>
-
 	<patternset id="braille-jar.patternset">
 		<include name="org/daisy/braille/**/*.*"/>
 		<include name="org/daisy/catalog/**/*.*"/>
@@ -108,10 +82,10 @@
 	<!-- ================================================================== -->
 
         <!-- - - - - - - - - - - - - - - - - -
-          target: -core-classpath-attribute
+          target: setClasspath
          - - - - - - - - - - - - - - - - - -->
 
-        <target name="-core-classpath-attribute" depends="-detect-os,-debian-properties">
+        <target name="setClasspath" depends="detectOS, debianProperties">
 
             <property name="file.reference.saxon"      value="lib/saxon8.jar"/>
             <property name="file.reference.stax-api"   value="lib/stax-api-1.0.1.jar"/>
@@ -121,26 +95,56 @@
             <property name="file.reference.xml-apis"   value="lib/xml-apis.jar"/>
             <property name="file.reference.isorelax"   value="lib/isorelax.jar"/>
 
-            <pathconvert property="core.classpath.attribute" pathsep=" " dirsep="/">
-                <path>
-                    <pathelement location="${file.reference.saxon}"/>
-                    <pathelement location="${file.reference.stax-api}"/>
-                    <pathelement location="${file.reference.wstx}"/>
-                    <pathelement location="${file.reference.jing}"/>
-                    <pathelement location="${file.reference.xercesImpl}"/>
-                    <pathelement location="${file.reference.xml-apis}"/>
-                    <pathelement location="${file.reference.isorelax}"/>
-                </path>
+			<path id="core.classpath">
+                <pathelement location="${file.reference.saxon}"/>
+                <pathelement location="${file.reference.stax-api}"/>
+                <pathelement location="${file.reference.wstx}"/>
+                <pathelement location="${file.reference.jing}"/>
+                <pathelement location="${file.reference.xercesImpl}"/>
+                <pathelement location="${file.reference.xml-apis}"/>
+                <pathelement location="${file.reference.isorelax}"/>
+            </path>
+            
+            <path id="test.classpath">
+				<path refid="core.classpath"/>
+				<fileset dir="${dist.dir}">
+					<include name="${core-jar.name}"/>
+					<include name="${catalog-jar.name}"/>
+					<include name="test.jar"/>
+				</fileset>
+				<fileset dir="${lib.dir}">
+					<include name="*.jar"/>
+				</fileset>
+			</path>
+	
+		    <path id="javadoc.classpath">
+				<path refid="core.classpath"/>
+				<fileset dir="${basedir}/lib">
+					<include name="**/**/*.jar"/>
+				</fileset>
+		    </path>
+	
+		    <path id="catalog-javadoc.classpath">
+				<path refid="core.classpath"/>
+				<fileset dir="${basedir}/lib">
+					<include name="**/**/*.jar"/>
+				</fileset>
+		    	<fileset dir="${dist.dir}">
+    				<include name="**/*.jar"/>
+		    	</fileset>
+		    </path>
+
+            <pathconvert refid="core.classpath" property="core.classpath.attribute" pathsep=" " dirsep="/">
                 <flattenmapper/>
             </pathconvert>
 
         </target>
 
         <!-- - - - - - - - - - - - - - - - - -
-          target: -detect-os
+          target: detectOS
          - - - - - - - - - - - - - - - - - -->
 
-        <target name="-detect-os">
+        <target name="detectOS">
             <condition property="is.windows">
                 <os family="windows"/>
             </condition>
@@ -166,10 +170,10 @@
         </target>
 
         <!-- - - - - - - - - - - - - - - - - -
-          target: -debian-properties
+          target: debianProperties
          - - - - - - - - - - - - - - - - - -->
 
-        <target name="-debian-properties" if="is.debian" depends="-detect-os">
+        <target name="debianProperties" if="is.debian" depends="detectOS">
             <property file="build.debian.properties"/>
         </target>
 
@@ -230,13 +234,11 @@
 	<!-- - - - - - - - - - - - - - - - - -
           target: compile              
          - - - - - - - - - - - - - - - - - -->
-    <target name="compile" depends="emptyBuildDir">
+    <target name="compile" depends="emptyBuildDir, setClasspath">
     	<!-- Compile core files -->
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" debug="true" encoding="UTF-8" source="${javac.source}" target="${javac.target}" compiler="javac1.5">
 			<classpath>
-				<fileset dir="${lib.dir}">
-					<include name="*.jar"/>
-				</fileset>
+				<path refid="core.classpath"/>
 			</classpath>
         </javac>
 
@@ -245,7 +247,7 @@
 	<!-- - - - - - - - - - - - - - - - - - 
           target: buildCoreJar                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="buildCoreJar" depends="compile, createDistDir, -core-classpath-attribute">
+    <target name="buildCoreJar" depends="compile, createDistDir">
     	<jar destfile="${braille.jar}">
     		<fileset dir="${build.dir}">
     			<patternset refid="braille-jar.patternset"/>
@@ -259,7 +261,7 @@
     			<attribute name="Implementation-Title" value="${release-name} Core"/>
     			<attribute name="Implementation-Version" value="${release-version}"/>
     			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
-                        <attribute name="Class-Path" value="${core.classpath.attribute}"/>
+    			<attribute name="Class-Path" value="${core.classpath.attribute}"/>
     		</manifest>
     	</jar>
     </target>
@@ -364,7 +366,7 @@
 	<!-- ================================= 
           target: buildJavadoc                      
          ================================= -->
-    <target name="buildJavadoc" depends="createJavadocDir" description="Build javadoc">
+    <target name="buildJavadoc" depends="createJavadocDir, setClasspath" description="Build javadoc">
     	<javadoc destdir="${javadoc.dir}"
     			windowtitle="Braille Utils"
     			encoding="UTF-8"
