@@ -94,8 +94,9 @@
             <property name="file.reference.xercesImpl" value="lib/xercesImpl.jar"/>
             <property name="file.reference.xml-apis"   value="lib/xml-apis.jar"/>
             <property name="file.reference.isorelax"   value="lib/isorelax.jar"/>
+			<property name="file.reference.junit"      value="lib/junit-4.4.jar"/>
 
-			<path id="core.classpath">
+            <path id="core.classpath">
                 <pathelement location="${file.reference.saxon}"/>
                 <pathelement location="${file.reference.stax-api}"/>
                 <pathelement location="${file.reference.wstx}"/>
@@ -104,35 +105,41 @@
                 <pathelement location="${file.reference.xml-apis}"/>
                 <pathelement location="${file.reference.isorelax}"/>
             </path>
-            
-            <path id="test.classpath">
+			
+			<path id="catalog.classpath">
 				<path refid="core.classpath"/>
 				<fileset dir="${dist.dir}">
-					<include name="${core-jar.name}"/>
-					<include name="${catalog-jar.name}"/>
-					<include name="test.jar"/>
-				</fileset>
-				<fileset dir="${lib.dir}">
-					<include name="*.jar"/>
-				</fileset>
+                    <include name="${core-jar.name}"/>
+                </fileset>
+            </path>
+			
+			<path id="test.classpath">
+			    <path refid="core.classpath"/>
+				<pathelement location="${file.reference.junit}"/>
+                <fileset dir="${dist.dir}">
+                    <include name="${core-jar.name}"/>
+                    <include name="${catalog-jar.name}"/>
+                </fileset>
 			</path>
-	
-		    <path id="javadoc.classpath">
-				<path refid="core.classpath"/>
-				<fileset dir="${basedir}/lib">
-					<include name="**/**/*.jar"/>
-				</fileset>
-		    </path>
-	
-		    <path id="catalog-javadoc.classpath">
-				<path refid="core.classpath"/>
-				<fileset dir="${basedir}/lib">
-					<include name="**/**/*.jar"/>
-				</fileset>
-		    	<fileset dir="${dist.dir}">
-    				<include name="**/*.jar"/>
-		    	</fileset>
-		    </path>
+
+            <path id="test.run.classpath">
+                <path refid="test.classpath"/>
+				<pathelement location="${file.reference.junit}"/>
+                <fileset dir="${dist.dir}">
+                    <include name="test.jar"/>
+                </fileset>
+            </path>
+
+            <path id="javadoc.classpath">
+                <path refid="core.classpath"/>
+            </path>
+
+            <path id="catalog-javadoc.classpath">
+                <path refid="core.classpath"/>
+                <fileset dir="${dist.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </path>
 
             <pathconvert refid="core.classpath" property="core.classpath.attribute" pathsep=" " dirsep="/">
                 <flattenmapper/>
@@ -158,13 +165,6 @@
                 <and>
                     <os family="unix"/>
                     <not><os family="mac"/></not>
-                    <not><contains string="${os.name}" substring="debian" casesensitive="no"/></not>
-                </and>
-            </condition>
-            <condition property="is.debian">
-                <and>
-                    <os family="unix"/>
-                    <contains string="${os.name}" substring="debian" casesensitive="no"/>
                 </and>
             </condition>
         </target>
@@ -173,7 +173,7 @@
           target: debianProperties
          - - - - - - - - - - - - - - - - - -->
 
-        <target name="debianProperties" if="is.debian" depends="detectOS">
+        <target name="debianProperties" if="is.linux" depends="detectOS">
             <property file="build.debian.properties"/>
         </target>
 
@@ -273,12 +273,7 @@
     	<!-- Compile catalog files -->
         <javac srcdir="${catalog-src.dir}" destdir="${catalog-build.dir}" includeantruntime="false" debug="true" encoding="UTF-8" source="${javac.source}" target="${javac.target}" compiler="javac1.5">
 			<classpath>
-				<fileset dir="${dist.dir}">
-					<include name="${core-jar.name}"/>
-				</fileset>
-				<fileset dir="${lib.dir}">
-					<include name="*.jar"/>
-				</fileset>
+				<path refid="catalog.classpath"/>
 			</classpath>
         </javac>
     </target>
@@ -311,12 +306,7 @@
     	<!-- Compile test files -->
 	    <javac srcdir="${test-src.dir}" destdir="${test-build.dir}" includeantruntime="false" debug="true" encoding="UTF-8" source="${javac.source}" target="${javac.target}" compiler="javac1.5">
 			<classpath>
-				<fileset dir="${dist.dir}">
-					<include name="*.jar"/>
-				</fileset>
-				<fileset dir="${lib.dir}">
-					<include name="junit*.jar"/>
-				</fileset>
+				<path refid="test.classpath"/>
 			</classpath>
 	    </javac>            
     </target>
@@ -346,7 +336,7 @@
 		      </fileset>
 		    </batchtest>
 		    <formatter type="xml" />
-		    <classpath refid="test.classpath" />
+		    <classpath refid="test.run.classpath" />
 		</junit>
 
 		<junitreport todir="${test.report.dir}">

@@ -1,3 +1,6 @@
 braille/ant-build/output
 braille/bin
+braille/manifest.mf
+braille/nbproject/build-impl.xml
+braille/nbproject/genfiles.properties
 braille/nbproject/private
