@@ -144,6 +144,8 @@
             <pathconvert refid="core.classpath" property="core.classpath.attribute" pathsep=" " dirsep="/">
                 <flattenmapper/>
             </pathconvert>
+            
+            <property name="ui.classpath.attribute" value="lib/${core-jar.name} lib/${catalog-jar.name}"/>
 
         </target>
 
@@ -405,13 +407,13 @@
     			<patternset refid="braille-ui-jar.patternset"/>
     		</fileset>
     		<manifest>
-    			<attribute name="Class-Path" value="lib/${core-jar.name} lib/${catalog-jar.name} lib/isorelax.jar lib/jing.jar lib/saxon8.jar lib/xercesImpl.jar lib/xml-apis.jar lib/stax-api-1.0.1.jar lib/wstx-lgpl-3.2.8.jar"/>
     			<attribute name="Main-Class" value="org.daisy.braille.ui.BasicUI"/>
     			<attribute name="Built-By" value="${user.name}"/>
     			<attribute name="Built-On" value="${ISO-TODAY}"/>
     			<attribute name="Implementation-Title" value="${release-name} UI"/>
     			<attribute name="Implementation-Version" value="${release-version}"/>
     			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
+    			<attribute name="Class-Path" value="${ui.classpath.attribute}"/>
     		</manifest>
     	</jar>
 
