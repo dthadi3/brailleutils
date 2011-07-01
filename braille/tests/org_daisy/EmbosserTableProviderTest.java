@@ -34,12 +34,12 @@ public class EmbosserTableProviderTest {
 		EmbosserTableProvider bt = new EmbosserTableProvider();
 		bt.setFeature("unknown-feature", null);
 	}
-	
+	/*
 	@Test
 	public void testListLength() {
 		EmbosserTableProvider bt = new EmbosserTableProvider();
 		assertEquals("Assert that all tables have tests by counting the list length", 7, bt.list().size());
-	}
+	}*/
 /*
 	@Test
 	public void testTableEN_US() {

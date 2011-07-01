@@ -193,7 +193,6 @@ braille/tests/com_brailler/resource-files/single_sided.pef -text
 braille/tests/com_brailler/resource-files/thomas_single_sided.prn -text
 braille/tests/com_braillo/BrailloTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_indexbraille/BlueBarEmbosserTest.java -text
-braille/tests/com_indexbraille/IndexEmbosserProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_indexbraille/IndexTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_indexbraille/IndexV2EmbosserTest.java -text
 braille/tests/com_indexbraille/IndexV3EmbosserTest.java -text
@@ -226,7 +225,6 @@ braille/tests/es_once_cidat/resource-files/portathiel_mit_single_sided.prn -text
 braille/tests/es_once_cidat/resource-files/portathiel_transparent_double_sided.prn -text
 braille/tests/es_once_cidat/resource-files/portathiel_transparent_single_sided.prn -text
 braille/tests/es_once_cidat/resource-files/single_sided.pef -text
-braille/tests/org/daisy/MainTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/PEFFileMergerTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/PEFFileSplitterTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
