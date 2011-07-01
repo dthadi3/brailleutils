@@ -31,7 +31,7 @@ public class EnablingTechnologiesDoubleSidedEmbosser extends EnablingTechnologie
         duplexEnabled = true;
     }
 
-    @Override
+    //jvm1.6@Override
     public boolean supportsDuplex() {
         return true;
     }

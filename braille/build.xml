@@ -33,6 +33,7 @@
 
 	<property name="javac.source" value="1.5"/>
 	<property name="javac.target" value="1.5"/>
+	<property name="useExternalJarsOnLinux" value="false"/>
 
 	<!--
 		Core jars for Braille Utils
@@ -164,10 +165,13 @@
                </and>
             </condition>
             <condition property="is.linux">
-                <and>
-                    <os family="unix"/>
-                    <not><os family="mac"/></not>
-                </and>
+            	<and>
+            		<istrue value="${useExternalJarsOnLinux}"/>
+                    <and>
+                        <os family="unix"/>
+                    	<not><os family="mac"/></not>
+                    </and>
+            	</and>
             </condition>
         </target>
 
