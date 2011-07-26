@@ -43,7 +43,7 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
             ES_ES_TABLE_2,
             IT_IT_FIRENZE, 
             UNICODE_BRAILLE,
-            MIT,            // = EN_US
+            MIT,            // = EN_US (http://www.dotlessbraille.org/asciibrltable.htm)
             NABCC,          // http://www.accessibility.org/~max/doc/2004-jica/html/node9.html
             NABCC_8DOT      // http://mielke.cc/brltty//doc/Manual-BRLTTY/English/BRLTTY-14.html
 

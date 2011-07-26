@@ -28,6 +28,8 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
     private final static String transparentTable = "es_once_cidat.CidatTableProvider.TableType.PORTATHIEL_TRANSPARENT_6DOT";
   //private final static String transparent8dotTable = CidatTableProvider.class.getCanonicalName() + ".TableType.PORTATHIEL_TRANSPARENT_8DOT";
     private final static String mitTable = "org_daisy.EmbosserTableProvider.TableType.MIT";
+    private final static String nabccTable = "org_daisy.EmbosserTableProvider.TableType.NABCC";
+    private final static String gbTable = "org_daisy.EmbosserTableProvider.TableType.EN_GB";
 
     static {
         tableFilter = new TableFilter() {
@@ -37,6 +39,8 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
                 if (object.getIdentifier().equals(transparentTable))     { return true; }
               //if (object.getIdentifier().equals(transparent8dotTable)) { return true; }
                 if (object.getIdentifier().equals(mitTable))             { return true; }
+                if (object.getIdentifier().equals(nabccTable))           { return true; }
+                if (object.getIdentifier().equals(gbTable))              { return true; }
                 return false;
             }
         };
@@ -112,7 +116,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
         } else {
             header.append("\u001b!CS2");                                                // Character set = MIT
         }
-        header.append("\r\u001b!DT");  header.append(eightDots?'6':'8');                // 6 or 8 dots
+        header.append("\r\u001b!DT");  header.append(eightDots?'8':'6');                // 6 or 8 dots
         header.append("\r\u001b!DS");  header.append(duplex?'1':'0');                   // Front-side or double-sided embossing
         header.append("\r\u001b!LM0");                                                  // Left margin
         header.append("\r\u001b!SL1");                                                  // Interline space = 1/10 inch
