@@ -137,7 +137,7 @@ public class FileToDeviceEmbosserWriter implements EmbosserWriter {
 		}
 	}
 
-	@Override
+	//jvm1.6@Override
 	public void open(boolean duplex, Contract contract) throws IOException, ContractNotSupportedException {
 		w.open(duplex, contract);
 	}
