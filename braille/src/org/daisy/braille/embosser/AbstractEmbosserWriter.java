@@ -58,12 +58,25 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 	}
 
 	public void open(boolean duplex) throws IOException {
+		try {
+			open(duplex, new Contract.Builder().build());
+		} catch (ContractNotSupportedException e) {
+			IOException ex = new IOException("Could not open embosser.");
+			ex.initCause(e);
+			throw ex;
+		}
+	}
+
+	public void open(boolean duplex, Contract contract) throws IOException, ContractNotSupportedException {
 		charsOnRow = 0;
 		rowsOnPage = 0;
 		rowgap = 0;
 		currentPage = 1;
 		isOpen=true;
 		currentDuplex = duplex;
+		// Contract does not affect the implementation here, subclasses should override this method,
+		// to make use of contract information
+		
 	}
 
 	public int currentPage() {

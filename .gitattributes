@@ -78,8 +78,11 @@ braille/src/META-INF/services/org.daisy.validator.Validator -text
 braille/src/org/daisy/braille/BrailleConstants.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/AbstractEmbosser.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/AbstractEmbosserWriter.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/embosser/BufferedEmbosserWriter.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/BufferedVolumeEmbosser.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/ConfigurableEmbosser.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/embosser/Contract.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/embosser/ContractNotSupportedException.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/DefaultEmbosserCatalog.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/Embosser.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/EmbosserCatalog.java -text svneol=unset#text/plain
@@ -90,6 +93,7 @@ braille/src/org/daisy/braille/embosser/EmbosserProperties.java -text svneol=unse
 braille/src/org/daisy/braille/embosser/EmbosserProvider.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/EmbosserTools.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/EmbosserWriter.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/embosser/EmbosserWriterEvent.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/EmbosserWriterProperties.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/FileFormat.java -text
 braille/src/org/daisy/braille/embosser/FileFormatProperties.java -text
