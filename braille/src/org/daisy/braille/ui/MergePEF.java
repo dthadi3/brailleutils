@@ -28,13 +28,10 @@ import org.daisy.braille.pef.PEFFileMerger;
 import org.daisy.braille.pef.PEFFileMerger.SortType;
 
 /**
- * Provides a UI for merging PEF-files. 
+ * Provides a UI for merging PEF-files. Not for public use. This class is a package class. Use BasicUI
  * @author Joel Håkansson
- * @deprecated Not for public use.
- *    This class is expected to be retained only as a package
- *    class. Use BasicUI
  */
-public class MergePEF extends AbstractUI {
+class MergePEF extends AbstractUI {
 
 	/**
 	 * @param args

@@ -58,30 +58,6 @@ public class PEFBook {
 	private final int[] startPages;
 
 	/**
-	 * Parses the given uri as a PEF-file and collects information about the file.
-	 * @param uri an uri to a PEF-file
-	 * @deprecated deprecated because of poor exception handling, use static method load instead.
-	 */
-	public PEFBook(URI uri) {
-		PEFBook book;
-		try {
-			book = load(uri, true);
-			// copy fields to this object
-			this.volumes = book.volumes;
-			this.pages = book.pages;
-			this.startPages = book.startPages;
-			this.containsEightDot = book.containsEightDot;
-			this.pageTags = book.pageTags;
-			this.inputEncoding = book.inputEncoding;
-			this.metadata = book.metadata;
-			this.maxWidth = book.maxWidth;
-			this.maxHeight = book.maxHeight;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	/**
 	 * Loads information about a PEF-document from the supplied uri.
 	 * @param uri the uri to a PEF-document
 	 * @return returns a PEFBook object containing the information collected from the supplied PEF-document

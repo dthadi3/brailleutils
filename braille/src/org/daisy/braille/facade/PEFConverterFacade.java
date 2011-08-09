@@ -151,28 +151,6 @@ public class PEFConverterFacade {
 	public final static String KEY_DATE = "date";
 
 	/**
-	 * String based method matching main args
-	 * @param args
-	 * @throws IOException 
-	 * @throws SAXException 
-	 * @throws ParserConfigurationException 
-	 * @throws NumberFormatException 
-	 * @throws EmbosserFactoryException 
-	 * @deprecated use parsePefFile(input, output, settings)
-	 */
-	public static void parsePefFile(String[] args) throws NumberFormatException, ParserConfigurationException, SAXException, IOException, EmbosserFactoryException, UnsupportedWidthException {
-		if (args.length < 2 || args.length % 2 != 0) {
-			throw new IllegalArgumentException("Wrong number of arguments");
-		} else {
-			HashMap<String, String> settings = new HashMap<String, String>();
-			for (int i=0; i<(args.length-2)/2; i++) {
-				settings.put(args[2+i*2].substring(1), args[3+i*2]);
-			}
-			parsePefFile(new File(args[0]), new FileOutputStream(args[1]), settings);
-		}
-	}
-	
-	/**
 	 * Parses the given PEF-file input using the supplied output stream and settings.
 	 * @param input
 	 * @param os
@@ -281,24 +259,6 @@ public class PEFConverterFacade {
 				throw e;
 			}
 		}		
-	}
-
-	/**
-	 * String based method matching main args
-	 * @param args
-	 * @throws IOException
-	 * @deprecated use parseTextFile(input, output, settings) instead
-	 */
-	public static void parseTextFile(String[] args) throws IOException {
-		if (args.length < 2 || args.length % 2 != 0) {
-			throw new IllegalArgumentException("Wrong number of arguments");
-		} else {
-			HashMap<String, String> settings = new HashMap<String, String>();
-			for (int i=0; i<(args.length-2)/2; i++) {
-				settings.put(args[2+i*2].substring(1), args[3+i*2]);
-			}
-			parseTextFile(new File(args[0]), new File(args[1]), settings);
-		}
 	}
 
 	/**

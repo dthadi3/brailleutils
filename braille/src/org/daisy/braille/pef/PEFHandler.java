@@ -39,10 +39,7 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class PEFHandler extends DefaultHandler {
 	private static final String PEF_NS="http://www.daisy.org/ns/2008/pef";
-	/**
-	 * @deprecated deprecated in public API, use Alignment
-	 */
-	public static enum AlignmentFallback {LEFT, CENTER_LEFT, CENTER_RIGHT, RIGHT, ABORT};
+	private static enum AlignmentFallback {LEFT, CENTER_LEFT, CENTER_RIGHT, RIGHT, ABORT};
 	/**
 	 * Defines alignment values
 	 */
@@ -132,35 +129,6 @@ public class PEFHandler extends DefaultHandler {
 				range = value;
 			}
 			return this; 
-		}
-		/**
-		 * 
-		 * @param value
-		 * @return returns this Builder
-		 * @deprecated it was too complicated, use align instead
-		 */
-		public Builder alignmentFallback(String value) {
-			if (value!=null && !"".equals(value)) {
-				return alignmentFallback(AlignmentFallback.valueOf(value.toUpperCase()));
-			}
-			return this;
-		}
-		/**
-		 * 
-		 * @param value
-		 * @return returns this Builder
-		 * @deprecated it was too complicated, use align instead
-		 */
-		public Builder alignmentFallback(AlignmentFallback value) { alignFallback = value; return this; }
-		/**
-		 * 
-		 * @param value
-		 * @return returns this Builder
-		 * @deprecated it was too complicated, use align instead
-		 */
-		public Builder mirrorAlignment(boolean value) {
-			mirrorAlign = value;
-			return this;
 		}
 		/**
 		 * Sets page alignment to use if the physical paper is bigger than the pages 

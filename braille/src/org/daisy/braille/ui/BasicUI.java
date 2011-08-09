@@ -39,12 +39,7 @@ public class BasicUI extends AbstractUI {
 	public final static String split = "split";
 	public final static String merge = "merge";
 	public final static String generate = "generate";
-	/**
-	 * @deprecated Not for public use.
-	 *    This enum is expected to be retained only as a package
-	 *    private method. Use BasicUI
-	 */
-	public enum Mode {EMBOSS, TEXT2PEF, PEF2TEXT, VALIDATE, SPLIT, MERGE, GENERATE};
+	enum Mode {EMBOSS, TEXT2PEF, PEF2TEXT, VALIDATE, SPLIT, MERGE, GENERATE};
 
 	private final String[] args;
 	private final Mode m;
