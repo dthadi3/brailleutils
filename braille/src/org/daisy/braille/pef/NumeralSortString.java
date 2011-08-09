@@ -37,12 +37,13 @@ public class NumeralSortString implements Comparable<NumeralSortString> {
 		String strValue;
 
 		public Part(String str) {
-			this.strValue = str;
 			try {
 				this.intValue = Integer.parseInt(str);
+				this.strValue = null;
 				type = Type.NUMBER;
 			} catch (NumberFormatException e) {
 				this.intValue = null;
+				this.strValue = str;
 				type = Type.STRING;
 			}
 		}
@@ -77,19 +78,47 @@ public class NumeralSortString implements Comparable<NumeralSortString> {
 				return 1;
 			}
 		}
-		
-		public boolean equals(Part otherObj) {
-			if (otherObj==null) {
+
+		/* (non-Javadoc)
+		 * @see java.lang.Object#hashCode()
+		 */
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result
+					+ ((intValue == null) ? 0 : intValue.hashCode());
+			result = prime * result
+					+ ((strValue == null) ? 0 : strValue.hashCode());
+			result = prime * result + ((type == null) ? 0 : type.hashCode());
+			return result;
+		}
+
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
 				return false;
-			} else if (this.getType()==otherObj.getType()) {
-				switch (this.getType()) {
-					case NUMBER:
-						return this.asNumber().equals(otherObj.asNumber());
-					case STRING:
-						return this.asString().equals(otherObj.asString());
-				}
-			}
-			return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Part other = (Part) obj;
+			if (intValue == null) {
+				if (other.intValue != null)
+					return false;
+			} else if (!intValue.equals(other.intValue))
+				return false;
+			if (strValue == null) {
+				if (other.strValue != null)
+					return false;
+			} else if (!strValue.equals(other.strValue))
+				return false;
+			if (type != other.type)
+				return false;
+			return true;
 		}
 
 	}
@@ -154,21 +183,35 @@ public class NumeralSortString implements Comparable<NumeralSortString> {
 		}
 	}
 
-	public boolean equals(NumeralSortString otherObj) {
-		if (otherObj==null) {
-			return false;
-		}
-		int thisLen = this.getPartCount();
-		int otherLen = otherObj.getPartCount();
-		if (thisLen==otherLen) {
-			for (int i=0; i<thisLen; i++) {
-				if (!this.getPart(i).equals(otherObj.getPart(i))) {
-					return false;
-				}
-			}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((parts == null) ? 0 : parts.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
-		return false;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NumeralSortString other = (NumeralSortString) obj;
+		if (parts == null) {
+			if (other.parts != null)
+				return false;
+		} else if (!parts.equals(other.parts))
+			return false;
+		return true;
 	}
 
 }
