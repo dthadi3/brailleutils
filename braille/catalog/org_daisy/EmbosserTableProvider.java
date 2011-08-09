@@ -39,6 +39,7 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
                             // "Braillo USA 6 DOT 001.00"
             DA_DK,
             DE_DE,
+            CS_CZ,
             ES_ES,
             ES_ES_TABLE_2,
             IT_IT_FIRENZE, 
@@ -58,6 +59,7 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 		tables.add(new EmbosserTable<TableType>("British", "", TableType.EN_GB, this));
 		tables.add(new EmbosserTable<TableType>("Danish", "", TableType.DA_DK, this));
 		tables.add(new EmbosserTable<TableType>("German", "", TableType.DE_DE, this));
+		tables.add(new EmbosserTable<TableType>("Czech", "", TableType.CS_CZ, this));
 		tables.add(new EmbosserTable<TableType>("Spanish (classic)", "Classic Spanish braille table", TableType.ES_ES, this));
 		tables.add(new EmbosserTable<TableType>("Spanish (modern)", "Modern Spanish braille table", TableType.ES_ES_TABLE_2, this));
 		tables.add(new EmbosserTable<TableType>("Italian", "", TableType.IT_IT_FIRENZE, this));
@@ -99,6 +101,11 @@ public class EmbosserTableProvider extends AbstractConfigurableTableProvider<Emb
 					new String(
 							" a,b.k;l\"cif|msp!e:h*o+r>djg`ntq'1?2-u(v$3960x~&<5/8)z={_4w7#y}%"),
 					Charset.forName("UTF-8"), fallback, replacement, true);
+		case CS_CZ:
+			return new EmbosserBrailleConverter(
+					new String(
+							" a,b.k;l'cifímsp~e:h*o!r^djgéntq§á?ě-u(v$čóňúxžý¤š+ť)z\"w|ďř/#yůľ"),
+					Charset.forName("windows-1250"), fallback, replacement, true);
 		case ES_ES:
 			return new EmbosserBrailleConverter(
 					new String(

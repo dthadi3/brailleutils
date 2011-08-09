@@ -51,6 +51,7 @@ public class BrailleEditorsFileFormat extends AbstractFactory implements FileFor
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.EN_GB");
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.DA_DK");
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.DE_DE");
+                supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.CS_CZ");
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.IT_IT_FIRENZE");
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.ES_ES");
                 supportedTableIds.add("org_daisy.EmbosserTableProvider.TableType.ES_ES_TABLE_2");
@@ -69,11 +70,7 @@ public class BrailleEditorsFileFormat extends AbstractFactory implements FileFor
         tableFilter = new TableFilter() {
             //jvm1.6@Override
             public boolean accept(Table object) {
-                if (supportedTableIds.size() > 1) {
-                    return supportedTableIds.contains(object.getIdentifier());
-                } else {
-                    return false;
-                }
+                return supportedTableIds.contains(object.getIdentifier());
             }
         };
 
