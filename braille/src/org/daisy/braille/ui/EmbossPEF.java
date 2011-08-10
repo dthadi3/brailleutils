@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.prefs.BackingStoreException;
 
 import javax.print.PrintService;
@@ -35,6 +37,7 @@ import org.daisy.braille.embosser.UnsupportedWidthException;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
 import org.daisy.braille.pef.PEFHandler;
+import org.daisy.braille.pef.Range;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.factory.Factory;
@@ -50,19 +53,32 @@ import org.xml.sax.SAXException;
  * Not for public use. This class is a package class. Use BasicUI 
  * @author Joel Håkansson
  */
-class EmbossPEF {
+class EmbossPEF extends AbstractUI {
 	public static String DEVICE_NAME = "device name";
 	public static String EMBOSSER_TYPE = "embosser type";
 	public static String TABLE_TYPE = "table type";
 	public static String PAPER_SIZE = "paper size";
+	public static String KEY_RANGE = "range";
+	public static String KEY_COPIES = "copies";
 
+	private final List<Argument> reqArgs;
+	private final List<OptionalArgument> optionalArgs;
+	
 	private String deviceName;
 	private Embosser type;
 	private Table table;
 	private Paper paper;
 	
 	public EmbossPEF() {
-		
+		reqArgs = new ArrayList<Argument>();
+		ArrayList<Definition> options = new ArrayList<Definition>();
+		options.add(new Definition("[path to file]", "Path to PEF-file"));
+		options.add(new Definition("-clear", "to clear settings"));
+		options.add(new Definition("-setup", "to change setup"));
+		reqArgs.add(new Argument("path_to_file", "Path to PEF-file or -clear or -setup", options));
+		optionalArgs = new ArrayList<OptionalArgument>();
+		optionalArgs.add(new OptionalArgument(KEY_RANGE, "Emboss a range of pages", "1-"));
+		optionalArgs.add(new OptionalArgument(KEY_COPIES, "Set copies", "1"));
 	}
 	
 	protected void readSetup(boolean verify) {
@@ -115,52 +131,80 @@ class EmbossPEF {
 	}
 	
 	public static void main(String[] args) throws BackingStoreException {
-		if (args.length!=1) {
-			System.out.println("Expected one more argument: path to PEF-file");
-			System.out.println(" or -clear to clear settings");
-			System.out.println(" or -setup to change setup");
-			System.exit(-1);
+		EmbossPEF ui = new EmbossPEF();
+		if (args.length<1) {
+			System.out.println("Expected at least one more argument.");
+			System.out.println();
+			ui.displayHelp(System.out);
+			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
 		}
-		
-		EmbossPEF obj = new EmbossPEF();
 
-		if ("-clear".equalsIgnoreCase(args[0])) {
-			InputHelper h = new InputHelper(obj.getClass());
+		Map<String, String> p = ui.toMap(args);
+		String firstArg = p.remove(ARG_PREFIX+0);
+
+		if ("-clear".equalsIgnoreCase(firstArg)) {
+			InputHelper h = new InputHelper(ui.getClass());
 			h.clearSettings();
 			System.out.println("Settings have been cleared.");
-			System.exit(0);
+			System.exit(ExitCode.OK.ordinal());
 		}
 
-		if ("-setup".equalsIgnoreCase(args[0])) {
-			obj.readSetup(true);
-			obj.listCurrentSettings(System.out);
-			System.exit(0);
+		if ("-setup".equalsIgnoreCase(firstArg)) {
+			ui.readSetup(true);
+			ui.listCurrentSettings(System.out);
+			System.exit(ExitCode.OK.ordinal());
 		} else {
-			obj.readSetup(false);
+			ui.readSetup(false);
 		}
 
-		PrinterDevice device = new PrinterDevice(obj.getDeviceName(), true);
+		PrinterDevice device = new PrinterDevice(ui.getDeviceName(), true);
 
 		//TODO: support reverse orientation
-		obj.getEmbosser().setFeature(EmbosserFeatures.PAGE_FORMAT, new PageFormat(obj.getPaper()));
+		ui.getEmbosser().setFeature(EmbosserFeatures.PAGE_FORMAT, new PageFormat(ui.getPaper()));
 		
-		if (obj.getTable()!=null) {
-			obj.getEmbosser().setFeature(EmbosserFeatures.TABLE, obj.getTable());
+		int copies = 1;
+		String copiesStr = p.get(KEY_COPIES);
+		if (copiesStr!=null && copiesStr!="") {
+			try {
+				copies = Integer.parseInt(copiesStr);
+			} catch (NumberFormatException e) {
+				System.out.println("Ignoring argument -"+ KEY_COPIES +"=" + copiesStr);
+				copies = 1;
+			}
+		}
+		try {
+			ui.getEmbosser().setFeature(EmbosserFeatures.NUMBER_OF_COPIES, copies);
+			//setting copies to 1 to avoid sending multiple requests below since 
+			//copies has been enabled in implementation
+			copies = 1;
+		} catch (IllegalArgumentException e) {
+			//nothing to do here at the moment, send multiple requests below instead...
+		}
+		
+		if (ui.getTable()!=null) {
+			ui.getEmbosser().setFeature(EmbosserFeatures.TABLE, ui.getTable());
 		}
 
-		File input = new File(args[0]);
+		File input = new File(firstArg);
 		if (!input.exists()) {
-			throw new RuntimeException("Cannot find input file: " + args[0]);
+			throw new RuntimeException("Cannot find input file: " + firstArg);
 		}
 		try {
 			boolean ok = PEFValidatorFacade.validate(input, System.out);
 			if (!ok) {
 				System.out.println("Validation failed, exiting...");
-				System.exit(-2);
+				System.exit(-ExitCode.FAILED_TO_READ.ordinal());
 			}
-			EmbosserWriter embosserObj = obj.getEmbosser().newEmbosserWriter(device);
-			PEFHandler ph = new PEFHandler.Builder(embosserObj).build();
-			PEFConverterFacade.parsePefFile(input, ph);
+			for (int i=0; i<copies; i++) {
+				EmbosserWriter embosserObj = ui.getEmbosser().newEmbosserWriter(device);
+				PEFHandler.Builder builder = new PEFHandler.Builder(embosserObj);
+				String range = p.get(KEY_RANGE);
+				if (range!=null && range!="") {
+					builder.range(Range.parseRange(range));
+				}
+				PEFHandler ph = builder.build();
+				PEFConverterFacade.parsePefFile(input, ph);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
@@ -195,6 +239,21 @@ class EmbossPEF {
 				return emb.supportsDimensions(object);
 			}
 
+	}
+
+	@Override
+	public String getName() {
+		return BasicUI.emboss;
+	}
+
+	@Override
+	public List<Argument> getRequiredArguments() {
+		return reqArgs;
+	}
+
+	@Override
+	public List<OptionalArgument> getOptionalArguments() {
+		return optionalArgs;
 	}
 
 }

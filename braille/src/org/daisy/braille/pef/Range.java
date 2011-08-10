@@ -54,6 +54,7 @@ public class Range {
 	 * Parses the string as a range
 	 * @param range
 	 * @return returns a Range object
+	 * @throws NumberFormatException if the range cannot be parsed
 	 */
 	public static Range parseRange(String range) {
 		String[] str = range.split("-");
