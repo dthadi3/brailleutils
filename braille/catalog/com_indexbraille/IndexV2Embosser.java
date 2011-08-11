@@ -23,6 +23,8 @@ import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserWriterProperties;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
+import org.daisy.braille.embosser.ConfigurableEmbosser;
+import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.TableFilter;
@@ -36,7 +38,7 @@ import org.daisy.braille.embosser.UnsupportedPaperException;
 public class IndexV2Embosser extends IndexEmbosser {
 
     private final static TableFilter tableFilter;
-    private final static String table6dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_6DOT";
+    private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
   //private final static String table8dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_8DOT";
 
     static {
@@ -149,11 +151,21 @@ public class IndexV2Embosser extends IndexEmbosser {
                 .supportsDuplex(duplexEnabled)
                 .supportsAligning(supportsAligning());
 
-        return new IndexTransparentEmbosserWriter(os,
-                                                  setTable.newBrailleConverter(),
-                                                  header,
-                                                  footer,
-                                                  props);
+        if (eightDotsEnabled) {
+            return new IndexTransparentEmbosserWriter(os,
+                                                      setTable.newBrailleConverter(),
+                                                      header,
+                                                      footer,
+                                                      props);
+        } else {
+            return new ConfigurableEmbosser.Builder(os, setTable.newBrailleConverter())
+                            .breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS))
+                            .padNewline(ConfigurableEmbosser.Padding.NONE)
+                            .footer(footer)
+                            .embosserProperties(props)
+                            .header(header)
+                            .build();
+        }
     }
 
     private byte[] getIndexV2Header(boolean duplex,
@@ -166,10 +178,10 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append((char)0x1b);
         header.append((char)0x0f);
         header.append((char)0x02);
-        header.append("x,");                                    // 0: Activated braille code
+        header.append("x,");                                    // 0: Activated braille code  (should match!)
         header.append("0,");                                    // 1: Type of braille code    = Computer
         header.append(eightDots?'1':'0');                       // 2: 6/8 dot braille
-        header.append(",x,");                                   // 3: Capital prefix
+        header.append(",0,");                                   // 3: Capital prefix          = off
         header.append("x,");                                    // 4: Baud rate
         header.append("x,");                                    // 5: Number of data bits
         header.append("x,");                                    // 6: Parity
@@ -193,7 +205,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append("0,");                                    // 17: Page number            = off
         header.append("x,");                                    // 18: N/A
         header.append("0,");                                    // 19: Word wrap              = off
-        header.append("1,");                                    // 20: Auto line feed         = on
+        header.append("0,");                                    // 20: Auto line feed         = off (??)
         header.append("x,");                                    // 21: Form feed
         header.append("x,");                                    // 22: Volume
         header.append("x,");                                    // 23: Impact level
@@ -201,7 +213,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append("x,");                                    // 25: Print quality
         header.append("x,");                                    // 26: Graphic dot distance
         header.append("0,");                                    // 27: Text dot distance      = normal (2.5 mm)
-        header.append("x,");                                    // 28: Setup
+        header.append("1,");                                    // 28: Setup                  = open (??)
         header.append("x,x,x,x,x,x,x,x,x,x,x");                 // 29-39: N/A
         header.append((char)0x1b);
         header.append((char)0x0f);
