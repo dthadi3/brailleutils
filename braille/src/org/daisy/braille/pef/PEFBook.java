@@ -18,8 +18,10 @@
 package org.daisy.braille.pef;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -42,7 +44,12 @@ import org.xml.sax.SAXException;
  * Provides useful information about a PEF-document. 
  * @author Joel Håkansson
  */
-public class PEFBook {
+public class PEFBook implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3068081596918714831L;
+
 	private static final Pattern eightDotPattern = Pattern.compile("[\u2840-\u28ff]");
 	
 	private final HashMap<String, List<String>> metadata;
@@ -395,6 +402,66 @@ public class PEFBook {
 	 */
 	public Iterable<String> getAuthors() {
 		return getMetadata("creator");
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (containsEightDot ? 1231 : 1237);
+		result = prime * result
+				+ ((inputEncoding == null) ? 0 : inputEncoding.hashCode());
+		result = prime * result + maxHeight;
+		result = prime * result + maxWidth;
+		result = prime * result
+				+ ((metadata == null) ? 0 : metadata.hashCode());
+		result = prime * result + pageTags;
+		result = prime * result + pages;
+		result = prime * result + Arrays.hashCode(startPages);
+		result = prime * result + volumes;
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PEFBook other = (PEFBook) obj;
+		if (containsEightDot != other.containsEightDot)
+			return false;
+		if (inputEncoding == null) {
+			if (other.inputEncoding != null)
+				return false;
+		} else if (!inputEncoding.equals(other.inputEncoding))
+			return false;
+		if (maxHeight != other.maxHeight)
+			return false;
+		if (maxWidth != other.maxWidth)
+			return false;
+		if (metadata == null) {
+			if (other.metadata != null)
+				return false;
+		} else if (!metadata.equals(other.metadata))
+			return false;
+		if (pageTags != other.pageTags)
+			return false;
+		if (pages != other.pages)
+			return false;
+		if (!Arrays.equals(startPages, other.startPages))
+			return false;
+		if (volumes != other.volumes)
+			return false;
+		return true;
 	}
 
 }
