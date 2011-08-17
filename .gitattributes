@@ -197,7 +197,30 @@ braille/tests/com_brailler/resource-files/juliet_pro_double_sided.prn -text
 braille/tests/com_brailler/resource-files/juliet_pro_single_sided.prn -text
 braille/tests/com_brailler/resource-files/single_sided.pef -text
 braille/tests/com_brailler/resource-files/thomas_single_sided.prn -text
+braille/tests/com_braillo/AbstractTestBraillo200Embosser.java -text svneol=unset#text/plain
+braille/tests/com_braillo/AbstractTestBraillo440Embosser.java -text svneol=unset#text/plain
+braille/tests/com_braillo/Braillo200EmbosserTest.java -text svneol=unset#text/plain
+braille/tests/com_braillo/Braillo270EmbosserTest.java -text svneol=unset#text/plain
+braille/tests/com_braillo/Braillo400SEmbosserTest.java -text svneol=unset#text/plain
+braille/tests/com_braillo/Braillo400SREmbosserTest.java -text svneol=unset#text/plain
+braille/tests/com_braillo/Braillo440SW2PEmbosserTest.java -text svneol=unset#text/plain
+braille/tests/com_braillo/Braillo440SW4PEmbosserTest.java -text svneol=unset#text/plain
+braille/tests/com_braillo/Braillo440SWSFEmbosserTest.java -text svneol=unset#text/plain
 braille/tests/com_braillo/BrailloTableProviderTest.java -text svneol=unset#text/plain
+braille/tests/com_braillo/resource-files/test-input-1.pef -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo200_us_a4.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo270_us_a4.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo400SR_us_a4.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo400S_us_a4.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-1.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-2.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-3.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_2p_us_fa44-1.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_2p_us_fa44-2.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_2p_us_fa44-3.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_4p_us_fa44-1.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_4p_us_fa44-2.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_4p_us_fa44-3.prn -text
 braille/tests/com_indexbraille/BlueBarEmbosserTest.java -text
 braille/tests/com_indexbraille/IndexTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_indexbraille/IndexV2EmbosserTest.java -text
