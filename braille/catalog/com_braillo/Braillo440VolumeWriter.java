@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.daisy.braille.embosser.EmbosserTools;
-import org.daisy.paper.PageFormat;
+import org.daisy.paper.Dimensions;
 
 
 class Braillo440VolumeWriter extends BrailloVolumeWriter {
@@ -30,11 +30,11 @@ class Braillo440VolumeWriter extends BrailloVolumeWriter {
 	private final int width;
 	@SuppressWarnings("unused")
 	private final int height;
-	private final PageFormat pageFormat;
+	private final Dimensions pageFormat;
 	private final Mode mode;
 	private final double columnWidthMM;
 	
-	Braillo440VolumeWriter(PageFormat pageFormat, Mode mode, int width, int height, double columnWidthMM) {
+	Braillo440VolumeWriter(Dimensions pageFormat, Mode mode, int width, int height, double columnWidthMM) {
 		/*
 		int margin = 4; // approximate width of unprintable margins.
 		if (Paper.newPaper(PaperSize.A4).equals(paper)) {

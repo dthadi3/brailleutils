@@ -97,7 +97,7 @@ class PEFParser extends AbstractUI {
 				
 				// run
 				FileOutputStream os = new FileOutputStream(output);
-				PEFConverterFacade.parsePefFile(input, os, p);
+				PEFConverterFacade.parsePefFile(input, os, null, p);
 				os.close();
 				System.out.println("Done!");
 			} catch (Exception e) {

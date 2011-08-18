@@ -51,5 +51,24 @@ public interface EmbosserProperties {
 	 * @return returns true if this embosser supports aligning, false otherwise.
 	 */
 	public boolean supportsAligning();
+	
+	/**
+	 * Returns true if this embosser supports z-folding. This indicates
+	 * that, if tractor paper is used, the embosser can emboss every 
+	 * other paper upside down with the rear side up so that pages are 
+	 * ordered face up as they fold naturally in the output stack.
+	 * @return returns true if this embosser supports z-folding, false otherwise.
+	 */
+	public boolean supportsZFolding();
+	
+	/**
+	 * Returns true if this embosser supports magazine layout. This indicates
+	 * that the embosser can reorder pages and emboss two pages side-by-side
+	 * on the same side of the paper (and two more on the other side), so that 
+	 * a readable document is created by stapling and folding the output stack 
+	 * in the middle.
+	 * @return returns true if this embosser supports magazine layout, false otherwise.
+	 */
+	public boolean supportsMagazineLayout();
 
 }

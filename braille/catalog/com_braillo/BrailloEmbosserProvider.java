@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 import org.daisy.braille.embosser.Embosser;
 import org.daisy.braille.embosser.EmbosserProvider;
+import org.daisy.paper.PageFormat;
 
 
 public class BrailloEmbosserProvider implements EmbosserProvider {
@@ -39,10 +40,10 @@ public class BrailloEmbosserProvider implements EmbosserProvider {
 	
 	public BrailloEmbosserProvider() {
 		embossers = new HashMap<EmbosserType, Embosser>();
-		embossers.put(EmbosserType.BRAILLO_200, new Braillo200Embosser("Braillo 200", "Firmware 000.17 or later. Embosser table must match hardware setup.", EmbosserType.BRAILLO_200));
+		embossers.put(EmbosserType.BRAILLO_200, new Braillo200Embosser("Braillo 200", "Firmware 000.17 or later. Embosser table must match hardware setup.", EmbosserType.BRAILLO_200, PageFormat.Type.TRACTOR));
 		embossers.put(EmbosserType.BRAILLO_270, new Braillo200_270_400_v12_16Embosser("Braillo 270", "Firmware 12 to 16. Embosser table must match hardware setup.", EmbosserType.BRAILLO_270));
-		embossers.put(EmbosserType.BRAILLO_400_S, new Braillo200Embosser("Braillo 400S", "Firmware 000.17 or later. Embosser table must match hardware setup.", EmbosserType.BRAILLO_400_S));
-		embossers.put(EmbosserType.BRAILLO_400_SR, new Braillo200Embosser("Braillo 400SR", "Firmware 000.17 or later. Embosser table must match hardware setup.", EmbosserType.BRAILLO_400_SR));
+		embossers.put(EmbosserType.BRAILLO_400_S, new Braillo200Embosser("Braillo 400S", "Firmware 000.17 or later. Embosser table must match hardware setup.", EmbosserType.BRAILLO_400_S, PageFormat.Type.TRACTOR));
+		embossers.put(EmbosserType.BRAILLO_400_SR, new Braillo200Embosser("Braillo 400SR", "Firmware 000.17 or later. Embosser table must match hardware setup.", EmbosserType.BRAILLO_400_SR, PageFormat.Type.ROLL));
 		embossers.put(EmbosserType.BRAILLO_440_SW_2P, new Braillo440Embosser("Braillo 440SW (two page mode)", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_440_SW_2P));
 		embossers.put(EmbosserType.BRAILLO_440_SW_4P, new Braillo440Embosser("Braillo 440SW (four page mode)", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_440_SW_4P));
 		embossers.put(EmbosserType.BRAILLO_440_SWSF, new Braillo440Embosser("Braillo 440SWSF", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_440_SWSF));

@@ -22,9 +22,10 @@ import java.io.OutputStream;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.factory.Factory;
+import org.daisy.paper.Area;
 import org.daisy.paper.Dimensions;
 import org.daisy.paper.PageFormat;
-import org.daisy.paper.Area;
+import org.daisy.paper.Paper;
 import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
@@ -40,6 +41,10 @@ public interface Embosser extends Factory, EmbosserProperties {
 	 * @return returns true if dimension is supported
 	 */
 	public boolean supportsDimensions(Dimensions dim);
+	
+	public boolean supportsPageFormat(PageFormat pageFormat);
+	
+	public boolean supportsPaper(Paper paper);
 	
 	/**
 	 * Returns true if table is supported

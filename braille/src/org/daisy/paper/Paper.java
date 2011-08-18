@@ -20,47 +20,54 @@ package org.daisy.paper;
 import org.daisy.factory.Factory;
 
 /**
- * Provides an interface for common properties of a Paper. 
+ * Provides an interface for a physical paper media. 
  * @author Joel Håkansson
  *
  */
-public interface Paper extends Factory, Dimensions  {
-	/**
-	 * The shape of the paper in the most commonly used orientation
-	 */
-	public enum Shape {
-		/**
-		 *  Represents portrait shape, that is to say that getWidth()<getHeight()
-		 */
-		PORTRAIT,
-		/**
-		 *  Represents landscape shape, that is to say that getWidth>getHeight()
-		 */
-		LANDSCAPE,
-		/**
-		 *  Represents square shape, that is to say that getWidth()==getHeight()
-		 */
-		SQUARE
-	}
+public interface Paper extends Factory {
+	public enum Type {SHEET, TRACTOR, ROLL};
 
 	/**
-	 * Gets width of the paper in the most commonly used orientation, in mm.
+	 * Gets width of the paper, in mm. The width is defined as the length of the page perpendicular to
+	 * the paper feed direction.
 	 * @return returns width in mm.
-	 */
+	 *//*
 	//jvm1.6@Override
-	public double getWidth();
+	public double getWidth();*/
 	
 	/**
-	 * Gets height of the paper in the most commonly used orientation, in mm.
+	 * Gets height of the paper, in mm. The height is defined as the length of the page along
+	 * the paper feed direction. 
 	 * @return returns height in mm.
-	 */
+	 *//*
 	//jvm1.6@Override
-	public double getHeight();
-
-	/**
-	 * Gets the proportional shape of the paper in the most commonly used orientation
-	 * @return returns the proportional shape of the paper
-	 */
-	public Shape getShape();
+	public double getHeight();*/
 	
+	/**
+	 * Gets the type of paper
+	 * @return returns the type of paper
+	 */
+	public Type getType();
+	
+	/**
+	 * Returns this Paper as a SheetPaper
+	 * @return returns the SheetPaper
+	 * @throws ClassCastException if the instance is not SheetPaper
+	 */
+	public SheetPaper asSheetPaper();
+	
+	/**
+	 * Returns this Paper as a TractorPaper
+	 * @return returns the TractorPaper
+	 * @throws ClassCastException if the instance is not TractorPaper
+	 */	
+	public TractorPaper asTractorPaper();
+	
+	/**
+	 * Returns this Paper as a RollPaper
+	 * @return returns the RollPaper
+	 * @throws ClassCastException if the instance is not RollPaper
+	 */
+	public RollPaper asRollPaper();
+
 }

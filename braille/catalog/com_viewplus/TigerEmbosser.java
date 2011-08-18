@@ -175,7 +175,7 @@ public class TigerEmbosser extends AbstractEmbosser {
 
         PageFormat page = getPageFormat();
 
-        if (!supportsDimensions(page)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
         }
 
@@ -209,10 +209,11 @@ public class TigerEmbosser extends AbstractEmbosser {
         // Legacy printing mode
 
         PageFormat page = getPageFormat();
+        PrintPage printPage = getPrintPage(page);
         int linesPerPage = getMaxHeight(page);
 
-        int formWidth = (int)Math.ceil(page.getWidth()/EmbosserTools.INCH_IN_MM*2);
-        int formLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM*2);
+        int formWidth = (int)Math.ceil(printPage.getWidth()/EmbosserTools.INCH_IN_MM*2);
+        int formLength = (int)Math.ceil(printPage.getHeight()/EmbosserTools.INCH_IN_MM*2);
         int topOffset = (int)Math.floor(getPrintableArea(page).getOffsetY()/EmbosserTools.INCH_IN_MM*20);
 
         if (formWidth > 42)  { throw new UnsupportedPaperException("Form width cannot > 21 inch"); }

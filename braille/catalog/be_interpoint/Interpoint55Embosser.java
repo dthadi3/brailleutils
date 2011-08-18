@@ -118,8 +118,9 @@ public class Interpoint55Embosser extends AbstractEmbosser {
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
+        PrintPage printPage = getPrintPage(getPageFormat());
         PageFormat page = getPageFormat();
-        if (!supportsDimensions(page)) {
+        if (!supportsDimensions(printPage)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
 
@@ -183,9 +184,10 @@ public class Interpoint55Embosser extends AbstractEmbosser {
         properties.load(is);
         if (is != null) { is.close(); }
 
+        PrintPage printPage = getPrintPage(getPageFormat());
         PageFormat page = getPageFormat();
 
-        if (!supportsDimensions(page)) {
+        if (!supportsDimensions(printPage)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
 

@@ -185,6 +185,31 @@ public class InputHelper {
 		}
 	}
 	
+	public double getDouble(String msg) throws IOException {
+		while (true) {
+			System.out.print(msg+": ");
+			String line = ln.readLine();
+			try {
+				return Double.parseDouble(line);
+			} catch (NumberFormatException e) {
+				System.out.println("Not a number: '" + line + "'");
+			}
+		}
+	}
+	
+	public boolean getBoolean(String msg) throws IOException {
+		while (true) {
+			System.out.print(msg+" (y/n): ");
+			String line = ln.readLine();
+			if ("y".equalsIgnoreCase(line)) {
+				return true;
+			} else if ("n".equalsIgnoreCase(line)) {
+				return false;
+			}
+			System.out.println("Not a valid input: '" + line + "'");
+		}
+	}
+	
 	/**
 	 * Clears the settings associated with this object from storage.
 	 * @throws BackingStoreException if this operation cannot be completed 

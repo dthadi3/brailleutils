@@ -2,22 +2,22 @@ package com_indexbraille;
 
 import java.io.OutputStream;
 
+import org.daisy.braille.embosser.ConfigurableEmbosser;
+import org.daisy.braille.embosser.EmbosserFactoryException;
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserWriterProperties;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
-import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.StandardLineBreaks;
+import org.daisy.braille.embosser.UnsupportedPaperException;
 import org.daisy.braille.table.Table;
-import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
-import org.daisy.paper.PageFormat;
+import org.daisy.braille.table.TableFilter;
 import org.daisy.paper.Dimensions;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.PrintPage;
 
 import com_indexbraille.IndexEmbosserProvider.EmbosserType;
-
-import org.daisy.braille.embosser.EmbosserFactoryException;
-import org.daisy.braille.embosser.UnsupportedPaperException;
 
 public class IndexV3Embosser extends IndexEmbosser {
 	
@@ -91,7 +91,7 @@ public class IndexV3Embosser extends IndexEmbosser {
         }
     }
 
-    protected boolean supportsSaddleStitch() {
+    public boolean supportsMagazineLayout() {
 
         switch (type) {
             case INDEX_4X4_PRO_V3:
@@ -101,7 +101,7 @@ public class IndexV3Embosser extends IndexEmbosser {
         }
     }
 
-    protected boolean supportsZFolding() {
+    public boolean supportsZFolding() {
 
         switch (type) {
             case INDEX_BASIC_S_V3:
@@ -116,11 +116,11 @@ public class IndexV3Embosser extends IndexEmbosser {
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
         PageFormat page = getPageFormat();
-        if (!supportsDimensions(page)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
         }
 
-        getPrintableArea(page);
+        //getPrintableArea(page);
         int cellsInWidth = (int)Math.floor(printablePageWidth/getCellWidth());
 
         if (cellsInWidth > maxCellsInWidth) {
@@ -159,7 +159,7 @@ public class IndexV3Embosser extends IndexEmbosser {
     private byte[] getIndexV3Header(boolean eightDots,
                                     boolean duplex) {
 
-        PageFormat page = getPageFormat();
+        PrintPage page = getPrintPage(getPageFormat());
         double paperWidth = page.getWidth();
         double paperLenght = page.getHeight();
         int cellsInWidth = (int)Math.floor(printablePageWidth/getCellWidth());

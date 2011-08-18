@@ -23,8 +23,9 @@ import org.daisy.braille.table.DefaultTableProvider;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.factory.AbstractFactory;
-import org.daisy.paper.PageFormat;
 import org.daisy.paper.Area;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.Paper;
 import org.daisy.paper.PrintPage;
 
 /**
@@ -178,6 +179,23 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
  	//jvm1.6@Override
 	public boolean supportsTable(Table table) {
 		return getTableFilter().accept(table);
+	}
+	
+	public boolean supportsPageFormat(PageFormat pageFormat) {
+		return supportsDimensions(getPrintPage(pageFormat));
+	}
+	
+	public boolean supportsZFolding() {
+		return false;
+	}
+	
+	public boolean supportsMagazineLayout() {
+		return false;
+	}
+	
+	public boolean supportsPaper(Paper paper) {
+		//TODO: remove this method, when all implementations have implemented this
+		return true;
 	}
 
 }

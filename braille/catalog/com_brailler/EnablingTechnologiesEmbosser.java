@@ -181,7 +181,7 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         boolean eightDots = supports8dot() && false;       // examine PEF file: rowgap / char > 283F
         PageFormat page = getPageFormat();
 
-        if (!supportsDimensions(page)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
 
@@ -208,7 +208,7 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         PageFormat page = getPageFormat();
         int cellsPerLine = getMaxWidth(page);
         int linesPerPage = getMaxHeight(page);
-        double paperLenght = page.getHeight();
+        double paperLenght = getPrintPage(page).getHeight();
         
         int pageLenght = (int)Math.ceil(paperLenght/EmbosserTools.INCH_IN_MM-3);
         int topOffFormOffset = (int)Math.ceil(marginTop*getCellHeight()/EmbosserTools.INCH_IN_MM*10);

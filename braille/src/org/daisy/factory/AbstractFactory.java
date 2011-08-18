@@ -67,4 +67,12 @@ public abstract class AbstractFactory implements Factory {
 	public String getIdentifier() {
 		return identifier;
 	}
+	
+	public int compareTo(Factory o) {
+		if (this.equals(o)) {
+			return 0;
+		} else {
+			return this.getDisplayName().compareTo(o.getDisplayName());
+		}
+	}
 }

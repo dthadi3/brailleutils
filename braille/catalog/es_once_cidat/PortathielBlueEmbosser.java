@@ -2,19 +2,19 @@ package es_once_cidat;
 
 import java.io.OutputStream;
 
+import org.daisy.braille.embosser.ConfigurableEmbosser;
+import org.daisy.braille.embosser.EmbosserFactoryException;
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
-import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.embosser.StandardPageBreaks;
-import org.daisy.braille.table.Table;
-import org.daisy.braille.table.TableFilter;
-import org.daisy.braille.table.TableCatalog;
-import org.daisy.paper.PageFormat;
-
-import org.daisy.braille.embosser.EmbosserFactoryException;
 import org.daisy.braille.embosser.UnsupportedPaperException;
+import org.daisy.braille.table.Table;
+import org.daisy.braille.table.TableCatalog;
+import org.daisy.braille.table.TableFilter;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.PrintPage;
 
 import es_once_cidat.CidatEmbosserProvider.EmbosserType;
 
@@ -60,7 +60,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
         PageFormat page = getPageFormat();
         
-        if (!supportsDimensions(page)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
 
@@ -99,7 +99,7 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
                                        boolean transparentMode)
                                 throws EmbosserFactoryException {
 
-        PageFormat page = getPageFormat();
+        PrintPage page = getPrintPage(getPageFormat());
         int pageLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM);
         int charsPerLine = EmbosserTools.getWidth(page, getCellWidth());
         int linesPerPage = EmbosserTools.getHeight(page, getCellHeight()); // depends on rowgap

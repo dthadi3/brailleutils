@@ -1,29 +1,31 @@
 package es_once_cidat;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
-import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.daisy.paper.PageFormat;
-import org.daisy.paper.PaperCatalog;
 import org.daisy.braille.embosser.Embosser;
-import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.EmbosserFeatures;
-import org.daisy.braille.table.TableCatalog;
+import org.daisy.braille.embosser.EmbosserWriter;
+import org.daisy.braille.embosser.UnsupportedWidthException;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.pef.PEFHandler;
+import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.tools.FileCompare;
 import org.daisy.braille.tools.FileTools;
-
-import org.daisy.braille.embosser.UnsupportedWidthException;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.PaperCatalog;
+import org.daisy.paper.SheetPaper;
+import org.daisy.paper.SheetPaperFormat;
+import org.junit.Test;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -35,7 +37,7 @@ public class PortathielBlueEmbosserTest {
     private static Embosser e = ec.get("es_once_cidat.CidatEmbosserProvider.EmbosserType.PORTATHIEL_BLUE");
 
     private static PaperCatalog pc = PaperCatalog.newInstance();
-    private static PageFormat a4 = new PageFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), PageFormat.Orientation.DEFAULT);
+    private static PageFormat a4 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), SheetPaperFormat.Orientation.DEFAULT);
 
     @Test
     public void testPrintableArea() {

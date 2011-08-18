@@ -34,7 +34,7 @@ import org.daisy.braille.embosser.UnsupportedPaperException;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Dimensions;
-import org.daisy.paper.PageFormat;
+import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
 
@@ -70,16 +70,17 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 			Table tc = btb.get(setTable.getIdentifier());
 			tc.setFeature("fallback", getFeature("fallback"));
 			tc.setFeature("replacement", getFeature("replacement"));
+			PrintPage printPage = getPrintPage(getPageFormat());
 			EmbosserWriterProperties ep = new SimpleEmbosserProperties(
-					EmbosserTools.getWidth(getPageFormat(), getCellWidth()),
-					EmbosserTools.getHeight(getPageFormat(), getCellHeight()))
+					EmbosserTools.getWidth(printPage, getCellWidth()),
+					EmbosserTools.getHeight(printPage, getCellHeight()))
 				.supportsDuplex(true)
 				.supportsAligning(true);
 			ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, tc.newBrailleConverter())
 				.breaks(new StandardLineBreaks(StandardLineBreaks.Type.DOS))
 				.padNewline(ConfigurableEmbosser.Padding.NONE)
 				.embosserProperties(ep)
-				.header(getBrailloHeader(ep.getMaxWidth(), getPageFormat()))
+				.header(getBrailloHeader(ep.getMaxWidth(), printPage))
 				.fillSheet(true)
 				.autoLineFeedOnEmptyPage(true);
 			return b.build();
@@ -90,7 +91,7 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 
 	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(Device device) {
-		if (!supportsDimensions(getPageFormat())) {
+		if (!supportsDimensions(getPrintPage(getPageFormat()))) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());
 		}
 		try {
@@ -107,7 +108,7 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 	// B200, B270, B400
 	// Supported paper width (chars): 27 <= width <= 42
 	// Supported paper height (inches): 4 <= height <= 14
-	private static byte[] getBrailloHeader(int width, PageFormat pageFormat) throws UnsupportedPaperException {
+	private static byte[] getBrailloHeader(int width, Dimensions pageFormat) throws UnsupportedPaperException {
 		// Round to the closest possible higher value, so that all characters fit on the page
 		int height = (int)Math.ceil(2*pageFormat.getHeight()/EmbosserTools.INCH_IN_MM);
 		if (width > 42 || height > 28) { 

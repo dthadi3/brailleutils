@@ -1,8 +1,11 @@
 package org.daisy.paper;
 
+import org.daisy.braille.tools.Length;
+
 /**
  *
  * @author Bert Frees
+ * @author Joel Håkansson
  */
 public class PrintPage implements Dimensions {
 
@@ -11,11 +14,11 @@ public class PrintPage implements Dimensions {
      */
     public enum PrintDirection {
         /**
-         *  Direction of print is equal to direction of feeding paper
+         *  Direction of embosser head is equal to direction of feeding paper
          */
         UPRIGHT,
         /**
-         *  Direction of print is opposite to direction of feeding paper
+         *  Direction of embosser head is opposite to direction of feeding paper
          */
         SIDEWAYS
     }
@@ -33,6 +36,23 @@ public class PrintPage implements Dimensions {
          */
         MAGAZINE
     }
+	/**
+	 * The shape of the paper
+	 */
+	public enum Shape {
+		/**
+		 *  Represents portrait shape, that is to say that getWidth()<getHeight()
+		 */
+		PORTRAIT,
+		/**
+		 *  Represents landscape shape, that is to say that getWidth>getHeight()
+		 */
+		LANDSCAPE,
+		/**
+		 *  Represents square shape, that is to say that getWidth()==getHeight()
+		 */
+		SQUARE
+	}
 
     private final PageFormat inputPage;
     private final PrintDirection direction;
@@ -50,18 +70,55 @@ public class PrintPage implements Dimensions {
     public PrintPage(PageFormat inputPage) {
         this(inputPage, PrintDirection.UPRIGHT, PrintMode.REGULAR);
     }
+    
+    public Length getLengthAcrossFeed() {
+    	switch (inputPage.getPageFormatType()) {
+	    	case SHEET: {
+	    		switch (direction) {
+		    		case SIDEWAYS:
+		    			return ((SheetPaperFormat)inputPage).getPageHeight();
+		    		case UPRIGHT: default:
+		    			return ((SheetPaperFormat)inputPage).getPageWidth();
+	    		}
+	    	}
+	    	case ROLL:
+	    		return ((RollPaperFormat)inputPage).getLengthAcrossFeed();
+	    	case TRACTOR:
+	    		return ((TractorPaperFormat)inputPage).getLengthAcrossFeed();
+	    	default:
+	    		throw new RuntimeException("Coding error");
+    	}
+    }
+
+    public Length getLengthAlongFeed() {
+    	switch (inputPage.getPageFormatType()) {
+	    	case SHEET: {
+	    		switch (direction) {
+		    		case SIDEWAYS:
+		    			return ((SheetPaperFormat)inputPage).getPageWidth();
+		    		case UPRIGHT: default:
+		    			return ((SheetPaperFormat)inputPage).getPageHeight();
+	    		}
+	    	}
+	    	case ROLL:
+	    		return ((RollPaperFormat)inputPage).getLengthAlongFeed();
+	    	case TRACTOR:
+	    		return ((TractorPaperFormat)inputPage).getLengthAlongFeed();
+	    	default:
+	    		throw new RuntimeException("Coding error");
+		}
+    }
 
     public double getWidth() {
-
         double width;
 
         switch (direction) {
             case SIDEWAYS:
-                width = inputPage.getHeight();
+                width = getLengthAlongFeed().asMillimeter();
                 break;
             case UPRIGHT:
             default:
-                width = inputPage.getWidth();
+                width = getLengthAcrossFeed().asMillimeter();
         }
 
         switch (mode) {
@@ -74,13 +131,22 @@ public class PrintPage implements Dimensions {
     }
 
     public double getHeight() {
-
         switch (direction) {
             case SIDEWAYS:
-                return inputPage.getWidth();
+                return getLengthAcrossFeed().asMillimeter();
             case UPRIGHT:
             default:
-                return inputPage.getHeight();
+                return getLengthAlongFeed().asMillimeter();
         }
+    }
+    
+    public Shape getShape() {
+		if (getWidth()<getHeight()) {
+			return Shape.PORTRAIT;
+		} else if (getWidth()>getHeight()) {
+			return Shape.LANDSCAPE;
+		} else {
+			return Shape.SQUARE;
+		}
     }
 }

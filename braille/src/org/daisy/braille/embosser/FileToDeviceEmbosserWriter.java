@@ -124,6 +124,14 @@ public class FileToDeviceEmbosserWriter implements EmbosserWriter {
 	public boolean supportsVolumes() {
 		return w.supportsVolumes();
 	}
+	
+	public boolean supportsZFolding() {
+		return w.supportsZFolding();
+	}
+
+	public boolean supportsMagazineLayout() {
+		return w.supportsMagazineLayout();
+	}
 
 	//jvm1.6@Override
 	public void close() throws IOException {

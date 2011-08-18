@@ -23,9 +23,7 @@ import org.daisy.factory.AbstractFactory;
  * Provides a default implementation for Paper.
  * @author Joel Håkansson
  */
-public class DefaultPaper extends AbstractFactory implements Paper {
-	private final double width, height;
-	private final Shape shape;
+public abstract class AbstractPaper extends AbstractFactory implements Paper {
 
 	/**
 	 * Creates a new default paper.
@@ -34,17 +32,8 @@ public class DefaultPaper extends AbstractFactory implements Paper {
 	 * @param width width, in mm
 	 * @param height height, in mm
 	 */
-	public DefaultPaper(String name, String desc, Enum<? extends Enum<?>> identifier, double width, double height) {
+	public AbstractPaper(String name, String desc, Enum<? extends Enum<?>> identifier) {
 		super(name, desc, identifier);
-		this.width = width;
-		this.height = height;
-		if (getWidth()<getHeight()) {
-			this.shape = Shape.PORTRAIT;
-		} else if (getWidth()>getHeight()) {
-			this.shape = Shape.LANDSCAPE;
-		} else {
-			this.shape = Shape.SQUARE;
-		}
 	}
 
 	//jvm1.6@Override
@@ -62,26 +51,25 @@ public class DefaultPaper extends AbstractFactory implements Paper {
 		throw new IllegalArgumentException("Unknown feature: " + key);
 	}
 
-	//jvm1.6@Override
-	public double getHeight() {
-		return height;
-	}
-
-	//jvm1.6@Override
-	public double getWidth() {
-		return width;
-	}
-
-	public Shape getShape() {
-		return shape;
+	/* (non-Javadoc)
+	 * @see org.daisy.paper.Paper#asSheetPaper()
+	 */
+	public SheetPaper asSheetPaper() {
+		throw new ClassCastException();
 	}
 
 	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	 * @see org.daisy.paper.Paper#asTractorPaper()
 	 */
-	@Override
-	public String toString() {
-		return "DefaultPaper [width=" + width + ", height=" + height + ", shape=" + shape + "]";
+	public TractorPaper asTractorPaper() {
+		throw new ClassCastException();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.daisy.paper.Paper#asRollPaper()
+	 */
+	public RollPaper asRollPaper() {
+		throw new ClassCastException();
 	}
 
 }

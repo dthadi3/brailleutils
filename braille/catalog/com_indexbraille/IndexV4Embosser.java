@@ -13,8 +13,9 @@ import org.daisy.braille.embosser.UnsupportedPaperException;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.TableFilter;
-import org.daisy.paper.PageFormat;
 import org.daisy.paper.Dimensions;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.PrintPage;
 
 import com_indexbraille.IndexEmbosserProvider.EmbosserType;
 
@@ -79,7 +80,7 @@ public class IndexV4Embosser extends IndexEmbosser {
         }
     }
 
-    protected boolean supportsSaddleStitch() {
+    public boolean supportsMagazineLayout() {
 
         switch (type) {
             case INDEX_EVEREST_D_V4:
@@ -89,7 +90,7 @@ public class IndexV4Embosser extends IndexEmbosser {
         }
     }
 
-    protected boolean supportsZFolding() {
+    public boolean supportsZFolding() {
 
         switch (type) {
             case INDEX_BASIC_D_V4:
@@ -102,11 +103,11 @@ public class IndexV4Embosser extends IndexEmbosser {
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
         PageFormat page = getPageFormat();
-        if (!supportsDimensions(page)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
         }
 
-        getPrintableArea(page);
+       // getPrintableArea(page);
         int cellsInWidth = (int)Math.floor(printablePageWidth/getCellWidth());
 
         if (cellsInWidth > maxCellsInWidth) {
@@ -145,7 +146,7 @@ public class IndexV4Embosser extends IndexEmbosser {
     private byte[] getIndexV3Header(boolean eightDots,
                                     boolean duplex) {
 
-        PageFormat page = getPageFormat();
+        PrintPage page = getPrintPage(getPageFormat());
         double paperWidth = page.getWidth();
         double paperLenght = page.getHeight();
         int cellsInWidth = (int)Math.floor(printablePageWidth/getCellWidth());

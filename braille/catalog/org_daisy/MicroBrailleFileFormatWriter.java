@@ -99,4 +99,14 @@ public class MicroBrailleFileFormatWriter extends AbstractEmbosserWriter {
         os.close();
         super.close();
     }
+
+	public boolean supportsZFolding() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean supportsMagazineLayout() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

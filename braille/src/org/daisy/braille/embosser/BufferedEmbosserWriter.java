@@ -66,6 +66,14 @@ public class BufferedEmbosserWriter implements EmbosserWriter {
 	public boolean supportsAligning() {
 		return writer.supportsAligning();
 	}
+	
+	public boolean supportsZFolding() {
+		return writer.supportsZFolding();
+	}
+
+	public boolean supportsMagazineLayout() {
+		return writer.supportsMagazineLayout();
+	}
 
 	//jvm1.6@Override
 	public void close() throws IOException {

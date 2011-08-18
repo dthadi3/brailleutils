@@ -20,6 +20,7 @@ import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.tools.FileCompare;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.PaperCatalog;
+import org.daisy.paper.SheetPaperFormat;
 import org.xml.sax.SAXException;
 
 public abstract class AbstractTestBraillo200Embosser {
@@ -31,7 +32,7 @@ public abstract class AbstractTestBraillo200Embosser {
 	public AbstractTestBraillo200Embosser(Embosser emb) {
 		this.tc = TableCatalog.newInstance();
 		this.pc = PaperCatalog.newInstance();
-		this.a4 = new PageFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), PageFormat.Orientation.DEFAULT);
+		this.a4 = new SheetPaperFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4").asSheetPaper(), SheetPaperFormat.Orientation.DEFAULT);
 		this.emb = emb;
 		
 		emb.setFeature(EmbosserFeatures.PAGE_FORMAT, a4);

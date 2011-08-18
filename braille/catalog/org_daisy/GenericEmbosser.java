@@ -33,6 +33,7 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.paper.Dimensions;
+import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
 public class GenericEmbosser extends AbstractEmbosser {
@@ -67,9 +68,8 @@ public class GenericEmbosser extends AbstractEmbosser {
 	
 	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(OutputStream os) {
-		if (!supportsDimensions(getPageFormat())) {
-			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());
-		}
+		PrintPage pp = new PrintPage(getPageFormat());
+
 		TableCatalog btb = TableCatalog.newInstance();
 		Table tc = btb.get(setTable.getIdentifier());
 		tc.setFeature("fallback", getFeature("fallback"));
@@ -80,8 +80,8 @@ public class GenericEmbosser extends AbstractEmbosser {
 		final int maxWidth;
 		final int maxHeight;
 		if (getPageFormat()!=null) {
-			maxWidth = EmbosserTools.getWidth(getPageFormat(), getCellWidth());
-			maxHeight = EmbosserTools.getHeight(getPageFormat(), getCellHeight());
+			maxWidth = EmbosserTools.getWidth(pp, getCellWidth());
+			maxHeight = EmbosserTools.getHeight(pp, getCellHeight());
 		} else {
 			maxWidth = Integer.MAX_VALUE;
 			maxHeight = Integer.MAX_VALUE;
@@ -96,9 +96,6 @@ public class GenericEmbosser extends AbstractEmbosser {
 
 	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(Device device) {
-		if (!supportsDimensions(getPageFormat())) {
-			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());
-		}
 		try {
 			File f = File.createTempFile(this.getClass().getCanonicalName(), ".tmp");
 			f.deleteOnExit();

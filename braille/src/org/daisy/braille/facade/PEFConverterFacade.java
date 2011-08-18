@@ -19,13 +19,11 @@ package org.daisy.braille.facade;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,7 +42,6 @@ import org.daisy.braille.pef.Range;
 import org.daisy.braille.pef.TextHandler;
 import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
 import org.daisy.paper.PageFormat;
-import org.daisy.paper.PaperCatalog;
 import org.xml.sax.SAXException;
 
 /**
@@ -98,11 +95,6 @@ public class PEFConverterFacade {
 	 * corresponding settings value should match a value in {@link Alignment}
 	 */
 	public final static String KEY_ALIGN = "align";
-	/**
-	 * Key for parsePefFile setting,
-	 * corresponding settings value should match a paper identifier
-	 */
-	public final static String KEY_PAGE_FORMAT = "papersize";
 	/**
 	 * Key for parsePefFile setting,
 	 * corresponding settings value should be a number, in millimeters
@@ -162,7 +154,7 @@ public class PEFConverterFacade {
 	 * @throws EmbosserFactoryException
 	 * @throws UnsupportedWidthException
 	 */
-	public static void parsePefFile(File input, OutputStream os, Map<String, String> settings) throws NumberFormatException, ParserConfigurationException, SAXException, IOException, EmbosserFactoryException, UnsupportedWidthException {
+	public static void parsePefFile(File input, OutputStream os, PageFormat pf, Map<String, String> settings) throws NumberFormatException, ParserConfigurationException, SAXException, IOException, EmbosserFactoryException, UnsupportedWidthException {
 		Range range = null;
 		EmbosserCatalog ef = EmbosserCatalog.newInstance();
 		Alignment align = Alignment.CENTER_OUTER;
@@ -171,6 +163,9 @@ public class PEFConverterFacade {
 		emb = ef.get(settings.remove(KEY_EMBOSSER));
 		if (emb==null) {
 			emb = ef.get("org_daisy.GenericEmbosserProvider.EmbosserType.NONE");
+		}
+		if (pf!=null) {
+			emb.setFeature(EmbosserFeatures.PAGE_FORMAT, pf);
 		}
 		for (String key : settings.keySet()) {
 			String value = settings.get(key);
@@ -197,10 +192,6 @@ public class PEFConverterFacade {
 				} catch (IllegalArgumentException e) {
 					System.out.println("Unknown value: " + value);
 				}
-			} else if (KEY_PAGE_FORMAT.equals(key)) {
-				PaperCatalog pc = PaperCatalog.newInstance();
-				//TODO: support reverse orientation
-				emb.setFeature(EmbosserFeatures.PAGE_FORMAT, new PageFormat(pc.get(value)));
 			} else if (KEY_CELL_WIDTH.equals(key)) {
 				emb.setFeature(EmbosserFeatures.CELL_WIDTH, value);
 			} else if (KEY_CELL_HEIGHT.equals(key)) {

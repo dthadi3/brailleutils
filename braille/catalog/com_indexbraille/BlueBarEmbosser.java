@@ -75,11 +75,11 @@ public class BlueBarEmbosser extends IndexEmbosser {
         }
     }
 
-    protected boolean supportsZFolding() {
+    public boolean supportsZFolding() {
         return false;
     }
 
-    protected boolean supportsSaddleStitch() {
+    public boolean supportsMagazineLayout() {
         return false;
     }
 
@@ -87,7 +87,7 @@ public class BlueBarEmbosser extends IndexEmbosser {
 
         PageFormat page = getPageFormat();
 
-        if (!supportsDimensions(page)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());
         }
 

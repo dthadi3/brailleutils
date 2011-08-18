@@ -102,7 +102,7 @@ public class MountbattenEmbosser extends AbstractEmbosser {
 
         PageFormat page = getPageFormat();
 
-        if (!supportsDimensions(page)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException(new EmbosserFactoryException("Unsupported paper"));
         }
 

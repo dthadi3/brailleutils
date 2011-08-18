@@ -28,6 +28,8 @@ public class SimpleEmbosserProperties implements EmbosserWriterProperties {
 	private boolean supportsDuplex=false;
 	private boolean supportsAligning=false;
 	private boolean supportsVolumes=false;
+	private boolean supportsZFolding=false;
+	private boolean supportsMagazineLayout=false;
 	private final int maxHeight;
 	private final int maxWidth;
 
@@ -69,6 +71,20 @@ public class SimpleEmbosserProperties implements EmbosserWriterProperties {
 	 * @return returns this object
 	 */
 	public SimpleEmbosserProperties supportsVolumes(boolean val) { supportsVolumes = val; return this; }
+
+	/**
+	 * Sets the value of z-folding support
+	 * @param val the new value
+	 * @return returns this object
+	 */
+	public SimpleEmbosserProperties supportsZFolding(boolean val) { supportsZFolding = val; return this; }
+	
+	/**
+	 * Sets the value of magazine layout support
+	 * @param val the new value
+	 * @return returns this object
+	 */
+	public SimpleEmbosserProperties supportsMagazineLayout(boolean val) { supportsMagazineLayout = val; return this; }
 	
 	/**
 	 * Sets the value of cell width
@@ -106,6 +122,14 @@ public class SimpleEmbosserProperties implements EmbosserWriterProperties {
 
 	public boolean supportsVolumes() {
 		return supportsVolumes;
+	}
+	
+	public boolean supportsZFolding() {
+		return supportsZFolding;
+	}
+
+	public boolean supportsMagazineLayout() {
+		return supportsMagazineLayout;
 	}
 
 	/**

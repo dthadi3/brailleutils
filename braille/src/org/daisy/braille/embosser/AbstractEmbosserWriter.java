@@ -256,5 +256,15 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 	public boolean supportsVolumes() {
 		return props.supportsVolumes();
 	}
+	
+	public boolean supportsZFolding() {
+		return props.supportsZFolding();
+	}
+	
+	public boolean supportsMagazineLayout() {
+		return props.supportsMagazineLayout();
+	}
+	
+
 
 }

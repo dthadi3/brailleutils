@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.prefs.BackingStoreException;
@@ -40,11 +41,16 @@ import org.daisy.braille.pef.PEFHandler;
 import org.daisy.braille.pef.Range;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
+import org.daisy.braille.tools.Length;
 import org.daisy.factory.Factory;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PaperCatalog;
 import org.daisy.paper.PaperFilter;
+import org.daisy.paper.RollPaperFormat;
+import org.daisy.paper.SheetPaperFormat;
+import org.daisy.paper.SheetPaperFormat.Orientation;
+import org.daisy.paper.TractorPaperFormat;
 import org.daisy.printing.PrinterDevice;
 import org.xml.sax.SAXException;
 
@@ -68,6 +74,7 @@ class EmbossPEF extends AbstractUI {
 	private Embosser type;
 	private Table table;
 	private Paper paper;
+	private PageFormat pageFormat;
 	
 	public EmbossPEF() {
 		reqArgs = new ArrayList<Argument>();
@@ -92,7 +99,9 @@ class EmbossPEF extends AbstractUI {
 		System.out.println("Using device: " + deviceName);
 		
 		EmbosserCatalog ec = EmbosserCatalog.newInstance();
-		String embosserType = input.select(EMBOSSER_TYPE, new ArrayList<Factory>(ec.list()), "embosser", verify);
+		ArrayList<Factory> sorted = new ArrayList<Factory>(ec.list());
+		Collections.sort(sorted);
+		String embosserType = input.select(EMBOSSER_TYPE, sorted, "embosser", verify);
 		type = ec.get(embosserType);
 		System.out.println("Embosser: " + type.getDisplayName());
 		
@@ -106,12 +115,42 @@ class EmbossPEF extends AbstractUI {
 			table = null;
 		}
 
-		PaperCatalog pc = PaperCatalog.newInstance();
-		String paperSize = input.select(PAPER_SIZE, new ArrayList<Factory>(
-				pc.list(new EmbosserPaperFilter(type))), "paper", verify
-			);
-		paper = pc.get(paperSize);
-		System.out.println("Paper: " + paper.getDisplayName());
+		boolean ok = false;
+		do {
+			PaperCatalog pc = PaperCatalog.newInstance();
+			sorted = new ArrayList<Factory>(pc.list(new EmbosserPaperFilter(type)));
+			Collections.sort(sorted);
+			String paperSize = input.select(PAPER_SIZE, sorted, "paper", verify
+				);
+			paper = pc.get(paperSize);
+			System.out.println("Paper: " + paper.getDisplayName() + " (" + paper.getType().toString().toLowerCase() + ")");
+
+			switch (paper.getType()) {
+				case ROLL:
+					try {
+						double d = input.getDouble("Cut length (in mm)");
+						this.pageFormat = new RollPaperFormat(paper.asRollPaper(), Length.newMillimeterValue(d));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					break;
+				case SHEET:
+					try {
+						boolean b = input.getBoolean("Use default orientation?");
+						this.pageFormat = new SheetPaperFormat(paper.asSheetPaper(), (b?Orientation.DEFAULT:Orientation.REVERSED));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					break;
+				case TRACTOR: default:
+					this.pageFormat = new TractorPaperFormat(paper.asTractorPaper());
+					break;
+				}
+			ok = type.supportsPageFormat(pageFormat);
+			if (!ok) {
+				System.out.println("The setting is not supported");
+			}
+		} while (!ok);
 	}
 	
 	public Table getTable() {
@@ -121,9 +160,9 @@ class EmbossPEF extends AbstractUI {
 	public String getDeviceName() {
 		return deviceName;
 	}
-	
-	public Paper getPaper() {
-		return paper;
+
+	public PageFormat getPageFormat() {
+		return pageFormat;
 	}
 	
 	public Embosser getEmbosser() {
@@ -159,8 +198,8 @@ class EmbossPEF extends AbstractUI {
 
 		PrinterDevice device = new PrinterDevice(ui.getDeviceName(), true);
 
-		//TODO: support reverse orientation
-		ui.getEmbosser().setFeature(EmbosserFeatures.PAGE_FORMAT, new PageFormat(ui.getPaper()));
+		PageFormat pf = ui.getPageFormat();
+		ui.getEmbosser().setFeature(EmbosserFeatures.PAGE_FORMAT, pf);
 		
 		int copies = 1;
 		String copiesStr = p.get(KEY_COPIES);
@@ -223,7 +262,19 @@ class EmbossPEF extends AbstractUI {
 		if (table!=null) {
 			ps.println("\tTable: " + table.getDisplayName());
 		}
-		ps.println("\tPaper: " + paper.getDisplayName());
+		ps.print("\tPaper: " + paper.getDisplayName()  + " (" + pageFormat.getPageFormatType().toString().toLowerCase());
+		switch (pageFormat.getPageFormatType()) {
+			case SHEET:
+				ps.print(", "+pageFormat.asSheetPaperFormat().getOrientation().toString().toLowerCase()+" orientation)");
+				break;
+			case TRACTOR:
+				ps.print(")");
+				break;
+			case ROLL:
+				ps.print(", cut roll at "+pageFormat.asRollPaperFormat().getLengthAlongFeed()+")");
+				break;
+			}
+		ps.println();
 	}
 	
 	// Accepts papers that are supported by the embosser in the default orientation
@@ -236,7 +287,7 @@ class EmbossPEF extends AbstractUI {
 			
 			//jvm1.6@Override
 			public boolean accept(Paper object) {
-				return emb.supportsDimensions(object);
+				return emb.supportsPaper(object);
 			}
 
 	}

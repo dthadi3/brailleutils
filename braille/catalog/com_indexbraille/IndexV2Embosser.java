@@ -99,7 +99,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         }
     }
 
-    protected boolean supportsSaddleStitch() {
+    public boolean supportsMagazineLayout() {
 
         switch (type) {
             case INDEX_4X4_PRO_V2:
@@ -109,7 +109,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         }
     }
 
-    protected boolean supportsZFolding() {
+    public boolean supportsZFolding() {
 
         switch (type) {
             case INDEX_BASIC_D_V2:
@@ -125,7 +125,7 @@ public class IndexV2Embosser extends IndexEmbosser {
       //boolean magazine = false;
         
         PageFormat page = getPageFormat();
-        if (!supportsDimensions(page)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
         }
 

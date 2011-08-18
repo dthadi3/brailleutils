@@ -11,6 +11,7 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.PrintPage;
 
 import org.daisy.braille.embosser.EmbosserFactoryException;
 import org.daisy.braille.embosser.UnsupportedPaperException;
@@ -56,7 +57,7 @@ public class ImpactoEmbosser extends CidatEmbosser {
 
         PageFormat page = getPageFormat();
         
-        if (!supportsDimensions(page)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
         if (numberOfCopies > maxNumberOfCopies || numberOfCopies < 1) {
@@ -94,9 +95,10 @@ public class ImpactoEmbosser extends CidatEmbosser {
 
       //int pageCount = 1;                              // examine PEF file
         PageFormat page = getPageFormat();
-        int pageLength = (int)Math.ceil(page.getHeight()/EmbosserTools.INCH_IN_MM);
-        int charsPerLine = EmbosserTools.getWidth(page, getCellWidth());
-        int linesPerPage = EmbosserTools.getHeight(page, getCellHeight()); // depends on cell heigth -> depends on rowgap
+        PrintPage printPage = getPrintPage(page);
+        int pageLength = (int)Math.ceil(printPage.getHeight()/EmbosserTools.INCH_IN_MM);
+        int charsPerLine = EmbosserTools.getWidth(printPage, getCellWidth());
+        int linesPerPage = EmbosserTools.getHeight(printPage, getCellHeight()); // depends on cell heigth -> depends on rowgap
         
         if (pageLength   < 6  || pageLength   > 13) { throw new UnsupportedPaperException("Paper height = " + pageLength + " inches, must be in [6,13]"); }
         if (charsPerLine < 12 || charsPerLine > 42) { throw new UnsupportedPaperException("Characters per line = " + charsPerLine + ", must be in [12,42]"); }

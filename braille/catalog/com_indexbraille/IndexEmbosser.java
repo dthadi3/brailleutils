@@ -184,9 +184,6 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         }
     }
 
-    protected abstract boolean supportsZFolding();
-    protected abstract boolean supportsSaddleStitch();
-
     public EmbosserWriter newEmbosserWriter(Device device) {
 
         try {
@@ -229,7 +226,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException("Unsupported value for number of copies.");
             }
-        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsSaddleStitch()) {
+        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsMagazineLayout()) {
             try {
                 saddleStitchEnabled = (Boolean)value;
                 if (type == EmbosserType.INDEX_4X4_PRO_V2) {
@@ -268,7 +265,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             return setTable;
         } else if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
             return numberOfCopies;
-        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsSaddleStitch()) {
+        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsMagazineLayout()) {
             return saddleStitchEnabled;
         } else if (EmbosserFeatures.Z_FOLDING.equals(key) && supportsZFolding()) {
             return zFoldingEnabled;
@@ -307,7 +304,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
 
         double cellWidth = getCellWidth();
         double cellHeight = getCellHeight();
-        double inputPageWidth = pageFormat.getWidth();
+        double inputPageWidth = printPage.getLengthAcrossFeed().asMillimeter();
 
         printablePageWidth = printPage.getWidth();
         printablePageHeight = printPage.getHeight();

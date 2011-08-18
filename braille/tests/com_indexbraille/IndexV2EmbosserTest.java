@@ -1,29 +1,33 @@
 package com_indexbraille;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
-import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.daisy.paper.PageFormat;
-import org.daisy.paper.PaperCatalog;
 import org.daisy.braille.embosser.Embosser;
-import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.EmbosserFeatures;
-import org.daisy.braille.table.TableCatalog;
+import org.daisy.braille.embosser.EmbosserWriter;
+import org.daisy.braille.embosser.UnsupportedWidthException;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.pef.PEFHandler;
+import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.tools.FileCompare;
 import org.daisy.braille.tools.FileTools;
-
-import org.daisy.braille.embosser.UnsupportedWidthException;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.PaperCatalog;
+import org.daisy.paper.SheetPaper;
+import org.daisy.paper.SheetPaperFormat;
+import org.daisy.paper.TractorPaper;
+import org.daisy.paper.TractorPaperFormat;
+import org.junit.Test;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -38,26 +42,26 @@ public class IndexV2EmbosserTest {
     private static Embosser _4x4pro = ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_4X4_PRO_V2");
 
     private static PaperCatalog pc = PaperCatalog.newInstance();
-    private static PageFormat a3 = new PageFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), PageFormat.Orientation.DEFAULT);
-    private static PageFormat a4 = new PageFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), PageFormat.Orientation.DEFAULT);
-    private static PageFormat _210mm_12inch = new PageFormat(pc.get("org_daisy.TractorPaperProvider.PaperSize.W210MM_X_H12INCH"), PageFormat.Orientation.DEFAULT);
-    private static PageFormat _280mm_12inch = new PageFormat(pc.get("org_daisy.TractorPaperProvider.PaperSize.W280MM_X_H12INCH"), PageFormat.Orientation.DEFAULT);
+    private static PageFormat a3 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.DEFAULT);
+    private static PageFormat a4 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), SheetPaperFormat.Orientation.DEFAULT);
+    private static PageFormat _210mm_12inch = new TractorPaperFormat((TractorPaper)pc.get("org_daisy.TractorPaperProvider.PaperSize.W210MM_X_H12INCH"));
+    private static PageFormat _280mm_12inch = new TractorPaperFormat((TractorPaper)pc.get("org_daisy.TractorPaperProvider.PaperSize.W280MM_X_H12INCH"));
 
     @Test
     public void testPrintableArea() {
 
-        assertEquals("Assert that max width for a 210mm by 12 inch paper is 35 cells (Basic-S)",  basic_s.getMaxWidth(_210mm_12inch),  35);
-        assertEquals("Assert that max height for a 210mm by 12 inch paper is 30 lines (Basic-S)", basic_s.getMaxHeight(_210mm_12inch), 30);
-        assertEquals("Assert that the absolute max width is 41 cells (Basic-S)",                  basic_s.getMaxWidth(_280mm_12inch),  41);
+        assertEquals("Assert that max width for a 210mm by 12 inch paper is 35 cells (Basic-S)",  35, basic_s.getMaxWidth(_210mm_12inch));
+        assertEquals("Assert that max height for a 210mm by 12 inch paper is 30 lines (Basic-S)", 30, basic_s.getMaxHeight(_210mm_12inch));
+        assertEquals("Assert that the absolute max width is 41 cells (Basic-S)",                  41, basic_s.getMaxWidth(_280mm_12inch));
 
         _4x4pro.setFeature(EmbosserFeatures.SADDLE_STITCH, false);
 
-        assertEquals("Assert that the absolute max width is 42 cells (4X4 Pro)",  _4x4pro.getMaxWidth(a3),  42);
-        assertEquals("Assert that the absolute max height is 24 lines (4X4 Pro)", _4x4pro.getMaxHeight(a3), 24);
+        assertEquals("Assert that the absolute max width is 42 cells (4X4 Pro)",  42, _4x4pro.getMaxWidth(a3));
+        assertEquals("Assert that the absolute max height is 24 lines (4X4 Pro)", 24, _4x4pro.getMaxHeight(a3));
 
         _4x4pro.setFeature(EmbosserFeatures.SADDLE_STITCH, true);
 
-        assertEquals("Assert that max width for a A3 paper is 35 cells (4X4 Pro, if saddle stitch mode is on)",  _4x4pro.getMaxWidth(a3),  35);
+        assertEquals("Assert that max width for a A3 paper is 35 cells (4X4 Pro, if saddle stitch mode is on)",  35, _4x4pro.getMaxWidth(a3));
 
     }
 

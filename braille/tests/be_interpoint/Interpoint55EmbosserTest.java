@@ -1,30 +1,32 @@
 package be_interpoint;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
-import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.daisy.paper.PageFormat;
-import org.daisy.paper.Dimensions;
-import org.daisy.paper.PaperCatalog;
 import org.daisy.braille.embosser.Embosser;
-import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.EmbosserFeatures;
-import org.daisy.braille.table.TableCatalog;
+import org.daisy.braille.embosser.EmbosserWriter;
+import org.daisy.braille.embosser.UnsupportedWidthException;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.pef.PEFHandler;
+import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.tools.FileCompare;
 import org.daisy.braille.tools.FileTools;
-
-import org.daisy.braille.embosser.UnsupportedWidthException;
+import org.daisy.paper.Dimensions;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.PaperCatalog;
+import org.daisy.paper.SheetPaper;
+import org.daisy.paper.SheetPaperFormat;
+import org.junit.Test;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -35,8 +37,8 @@ public class Interpoint55EmbosserTest {
     private static EmbosserCatalog ec = EmbosserCatalog.newInstance();
     private static Embosser e = ec.get("be_interpoint.InterpointEmbosserProvider.EmbosserType.INTERPOINT_55");
     private static PaperCatalog pc = PaperCatalog.newInstance();
-    private static PageFormat a3 = new PageFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), PageFormat.Orientation.DEFAULT);
-    private static PageFormat a4 = new PageFormat(pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), PageFormat.Orientation.REVERSED);
+    private static PageFormat a3 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.DEFAULT);
+    private static PageFormat a4 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), SheetPaperFormat.Orientation.REVERSED);
 
     @Test
     public void testDimensions() {
@@ -60,12 +62,12 @@ public class Interpoint55EmbosserTest {
 
         e.setFeature(EmbosserFeatures.SADDLE_STITCH, false);
 
-        assertEquals("Assert that max width for an A3 paper is 70 cells (if saddle stitch mode is off)", e.getMaxWidth(a3),  70);
-        assertEquals("Assert that max height for an A3 paper is 29 lines",                               e.getMaxHeight(a3), 29);
+        assertEquals("Assert that max width for an A3 paper is 70 cells (if saddle stitch mode is off)", 70, e.getMaxWidth(a3));
+        assertEquals("Assert that max height for an A3 paper is 29 lines",                               29, e.getMaxHeight(a3));
 
         e.setFeature(EmbosserFeatures.SADDLE_STITCH, true);
 
-        assertEquals("Assert that max width for an A3 paper is 35 cells (if saddle stitch mode is on)",  e.getMaxWidth(a3),  35);
+        assertEquals("Assert that max width for an A3 paper is 35 cells (if saddle stitch mode is on)",  35, e.getMaxWidth(a3));
 
         // Assert that an Exception is thrown when parsing a PEF with too many cells or lines ?
     }

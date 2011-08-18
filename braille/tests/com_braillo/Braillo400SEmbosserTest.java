@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.daisy.braille.embosser.UnsupportedWidthException;
+import org.daisy.paper.PageFormat;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -13,7 +14,7 @@ import com_braillo.BrailloEmbosserProvider.EmbosserType;
 public class Braillo400SEmbosserTest extends AbstractTestBraillo200Embosser {
 	
 	public Braillo400SEmbosserTest() {
-		super(new Braillo200Embosser("Braillo 400S", "Firmware 000.17 or later. Embosser table must match hardware setup.", EmbosserType.BRAILLO_400_S));
+		super(new Braillo200Embosser("Braillo 400S", "Firmware 000.17 or later. Embosser table must match hardware setup.", EmbosserType.BRAILLO_400_S, PageFormat.Type.TRACTOR));
 	}
 	
 	@Test

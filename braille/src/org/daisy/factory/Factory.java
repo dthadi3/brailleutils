@@ -22,7 +22,7 @@ package org.daisy.factory;
  * @author Joel Håkansson
  *
  */
-public interface Factory {
+public interface Factory extends Comparable<Factory> {
 	/**
 	 * Gets the identifier for this Factory
 	 * @return returns the identifier for this Factory

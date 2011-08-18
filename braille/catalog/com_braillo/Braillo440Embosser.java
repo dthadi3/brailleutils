@@ -29,6 +29,8 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Dimensions;
 import org.daisy.paper.Paper;
+import org.daisy.paper.Paper.Type;
+import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
 import com_braillo.Braillo440VolumeWriter.Mode;
@@ -53,6 +55,10 @@ public class Braillo440Embosser extends BrailloEmbosser {
 		}
 		return true;
 	}
+	
+	public boolean supportsPaper(Paper paper) {
+		return paper.getType() == Type.ROLL;
+	}
 
 	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(OutputStream os) {
@@ -67,15 +73,16 @@ public class Braillo440Embosser extends BrailloEmbosser {
 		tc.setFeature("replacement", getFeature("replacement"));
 		Braillo440VolumeWriter bvw;
 		EmbosserType t = EmbosserType.valueOf(getIdentifier().substring(1+getIdentifier().lastIndexOf('.')));
-		int width = (int)Math.floor((getPageFormat().getWidth()+constant-EmbosserTools.INCH_IN_MM) / cellWidth);
-		int height = EmbosserTools.getHeight(getPageFormat(), cellHeight);
+		PrintPage printPage = getPrintPage(getPageFormat());
+		int width = (int)Math.floor((printPage.getWidth()+constant-EmbosserTools.INCH_IN_MM) / cellWidth);
+		int height = EmbosserTools.getHeight(printPage, cellHeight);
 		double columnWidthMM = width * cellWidth - constant;
 		if (t==EmbosserType.BRAILLO_440_SW_4P) {
-			bvw = new Braillo440VolumeWriter(getPageFormat(), Mode.SW_FOUR_PAGE, width, height, columnWidthMM);
+			bvw = new Braillo440VolumeWriter(printPage, Mode.SW_FOUR_PAGE, width, height, columnWidthMM);
 		} else if (t==EmbosserType.BRAILLO_440_SW_2P) {
-			bvw = new Braillo440VolumeWriter(getPageFormat(), Mode.SW_TWO_PAGE, width, height, columnWidthMM);
+			bvw = new Braillo440VolumeWriter(printPage, Mode.SW_TWO_PAGE, width, height, columnWidthMM);
 		} else if (t==EmbosserType.BRAILLO_440_SWSF) {
-			bvw = new Braillo440VolumeWriter(getPageFormat(), Mode.SWSF, width, height, columnWidthMM);
+			bvw = new Braillo440VolumeWriter(printPage, Mode.SWSF, width, height, columnWidthMM);
 		} else {
 			throw new RuntimeException("Unexpected error.");
 		}
@@ -99,10 +106,10 @@ public class Braillo440Embosser extends BrailloEmbosser {
 			.autoLineFeedOnEmptyPage(true);
 		return b.build();
 	}
-	
+	/*
 	public int getMaxWidth(Paper paper) {
 		return (int)Math.floor((paper.getWidth()+constant-EmbosserTools.INCH_IN_MM) / getCellWidth());
-	}
+	}*/
 
     public boolean supports8dot() {
         return false;

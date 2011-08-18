@@ -1,4 +1,5 @@
 org_daisy.ISO216PaperProvider
 org_daisy.NorthAmericaPaperProvider
 org_daisy.TractorPaperProvider
+org_daisy.RollPaperProvider
 se_tpb.FA44PaperProvider
