@@ -60,7 +60,7 @@ public class MountbattenEmbosser extends AbstractEmbosser {
         setCellHeight(10.1d);
     }
 
-    public boolean supportsDimensions(Dimensions dim) {
+    public boolean supportsPrintPage(Dimensions dim) {
 
         if (dim==null) { return false; }
 

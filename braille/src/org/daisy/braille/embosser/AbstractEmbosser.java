@@ -182,7 +182,8 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 	}
 	
 	public boolean supportsPageFormat(PageFormat pageFormat) {
-		return supportsDimensions(getPrintPage(pageFormat));
+		//TODO: remove this method, when all implementations have implemented this
+		return supportsPrintPage(getPrintPage(pageFormat));
 	}
 	
 	public boolean supportsZFolding() {

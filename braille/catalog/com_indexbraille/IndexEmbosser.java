@@ -141,7 +141,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         }
     }
 
-    public boolean supportsDimensions(Dimensions dim) {
+    public boolean supportsPrintPage(Dimensions dim) {
 
         if (dim==null) { return false; }
 

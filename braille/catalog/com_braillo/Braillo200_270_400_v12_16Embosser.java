@@ -47,7 +47,7 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 																'5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
 	//jvm1.6@Override
-	public boolean supportsDimensions(Dimensions dim) {
+	public boolean supportsPrintPage(Dimensions dim) {
 		int height = (int)Math.ceil(dim.getHeight()/EmbosserTools.INCH_IN_MM);
 		int width = EmbosserTools.getWidth(dim, getCellWidth());
 		if (width < 27 || width > 42) {
@@ -91,7 +91,7 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 
 	//jvm1.6@Override
 	public EmbosserWriter newEmbosserWriter(Device device) {
-		if (!supportsDimensions(getPrintPage(getPageFormat()))) {
+		if (!supportsPrintPage(getPrintPage(getPageFormat()))) {
 			throw new IllegalArgumentException("Unsupported paper for embosser " + getDisplayName());
 		}
 		try {

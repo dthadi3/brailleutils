@@ -40,7 +40,8 @@ public interface Embosser extends Factory, EmbosserProperties {
 	 * @param dim the dimension to test
 	 * @return returns true if dimension is supported
 	 */
-	public boolean supportsDimensions(Dimensions dim);
+        //TODO: check whether this method needs to be public / is needed altogether
+	public boolean supportsPrintPage(Dimensions dim);
 	
 	public boolean supportsPageFormat(PageFormat pageFormat);
 	

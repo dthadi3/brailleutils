@@ -21,9 +21,11 @@ import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.embosser.AbstractEmbosserWriter.Padding;
-import org.daisy.paper.Area;
 import org.daisy.paper.Dimensions;
+import org.daisy.paper.Area;
+import org.daisy.paper.Paper;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.RollPaperFormat;
 import org.daisy.paper.PrintPage;
 import org.daisy.paper.PrintPage.PrintDirection;
 import org.daisy.paper.PrintPage.PrintMode;
@@ -39,6 +41,7 @@ import org.daisy.braille.embosser.EmbosserFactoryException;
  */
 public class Interpoint55Embosser extends AbstractEmbosser {
 
+    private final static PrintDirection PRINT_DIRECTION = PrintDirection.SIDEWAYS;
     private final static TableFilter tableFilter;
     private final static String table_US1 =     "org_daisy.EmbosserTableProvider.TableType.MIT";
     private final static String table_US2 =     "org_daisy.EmbosserTableProvider.TableType.NABCC";
@@ -61,9 +64,9 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     }
 
     private double maxPaperWidth = 340d;
-    private double maxPaperHeight = Double.MAX_VALUE; // ???
+    private double maxPaperLength = Double.MAX_VALUE; // ???
     private double minPaperWidth = 50d;               // ???
-    private double minPaperHeight = 50d;              // ???
+    private double minPaperLength = 50d;              // ???
 
     private int marginInner = 0;
     private int marginOuter = 0;
@@ -90,14 +93,31 @@ public class Interpoint55Embosser extends AbstractEmbosser {
         return tableFilter;
     }
 
-    public boolean supportsDimensions(Dimensions dim) {
+    @Override
+    public boolean supportsPaper(Paper paper) {
+        if (paper == null) { return false; }
+        return (paper.getType() == Paper.Type.ROLL);
+    }
 
-        if (dim==null) { return false; }
+    @Override
+    public boolean supportsPageFormat(PageFormat pageFormat) {
+        if (pageFormat == null) { return false; }
+        try {
+            RollPaperFormat format = pageFormat.asRollPaperFormat();
+            double across = format.getLengthAcrossFeed().asMillimeter();
+            double along = format.getLengthAlongFeed().asMillimeter();
+            return (across <= maxPaperWidth) &&
+                   (across >= minPaperWidth) &&
+                   (along <= maxPaperLength) &&
+                   (along >= minPaperLength);
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
 
-        return (dim.getWidth()  <= maxPaperWidth)  &&
-               (dim.getWidth()  >= minPaperWidth)  &&
-               (dim.getHeight() <= maxPaperHeight) &&
-               (dim.getHeight() >= minPaperHeight);
+    //TODO: is this method needed?
+    public boolean supportsPrintPage(Dimensions dim) {
+        return (dim.getHeight() <= maxPaperWidth);
     }
 
     public boolean supportsVolumes() {
@@ -116,11 +136,20 @@ public class Interpoint55Embosser extends AbstractEmbosser {
         return true;
     }
 
+    @Override
+    public boolean supportsZFolding() {
+        return false;
+    }
+
+    @Override
+    public boolean supportsMagazineLayout() {
+        return true;
+    }
+
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
-        PrintPage printPage = getPrintPage(getPageFormat());
         PageFormat page = getPageFormat();
-        if (!supportsDimensions(printPage)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
 
@@ -184,10 +213,8 @@ public class Interpoint55Embosser extends AbstractEmbosser {
         properties.load(is);
         if (is != null) { is.close(); }
 
-        PrintPage printPage = getPrintPage(getPageFormat());
         PageFormat page = getPageFormat();
-
-        if (!supportsDimensions(printPage)) {
+        if (!supportsPageFormat(page)) {
             throw new IllegalArgumentException("Unsupported paper");
         }
 
@@ -214,7 +241,7 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     public EmbosserWriter newEmbosserWriter(Device device) {
 
         throw new IllegalArgumentException(new EmbosserFactoryException(getDisplayName() +
-                " does not support printing directly to Device. " +
+                " does not support printing directly to a Device. " +
                 "Write the output to a file with newEmbosserWriter(OutputStream), " +
                 "save the settings to a file with saveConfigurationFile(File) " +
                 "and then use the wprint55 software to emboss."));
@@ -304,10 +331,8 @@ public class Interpoint55Embosser extends AbstractEmbosser {
 
     @Override
     public PrintPage getPrintPage(PageFormat pageFormat) {
-
-        PrintDirection direction = PrintDirection.SIDEWAYS;
         PrintMode mode = saddleStitchEnabled?PrintMode.MAGAZINE:PrintMode.REGULAR;
-        return new PrintPage(pageFormat, direction, mode);
+        return new PrintPage(pageFormat, PRINT_DIRECTION, mode);
     }
 
     @Override

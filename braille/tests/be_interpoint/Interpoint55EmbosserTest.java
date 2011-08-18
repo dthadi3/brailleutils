@@ -20,8 +20,9 @@ import org.daisy.braille.pef.PEFHandler;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.tools.FileCompare;
 import org.daisy.braille.tools.FileTools;
-import org.daisy.paper.Dimensions;
+import org.daisy.braille.tools.Length;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.RollPaperFormat;
 import org.daisy.paper.PaperCatalog;
 import org.daisy.paper.SheetPaper;
 import org.daisy.paper.SheetPaperFormat;
@@ -37,24 +38,20 @@ public class Interpoint55EmbosserTest {
     private static EmbosserCatalog ec = EmbosserCatalog.newInstance();
     private static Embosser e = ec.get("be_interpoint.InterpointEmbosserProvider.EmbosserType.INTERPOINT_55");
     private static PaperCatalog pc = PaperCatalog.newInstance();
-    private static PageFormat a3 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.DEFAULT);
-    private static PageFormat a4 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), SheetPaperFormat.Orientation.REVERSED);
+    private static PageFormat a3 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.REVERSED);
 
     @Test
-    public void testDimensions() {
+    public void testPageFormat() {
 
-        Dimensions dim;
-        dim = new Dimensions() { public double getWidth()  { return 340d; }
-                                 public double getHeight() { return 297d; }};
+        PageFormat format = new RollPaperFormat(Length.newMillimeterValue(340d),
+                                                Length.newMillimeterValue(297d));
 
-        assertTrue("Assert that paper of width 340mm is supported", e.supportsDimensions(dim));
+        assertTrue("Assert that paper of width 340mm is supported", e.supportsPageFormat(format));
 
-        dim = new Dimensions() { public double getWidth()  { return 341d; }
-                                 public double getHeight() { return 297d; }};
+        format = new RollPaperFormat(Length.newMillimeterValue(341d),
+                                     Length.newMillimeterValue(297d));
         
-        assertTrue("Assert that paper wider than 340mm is not supported", !e.supportsDimensions(dim));
-
-        // Assert that an Exception is thrown when creating an EmbosserWriter with an unsupported PageFormat ?
+        assertTrue("Assert that paper wider than 340mm is not supported", !e.supportsPageFormat(format));
     }
 
     @Test
@@ -68,8 +65,6 @@ public class Interpoint55EmbosserTest {
         e.setFeature(EmbosserFeatures.SADDLE_STITCH, true);
 
         assertEquals("Assert that max width for an A3 paper is 35 cells (if saddle stitch mode is on)",  35, e.getMaxWidth(a3));
-
-        // Assert that an Exception is thrown when parsing a PEF with too many cells or lines ?
     }
 
     @Test
@@ -109,6 +104,8 @@ public class Interpoint55EmbosserTest {
         PEFHandler.Builder builder;
         EmbosserWriter w;
 
+        PageFormat a4 = new RollPaperFormat(Length.newMillimeterValue(297d),
+                                            Length.newMillimeterValue(210d));
         e.setFeature(EmbosserFeatures.PAGE_FORMAT, a4);
         e.setFeature(EmbosserFeatures.SADDLE_STITCH, false);
 

@@ -59,19 +59,19 @@ public class BlueBarEmbosser extends IndexEmbosser {
     }
 
     @Override
-    public boolean supportsDimensions(Dimensions dim) {
+    public boolean supportsPrintPage(Dimensions dim) {
 
         if (type==EmbosserType.INDEX_BASIC_D_V2 ||
             type==EmbosserType.INDEX_BASIC_S_V2) {
             double w = dim.getWidth();
             double h = dim.getHeight();
-            return super.supportsDimensions(dim) && (w==210 && (h==10*EmbosserTools.INCH_IN_MM ||
+            return super.supportsPrintPage(dim) && (w==210 && (h==10*EmbosserTools.INCH_IN_MM ||
                                                                 h==11*EmbosserTools.INCH_IN_MM ||
                                                                 h==12*EmbosserTools.INCH_IN_MM)
                                                   || w==240 &&  h==12*EmbosserTools.INCH_IN_MM
                                                   || w==280 &&  h==12*EmbosserTools.INCH_IN_MM);
         } else {
-            return super.supportsDimensions(dim);
+            return super.supportsPrintPage(dim);
         }
     }
 
