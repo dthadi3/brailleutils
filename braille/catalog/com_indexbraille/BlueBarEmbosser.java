@@ -20,14 +20,12 @@ package com_indexbraille;
 import java.io.OutputStream;
 
 import org.daisy.braille.embosser.EmbosserWriter;
-import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriterProperties;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.paper.PageFormat;
-import org.daisy.paper.Dimensions;
 
 import com_indexbraille.IndexEmbosserProvider.EmbosserType;
 
@@ -56,31 +54,6 @@ public class BlueBarEmbosser extends IndexEmbosser {
 
     public TableFilter getTableFilter() {
         return tableFilter;
-    }
-
-    @Override
-    public boolean supportsPrintPage(Dimensions dim) {
-
-        if (type==EmbosserType.INDEX_BASIC_D_V2 ||
-            type==EmbosserType.INDEX_BASIC_S_V2) {
-            double w = dim.getWidth();
-            double h = dim.getHeight();
-            return super.supportsPrintPage(dim) && (w==210 && (h==10*EmbosserTools.INCH_IN_MM ||
-                                                                h==11*EmbosserTools.INCH_IN_MM ||
-                                                                h==12*EmbosserTools.INCH_IN_MM)
-                                                  || w==240 &&  h==12*EmbosserTools.INCH_IN_MM
-                                                  || w==280 &&  h==12*EmbosserTools.INCH_IN_MM);
-        } else {
-            return super.supportsPrintPage(dim);
-        }
-    }
-
-    public boolean supportsZFolding() {
-        return false;
-    }
-
-    public boolean supportsMagazineLayout() {
-        return false;
     }
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {

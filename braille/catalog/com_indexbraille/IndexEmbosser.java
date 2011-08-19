@@ -30,11 +30,15 @@ import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Area;
+import org.daisy.paper.Paper;
+import org.daisy.paper.SheetPaper;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.SheetPaperFormat;
+import org.daisy.paper.SheetPaperFormat.Orientation;
+import org.daisy.paper.TractorPaperFormat;
+import org.daisy.paper.PrintPage;
 import org.daisy.paper.PrintPage.PrintDirection;
 import org.daisy.paper.PrintPage.PrintMode;
-import org.daisy.paper.PageFormat;
-import org.daisy.paper.Dimensions;
-import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
 import com_indexbraille.IndexEmbosserProvider.EmbosserType;
@@ -43,10 +47,14 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
 
     protected EmbosserType type;
 
-    private double maxPaperWidth = Double.MAX_VALUE;
-    private double maxPaperHeight = Double.MAX_VALUE;
-    private double minPaperWidth = 50d;
-    private double minPaperHeight = 50d;
+    private double minPageLengthAlongFeed = 50d;
+    private double maxPageLengthAlongFeed = Double.MAX_VALUE;
+    private double minPageLengthAcrossFeed = 50d;
+    private double maxPageLengthAcrossFeed = Double.MAX_VALUE;
+    private double minPrintPageWidth = 50d;
+    private double maxPrintPageWidth = Double.MAX_VALUE;
+    private double minPrintPageHeight = 50d;
+    private double maxPrintPageHeight = Double.MAX_VALUE;
 
     protected int numberOfCopies = 1;
     protected boolean zFoldingEnabled = false;
@@ -55,9 +63,6 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     protected boolean eightDotsEnabled = false;
 
     protected int maxNumberOfCopies = 1;
-
-    protected double printablePageWidth;
-    protected double printablePageHeight;
 
     protected int marginInner = 0;
     protected int marginOuter = 0;
@@ -90,65 +95,103 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
 
         switch (type) {
             case INDEX_BASIC_BLUE_BAR:
-                maxPaperWidth = 280d;
-                maxPaperHeight = 12*EmbosserTools.INCH_IN_MM;
-                //minPaperWidth = ?
-                //minPaperHeight = ?
+                maxPrintPageWidth = 280d;
+                maxPrintPageHeight = 12*EmbosserTools.INCH_IN_MM;
                 break;
             case INDEX_BASIC_S_V2:
             case INDEX_BASIC_D_V2:
-                minPaperWidth = 138d; // = 23*6
-                minPaperHeight = 1*EmbosserTools.INCH_IN_MM;
-                //maxPaperWidth = ?
-                maxPaperHeight = (20+2/3)*EmbosserTools.INCH_IN_MM;
+                minPrintPageWidth = 138d; // = 23*6
+                minPrintPageHeight = 1*EmbosserTools.INCH_IN_MM;
+                maxPrintPageHeight = (20+2/3)*EmbosserTools.INCH_IN_MM;
                 break;
             case INDEX_EVEREST_D_V2:
-                minPaperWidth = 138d; // = 23*6
-                minPaperHeight = 100d;
-                //maxPaperWidth = ?
-                maxPaperHeight = 350d;
+                minPrintPageWidth = 138d; // = 23*6
+                minPrintPageHeight = 100d;
+                maxPrintPageHeight = 350d;
                 break;
             case INDEX_4X4_PRO_V2:
-                minPaperWidth = 100d;
-                minPaperHeight = Math.max(110d, saddleStitchEnabled?276d:138d); // = 23*6(*2)
-                maxPaperWidth = 297d;
-                maxPaperHeight = 500d;
+                minPrintPageWidth = 138d; // = 23*6
+                minPrintPageHeight = 100d;
+                maxPrintPageHeight = 297d;
+                minPageLengthAlongFeed = 110d;
+                maxPageLengthAlongFeed = 500d;
                 break;
             case INDEX_BASIC_S_V3:
             case INDEX_BASIC_D_V3:
             case INDEX_BASIC_D_V4:
-                minPaperWidth = 90d;
-                minPaperHeight = 1*EmbosserTools.INCH_IN_MM;
-                maxPaperWidth = 295d;
-                maxPaperHeight = 17*EmbosserTools.INCH_IN_MM;
+                minPrintPageWidth = 90d;
+                minPrintPageHeight = 1*EmbosserTools.INCH_IN_MM;
+                maxPrintPageWidth = 295d;
+                maxPrintPageHeight = 17*EmbosserTools.INCH_IN_MM;
                 break;
             case INDEX_EVEREST_D_V3:
             case INDEX_EVEREST_D_V4:
             case INDEX_4X4_PRO_V3:
-                minPaperWidth = 130d;
-                minPaperHeight = 120d;
-                maxPaperWidth = 297d;
-                maxPaperHeight = 585d;
+                minPageLengthAcrossFeed = 130d;
+                maxPageLengthAcrossFeed = 297d;
+                minPageLengthAlongFeed = 120d;
+                maxPageLengthAlongFeed = 585d;
                 break;
             case INDEX_4WAVES_PRO_V3:
-                minPaperWidth = 90d;
-                minPaperHeight = 11*EmbosserTools.INCH_IN_MM;
-                maxPaperWidth = 295d;
-                maxPaperHeight = 12*EmbosserTools.INCH_IN_MM;
+                minPrintPageWidth = 90d;
+                minPrintPageHeight = 11*EmbosserTools.INCH_IN_MM;
+                maxPrintPageWidth = 295d;
+                maxPrintPageHeight = 12*EmbosserTools.INCH_IN_MM;
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
         }
     }
 
-    public boolean supportsPrintPage(Dimensions dim) {
+    @Override
+    public boolean supportsPaper(Paper paper) {
+        if (paper == null) { return false; }
+        try {
+            switch (getPaperType()) {
+                case SHEET:
+                    SheetPaper p = paper.asSheetPaper();
+                    if (supportsPageFormat(new SheetPaperFormat(p, Orientation.DEFAULT))) { return true; }
+                    if (supportsPageFormat(new SheetPaperFormat(p, Orientation.REVERSED))) { return true; }
+                    break;
+                case TRACTOR:
+                    return supportsPageFormat(new TractorPaperFormat(paper.asTractorPaper()));
+            }
+        } catch (ClassCastException e) {
+        }
+        return false;
+    }
+
+    @Override
+    public boolean supportsPageFormat(PageFormat format) {
+        if (format == null) { return false; }
+        try {
+            switch (getPaperType()) {
+                case SHEET:
+                    return supportsPrintPage(getPrintPage(format.asSheetPaperFormat()));
+                case TRACTOR:
+                    return supportsPrintPage(getPrintPage(format.asTractorPaperFormat()));
+            }
+        } catch (ClassCastException e) {
+        }
+        return false;
+    }
+
+    public boolean supportsPrintPage(PrintPage dim) {
 
         if (dim==null) { return false; }
+        double w = dim.getWidth();
+        double h = dim.getHeight();
+        double across = dim.getLengthAcrossFeed().asMillimeter();
+        double along = dim.getLengthAlongFeed().asMillimeter();
 
-        return (dim.getWidth()  <= maxPaperWidth)  &&
-               (dim.getWidth()  >= minPaperWidth)  &&
-               (dim.getHeight() <= maxPaperHeight) &&
-               (dim.getHeight() >= minPaperHeight);
+        return (w <= maxPrintPageWidth) &&
+               (w >= minPrintPageWidth) &&
+               (h <= maxPrintPageHeight) &&
+               (h >= minPrintPageHeight) &&
+               (across <= maxPageLengthAcrossFeed) &&
+               (across >= minPageLengthAcrossFeed) &&
+               (along <= maxPageLengthAlongFeed) &&
+               (along >= minPageLengthAlongFeed);
     }
 
     public boolean supportsVolumes() {
@@ -164,7 +207,6 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     }
 
     public boolean supportsDuplex() {
-
         switch (type) {
             case INDEX_BASIC_D_V2:
             case INDEX_EVEREST_D_V2:
@@ -181,6 +223,80 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_BASIC_S_V3:
             default:
                 return false;
+        }
+    }
+
+    @Override
+    public boolean supportsZFolding() {
+        switch (type) {
+            case INDEX_BASIC_S_V3:
+            case INDEX_BASIC_D_V2:
+            case INDEX_BASIC_D_V3:
+            case INDEX_BASIC_D_V4:
+            case INDEX_4WAVES_PRO_V3:
+                return true;
+            case INDEX_BASIC_BLUE_BAR:
+            case INDEX_BASIC_S_V2:
+            case INDEX_EVEREST_D_V2:
+            case INDEX_EVEREST_D_V3:
+            case INDEX_EVEREST_D_V4:
+            case INDEX_4X4_PRO_V2:
+            case INDEX_4X4_PRO_V3:
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public boolean supportsMagazineLayout() {
+        switch (type) {
+            case INDEX_4X4_PRO_V2:
+            case INDEX_4X4_PRO_V3:
+            case INDEX_EVEREST_D_V4:
+                return true;
+            case INDEX_BASIC_D_V2:
+            case INDEX_EVEREST_D_V2:
+            case INDEX_BASIC_D_V3:
+            case INDEX_EVEREST_D_V3:
+            case INDEX_4WAVES_PRO_V3:
+            case INDEX_BASIC_D_V4:
+            case INDEX_BASIC_BLUE_BAR:
+            case INDEX_BASIC_S_V2:
+            case INDEX_BASIC_S_V3:
+            default:
+                return false;
+        }
+    }
+
+    private Paper.Type getPaperType() {
+        switch (type) {
+            case INDEX_BASIC_BLUE_BAR:
+            case INDEX_BASIC_D_V2:
+            case INDEX_BASIC_D_V3:
+            case INDEX_BASIC_D_V4:
+            case INDEX_BASIC_S_V2:
+            case INDEX_BASIC_S_V3:
+            case INDEX_4WAVES_PRO_V3:
+                return Paper.Type.TRACTOR;
+            case INDEX_EVEREST_D_V2:
+            case INDEX_EVEREST_D_V3:
+            case INDEX_EVEREST_D_V4:
+            case INDEX_4X4_PRO_V2:
+            case INDEX_4X4_PRO_V3:
+            default:
+                return Paper.Type.SHEET;
+        }
+    }
+
+    private PrintDirection getPrintDirection() {
+        switch (type) {
+            case INDEX_4X4_PRO_V2:
+            case INDEX_4X4_PRO_V3:
+                return PrintDirection.SIDEWAYS;
+            case INDEX_EVEREST_D_V4:
+                return saddleStitchEnabled?PrintDirection.SIDEWAYS:PrintDirection.UPRIGHT;
+            default:
+                return PrintDirection.UPRIGHT;
         }
     }
 
@@ -229,9 +345,6 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsMagazineLayout()) {
             try {
                 saddleStitchEnabled = (Boolean)value;
-                if (type == EmbosserType.INDEX_4X4_PRO_V2) {
-                    minPaperHeight = Math.max(110d, saddleStitchEnabled?276d:138d);
-                }
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException("Unsupported value for saddle stitch.");
             }
@@ -278,40 +391,44 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
 
     @Override
     public PrintPage getPrintPage(PageFormat pageFormat) {
-
         PrintMode mode = saddleStitchEnabled?PrintMode.MAGAZINE:PrintMode.REGULAR;
-        PrintDirection direction;
-
-        switch (type) {
-            case INDEX_4X4_PRO_V2:
-            case INDEX_4X4_PRO_V3:
-                direction = PrintDirection.SIDEWAYS;
-                break;
-            case INDEX_EVEREST_D_V4:
-                direction = saddleStitchEnabled?PrintDirection.SIDEWAYS:PrintDirection.UPRIGHT;
-                break;
-            default:
-                direction = PrintDirection.UPRIGHT;
-        }
-
+        PrintDirection direction = getPrintDirection();
         return new PrintPage(pageFormat, direction, mode);
     }
 
     @Override
     public Area getPrintableArea(PageFormat pageFormat) {
 
+        Area maxArea = getPrintArea(pageFormat);
+
+        double cellWidth = getCellWidth();
+        double cellHeight = getCellHeight();
+        
+     /* marginInner =  Math.min(maxMarginInner,  Math.max(minMarginInner,  marginInner));
+        marginOuter =  Math.min(maxMarginOuter,  Math.max(minMarginOuter,  marginOuter));
+        marginTop =    Math.min(maxMarginTop,    Math.max(minMarginTop,    marginTop));
+        marginBottom = Math.min(maxMarginBottom, Math.max(minMarginBottom, marginBottom)); */
+
+        return new Area(maxArea.getWidth() - (marginInner + marginOuter) * cellWidth,
+                        maxArea.getHeight() - (marginTop + marginBottom) * cellHeight,
+                        maxArea.getOffsetX() + marginInner * cellWidth,
+                        maxArea.getOffsetY() + marginTop * cellHeight);
+    }
+
+    protected Area getPrintArea(PageFormat pageFormat) {
+
         PrintPage printPage = getPrintPage(pageFormat);
 
         double cellWidth = getCellWidth();
         double cellHeight = getCellHeight();
-        double inputPageWidth = printPage.getLengthAcrossFeed().asMillimeter();
+        double lengthAcrossFeed = printPage.getLengthAcrossFeed().asMillimeter();
 
-        printablePageWidth = printPage.getWidth();
-        printablePageHeight = printPage.getHeight();
+        double printablePageWidth = printPage.getWidth();
+        double printablePageHeight = printPage.getHeight();
 
         switch (type) {
             case INDEX_4X4_PRO_V2:
-                printablePageHeight = Math.min(inputPageWidth, 248.5);
+                printablePageHeight = Math.min(lengthAcrossFeed, 248.5);
                 break;
             case INDEX_EVEREST_D_V2:
             case INDEX_EVEREST_D_V3:
@@ -321,7 +438,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_BASIC_D_V3:
             case INDEX_BASIC_D_V4:
             case INDEX_4WAVES_PRO_V3:
-                printablePageWidth = Math.min(inputPageWidth, 248.5);
+                printablePageWidth = Math.min(lengthAcrossFeed, 248.5);
                 break;
         }
 
@@ -335,21 +452,13 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_BASIC_S_V3:
             case INDEX_BASIC_D_V3:
             case INDEX_BASIC_D_V4:
-                unprintableInner = Math.max(0, inputPageWidth - 276.4);
+                unprintableInner = Math.max(0, lengthAcrossFeed - 276.4);
                 break;
             case INDEX_EVEREST_D_V3:
-                unprintableInner = Math.max(0, inputPageWidth - 272.75);
+                unprintableInner = Math.max(0, lengthAcrossFeed - 272.75);
                 break;
         }
 
-        marginInner =  Math.min(maxMarginInner,  Math.max(minMarginInner,  marginInner));
-        marginOuter =  Math.min(maxMarginOuter,  Math.max(minMarginOuter,  marginOuter));
-        marginTop =    Math.min(maxMarginTop,    Math.max(minMarginTop,    marginTop));
-        marginBottom = Math.min(maxMarginBottom, Math.max(minMarginBottom, marginBottom));
-
-        return new Area(printablePageWidth - (marginInner + marginOuter) * cellWidth,
-                        printablePageHeight - (marginTop + marginBottom) * cellHeight,
-                        unprintableInner + marginInner * cellWidth,
-                        unprintableTop + marginTop * cellHeight);
+        return new Area(printablePageWidth, printablePageHeight, unprintableInner, unprintableTop);
     }
 }

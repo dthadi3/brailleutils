@@ -47,7 +47,7 @@ public class Braillo440Embosser extends BrailloEmbosser {
 	}
 
 	//jvm1.6@Override
-	public boolean supportsPrintPage(Dimensions dim) {
+	public boolean supportsPrintPage(PrintPage dim) {
 		int width = (int)Math.floor((dim.getWidth()+constant-EmbosserTools.INCH_IN_MM) / cellWidth);
 		int inchHeight = (int)Math.ceil(dim.getHeight()/EmbosserTools.INCH_IN_MM);
 		if (width > 44 || inchHeight > 13 || width < 10) { 

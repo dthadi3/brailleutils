@@ -12,7 +12,12 @@ import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
-import org.daisy.paper.Dimensions;
+import org.daisy.paper.PrintPage;
+import org.daisy.paper.Paper;
+import org.daisy.paper.SheetPaper;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.SheetPaperFormat;
+import org.daisy.paper.SheetPaperFormat.Orientation;
 import org.daisy.printing.Device;
 
 import es_once_cidat.CidatEmbosserProvider.EmbosserType;
@@ -25,10 +30,10 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
 
     protected EmbosserType type;
 
-    private double maxPaperWidth = Double.MAX_VALUE;
-    private double maxPaperHeight = Double.MAX_VALUE;
-    private double minPaperWidth = 50d;
-    private double minPaperHeight = 50d;
+    private double maxPageWidth = Double.MAX_VALUE;
+    private double maxPageHeight = Double.MAX_VALUE;
+    private double minPageWidth = 50d;
+    private double minPageHeight = 50d;
 
     protected boolean duplexEnabled = true;
     protected boolean eightDotsEnabled = false;
@@ -45,30 +50,50 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
         switch (type) {
             case IMPACTO_600:
             case IMPACTO_TEXTO:
-                maxPaperWidth = 42*getCellWidth();
-                maxPaperHeight = 13*EmbosserTools.INCH_IN_MM;
-                minPaperWidth = 12*getCellWidth();
-                minPaperHeight = 6*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 42*getCellWidth();
+                maxPageHeight = 13*EmbosserTools.INCH_IN_MM;
+                minPageWidth = 12*getCellWidth();
+                minPageHeight = 6*EmbosserTools.INCH_IN_MM;
                 break;
             case PORTATHIEL_BLUE:
-                maxPaperWidth = 42*getCellWidth();
-                maxPaperHeight = 13*EmbosserTools.INCH_IN_MM;
-                minPaperWidth = 10*getCellWidth();
-                minPaperHeight = 8*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 42*getCellWidth();
+                maxPageHeight = 13*EmbosserTools.INCH_IN_MM;
+                minPageWidth = 10*getCellWidth();
+                minPageHeight = 8*EmbosserTools.INCH_IN_MM;
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
         }
     }
 
-    public boolean supportsPrintPage(Dimensions dim) {
+    @Override
+    public boolean supportsPaper(Paper paper) {
+        if (paper == null) { return false; }
+        try {
+            SheetPaper p = paper.asSheetPaper();
+            if (supportsPageFormat(new SheetPaperFormat(p, Orientation.DEFAULT))) { return true; }
+            if (supportsPageFormat(new SheetPaperFormat(p, Orientation.REVERSED))) { return true; }
+        } catch (ClassCastException e) {
+        }
+        return false;
+    }
 
+    @Override
+    public boolean supportsPageFormat(PageFormat format) {
+        if (format == null) { return false; }
+        try {
+            return supportsPrintPage(getPrintPage(format.asSheetPaperFormat()));
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
+
+    public boolean supportsPrintPage(PrintPage dim) {
         if (dim==null) { return false; }
-
-        return (dim.getWidth()  <= maxPaperWidth)  &&
-               (dim.getWidth()  >= minPaperWidth)  &&
-               (dim.getHeight() <= maxPaperHeight) &&
-               (dim.getHeight() >= minPaperHeight);
+        return (dim.getWidth()  <= maxPageWidth)  &&
+               (dim.getWidth()  >= minPageWidth)  &&
+               (dim.getHeight() <= maxPageHeight) &&
+               (dim.getHeight() >= minPageHeight);
     }
 
     public boolean supportsVolumes() {

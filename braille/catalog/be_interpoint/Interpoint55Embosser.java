@@ -63,10 +63,10 @@ public class Interpoint55Embosser extends AbstractEmbosser {
         };
     }
 
-    private double maxPaperWidth = 340d;
-    private double maxPaperLength = Double.MAX_VALUE; // ???
-    private double minPaperWidth = 50d;               // ???
-    private double minPaperLength = 50d;              // ???
+    private double maxRollWidth = 340d;
+    private double minRollWidth = 50d;              // ???
+    private double maxCutLength = Double.MAX_VALUE; // ???
+    private double minCutLength = 50d;              // ???
 
     private int marginInner = 0;
     private int marginOuter = 0;
@@ -96,28 +96,32 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     @Override
     public boolean supportsPaper(Paper paper) {
         if (paper == null) { return false; }
-        return (paper.getType() == Paper.Type.ROLL);
-    }
-
-    @Override
-    public boolean supportsPageFormat(PageFormat pageFormat) {
-        if (pageFormat == null) { return false; }
         try {
-            RollPaperFormat format = pageFormat.asRollPaperFormat();
-            double across = format.getLengthAcrossFeed().asMillimeter();
-            double along = format.getLengthAlongFeed().asMillimeter();
-            return (across <= maxPaperWidth) &&
-                   (across >= minPaperWidth) &&
-                   (along <= maxPaperLength) &&
-                   (along >= minPaperLength);
+            double across = paper.asRollPaper().getLengthAcrossFeed().asMillimeter();
+            return (across <= maxRollWidth) && (across >= minRollWidth);
         } catch (ClassCastException e) {
             return false;
         }
     }
 
-    //TODO: is this method needed?
-    public boolean supportsPrintPage(Dimensions dim) {
-        return (dim.getHeight() <= maxPaperWidth);
+    @Override
+    public boolean supportsPageFormat(PageFormat format) {
+        if (format == null) { return false; }
+        try {
+            return supportsPrintPage(getPrintPage(format.asRollPaperFormat()));
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
+
+    public boolean supportsPrintPage(PrintPage dim) {
+        if (dim==null) { return false; }
+        double across = dim.getLengthAcrossFeed().asMillimeter();
+        double along = dim.getLengthAlongFeed().asMillimeter();
+        return (across <= maxRollWidth) &&
+               (across >= minRollWidth) &&
+               (along <= maxCutLength) &&
+               (along >= minCutLength);
     }
 
     public boolean supportsVolumes() {

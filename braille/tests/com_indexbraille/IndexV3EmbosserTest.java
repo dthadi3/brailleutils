@@ -44,6 +44,7 @@ public class IndexV3EmbosserTest {
 
     private static PaperCatalog pc = PaperCatalog.newInstance();
     private static PageFormat a3 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.DEFAULT);
+    private static PageFormat a3_landscape = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.REVERSED);
     private static PageFormat _210mm_12inch = new TractorPaperFormat((TractorPaper)pc.get("org_daisy.TractorPaperProvider.PaperSize.W210MM_X_H12INCH"));
     private static PageFormat _280mm_12inch = new TractorPaperFormat((TractorPaper)pc.get("org_daisy.TractorPaperProvider.PaperSize.W280MM_X_H12INCH"));
 
@@ -56,12 +57,12 @@ public class IndexV3EmbosserTest {
 
         _4x4pro.setFeature(EmbosserFeatures.SADDLE_STITCH, false);
 
-        assertEquals("Assert that the absolute max width is 41 cells (4X4 Pro)", 41,  _4x4pro.getMaxWidth(a3));
-        assertEquals("Assert that the absolute max height is 29 lines (4X4 Pro)", 29, _4x4pro.getMaxHeight(a3));
+        assertEquals("Assert that the absolute max width is 41 cells (4X4 Pro)", 41,  _4x4pro.getMaxWidth(a3_landscape));
+        assertEquals("Assert that the absolute max height is 29 lines (4X4 Pro)", 29, _4x4pro.getMaxHeight(a3_landscape));
 
         _4x4pro.setFeature(EmbosserFeatures.SADDLE_STITCH, true);
 
-        assertEquals("Assert that max width for a A3 paper is 34 cells (4X4 Pro, if saddle stitch mode is on)",  _4x4pro.getMaxWidth(a3),  34);
+        assertEquals("Assert that max width for a A3 paper is 34 cells (4X4 Pro, if saddle stitch mode is on)",  _4x4pro.getMaxWidth(a3_landscape),  34);
 
     }
 
@@ -119,7 +120,7 @@ public class IndexV3EmbosserTest {
         basic_s.setFeature(EmbosserFeatures.PAGE_FORMAT, _280mm_12inch);
         basic_d.setFeature(EmbosserFeatures.PAGE_FORMAT, _280mm_12inch);
         everest.setFeature(EmbosserFeatures.PAGE_FORMAT, a3);
-        _4x4pro.setFeature(EmbosserFeatures.PAGE_FORMAT, a3);
+        _4x4pro.setFeature(EmbosserFeatures.PAGE_FORMAT, a3_landscape);
 
         // Single sided on a single sided printer
 

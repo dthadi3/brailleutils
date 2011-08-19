@@ -57,7 +57,7 @@ public class GenericEmbosser extends AbstractEmbosser {
 	}
 
 	//jvm1.6@Override
-	public boolean supportsPrintPage(Dimensions dim) {
+	public boolean supportsPrintPage(PrintPage dim) {
 		return true;
 	}
 

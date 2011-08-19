@@ -28,7 +28,6 @@ import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.TableFilter;
-import org.daisy.paper.Dimensions;
 import org.daisy.paper.PageFormat;
 
 import com_indexbraille.IndexEmbosserProvider.EmbosserType;
@@ -82,45 +81,6 @@ public class IndexV2Embosser extends IndexEmbosser {
         return tableFilter;
     }
 
-    @Override
-    public boolean supportsPrintPage(Dimensions dim) {
-
-        if (type==EmbosserType.INDEX_BASIC_D_V2 ||
-            type==EmbosserType.INDEX_BASIC_S_V2) {
-            double w = dim.getWidth();
-            double h = dim.getHeight();
-            return super.supportsPrintPage(dim) && (w==210 && (h==10*EmbosserTools.INCH_IN_MM ||
-                                                                h==11*EmbosserTools.INCH_IN_MM ||
-                                                                h==12*EmbosserTools.INCH_IN_MM)
-                                                  || w==240 &&  h==12*EmbosserTools.INCH_IN_MM
-                                                  || w==280 &&  h==12*EmbosserTools.INCH_IN_MM);
-        } else {
-            return super.supportsPrintPage(dim);
-        }
-    }
-
-    @Override
-    public boolean supportsMagazineLayout() {
-
-        switch (type) {
-            case INDEX_4X4_PRO_V2:
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    @Override
-    public boolean supportsZFolding() {
-
-        switch (type) {
-            case INDEX_BASIC_D_V2:
-                return true;
-            default:
-                return false;
-        }
-    }
-
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
 
       //int pageCount = 1;                                 // ???
@@ -131,8 +91,7 @@ public class IndexV2Embosser extends IndexEmbosser {
             throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
         }
 
-        getPrintableArea(page);
-        int cellsInWidth = (int)Math.floor(printablePageWidth/getCellWidth());
+        int cellsInWidth = (int)Math.floor(getPrintArea(page).getWidth()/getCellWidth());
 
         if (cellsInWidth < minCellsInWidth || cellsInWidth > maxCellsInWidth) {
             throw new IllegalArgumentException(new UnsupportedPaperException("Unsupported paper"));
@@ -144,7 +103,7 @@ public class IndexV2Embosser extends IndexEmbosser {
       //    throw new IllegalArgumentException(new UnsupportedPaperException("Number of pages = " + pageCount +  "; cannot exceed 200 when in magazine style mode"));
       //}
        
-        byte[] header = getIndexV2Header(duplexEnabled, eightDotsEnabled);
+        byte[] header = getIndexV2Header(duplexEnabled, eightDotsEnabled, cellsInWidth);
         byte[] footer = new byte[]{0x1a};
 
         EmbosserWriterProperties props =
@@ -171,9 +130,8 @@ public class IndexV2Embosser extends IndexEmbosser {
     }
 
     private byte[] getIndexV2Header(boolean duplex,
-                                    boolean eightDots) {
-
-        int cellsInWidth = (int)Math.floor(printablePageWidth/getCellWidth());
+                                    boolean eightDots,
+                                    int cellsInWidth) {
 
         StringBuffer header = new StringBuffer();
 

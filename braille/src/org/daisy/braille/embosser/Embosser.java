@@ -23,7 +23,6 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.factory.Factory;
 import org.daisy.paper.Area;
-import org.daisy.paper.Dimensions;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PrintPage;
@@ -37,11 +36,11 @@ public interface Embosser extends Factory, EmbosserProperties {
 
 	/**
 	 * Returns true if dimension is supported
-	 * @param dim the dimension to test
+	 * @param printPage the dimension to test
 	 * @return returns true if dimension is supported
 	 */
         //TODO: check whether this method needs to be public / is needed altogether
-	public boolean supportsPrintPage(Dimensions dim);
+	public boolean supportsPrintPage(PrintPage printPage);
 	
 	public boolean supportsPageFormat(PageFormat pageFormat);
 	

@@ -47,7 +47,7 @@ public class Braillo200Embosser extends BrailloEmbosser {
 	private final PageFormat.Type pageFormatType;
 
 	//jvm1.6@Override
-	public boolean supportsPrintPage(Dimensions dim) {
+	public boolean supportsPrintPage(PrintPage dim) {
 		int height = (int)Math.ceil(2*dim.getHeight()/EmbosserTools.INCH_IN_MM);
 		int width = EmbosserTools.getWidth(dim, 6);
 		if (width > 42 || height > 28) { 

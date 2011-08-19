@@ -42,7 +42,7 @@ public class IndexV2EmbosserTest {
     private static Embosser _4x4pro = ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_4X4_PRO_V2");
 
     private static PaperCatalog pc = PaperCatalog.newInstance();
-    private static PageFormat a3 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.DEFAULT);
+    private static PageFormat a3 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.REVERSED);
     private static PageFormat a4 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), SheetPaperFormat.Orientation.DEFAULT);
     private static PageFormat _210mm_12inch = new TractorPaperFormat((TractorPaper)pc.get("org_daisy.TractorPaperProvider.PaperSize.W210MM_X_H12INCH"));
     private static PageFormat _280mm_12inch = new TractorPaperFormat((TractorPaper)pc.get("org_daisy.TractorPaperProvider.PaperSize.W280MM_X_H12INCH"));

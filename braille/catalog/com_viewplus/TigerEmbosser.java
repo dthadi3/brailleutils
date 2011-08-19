@@ -18,8 +18,11 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Area;
+import org.daisy.paper.Paper;
+import org.daisy.paper.SheetPaper;
 import org.daisy.paper.PageFormat;
-import org.daisy.paper.Dimensions;
+import org.daisy.paper.SheetPaperFormat;
+import org.daisy.paper.SheetPaperFormat.Orientation;
 import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
@@ -32,10 +35,10 @@ public class TigerEmbosser extends AbstractEmbosser {
 
     protected EmbosserType type;
 
-    private double maxPaperWidth = Double.MAX_VALUE;
-    private double maxPaperHeight = Double.MAX_VALUE;
-    private double minPaperWidth = 50d;
-    private double minPaperHeight = 50d;
+    private double maxPageWidth = Double.MAX_VALUE;
+    private double maxPageHeight = Double.MAX_VALUE;
+    private double minPageWidth = 50d;
+    private double minPageHeight = 50d;
 
     private boolean duplexEnabled = false;
     private boolean eightDotsEnabled = false;
@@ -76,34 +79,34 @@ public class TigerEmbosser extends AbstractEmbosser {
         setCellHeight(0.4*EmbosserTools.INCH_IN_MM);
       //setCellHeight((eightDotsEnabled?0.x:0.4)*EmbosserTools.INCH_IN_MM);
 
-        minPaperWidth = 176d;  // B5
-        minPaperHeight = 250d;
+        minPageWidth = 176d;  // B5
+        minPageHeight = 250d;
 
         switch (type) {
             case PREMIER_80:
             case PREMIER_100:
             case ELITE_150:
             case ELITE_200:
-                maxPaperWidth = 12*EmbosserTools.INCH_IN_MM;
-                maxPaperHeight = 22*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 12*EmbosserTools.INCH_IN_MM;
+                maxPageHeight = 22*EmbosserTools.INCH_IN_MM;
                 break;
             case PRO_GEN_II:
-                maxPaperWidth = 16*EmbosserTools.INCH_IN_MM;
-                maxPaperHeight = 22*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 16*EmbosserTools.INCH_IN_MM;
+                maxPageHeight = 22*EmbosserTools.INCH_IN_MM;
                 break;
             case CUB:
             case CUB_JR:
             case EMPRINT_SPOTDOT:
-                maxPaperWidth = 8.5*EmbosserTools.INCH_IN_MM;
-                maxPaperHeight = 14*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 8.5*EmbosserTools.INCH_IN_MM;
+                maxPageHeight = 14*EmbosserTools.INCH_IN_MM;
                 break;
             case MAX:
-                maxPaperWidth = 14*EmbosserTools.INCH_IN_MM;
-                maxPaperHeight = 22*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 14*EmbosserTools.INCH_IN_MM;
+                maxPageHeight = 22*EmbosserTools.INCH_IN_MM;
                 break;
             case EMFUSE:
-                maxPaperWidth =  Math.max(297d, 11*EmbosserTools.INCH_IN_MM);   // A3, Tabloid
-                maxPaperHeight = Math.max(420d, 17*EmbosserTools.INCH_IN_MM);
+                maxPageWidth =  Math.max(297d, 11*EmbosserTools.INCH_IN_MM);   // A3, Tabloid
+                maxPageHeight = Math.max(420d, 17*EmbosserTools.INCH_IN_MM);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
@@ -111,15 +114,36 @@ public class TigerEmbosser extends AbstractEmbosser {
         }
     }
 
-    public boolean supportsPrintPage(Dimensions dim) {
-
-        if (dim==null) { return false; }
-
-        return (dim.getWidth()  <= maxPaperWidth)  &&
-               (dim.getWidth()  >= minPaperWidth)  &&
-               (dim.getHeight() <= maxPaperHeight) &&
-               (dim.getHeight() >= minPaperHeight);
+    @Override
+    public boolean supportsPaper(Paper paper) {
+        if (paper == null) { return false; }
+        try {
+            SheetPaper p = paper.asSheetPaper();
+            if (supportsPageFormat(new SheetPaperFormat(p, Orientation.DEFAULT))) { return true; }
+            if (supportsPageFormat(new SheetPaperFormat(p, Orientation.REVERSED))) { return true; }
+        } catch (ClassCastException e) {
+        }
+        return false;
     }
+
+    @Override
+    public boolean supportsPageFormat(PageFormat format) {
+        if (format == null) { return false; }
+        try {
+            return supportsPrintPage(getPrintPage(format.asSheetPaperFormat()));
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
+
+    public boolean supportsPrintPage(PrintPage dim) {
+        if (dim==null) { return false; }
+        return (dim.getWidth()  <= maxPageWidth)  &&
+               (dim.getWidth()  >= minPageWidth)  &&
+               (dim.getHeight() <= maxPageHeight) &&
+               (dim.getHeight() >= minPageHeight);
+    }
+    
     public TableFilter getTableFilter() {
         return tableFilter;
     }

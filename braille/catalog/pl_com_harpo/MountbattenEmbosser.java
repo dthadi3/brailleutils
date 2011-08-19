@@ -15,10 +15,13 @@ import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.Table;
-import org.daisy.paper.PageFormat;
 import org.daisy.paper.Area;
 import org.daisy.paper.PrintPage;
-import org.daisy.paper.Dimensions;
+import org.daisy.paper.Paper;
+import org.daisy.paper.SheetPaper;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.SheetPaperFormat;
+import org.daisy.paper.SheetPaperFormat.Orientation;
 import org.daisy.printing.Device;
 
 import pl_com_harpo.HarpoEmbosserProvider.EmbosserType;
@@ -27,10 +30,12 @@ import org.daisy.braille.embosser.EmbosserFactoryException;
 
 public class MountbattenEmbosser extends AbstractEmbosser {
 
-    private double maxPaperWidth = 330d;
-    private double maxPaperHeight = 382d;
-    private double minPaperWidth = 100d;
-    private double minPaperHeight = 98d;
+    private double maxPageWidth = 330d;
+    private double maxPageHeight = 382d;
+    private double minPageWidth = 100d;
+    private double minPageHeight = 98d;
+
+    //TODO: continuous paper?
 
     private final static TableFilter tableFilter;
     private final static String table6dot = "org_daisy.EmbosserTableProvider.TableType.NABCC";
@@ -60,14 +65,34 @@ public class MountbattenEmbosser extends AbstractEmbosser {
         setCellHeight(10.1d);
     }
 
-    public boolean supportsPrintPage(Dimensions dim) {
+    @Override
+    public boolean supportsPaper(Paper paper) {
+        if (paper == null) { return false; }
+        try {
+            SheetPaper p = paper.asSheetPaper();
+            if (supportsPageFormat(new SheetPaperFormat(p, Orientation.DEFAULT))) { return true; }
+            if (supportsPageFormat(new SheetPaperFormat(p, Orientation.REVERSED))) { return true; }
+        } catch (ClassCastException e) {
+        }
+        return false;
+    }
 
+    @Override
+    public boolean supportsPageFormat(PageFormat format) {
+        if (format == null) { return false; }
+        try {
+            return supportsPrintPage(getPrintPage(format.asSheetPaperFormat()));
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
+
+    public boolean supportsPrintPage(PrintPage dim) {
         if (dim==null) { return false; }
-
-        return (dim.getWidth()  <= maxPaperWidth)  &&
-               (dim.getWidth()  >= minPaperWidth)  &&
-               (dim.getHeight() <= maxPaperHeight) &&
-               (dim.getHeight() >= minPaperHeight);
+        return (dim.getWidth()  <= maxPageWidth)  &&
+               (dim.getWidth()  >= minPageWidth)  &&
+               (dim.getHeight() <= maxPageHeight) &&
+               (dim.getHeight() >= minPageHeight);
     }
 
     public boolean supportsVolumes() {

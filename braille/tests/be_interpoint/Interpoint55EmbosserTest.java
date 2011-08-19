@@ -69,10 +69,8 @@ public class Interpoint55EmbosserTest {
 
     @Test
     public void testTableFilter() {
-
         TableCatalog tc = TableCatalog.newInstance();
-
-	assertTrue("Assert that encoding cannot be modified", tc.list(e.getTableFilter()).size() <= 1);
+	assertTrue("Assert that encoding can be modified", tc.list(e.getTableFilter()).size() == 3);
     }
 
     @Test

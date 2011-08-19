@@ -18,7 +18,11 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Area;
+import org.daisy.paper.Paper;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.SheetPaper;
+import org.daisy.paper.SheetPaperFormat;
+import org.daisy.paper.SheetPaperFormat.Orientation;
 import org.daisy.paper.Dimensions;
 import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
@@ -33,10 +37,10 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
 
     protected EmbosserType type;
 
-    private double maxPaperWidth = Double.MAX_VALUE;
-    private double maxPaperHeight = Double.MAX_VALUE;
-    private double minPaperWidth = 50d;
-    private double minPaperHeight = 50d;
+    private double maxPageWidth = Double.MAX_VALUE;
+    private double maxPageHeight = Double.MAX_VALUE;
+    private double minPageWidth = 50d;
+    private double minPageHeight = 50d;
 
     private int marginInner = 0;
     private int marginOuter = 0;
@@ -84,19 +88,19 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         setCellWidth(0.24*EmbosserTools.INCH_IN_MM);
         setCellHeight((eightDotsEnabled?0.6:0.4)*EmbosserTools.INCH_IN_MM);
 
-        minPaperWidth = 1.5*EmbosserTools.INCH_IN_MM;
-        minPaperHeight = 3*EmbosserTools.INCH_IN_MM;
-        maxPaperHeight = 14*EmbosserTools.INCH_IN_MM;
+        minPageWidth = 1.5*EmbosserTools.INCH_IN_MM;
+        minPageHeight = 3*EmbosserTools.INCH_IN_MM;
+        maxPageHeight = 14*EmbosserTools.INCH_IN_MM;
 
         switch (type) {
             case ROMEO_ATTACHE:
             case ROMEO_ATTACHE_PRO:
-                maxPaperWidth = 8.5*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 8.5*EmbosserTools.INCH_IN_MM;
                 break;
             case ROMEO_PRO_LE_NARROW:
-                maxPaperWidth = 8.5*EmbosserTools.INCH_IN_MM;
-                minPaperHeight = 0.5*EmbosserTools.INCH_IN_MM;
-                maxPaperHeight = 4*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 8.5*EmbosserTools.INCH_IN_MM;
+                minPageHeight = 0.5*EmbosserTools.INCH_IN_MM;
+                maxPageHeight = 4*EmbosserTools.INCH_IN_MM;
                 break;
             case ROMEO_25:
             case ROMEO_PRO_50:
@@ -108,22 +112,22 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
             case BOOKMAKER:
             case BRAILLE_EXPRESS_100:
             case BRAILLE_EXPRESS_150:
-                maxPaperWidth = 13.25*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 13.25*EmbosserTools.INCH_IN_MM;
                 break;
             case ROMEO_PRO_LE_WIDE:
-                maxPaperWidth = 13.25*EmbosserTools.INCH_IN_MM;
-                minPaperHeight = 0.5*EmbosserTools.INCH_IN_MM;
-                maxPaperHeight = 4*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 13.25*EmbosserTools.INCH_IN_MM;
+                minPageHeight = 0.5*EmbosserTools.INCH_IN_MM;
+                maxPageHeight = 4*EmbosserTools.INCH_IN_MM;
                 break;
             case JULIET_PRO:
             case JULIET_CLASSIC:
-                maxPaperWidth = 15*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 15*EmbosserTools.INCH_IN_MM;
                 break;
             case BRAILLE_PLACE:
-                minPaperWidth = 11.5*EmbosserTools.INCH_IN_MM;
-                maxPaperWidth = 11.5*EmbosserTools.INCH_IN_MM;
-                minPaperHeight = 11*EmbosserTools.INCH_IN_MM;
-                maxPaperHeight = 11*EmbosserTools.INCH_IN_MM;
+                minPageWidth = 11.5*EmbosserTools.INCH_IN_MM;
+                maxPageWidth = 11.5*EmbosserTools.INCH_IN_MM;
+                minPageHeight = 11*EmbosserTools.INCH_IN_MM;
+                maxPageHeight = 11*EmbosserTools.INCH_IN_MM;
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
@@ -138,14 +142,34 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         
     }
 
-    public boolean supportsPrintPage(Dimensions dim) {
+    @Override
+    public boolean supportsPaper(Paper paper) {
+        if (paper == null) { return false; }
+        try {
+            SheetPaper p = paper.asSheetPaper();
+            if (supportsPageFormat(new SheetPaperFormat(p, Orientation.DEFAULT))) { return true; }
+            if (supportsPageFormat(new SheetPaperFormat(p, Orientation.REVERSED))) { return true; }
+        } catch (ClassCastException e) {
+        }
+        return false;
+    }
 
+    @Override
+    public boolean supportsPageFormat(PageFormat format) {
+        if (format == null) { return false; }
+        try {
+            return supportsPrintPage(getPrintPage(format.asSheetPaperFormat()));
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
+
+    public boolean supportsPrintPage(PrintPage dim) {
         if (dim==null) { return false; }
-
-        return (dim.getWidth()  <= maxPaperWidth)  &&
-               (dim.getWidth()  >= minPaperWidth)  &&
-               (dim.getHeight() <= maxPaperHeight) &&
-               (dim.getHeight() >= minPaperHeight);
+        return (dim.getWidth()  <= maxPageWidth)  &&
+               (dim.getWidth()  >= minPageWidth)  &&
+               (dim.getHeight() <= maxPageHeight) &&
+               (dim.getHeight() >= minPageHeight);
     }
 
     public TableFilter getTableFilter() {
