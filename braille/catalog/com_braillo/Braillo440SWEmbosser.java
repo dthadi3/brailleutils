@@ -37,5 +37,10 @@ public class Braillo440SWEmbosser extends AbstractBraillo440Embosser {
 		return paper.getType() == Type.ROLL
 			&& paper.asRollPaper().getLengthAcrossFeed().asMillimeter() <= 330;
 	}
+	
+	@Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return true;
+	}
 
 }

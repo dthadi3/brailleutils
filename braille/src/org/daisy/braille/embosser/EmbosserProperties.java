@@ -17,12 +17,26 @@
  */
 package org.daisy.braille.embosser;
 
+
 /**
  * Provides an interface for common embosser related properties. 
  * @author Joel Håkansson
  *
  */
 public interface EmbosserProperties {
+	/**
+	 *  Regular printing or multi-page printing
+	 */
+	public enum PrintMode {
+	    /**
+	     *  One print page per input page
+	     */
+	    REGULAR,
+	    /**
+	     *  Two print pages per input page
+	     */
+	    MAGAZINE
+	}
 
 	/**
 	 * Returns true if this embosser has some method for volume handling
@@ -69,6 +83,6 @@ public interface EmbosserProperties {
 	 * in the middle.
 	 * @return returns true if this embosser supports magazine layout, false otherwise.
 	 */
-	public boolean supportsMagazineLayout();
+	public boolean supportsPrintMode(PrintMode mode);
 
 }

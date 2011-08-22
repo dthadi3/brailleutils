@@ -261,8 +261,8 @@ public abstract class AbstractEmbosserWriter implements EmbosserWriter {
 		return props.supportsZFolding();
 	}
 	
-	public boolean supportsMagazineLayout() {
-		return props.supportsMagazineLayout();
+	public boolean supportsPrintMode(PrintMode mode) {
+		return props.supportsPrintMode(mode);
 	}
 	
 

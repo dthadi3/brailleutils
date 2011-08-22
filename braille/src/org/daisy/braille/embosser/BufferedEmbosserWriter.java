@@ -71,8 +71,8 @@ public class BufferedEmbosserWriter implements EmbosserWriter {
 		return writer.supportsZFolding();
 	}
 
-	public boolean supportsMagazineLayout() {
-		return writer.supportsMagazineLayout();
+	public boolean supportsPrintMode(PrintMode mode) {
+		return writer.supportsPrintMode(mode);
 	}
 
 	//jvm1.6@Override

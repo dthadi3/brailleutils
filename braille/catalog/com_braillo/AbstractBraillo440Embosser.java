@@ -31,7 +31,6 @@ import org.daisy.paper.Area;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.PrintPage;
 import org.daisy.paper.PrintPage.PrintDirection;
-import org.daisy.paper.PrintPage.PrintMode;
 import org.daisy.printing.Device;
 
 import com_braillo.Braillo440VolumeWriter.Mode;
@@ -143,7 +142,4 @@ public abstract class AbstractBraillo440Embosser extends BrailloEmbosser {
 		return false;
 	}
 
-	public boolean supportsMagazineLayout() {
-		return true;
-	}
 }

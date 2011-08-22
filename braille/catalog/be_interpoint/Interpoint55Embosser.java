@@ -1,39 +1,34 @@
 package be_interpoint;
 
 import java.io.File;
-import java.io.OutputStream;
-import java.io.InputStream;
-import java.io.FileOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.daisy.braille.table.Table;
-import org.daisy.braille.table.TableCatalog;
-import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.embosser.AbstractEmbosser;
+import org.daisy.braille.embosser.AbstractEmbosserWriter.Padding;
+import org.daisy.braille.embosser.ConfigurableEmbosser;
+import org.daisy.braille.embosser.EmbosserFactoryException;
 import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserWriterProperties;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
-import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.StandardLineBreaks;
-import org.daisy.braille.embosser.AbstractEmbosserWriter.Padding;
-import org.daisy.paper.Dimensions;
+import org.daisy.braille.table.Table;
+import org.daisy.braille.table.TableCatalog;
+import org.daisy.braille.table.TableFilter;
 import org.daisy.paper.Area;
-import org.daisy.paper.Paper;
 import org.daisy.paper.PageFormat;
-import org.daisy.paper.RollPaperFormat;
+import org.daisy.paper.Paper;
 import org.daisy.paper.PrintPage;
 import org.daisy.paper.PrintPage.PrintDirection;
-import org.daisy.paper.PrintPage.PrintMode;
 import org.daisy.printing.Device;
 
 import be_interpoint.InterpointEmbosserProvider.EmbosserType;
-
-import org.daisy.braille.embosser.EmbosserFactoryException;
 
 /**
  *
@@ -146,7 +141,7 @@ public class Interpoint55Embosser extends AbstractEmbosser {
     }
 
     @Override
-    public boolean supportsMagazineLayout() {
+    public boolean supportsPrintMode(PrintMode mode) {
         return true;
     }
 

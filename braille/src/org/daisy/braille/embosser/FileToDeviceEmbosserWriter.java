@@ -129,8 +129,8 @@ public class FileToDeviceEmbosserWriter implements EmbosserWriter {
 		return w.supportsZFolding();
 	}
 
-	public boolean supportsMagazineLayout() {
-		return w.supportsMagazineLayout();
+	public boolean supportsPrintMode(PrintMode mode) {
+		return w.supportsPrintMode(mode);
 	}
 
 	//jvm1.6@Override

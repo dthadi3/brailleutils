@@ -1,17 +1,13 @@
 package org_daisy;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
-import java.io.IOException;
-
 import org.daisy.braille.embosser.AbstractEmbosserWriter;
-import org.daisy.braille.embosser.AbstractEmbosserWriter.Padding;
-import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.embosser.LineBreaks;
-import org.daisy.braille.embosser.PageBreaks;
+import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.table.BrailleConverter;
-
 import org_daisy.BrailleEditorsTableProvider.TableType;
 
 /**
@@ -105,8 +101,8 @@ public class MicroBrailleFileFormatWriter extends AbstractEmbosserWriter {
 		return false;
 	}
 
-	public boolean supportsMagazineLayout() {
-		// TODO Auto-generated method stub
-		return false;
+	@Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return mode == PrintMode.REGULAR;
 	}
 }

@@ -19,26 +19,24 @@ package com_indexbraille;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
 import java.io.IOException;
 
 import org.daisy.braille.embosser.AbstractEmbosser;
-import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserFeatures;
+import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Area;
-import org.daisy.paper.Paper;
-import org.daisy.paper.SheetPaper;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.Paper;
+import org.daisy.paper.PrintPage;
+import org.daisy.paper.PrintPage.PrintDirection;
+import org.daisy.paper.SheetPaper;
 import org.daisy.paper.SheetPaperFormat;
 import org.daisy.paper.SheetPaperFormat.Orientation;
 import org.daisy.paper.TractorPaperFormat;
-import org.daisy.paper.PrintPage;
-import org.daisy.paper.PrintPage.PrintDirection;
-import org.daisy.paper.PrintPage.PrintMode;
 import org.daisy.printing.Device;
 
 import com_indexbraille.IndexEmbosserProvider.EmbosserType;
@@ -248,7 +246,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     }
 
     @Override
-    public boolean supportsMagazineLayout() {
+    public boolean supportsPrintMode(PrintMode mode) {
         switch (type) {
             case INDEX_4X4_PRO_V2:
             case INDEX_4X4_PRO_V3:
@@ -264,7 +262,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_BASIC_S_V2:
             case INDEX_BASIC_S_V3:
             default:
-                return false;
+                return PrintMode.REGULAR == mode;
         }
     }
 
@@ -342,7 +340,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException("Unsupported value for number of copies.");
             }
-        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsMagazineLayout()) {
+        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsPrintMode(PrintMode.MAGAZINE)) {
             try {
                 saddleStitchEnabled = (Boolean)value;
             } catch (ClassCastException e) {
@@ -378,7 +376,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             return setTable;
         } else if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
             return numberOfCopies;
-        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsMagazineLayout()) {
+        } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsPrintMode(PrintMode.MAGAZINE)) {
             return saddleStitchEnabled;
         } else if (EmbosserFeatures.Z_FOLDING.equals(key) && supportsZFolding()) {
             return zFoldingEnabled;

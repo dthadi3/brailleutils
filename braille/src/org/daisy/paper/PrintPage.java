@@ -1,5 +1,6 @@
 package org.daisy.paper;
 
+import org.daisy.braille.embosser.EmbosserProperties.PrintMode;
 import org.daisy.braille.tools.Length;
 
 /**
@@ -24,19 +25,6 @@ public class PrintPage implements Dimensions {
     }
 
     /**
-     *  Regular printing or multi-page printing
-     */
-    public enum PrintMode {
-        /**
-         *  One print page per input page
-         */
-        REGULAR,
-        /**
-         *  Two print pages per input page
-         */
-        MAGAZINE
-    }
-	/**
 	 * The shape of the paper
 	 */
 	public enum Shape {

@@ -40,7 +40,6 @@ import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PrintPage;
 import org.daisy.paper.PrintPage.PrintDirection;
-import org.daisy.paper.PrintPage.PrintMode;
 import org.daisy.printing.Device;
 
 import com_braillo.BrailloEmbosserProvider.EmbosserType;
@@ -186,8 +185,9 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 		return true;
 	}
 
-	public boolean supportsMagazineLayout() {
-		return false;
+	@Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return mode == PrintMode.REGULAR;
 	}
 
 	public boolean supportsPageFormat(PageFormat pageFormat) {

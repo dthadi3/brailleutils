@@ -39,7 +39,6 @@ import org.daisy.paper.Dimensions;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.PrintPage;
 import org.daisy.paper.PrintPage.PrintDirection;
-import org.daisy.paper.PrintPage.PrintMode;
 import org.daisy.printing.Device;
 
 
@@ -183,7 +182,8 @@ public abstract class AbstractBraillo200Embosser extends BrailloEmbosser {
 		return true;
 	}
 
-	public boolean supportsMagazineLayout() {
-		return false;
+	@Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return mode == PrintMode.REGULAR;
 	}
 }

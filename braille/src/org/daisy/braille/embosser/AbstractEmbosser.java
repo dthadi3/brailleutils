@@ -194,9 +194,9 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		return false;
 	}
 	
-	public boolean supportsMagazineLayout() {
+	public boolean supportsPrintMode(PrintMode mode) {
 	//TODO: remove this method, when all implementations have implemented this
-		return false;
+		return PrintMode.REGULAR == mode;
 	}
 	
 	public boolean supportsPaper(Paper paper) {

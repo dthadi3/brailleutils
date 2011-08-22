@@ -128,8 +128,8 @@ public class SimpleEmbosserProperties implements EmbosserWriterProperties {
 		return supportsZFolding;
 	}
 
-	public boolean supportsMagazineLayout() {
-		return supportsMagazineLayout;
+	public boolean supportsPrintMode(PrintMode mode) {
+		return supportsMagazineLayout || PrintMode.REGULAR == mode;
 	}
 
 	/**
