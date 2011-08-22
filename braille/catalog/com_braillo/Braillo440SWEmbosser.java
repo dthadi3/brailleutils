@@ -38,7 +38,7 @@ public class Braillo440SWEmbosser extends AbstractBraillo440Embosser {
 			&& paper.asRollPaper().getLengthAcrossFeed().asMillimeter() <= 330;
 	}
 	
-	@Override
+	//jvm1.6@Override
 	public boolean supportsPrintMode(PrintMode mode) {
 		return true;
 	}

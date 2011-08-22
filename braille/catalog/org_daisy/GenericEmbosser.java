@@ -32,7 +32,8 @@ import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.table.TableFilter;
-import org.daisy.paper.Dimensions;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.Paper;
 import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
@@ -58,6 +59,16 @@ public class GenericEmbosser extends AbstractEmbosser {
 
 	//jvm1.6@Override
 	public boolean supportsPrintPage(PrintPage dim) {
+		return true;
+	}
+	
+	//jvm1.6@Override
+	public boolean supportsPageFormat(PageFormat pageFormat) {
+		return true;
+	}
+	
+    //jvm1.6@Override
+	public boolean supportsPaper(Paper paper) {
 		return true;
 	}
 
@@ -122,4 +133,18 @@ public class GenericEmbosser extends AbstractEmbosser {
     public boolean supportsAligning() {
         return false;
     }
+
+	public boolean supportsZFolding() {
+		return false;
+	}
+	
+	//jvm1.6@Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return PrintMode.REGULAR == mode;
+	}
+	//jvm1.6@Override
+	public PrintPage getPrintPage(PageFormat pageFormat) {
+		return new PrintPage(pageFormat);
+	}
+
 }

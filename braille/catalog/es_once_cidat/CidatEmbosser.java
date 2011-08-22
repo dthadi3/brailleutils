@@ -66,7 +66,7 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
         }
     }
 
-    @Override
+    //jvm1.6@Override
     public boolean supportsPaper(Paper paper) {
         if (paper == null) { return false; }
         try {
@@ -78,7 +78,7 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
         return false;
     }
 
-    @Override
+    //jvw1.6@Override
     public boolean supportsPageFormat(PageFormat format) {
         if (format == null) { return false; }
         try {

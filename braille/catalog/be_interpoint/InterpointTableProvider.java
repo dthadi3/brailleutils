@@ -8,7 +8,6 @@ import org.daisy.braille.table.AbstractConfigurableTableProvider;
 import org.daisy.braille.table.BrailleConverter;
 import org.daisy.braille.table.EmbosserBrailleConverter;
 import org.daisy.braille.table.EmbosserBrailleConverter.EightDotFallbackMethod;
-import org.daisy.braille.table.EmbosserTable;
 import org.daisy.braille.table.Table;
 
 /**

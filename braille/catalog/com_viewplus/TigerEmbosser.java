@@ -1,35 +1,33 @@
 package com_viewplus;
 
 import java.io.File;
-import java.io.OutputStream;
 import java.io.FileOutputStream;
-
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.daisy.braille.embosser.AbstractEmbosser;
-import org.daisy.braille.embosser.EmbosserWriter;
-import org.daisy.braille.embosser.EmbosserTools;
-import org.daisy.braille.embosser.EmbosserFeatures;
-import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
 import org.daisy.braille.embosser.ConfigurableEmbosser;
+import org.daisy.braille.embosser.EmbosserFactoryException;
+import org.daisy.braille.embosser.EmbosserFeatures;
+import org.daisy.braille.embosser.EmbosserTools;
+import org.daisy.braille.embosser.EmbosserWriter;
+import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.embosser.StandardLineBreaks;
+import org.daisy.braille.embosser.UnsupportedPaperException;
 import org.daisy.braille.table.Table;
-import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
+import org.daisy.braille.table.TableFilter;
 import org.daisy.paper.Area;
-import org.daisy.paper.Paper;
-import org.daisy.paper.SheetPaper;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.Paper;
+import org.daisy.paper.PrintPage;
+import org.daisy.paper.SheetPaper;
 import org.daisy.paper.SheetPaperFormat;
 import org.daisy.paper.SheetPaperFormat.Orientation;
-import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
 import com_viewplus.ViewPlusEmbosserProvider.EmbosserType;
-
-import org.daisy.braille.embosser.EmbosserFactoryException;
-import org.daisy.braille.embosser.UnsupportedPaperException;
 
 public class TigerEmbosser extends AbstractEmbosser {
 
@@ -114,7 +112,7 @@ public class TigerEmbosser extends AbstractEmbosser {
         }
     }
 
-    @Override
+    //jvm1.6@Override
     public boolean supportsPaper(Paper paper) {
         if (paper == null) { return false; }
         try {
@@ -126,7 +124,7 @@ public class TigerEmbosser extends AbstractEmbosser {
         return false;
     }
 
-    @Override
+    //jvw1.6@Override
     public boolean supportsPageFormat(PageFormat format) {
         if (format == null) { return false; }
         try {
@@ -322,4 +320,19 @@ public class TigerEmbosser extends AbstractEmbosser {
                         marginInner * cellWidth,
                         marginTop * cellHeight);
     }
+
+	public boolean supportsZFolding() {
+		return false;
+	}
+
+	//jvm1.6@Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return PrintMode.REGULAR == mode;
+	}
+	
+	//jvm1.6@Override
+	public PrintPage getPrintPage(PageFormat pageFormat) {
+		return new PrintPage(pageFormat);
+	}
+
 }

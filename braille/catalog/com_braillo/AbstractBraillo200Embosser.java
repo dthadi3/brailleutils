@@ -182,7 +182,7 @@ public abstract class AbstractBraillo200Embosser extends BrailloEmbosser {
 		return true;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsPrintMode(PrintMode mode) {
 		return mode == PrintMode.REGULAR;
 	}

@@ -137,4 +137,17 @@ public class PortathielBlueEmbosser extends CidatEmbosser {
 
         return header.toString().getBytes();
     }
+
+	public boolean supportsZFolding() {
+		return false;
+	}
+
+	//jvm1.6@Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return PrintMode.REGULAR == mode;
+	}
+	//jvm1.6@Override
+	public PrintPage getPrintPage(PageFormat pageFormat) {
+		return new PrintPage(pageFormat);
+	}
 }

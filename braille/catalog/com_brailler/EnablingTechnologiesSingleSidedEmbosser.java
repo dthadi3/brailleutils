@@ -1,5 +1,8 @@
 package com_brailler;
 
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.PrintPage;
+
 import com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType;
 
 /**
@@ -33,4 +36,19 @@ public class EnablingTechnologiesSingleSidedEmbosser extends EnablingTechnologie
     public boolean supportsDuplex() {
         return false;
     }
+
+	public boolean supportsZFolding() {
+		return false;
+	}
+
+	//jvm1.6@Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return PrintMode.REGULAR == mode;
+	}
+
+	//jvm1.6Override	
+	public PrintPage getPrintPage(PageFormat pageFormat) {
+		return new PrintPage(pageFormat);
+	}
+
 }

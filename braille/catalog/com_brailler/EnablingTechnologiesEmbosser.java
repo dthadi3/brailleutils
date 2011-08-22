@@ -1,30 +1,28 @@
 package com_brailler;
 
-import java.io.FileOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
-import java.io.IOException;
-
 import org.daisy.braille.embosser.AbstractEmbosser;
-import org.daisy.braille.embosser.EmbosserTools;
+import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.EmbosserFeatures;
+import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
-import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.table.Table;
-import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
+import org.daisy.braille.table.TableFilter;
 import org.daisy.paper.Area;
-import org.daisy.paper.Paper;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.Paper;
+import org.daisy.paper.PrintPage;
 import org.daisy.paper.SheetPaper;
 import org.daisy.paper.SheetPaperFormat;
 import org.daisy.paper.SheetPaperFormat.Orientation;
-import org.daisy.paper.Dimensions;
-import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
 import com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType;
@@ -142,7 +140,7 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         
     }
 
-    @Override
+    //jvm1.6@Override
     public boolean supportsPaper(Paper paper) {
         if (paper == null) { return false; }
         try {
@@ -154,7 +152,7 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
         return false;
     }
 
-    @Override
+    //jvw1.6@Override
     public boolean supportsPageFormat(PageFormat format) {
         if (format == null) { return false; }
         try {

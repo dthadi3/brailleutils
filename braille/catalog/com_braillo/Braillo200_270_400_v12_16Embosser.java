@@ -185,7 +185,7 @@ public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
 		return true;
 	}
 
-	@Override
+	//jvm1.6@Override
 	public boolean supportsPrintMode(PrintMode mode) {
 		return mode == PrintMode.REGULAR;
 	}

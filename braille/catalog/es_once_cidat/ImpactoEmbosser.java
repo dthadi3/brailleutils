@@ -2,19 +2,18 @@ package es_once_cidat;
 
 import java.io.OutputStream;
 
+import org.daisy.braille.embosser.ConfigurableEmbosser;
+import org.daisy.braille.embosser.EmbosserFactoryException;
+import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
-import org.daisy.braille.embosser.EmbosserFeatures;
-import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
+import org.daisy.braille.embosser.UnsupportedPaperException;
 import org.daisy.braille.table.Table;
-import org.daisy.braille.table.TableFilter;
 import org.daisy.braille.table.TableCatalog;
+import org.daisy.braille.table.TableFilter;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.PrintPage;
-
-import org.daisy.braille.embosser.EmbosserFactoryException;
-import org.daisy.braille.embosser.UnsupportedPaperException;
 
 import es_once_cidat.CidatEmbosserProvider.EmbosserType;
 
@@ -165,4 +164,17 @@ public class ImpactoEmbosser extends CidatEmbosser {
             return super.getFeature(key);
         }
     }
+
+	public boolean supportsZFolding() {
+		return false;
+	}
+	
+	//jvm1.6@Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return PrintMode.REGULAR == mode;
+	}
+	//jvm1.6@Override
+	public PrintPage getPrintPage(PageFormat pageFormat) {
+		return new PrintPage(pageFormat);
+	}
 }

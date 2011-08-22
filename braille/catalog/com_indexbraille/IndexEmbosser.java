@@ -141,7 +141,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         }
     }
 
-    @Override
+    //jvm1.6@Override
     public boolean supportsPaper(Paper paper) {
         if (paper == null) { return false; }
         try {
@@ -159,7 +159,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         return false;
     }
 
-    @Override
+    //jvw1.6@Override
     public boolean supportsPageFormat(PageFormat format) {
         if (format == null) { return false; }
         try {
@@ -224,7 +224,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         }
     }
 
-    @Override
+    //jvm1.6@Override
     public boolean supportsZFolding() {
         switch (type) {
             case INDEX_BASIC_S_V3:
@@ -245,7 +245,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         }
     }
 
-    @Override
+    //jvm1.6@Override
     public boolean supportsPrintMode(PrintMode mode) {
         switch (type) {
             case INDEX_4X4_PRO_V2:
@@ -387,7 +387,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         }
     }
 
-    @Override
+    //jvm1.6@Override
     public PrintPage getPrintPage(PageFormat pageFormat) {
         PrintMode mode = saddleStitchEnabled?PrintMode.MAGAZINE:PrintMode.REGULAR;
         PrintDirection direction = getPrintDirection();

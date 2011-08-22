@@ -1,6 +1,8 @@
 package com_brailler;
 
 import org.daisy.braille.embosser.EmbosserFeatures;
+import org.daisy.paper.PageFormat;
+import org.daisy.paper.PrintPage;
 
 import com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType;
 
@@ -59,4 +61,18 @@ public class EnablingTechnologiesDoubleSidedEmbosser extends EnablingTechnologie
             super.setFeature(key, value);
         }
     }
+
+	public boolean supportsZFolding() {
+		return false;
+	}
+	
+	//jvm1.6Override
+	public boolean supportsPrintMode(PrintMode mode) {
+		return PrintMode.REGULAR == mode;
+	}
+	
+	//jvm1.6Override	
+	public PrintPage getPrintPage(PageFormat pageFormat) {
+		return new PrintPage(pageFormat);
+	}
 }
