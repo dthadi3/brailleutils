@@ -138,7 +138,7 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		if (EmbosserFeatures.PAGE_FORMAT.equals(key)) {
 			try {
 				if (!supportsPageFormat((PageFormat)value)) {
-					throw new IllegalArgumentException("Page format is not supported by the embosser: " + pageFormat);
+					throw new IllegalArgumentException("Page format is not supported by the embosser: " + (PageFormat)value);
 				}
 				pageFormat = (PageFormat)value;
 			} catch (ClassCastException e) {
