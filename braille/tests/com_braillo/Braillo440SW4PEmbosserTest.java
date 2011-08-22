@@ -5,16 +5,17 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.UnsupportedWidthException;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com_braillo.BrailloEmbosserProvider.EmbosserType;
-
 public class Braillo440SW4PEmbosserTest extends AbstractTestBraillo440Embosser {
 
 	public Braillo440SW4PEmbosserTest() {
-		super(new Braillo440Embosser("Braillo 440SW (four page mode)", "Embosser table must match hardware setup.", EmbosserType.BRAILLO_440_SW_4P));
+		super(new Braillo440SWEmbosser("Braillo 440SW (two page mode)", "Embosser table must match hardware setup."));
+		emb.setFeature(EmbosserFeatures.SADDLE_STITCH, true);
+		emb.setFeature(EmbosserFeatures.PAGE_FORMAT, fa44_4p);
 	}
 	
 	@Test

@@ -137,6 +137,9 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
  	public void setFeature(String key, Object value) {
 		if (EmbosserFeatures.PAGE_FORMAT.equals(key)) {
 			try {
+				if (!supportsPageFormat((PageFormat)value)) {
+					throw new IllegalArgumentException("Page format is not supported by the embosser: " + pageFormat);
+				}
 				pageFormat = (PageFormat)value;
 			} catch (ClassCastException e) {
 				throw new IllegalArgumentException("Unsupported value for pageFormat: '" + value + "'", e);
@@ -187,10 +190,12 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 	}
 	
 	public boolean supportsZFolding() {
+	//TODO: remove this method, when all implementations have implemented this
 		return false;
 	}
 	
 	public boolean supportsMagazineLayout() {
+	//TODO: remove this method, when all implementations have implemented this
 		return false;
 	}
 	

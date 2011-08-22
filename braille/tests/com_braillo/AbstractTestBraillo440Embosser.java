@@ -20,25 +20,27 @@ import org.daisy.braille.pef.PEFHandler;
 import org.daisy.braille.pef.PEFHandler.Alignment;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.tools.FileCompare;
+import org.daisy.braille.tools.Length;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.PaperCatalog;
-import org.daisy.paper.SheetPaperFormat;
+import org.daisy.paper.RollPaperFormat;
 import org.daisy.printing.FileDevice;
 import org.xml.sax.SAXException;
 
 public abstract class AbstractTestBraillo440Embosser {
 	final TableCatalog tc;
 	final PaperCatalog pc;
-	final PageFormat fa44;
+	final PageFormat fa44_2p;
+	final PageFormat fa44_4p;
 	final Embosser emb;
 
 	public AbstractTestBraillo440Embosser(Embosser emb) {
 		this.tc = TableCatalog.newInstance();
 		this.pc = PaperCatalog.newInstance();
-		this.fa44 = new SheetPaperFormat(pc.get("se_tpb.FA44PaperProvider.PaperSize.FA44").asSheetPaper(), SheetPaperFormat.Orientation.DEFAULT);
+		this.fa44_2p = new RollPaperFormat(pc.get("org_daisy.RollPaperProvider.PaperSize.W33CM").asRollPaper(), Length.newMillimeterValue(261));
+		this.fa44_4p = new RollPaperFormat(pc.get("org_daisy.RollPaperProvider.PaperSize.W33CM").asRollPaper(), Length.newMillimeterValue(522));
 		this.emb = emb;
-		
-		emb.setFeature(EmbosserFeatures.PAGE_FORMAT, fa44);
+
 		emb.setFeature(EmbosserFeatures.TABLE, tc.get("com_braillo.BrailloTableProvider.TableType.BRAILLO_6DOT_001_00"));
 	}
 

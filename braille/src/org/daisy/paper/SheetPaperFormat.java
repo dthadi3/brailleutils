@@ -17,13 +17,13 @@ public class SheetPaperFormat extends AbstractPageFormat {
 		 */
 		REVERSED
 	}
-	private final Orientation o;
+	private final Orientation orientation;
 	private final Length pageWidth, pageHeight;
 
-	public SheetPaperFormat(SheetPaper paper, Orientation o) {
+	public SheetPaperFormat(SheetPaper paper, Orientation orientation) {
 		this.pageWidth = paper.getPageWidth();
 		this.pageHeight = paper.getPageHeight();
-		this.o = o;
+		this.orientation = orientation;
 	}
 	
 	public SheetPaperFormat(Length pageWidth, Length pageHeight) {
@@ -33,11 +33,11 @@ public class SheetPaperFormat extends AbstractPageFormat {
 	public SheetPaperFormat(Length pageWidth, Length pageHeight, Orientation o) {
 		this.pageWidth = pageWidth;
 		this.pageHeight = pageHeight;
-		this.o = o;
+		this.orientation = o;
 	}
 
 	public Orientation getOrientation() {
-		return o;
+		return orientation;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class SheetPaperFormat extends AbstractPageFormat {
 	 * @return returns the width.
 	 */
 	public Length getPageWidth() {
-		switch (o) {
+		switch (orientation) {
 			case REVERSED:
 				return pageHeight;
 			case DEFAULT: default:
@@ -58,7 +58,7 @@ public class SheetPaperFormat extends AbstractPageFormat {
 	 * @return returns the height.
 	 */
 	public Length getPageHeight() {
-		switch (o) {
+		switch (orientation) {
 			case REVERSED:
 				return pageWidth;
 			case DEFAULT: default:
@@ -72,6 +72,15 @@ public class SheetPaperFormat extends AbstractPageFormat {
 
 	public SheetPaperFormat asSheetPaperFormat() {
 		return this;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SheetPaperFormat [orientation=" + orientation + ", pageWidth=" + pageWidth
+				+ ", pageHeight=" + pageHeight + "]";
 	}
 
 }

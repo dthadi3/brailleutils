@@ -40,4 +40,13 @@ public class TractorPaperFormat extends AbstractPageFormat {
 	public TractorPaperFormat asTractorPaperFormat() {
 		return this;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "TractorPaperFormat [across=" + across + ", along=" + along
+				+ "]";
+	}
 }

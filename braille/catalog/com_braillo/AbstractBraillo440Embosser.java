@@ -27,22 +27,26 @@ import org.daisy.braille.embosser.SimpleEmbosserProperties;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
-import org.daisy.paper.Dimensions;
-import org.daisy.paper.Paper;
-import org.daisy.paper.Paper.Type;
+import org.daisy.paper.Area;
+import org.daisy.paper.PageFormat;
 import org.daisy.paper.PrintPage;
+import org.daisy.paper.PrintPage.PrintDirection;
+import org.daisy.paper.PrintPage.PrintMode;
 import org.daisy.printing.Device;
 
 import com_braillo.Braillo440VolumeWriter.Mode;
 import com_braillo.BrailloEmbosserProvider.EmbosserType;
 
-public class Braillo440Embosser extends BrailloEmbosser {
+public abstract class AbstractBraillo440Embosser extends BrailloEmbosser {
 	private final static double cellWidth = 19*EmbosserTools.INCH_IN_MM/80d; //6;
 	private final static double cellHeight = 10;
 	private final static double constant = 11*EmbosserTools.INCH_IN_MM/80d;
+	
+	protected boolean saddleStitchEnabled;
 
-	public Braillo440Embosser(String name, String desc, Enum<? extends Enum<?>> identifier) {
+	public AbstractBraillo440Embosser(String name, String desc, Enum<? extends Enum<?>> identifier) {
 		super(name, desc, identifier);
+		saddleStitchEnabled = false;
 		setCellWidth(cellWidth);
 	}
 
@@ -54,10 +58,6 @@ public class Braillo440Embosser extends BrailloEmbosser {
 			return false; 
 		}
 		return true;
-	}
-	
-	public boolean supportsPaper(Paper paper) {
-		return paper.getType() == Type.ROLL;
 	}
 
 	//jvm1.6@Override
@@ -77,9 +77,9 @@ public class Braillo440Embosser extends BrailloEmbosser {
 		int width = (int)Math.floor((printPage.getWidth()+constant-EmbosserTools.INCH_IN_MM) / cellWidth);
 		int height = EmbosserTools.getHeight(printPage, cellHeight);
 		double columnWidthMM = width * cellWidth - constant;
-		if (t==EmbosserType.BRAILLO_440_SW_4P) {
+		if (t==EmbosserType.BRAILLO_440_SW && saddleStitchEnabled) {
 			bvw = new Braillo440VolumeWriter(printPage, Mode.SW_FOUR_PAGE, width, height, columnWidthMM);
-		} else if (t==EmbosserType.BRAILLO_440_SW_2P) {
+		} else if (t==EmbosserType.BRAILLO_440_SW) {
 			bvw = new Braillo440VolumeWriter(printPage, Mode.SW_TWO_PAGE, width, height, columnWidthMM);
 		} else if (t==EmbosserType.BRAILLO_440_SWSF) {
 			bvw = new Braillo440VolumeWriter(printPage, Mode.SWSF, width, height, columnWidthMM);
@@ -126,4 +126,24 @@ public class Braillo440Embosser extends BrailloEmbosser {
     public boolean supportsVolumes() {
         return true;
     }
+
+	public PrintPage getPrintPage(PageFormat pageFormat) {
+		return new PrintPage(pageFormat,
+				PrintDirection.SIDEWAYS,
+				(saddleStitchEnabled?PrintMode.MAGAZINE:PrintMode.REGULAR)
+			);
+	}
+
+	public Area getPrintableArea(PageFormat pageFormat) {
+		PrintPage printPage = getPrintPage(pageFormat);
+		return new Area(printPage.getWidth(), printPage.getHeight(), 0, 0);
+	}
+
+	public boolean supportsZFolding() {
+		return false;
+	}
+
+	public boolean supportsMagazineLayout() {
+		return true;
+	}
 }

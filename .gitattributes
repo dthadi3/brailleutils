@@ -15,9 +15,14 @@ braille/catalog/com_brailler/EnablingTechnologiesDoubleSidedEmbosser.java -text
 braille/catalog/com_brailler/EnablingTechnologiesEmbosser.java -text
 braille/catalog/com_brailler/EnablingTechnologiesEmbosserProvider.java -text
 braille/catalog/com_brailler/EnablingTechnologiesSingleSidedEmbosser.java -text
+braille/catalog/com_braillo/AbstractBraillo200Embosser.java -text svneol=unset#text/plain
+braille/catalog/com_braillo/AbstractBraillo440Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo200Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo200_270_400_v12_16Embosser.java -text
-braille/catalog/com_braillo/Braillo440Embosser.java -text svneol=unset#text/plain
+braille/catalog/com_braillo/Braillo400SEmbosser.java -text svneol=unset#text/plain
+braille/catalog/com_braillo/Braillo400SREmbosser.java -text svneol=unset#text/plain
+braille/catalog/com_braillo/Braillo440SFEmbosser.java -text svneol=unset#text/plain
+braille/catalog/com_braillo/Braillo440SWEmbosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo440VolumeWriter.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/BrailloEmbosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/BrailloEmbosserProvider.java -text svneol=unset#text/plain
@@ -217,10 +222,10 @@ braille/tests/com_braillo/Braillo440SW4PEmbosserTest.java -text svneol=unset#tex
 braille/tests/com_braillo/Braillo440SWSFEmbosserTest.java -text svneol=unset#text/plain
 braille/tests/com_braillo/BrailloTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_braillo/resource-files/test-input-1.pef -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo200_us_a4.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo270_us_a4.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo400SR_us_a4.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo400S_us_a4.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo200_us_210mm_by_12inch.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo270_us_210mm_by_12inch.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo400SR_us_a4_roll.prn -text
+braille/tests/com_braillo/resource-files/test-input-1_braillo400S_us_210mm_by_12inch.prn -text
 braille/tests/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-1.prn -text
 braille/tests/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-2.prn -text
 braille/tests/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-3.prn -text
