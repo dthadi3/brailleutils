@@ -232,4 +232,44 @@ public class IndexV2EmbosserTest {
         prn2.deleteOnExit();
         pef.deleteOnExit();
     }
+    
+    @Test
+    public void testAgainstRelease110() throws IOException, ParserConfigurationException, SAXException, UnsupportedWidthException {
+    	File prn1 = File.createTempFile("test_indexv2_", ".prn");
+    	FileCompare fc = new FileCompare();
+        PEFHandler.Builder builder;
+        EmbosserWriter w;
+        
+        // Everest V2 (against release 1.1.0, with minor improvements to the file header)
+        w = everest.newEmbosserWriter(new FileOutputStream(prn1));
+        builder = new PEFHandler.Builder(w)
+                          .range(null)
+                          .align(org.daisy.braille.pef.PEFHandler.Alignment.CENTER_INNER)
+                          .offset(0)
+                          .topOffset(0);
+
+        PEFConverterFacade.parsePefFile(this.getClass().getResourceAsStream("resource-files/test-input-1.pef"), builder.build());
+        //FileTools.copy(new FileInputStream(prn1), new FileOutputStream(new File("c:\\bu1_2.txt")));
+        assertTrue("Assert that the contents of the file is as expected.",
+                fc.compareBinary(new FileInputStream(prn1), this.getClass().getResourceAsStream("resource-files/test-input-1_everest-v2_a4.prn"))
+        );
+
+        // Basic V2 (against release 1.1.0, with minor improvements to the file header)
+        basic_d.setFeature(EmbosserFeatures.PAGE_FORMAT, _210mm_12inch);
+        w = basic_d.newEmbosserWriter(new FileOutputStream(prn1));
+
+        builder = new PEFHandler.Builder(w)
+                          .range(null)
+                          .align(org.daisy.braille.pef.PEFHandler.Alignment.CENTER_INNER)
+                          .offset(0)
+                          .topOffset(0);
+
+        PEFConverterFacade.parsePefFile(this.getClass().getResourceAsStream("resource-files/test-input-1.pef"), builder.build());
+        //FileTools.copy(new FileInputStream(prn1), new FileOutputStream(new File("c:\\bu1_2.txt")));
+        assertTrue("Assert that the contents of the file is as expected.",
+                fc.compareBinary(new FileInputStream(prn1), this.getClass().getResourceAsStream("resource-files/test-input-1_basic-v2_12inch.prn"))
+        );
+        
+        prn1.deleteOnExit();
+    }
 }

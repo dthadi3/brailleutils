@@ -138,7 +138,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append((char)0x1b);
         header.append((char)0x0f);
         header.append((char)0x02);
-        header.append("x,");                                    // 0: Activated braille code  (should match!)
+        header.append("0,");                                    // 0: US table
         header.append("0,");                                    // 1: Type of braille code    = Computer
         header.append(eightDots?'1':'0');                       // 2: 6/8 dot braille
         header.append(",0,");                                   // 3: Capital prefix          = off
@@ -156,10 +156,10 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append("0,");                                    // 12: Top margin             = 0 lines
         header.append("0,");                                    // 13: Bottom margin          = 0 lines
         header.append("0,");                                    // 14: Line spacing           = 5 mm
-        if (saddleStitchEnabled) { header.append('4'); } else
-        if (zFoldingEnabled)     { header.append('3'); } else
-        if (duplex)              { header.append('2'); } else
-                                 { header.append('1'); }        // 15: Page mode              = 1,2 or 4 pages per sheet or z-folding (3)
+        if (saddleStitchEnabled) { header.append('3'); } else
+        if (zFoldingEnabled)     { header.append('2'); } else
+        if (duplex)              { header.append('1'); } else
+                                 { header.append('0'); }        // 15: Page mode              = 1,2 or 4 pages per sheet or z-folding (3)
         header.append(",");
         header.append("0,");                                    // 16: Print mode             = normal
         header.append("0,");                                    // 17: Page number            = off

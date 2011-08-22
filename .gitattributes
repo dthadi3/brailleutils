@@ -257,6 +257,9 @@ braille/tests/com_indexbraille/resource-files/double_sided.pef -text
 braille/tests/com_indexbraille/resource-files/everest_v2_double_sided.prn -text
 braille/tests/com_indexbraille/resource-files/everest_v3_double_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/single_sided.pef -text
+braille/tests/com_indexbraille/resource-files/test-input-1.pef -text
+braille/tests/com_indexbraille/resource-files/test-input-1_basic-v2_12inch.prn -text
+braille/tests/com_indexbraille/resource-files/test-input-1_everest-v2_a4.prn -text
 braille/tests/com_yourdolphin/SupernovaTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/es_once_cidat/ImpactoEmbosserTest.java -text
 braille/tests/es_once_cidat/PortathielBlueEmbosserTest.java -text
