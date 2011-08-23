@@ -93,9 +93,15 @@ public class InputHelper {
 				if (value!=null && s.equals(value)) {
 					System.out.print(" (current value, hit enter to keep this value)");
 				}
-				System.out.println();				i++;
+				System.out.println();
+				i++;
 			}
-			int sel = getInput()-1;
+			int sel;
+			try {
+				sel = getInput()-1;
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 			if (sel==-1 && value!=null) {
 				return value;
 			} else if (sel<0) {
@@ -143,7 +149,12 @@ public class InputHelper {
 				System.out.println();
 				i++;
 			}
-			int sel = getInput()-1;
+			int sel;
+			try {
+				sel = getInput()-1;
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 			if (sel==-1 && value!=null) {
 				return value;
 			} else if (sel<0) {
@@ -169,19 +180,21 @@ public class InputHelper {
 	 * positive integer, that is the user selects a value from a list starting with one.
 	 * If the input is an empty string, 0 is returned. If an IO error occurs, -1 is returned.
 	 * @return returns the integer value suppled by the user on the command line.
-	 * @throws NumberFormatException if the suppled input cannot be parsed as an integer.
+	 * @throws IOException if IO fails.
 	 */
-	public int getInput()  {
-		System.out.print("Input: ");
-		try {
+	public int getInput() throws IOException {
+		while (true) {
+			System.out.print("Input: ");
 			String line = ln.readLine();
-			if (line.equals("")) {
-				return 0;
-			} else {
-				return Integer.parseInt(line);
+			try {
+				if (line.equals("")) {
+					return 0;
+				} else {
+					return Integer.parseInt(line);
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("Not a number: '" + line + "'");
 			}
-		} catch (IOException e) {
-			return -1;
 		}
 	}
 	
