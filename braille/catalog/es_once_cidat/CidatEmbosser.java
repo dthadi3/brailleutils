@@ -1,21 +1,35 @@
+/*
+ * Braille Utils (C) 2010-2011 Daisy Consortium 
+ * 
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package es_once_cidat;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
 import java.io.IOException;
 
-import org.daisy.braille.table.Table;
-import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.embosser.AbstractEmbosser;
-import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserFeatures;
+import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
-import org.daisy.paper.PrintPage;
-import org.daisy.paper.Paper;
-import org.daisy.paper.SheetPaper;
 import org.daisy.paper.PageFormat;
+import org.daisy.paper.Paper;
+import org.daisy.paper.PrintPage;
+import org.daisy.paper.SheetPaper;
 import org.daisy.paper.SheetPaperFormat;
 import org.daisy.paper.SheetPaperFormat.Orientation;
 import org.daisy.printing.Device;
