@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="BrailleUtils" default="default" basedir=".">
+<project name="BrailleUtils" basedir=".">
     <description>Builds, tests, and runs the project BrailleUtils.</description>
 
     <import file="build.xml"/>
