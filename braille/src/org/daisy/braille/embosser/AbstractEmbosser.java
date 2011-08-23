@@ -112,6 +112,11 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 	}
 
 	public Object getFeature(String key) {
+		if (EmbosserFeatures.PAGE_FORMAT.equals(key)) {
+			return pageFormat;
+		} else if (EmbosserFeatures.TABLE.equals(key)) {
+			return setTable;
+		}
 		return settings.get(key);
 	}
 

@@ -19,6 +19,7 @@ braille/catalog/com_braillo/AbstractBraillo200Embosser.java -text svneol=unset#t
 braille/catalog/com_braillo/AbstractBraillo440Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo200Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo200_270_400_v12_16Embosser.java -text
+braille/catalog/com_braillo/Braillo200_270_400_v1_11Embosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo400SEmbosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo400SREmbosser.java -text svneol=unset#text/plain
 braille/catalog/com_braillo/Braillo440SFEmbosser.java -text svneol=unset#text/plain
