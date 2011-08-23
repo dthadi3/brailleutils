@@ -26,8 +26,6 @@ import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.FileToDeviceEmbosserWriter;
-import org.daisy.braille.table.Table;
-import org.daisy.braille.table.TableCatalog;
 import org.daisy.paper.Area;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;
@@ -314,22 +312,9 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     public void setFeature(String key, Object value) {
 
         if (EmbosserFeatures.TABLE.equals(key)) {
-            if (value == null) {
-                throw new IllegalArgumentException("Unsupported value for table");
-            }
-            Table t;
-            try {
-                t = (Table)value;
-            } catch (ClassCastException e) {
-                t = TableCatalog.newInstance().get(value.toString());
-            }
-            if (getTableFilter().accept(t)) {
-                setTable = t;
-              //eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
-              //setCellHeight(eightDotsEnabled?12.5d:10d);
-            } else {
-                throw new IllegalArgumentException("Unsupported value for table.");
-            }
+            super.setFeature(key, value);
+          //eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
+          //setCellHeight(eightDotsEnabled?12.5d:10d);
         } else if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
             try {
                 int copies = (Integer)value;
@@ -372,9 +357,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     @Override
     public Object getFeature(String key) {
 
-        if (EmbosserFeatures.TABLE.equals(key)) {
-            return setTable;
-        } else if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
+        if (EmbosserFeatures.NUMBER_OF_COPIES.equals(key) && maxNumberOfCopies > 1) {
             return numberOfCopies;
         } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsPrintMode(PrintMode.MAGAZINE)) {
             return saddleStitchEnabled;

@@ -257,36 +257,10 @@ public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
 
     @Override
     public void setFeature(String key, Object value) {
-
+        super.setFeature(key, value);            
         if (EmbosserFeatures.TABLE.equals(key)) {
-            if (value == null) {
-                throw new IllegalArgumentException("Unsupported value for table");
-            }
-            Table t;
-            try {
-                t = (Table)value;
-            } catch (ClassCastException e) {
-                t = TableCatalog.newInstance().get(value.toString());
-            }
-            if (getTableFilter().accept(t)) {
-                setTable = t;
-              //eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
-              //setCellHeight((eightDotsEnabled?0.6:0.4)*EmbosserTools.INCH_IN_MM);
-            } else {
-                throw new IllegalArgumentException("Unsupported value for table.");
-            }
-        } else {
-            super.setFeature(key, value);
-        }
-    }
-
-    @Override
-    public Object getFeature(String key) {
-
-        if (EmbosserFeatures.TABLE.equals(key)) {
-            return setTable;
-        } else {
-            return super.getFeature(key);
+          //eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
+          //setCellHeight((eightDotsEnabled?0.6:0.4)*EmbosserTools.INCH_IN_MM);
         }
     }
 

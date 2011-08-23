@@ -73,4 +73,19 @@ public class Length {
 		return originalValue + " " + unit.toString().toLowerCase();
 	}
 
+	@Override
+	public boolean equals(Object object) {
+		if (this == object) { return true; }
+		try {
+			Length that = (Length)object;
+			return this.mmValue == that.mmValue;
+		} catch (ClassCastException e) {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return 71 * 3 + (int)(Double.doubleToLongBits(mmValue));
+	}
 }

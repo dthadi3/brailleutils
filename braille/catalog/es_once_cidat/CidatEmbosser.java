@@ -128,22 +128,9 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
     public void setFeature(String key, Object value) {
 
         if (EmbosserFeatures.TABLE.equals(key)) {
-            if (value == null) {
-                throw new IllegalArgumentException("Unsupported value for table");
-            }
-            Table t;
-            try {
-                t = (Table)value;
-            } catch (ClassCastException e) {
-                t = TableCatalog.newInstance().get(value.toString());
-            }
-            if (getTableFilter().accept(t)) {
-                setTable = t;
-              //eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
-              //setCellHeight((eightDotsEnabled?0.5:0.4)*EmbosserTools.INCH_IN_MM);
-            } else {
-                throw new IllegalArgumentException("Unsupported value for table.");
-            }
+            super.setFeature(key, value);
+          //eightDotsEnabled = supports8dot() && setTable.newBrailleConverter().supportsEightDot();
+          //setCellHeight((eightDotsEnabled?0.5:0.4)*EmbosserTools.INCH_IN_MM);
         } else if (EmbosserFeatures.DUPLEX.equals(key) && supportsDuplex()) {
             try {
                 duplexEnabled = (Boolean)value;
@@ -158,9 +145,7 @@ public abstract class CidatEmbosser extends AbstractEmbosser {
     @Override
     public Object getFeature(String key) {
 
-        if (EmbosserFeatures.TABLE.equals(key)) {
-            return setTable;
-        } else if (EmbosserFeatures.DUPLEX.equals(key) && supportsDuplex()) {
+        if (EmbosserFeatures.DUPLEX.equals(key) && supportsDuplex()) {
             return duplexEnabled;
         } else {
             return super.getFeature(key);

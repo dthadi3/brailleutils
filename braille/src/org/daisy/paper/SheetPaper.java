@@ -32,8 +32,8 @@ public class SheetPaper extends AbstractPaper {
 	 */
 	@Override
 	public String toString() {
-		return "SheetPaper [pageWidth=" + pageWidth + ", pageHeight="
-				+ pageHeight + "]";
+		return "SheetPaper [pageWidth=" + getPageWidth() + ", pageHeight="
+				+ getPageHeight() + "]";
 	}
 
 }
