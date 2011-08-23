@@ -136,6 +136,7 @@ public class IndexV2EmbosserTest {
 
         // Single sided on a double sided printer
 
+        basic_d.setFeature(EmbosserFeatures.Z_FOLDING, false);
         w = basic_d.newEmbosserWriter(new FileOutputStream(prn1));
         builder = new PEFHandler.Builder(w)
                           .range(null)
@@ -255,6 +256,7 @@ public class IndexV2EmbosserTest {
         );
 
         // Basic V2 (against release 1.1.0, with minor improvements to the file header)
+        basic_d.setFeature(EmbosserFeatures.Z_FOLDING, false);
         basic_d.setFeature(EmbosserFeatures.PAGE_FORMAT, _210mm_12inch);
         w = basic_d.newEmbosserWriter(new FileOutputStream(prn1));
 

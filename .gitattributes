@@ -240,22 +240,22 @@ braille/tests/com_indexbraille/BlueBarEmbosserTest.java -text
 braille/tests/com_indexbraille/IndexTableProviderTest.java -text svneol=unset#text/plain
 braille/tests/com_indexbraille/IndexV2EmbosserTest.java -text
 braille/tests/com_indexbraille/IndexV3EmbosserTest.java -text
-braille/tests/com_indexbraille/resource-files/4x4_pro_v2_double_sided.prn -text
-braille/tests/com_indexbraille/resource-files/4x4_pro_v2_saddle_stitch.prn -text
+braille/tests/com_indexbraille/resource-files/4x4_pro_v2_double_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/4x4_pro_v2_saddle_stitch.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/4x4_pro_v3_double_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/4x4_pro_v3_saddle_stitch.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_d_v2_double_sided.prn -text
-braille/tests/com_indexbraille/resource-files/basic_d_v2_single_sided.prn -text
-braille/tests/com_indexbraille/resource-files/basic_d_v2_zfolding.prn -text
+braille/tests/com_indexbraille/resource-files/basic_d_v2_double_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/basic_d_v2_single_sided.prn -text svneol=unset#application/octet-stream
+braille/tests/com_indexbraille/resource-files/basic_d_v2_zfolding.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/basic_d_v3_double_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/basic_d_v3_single_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/basic_d_v3_zfolding_double_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/basic_d_v3_zfolding_single_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_s_v2_single_sided.prn -text
+braille/tests/com_indexbraille/resource-files/basic_s_v2_single_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/basic_s_v3_single_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/bluebar_single_sided.prn -text
 braille/tests/com_indexbraille/resource-files/double_sided.pef -text
-braille/tests/com_indexbraille/resource-files/everest_v2_double_sided.prn -text
+braille/tests/com_indexbraille/resource-files/everest_v2_double_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/everest_v3_double_sided.prn -text svneol=unset#application/octet-stream
 braille/tests/com_indexbraille/resource-files/single_sided.pef -text
 braille/tests/com_indexbraille/resource-files/test-input-1.pef -text
