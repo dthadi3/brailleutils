@@ -35,8 +35,8 @@ import org.xml.sax.SAXException;
  */
 public class Interpoint55EmbosserTest {
 
-    private static EmbosserCatalog ec = EmbosserCatalog.newInstance();
-    private static Embosser e = ec.get("be_interpoint.InterpointEmbosserProvider.EmbosserType.INTERPOINT_55");
+	private static Interpoint55Embosser e = new Interpoint55Embosser("Interpoint 55",
+    "Robust, high-quality, high-speed (2000 pages per hour) double-sided embosser with paper supply from rolls");
     private static PaperCatalog pc = PaperCatalog.newInstance();
     private static PageFormat a3 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.REVERSED);
 
