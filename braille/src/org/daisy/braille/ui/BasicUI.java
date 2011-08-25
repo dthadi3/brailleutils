@@ -92,7 +92,6 @@ public class BasicUI extends AbstractUI {
 	 * Runs the application.
 	 * @throws Exception if something bad happens
 	 */
-	@SuppressWarnings("deprecation")
 	public void run() throws Exception {
 		setPluginsDir(new File("plugins"));
 		switch (m) {

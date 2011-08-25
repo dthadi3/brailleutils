@@ -98,7 +98,7 @@ public class InputHelper {
 			}
 			int sel;
 			try {
-				sel = getInput()-1;
+				sel = getInput(value!=null)-1;
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -151,7 +151,7 @@ public class InputHelper {
 			}
 			int sel;
 			try {
-				sel = getInput()-1;
+				sel = getInput(value!=null)-1;
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -182,12 +182,12 @@ public class InputHelper {
 	 * @return returns the integer value suppled by the user on the command line.
 	 * @throws IOException if IO fails.
 	 */
-	public int getInput() throws IOException {
+	public int getInput(boolean allowEnter) throws IOException {
 		while (true) {
 			System.out.print("Input: ");
 			String line = ln.readLine();
 			try {
-				if (line.equals("")) {
+				if (line.equals("") && allowEnter) {
 					return 0;
 				} else {
 					return Integer.parseInt(line);
@@ -198,29 +198,64 @@ public class InputHelper {
 		}
 	}
 	
-	public double getDouble(String msg) throws IOException {
-		while (true) {
-			System.out.print(msg+": ");
-			String line = ln.readLine();
+	public double getDouble(String msg, String key, boolean verify) throws IOException {
+		Double ret = null;
+		if (getKey(key)!=null) {
+			// check value
 			try {
-				return Double.parseDouble(line);
-			} catch (NumberFormatException e) {
-				System.out.println("Not a number: '" + line + "'");
+				ret = Double.valueOf(getKey(key));
+			} catch (NumberFormatException e) { }
+		}
+		if (ret==null || verify) {
+			// ask user
+			while (true) {
+				System.out.print(msg+ (ret!=null?" (current value "+ ret + ")":"") + " : ");
+				String line = ln.readLine();
+				if (ret!=null && "".equals(line)) {
+					pr.put(key, ret+"");
+					break;
+				} else {
+					try {
+						ret = Double.parseDouble(line);
+						pr.put(key, ret+"");
+						break;
+					} catch (NumberFormatException e) {
+						System.out.println("Not a number: '" + line + "'");
+					}
+				}
 			}
 		}
+		return ret;
 	}
 	
-	public boolean getBoolean(String msg) throws IOException {
-		while (true) {
-			System.out.print(msg+" (y/n): ");
-			String line = ln.readLine();
-			if ("y".equalsIgnoreCase(line)) {
-				return true;
-			} else if ("n".equalsIgnoreCase(line)) {
-				return false;
-			}
-			System.out.println("Not a valid input: '" + line + "'");
+	public boolean getBoolean(String msg, String key, boolean verify) throws IOException {
+		Boolean ret = null;
+		if (getKey(key)!=null) {
+			ret = Boolean.valueOf(getKey(key));
 		}
+		if (ret==null || verify) {
+			// ask user
+			while (true) {
+				System.out.print(msg+" (y/n): ");
+				String line = ln.readLine();
+				if (ret!=null && "".equals(line)) {
+					pr.put(key, ret+"");
+					break;
+				} else {
+					if ("y".equalsIgnoreCase(line)) {
+						ret = true;
+						pr.put(key, ret+"");
+						break;
+					} else if ("n".equalsIgnoreCase(line)) {
+						ret = false;
+						pr.put(key, ret+"");
+						break;
+					}
+					System.out.println("Not a valid input: '" + line + "'");
+				}
+			}
+		}
+		return ret;
 	}
 	
 	/**
