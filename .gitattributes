@@ -151,6 +151,7 @@ braille/src/org/daisy/braille/table/TableFilter.java -text svneol=unset#text/pla
 braille/src/org/daisy/braille/table/TableProperties.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/TableProvider.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/braille/tools/EightToSixDotMapper.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/tools/FileCompare.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/tools/FileTools.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/tools/Length.java -text svneol=unset#text/plain
@@ -287,6 +288,7 @@ braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-3
 braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestInput.pef -text
 braille/tests/org/daisy/braille/table/AdvancedBrailleConverterTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
+braille/tests/org/daisy/braille/tools/EightToSixDotMapperTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/paper/PrintPageTest.java -text svneol=unset#text/plain
 braille/tests/org_daisy/EmbosserTableProviderTest.java -text svneol=unset#text/plain
