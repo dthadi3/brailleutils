@@ -155,7 +155,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append("0,");                                    // 11: Binding margin         = 0 characters
         header.append("0,");                                    // 12: Top margin             = 0 lines
         header.append("0,");                                    // 13: Bottom margin          = 0 lines
-        header.append("0,");                                    // 14: Line spacing           = 5 mm
+        header.append("4,");                                    // 14: Line spacing           = 5 mm
         if (saddleStitchEnabled) { header.append('3'); } else
         if (zFoldingEnabled)     { header.append('2'); } else
         if (duplex)              { header.append('1'); } else
@@ -174,7 +174,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append("x,");                                    // 26: Graphic dot distance
         header.append("0,");                                    // 27: Text dot distance      = normal (2.5 mm)
         header.append("1,");                                    // 28: Setup                  = open (??)
-        header.append("x,x,x,x,x,x,x,x,x,x,x");                 // 29-39: N/A
+        header.append("x,x,x,x,x,x,x,x,x,x,x,");                 // 29-39: N/A
         header.append((char)0x1b);
         header.append((char)0x0f);
 
