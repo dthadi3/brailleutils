@@ -42,7 +42,12 @@ import es_once_cidat.CidatEmbosserProvider.EmbosserType;
  */
 public abstract class CidatEmbosser extends AbstractEmbosser {
 
-    protected EmbosserType type;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1441333837477401994L;
+
+	protected EmbosserType type;
 
     private double maxPageWidth = Double.MAX_VALUE;
     private double maxPageHeight = Double.MAX_VALUE;

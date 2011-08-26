@@ -36,7 +36,11 @@ import org.daisy.braille.embosser.UnsupportedPaperException;
 
 public class IndexV2Embosser extends IndexEmbosser {
 
-    private final static TableFilter tableFilter;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3826909986984899820L;
+	private final static TableFilter tableFilter;
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
   //private final static String table8dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_8DOT";
 

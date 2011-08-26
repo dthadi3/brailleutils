@@ -47,6 +47,10 @@ import org.daisy.printing.Device;
  * @author Joel Håkansson
  */
 public abstract class AbstractBraillo200Embosser extends BrailloEmbosser {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2846669580514452253L;
 	private boolean zFoldingEnabled;
 
 	//jvm1.6@Override

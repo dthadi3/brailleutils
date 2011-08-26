@@ -29,7 +29,12 @@ import com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType;
  */
 public class EnablingTechnologiesDoubleSidedEmbosser extends EnablingTechnologiesEmbosser {
 
-    public EnablingTechnologiesDoubleSidedEmbosser(String name, String desc, EmbosserType identifier) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 160751373667707902L;
+
+	public EnablingTechnologiesDoubleSidedEmbosser(String name, String desc, EmbosserType identifier) {
 
         super(name, desc, identifier);
 

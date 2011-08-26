@@ -38,7 +38,11 @@ import com_indexbraille.IndexEmbosserProvider.EmbosserType;
 
 public class IndexV4Embosser extends IndexEmbosser {
 
-    private final static TableFilter tableFilter;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3888325825465502071L;
+	private final static TableFilter tableFilter;
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
   //private final static String table8dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_8DOT";
 

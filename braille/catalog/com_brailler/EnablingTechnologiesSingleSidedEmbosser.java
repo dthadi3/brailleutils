@@ -28,7 +28,12 @@ import com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType;
  */
 public class EnablingTechnologiesSingleSidedEmbosser extends EnablingTechnologiesEmbosser {
 
-    public EnablingTechnologiesSingleSidedEmbosser(String name, String desc, EmbosserType identifier) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3602582375923051565L;
+
+	public EnablingTechnologiesSingleSidedEmbosser(String name, String desc, EmbosserType identifier) {
 
         super(name, desc, identifier);
 

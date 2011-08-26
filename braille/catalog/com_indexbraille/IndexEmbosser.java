@@ -41,7 +41,12 @@ import com_indexbraille.IndexEmbosserProvider.EmbosserType;
 
 public abstract class IndexEmbosser extends AbstractEmbosser {
 
-    protected EmbosserType type;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4942671719606902452L;
+
+	protected EmbosserType type;
 
     private double minPageLengthAlongFeed = 50d;
     private double maxPageLengthAlongFeed = Double.MAX_VALUE;

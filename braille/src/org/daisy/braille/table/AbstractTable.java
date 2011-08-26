@@ -27,6 +27,11 @@ import org.daisy.factory.AbstractFactory;
 public abstract class AbstractTable extends AbstractFactory implements Table {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3604305793559653957L;
+
+	/**
 	 * Creates a new AbstractTable with the supplied settings.
 	 * @param name the name of the Table 
 	 * @param desc the description of the Table

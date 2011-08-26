@@ -28,6 +28,10 @@ import java.util.HashMap;
  * @param <T>
  */
 public class EmbosserTable<T> extends AbstractTable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3902130832797155793L;
 	private final HashMap<String, Object> props;
 	private final T type;
 	private final ConfigurableTableProvider<T> provider;

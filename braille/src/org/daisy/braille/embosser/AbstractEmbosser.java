@@ -33,6 +33,10 @@ import org.daisy.paper.PrintPage;
  * @author Joel Håkansson
  */
 public abstract class AbstractEmbosser extends AbstractFactory implements Embosser {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 374888389077716688L;
 	private final HashMap<String, Object> props;
 	private final HashMap<String, String> settings;
 	private double cellHeight = 10;

@@ -50,6 +50,10 @@ import com.thaiopensource.validate.ValidationDriver;
  */
 public class PEFValidator extends AbstractFactory implements org.daisy.validator.Validator {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5109400956885804582L;
+	/**
 	 * Key for getFeature/setFeature,
 	 * corresponding value should be a {@link Mode} value
 	 */

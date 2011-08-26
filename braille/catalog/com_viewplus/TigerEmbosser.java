@@ -48,7 +48,12 @@ import com_viewplus.ViewPlusEmbosserProvider.EmbosserType;
 
 public class TigerEmbosser extends AbstractEmbosser {
 
-    protected EmbosserType type;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5130422423415613716L;
+
+	protected EmbosserType type;
 
     private double maxPageWidth = Double.MAX_VALUE;
     private double maxPageHeight = Double.MAX_VALUE;

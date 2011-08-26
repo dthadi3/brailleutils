@@ -43,7 +43,11 @@ import org_daisy.BrailleEditorsFileFormatProvider.FileType;
  */
 public class BrailleEditorsFileFormat extends AbstractFactory implements FileFormat {
 
-    private FileType type;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4217010913717769350L;
+	private FileType type;
     private Table table;
     private TableCatalog tableCatalog;
     private TableFilter tableFilter;

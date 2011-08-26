@@ -50,7 +50,12 @@ import com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType;
  */
 public abstract class EnablingTechnologiesEmbosser extends AbstractEmbosser {
 
-    protected EmbosserType type;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2167979908869652946L;
+
+	protected EmbosserType type;
 
     private double maxPageWidth = Double.MAX_VALUE;
     private double maxPageHeight = Double.MAX_VALUE;

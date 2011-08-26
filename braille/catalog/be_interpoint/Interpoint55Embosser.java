@@ -53,7 +53,11 @@ import be_interpoint.InterpointEmbosserProvider.EmbosserType;
  */
 public class Interpoint55Embosser extends AbstractEmbosser {
 
-    private final static PrintDirection PRINT_DIRECTION = PrintDirection.SIDEWAYS;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6878058097412223168L;
+	private final static PrintDirection PRINT_DIRECTION = PrintDirection.SIDEWAYS;
     private final static TableFilter tableFilter;
     private final static String table_US1 =     "org_daisy.EmbosserTableProvider.TableType.MIT";
     private final static String table_US2 =     "org_daisy.EmbosserTableProvider.TableType.NABCC";

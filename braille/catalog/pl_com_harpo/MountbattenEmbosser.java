@@ -45,7 +45,11 @@ import pl_com_harpo.HarpoEmbosserProvider.EmbosserType;
 
 public class MountbattenEmbosser extends AbstractEmbosser {
 
-    private double maxPageWidth = 330d;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8609686103308218762L;
+	private double maxPageWidth = 330d;
     private double maxPageHeight = 382d;
     private double minPageWidth = 100d;
     private double minPageHeight = 98d;

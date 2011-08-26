@@ -37,6 +37,10 @@ import com_braillo.Braillo440VolumeWriter.Mode;
 import com_braillo.BrailloEmbosserProvider.EmbosserType;
 
 public abstract class AbstractBraillo440Embosser extends BrailloEmbosser {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3735464395595074473L;
 	private final static double cellWidth = 19*EmbosserTools.INCH_IN_MM/80d; //6;
 	private final static double cellHeight = 10;
 	private final static double constant = 11*EmbosserTools.INCH_IN_MM/80d;

@@ -50,6 +50,11 @@ import com_braillo.BrailloEmbosserProvider.EmbosserType;
  */
 public class Braillo200_270_400_v1_11Embosser extends BrailloEmbosser {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -254360539553477980L;
+
 	//jvm1.6@Override
 	public boolean supportsPrintPage(PrintPage dim) {
 		int height = (int)Math.ceil(dim.getHeight()/EmbosserTools.INCH_IN_MM);

@@ -50,6 +50,11 @@ import com_braillo.BrailloEmbosserProvider.EmbosserType;
  * @author Joel Håkansson
  */
 public class Braillo200_270_400_v12_16Embosser extends BrailloEmbosser {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -793439533297371375L;
+
 	private final static byte[] halfInchToSheetLength = new byte[]{	'0', '1', '1', '2', '2', '3', '3', '4', '4', '5',
 																'5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 

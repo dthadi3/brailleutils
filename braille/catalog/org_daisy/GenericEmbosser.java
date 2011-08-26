@@ -38,6 +38,10 @@ import org.daisy.paper.PrintPage;
 import org.daisy.printing.Device;
 
 public class GenericEmbosser extends AbstractEmbosser {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5756220386304696977L;
 	private final static TableFilter tableFilter;
 	
 	static {

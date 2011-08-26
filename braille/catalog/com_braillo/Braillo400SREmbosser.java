@@ -24,6 +24,11 @@ import com_braillo.BrailloEmbosserProvider.EmbosserType;
 
 public class Braillo400SREmbosser extends AbstractBraillo200Embosser {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4824785073677884484L;
+
 	public Braillo400SREmbosser(String name, String desc) {
 		super(name, desc, EmbosserType.BRAILLO_400_SR);
 	}

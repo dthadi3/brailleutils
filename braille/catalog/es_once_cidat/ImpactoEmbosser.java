@@ -40,7 +40,11 @@ import es_once_cidat.CidatEmbosserProvider.EmbosserType;
  */
 public class ImpactoEmbosser extends CidatEmbosser {
 
-    private final static TableFilter tableFilter;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3928307285808352010L;
+	private final static TableFilter tableFilter;
     private final static String transparentTable = CidatTableProvider.class.getCanonicalName() + ".TableType.IMPACTO_TRANSPARENT_6DOT";
   //private final static String transparent8dotTable = CidatTableProvider.class.getCanonicalName() + ".TableType.IMPACTO_TRANSPARENT_8DOT";
 

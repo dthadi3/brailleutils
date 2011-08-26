@@ -26,6 +26,11 @@ import com_braillo.BrailloEmbosserProvider.EmbosserType;
 
 public class Braillo440SFEmbosser extends AbstractBraillo440Embosser {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3642071434258027472L;
+
 	public Braillo440SFEmbosser(String name, String desc) {
 		super(name, desc, EmbosserType.BRAILLO_440_SWSF);
 		saddleStitchEnabled = true;

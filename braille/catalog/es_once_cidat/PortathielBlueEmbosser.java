@@ -41,7 +41,11 @@ import es_once_cidat.CidatEmbosserProvider.EmbosserType;
  */
 public class PortathielBlueEmbosser extends CidatEmbosser {
 
-    private final static TableFilter tableFilter;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2862233116704332024L;
+	private final static TableFilter tableFilter;
     private final static String transparentTable = "es_once_cidat.CidatTableProvider.TableType.PORTATHIEL_TRANSPARENT_6DOT";
   //private final static String transparent8dotTable = CidatTableProvider.class.getCanonicalName() + ".TableType.PORTATHIEL_TRANSPARENT_8DOT";
     private final static String mitTable = "org_daisy.EmbosserTableProvider.TableType.MIT";
