@@ -17,7 +17,14 @@
  */
 package org.daisy.braille.tools;
 
-public class Length {
+import java.io.Serializable;
+
+public class Length implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6483122895979990975L;
+
 	public enum UnitsOfLength {MILLIMETER, CENTIMETER, INCH};
 	public final static double INCH_IN_MM = 25.4;
 	

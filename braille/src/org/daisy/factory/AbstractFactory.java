@@ -17,12 +17,18 @@
  */
 package org.daisy.factory;
 
+import java.io.Serializable;
+
 /**
  * Provides an abstract class for Factories.
  * @author Joel Håkansson
  *
  */
-public abstract class AbstractFactory implements Factory {
+public abstract class AbstractFactory implements Factory, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1845398376520121442L;
 	private final String name;
 	private final String desc;
 	private final String identifier;

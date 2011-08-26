@@ -20,12 +20,22 @@ package org.daisy.paper;
 import org.daisy.braille.tools.Length;
 
 public class SheetPaper extends AbstractPaper {
-	private final Length pageWidth, pageHeight;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4081258552777860442L;
+	protected final Length pageWidth, pageHeight;
 
-	public SheetPaper(String name, String desc, Enum<? extends Enum<?>> identifier, Length across, Length along) {
+	public SheetPaper(String name, String desc, Enum<? extends Enum<?>> identifier, Length pageWidth, Length pageHeight) {
 		super(name, desc, identifier);
-		this.pageWidth = across;
-		this.pageHeight = along;
+		this.pageWidth = pageWidth;
+		this.pageHeight = pageHeight;
+	}
+
+	SheetPaper(String name, String desc, String identifier, Length pageWidth, Length pageHeight) {
+		super(name, desc, identifier);
+		this.pageWidth = pageWidth;
+		this.pageHeight = pageHeight;
 	}
 
 	public Type getType() {

@@ -25,6 +25,10 @@ import org.daisy.braille.tools.Length;
  *
  */
 public class TractorPaper extends AbstractPaper {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7988082460666139365L;
 	private final Length across, along;
 	
 	public TractorPaper(String name, String desc, Enum<? extends Enum<?>> identifier, Length across, Length along) {
@@ -33,6 +37,12 @@ public class TractorPaper extends AbstractPaper {
 		this.along = along;
 	}
 	
+	TractorPaper(String name, String desc, String identifier, Length across, Length along) {
+		super(name, desc, identifier);
+		this.across = across;
+		this.along = along;
+	}
+
 	/**
 	 * Gets the length of the paper perpendicular to the direction of the paper feed
 	 * @return returns the length, in mm.

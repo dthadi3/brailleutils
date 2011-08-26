@@ -20,6 +20,10 @@ package org.daisy.paper;
 import org.daisy.braille.tools.Length;
 
 public class RollPaper extends AbstractPaper {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6739289682441153310L;
 	private final Length across;
 	
 	public RollPaper(String name, String desc, Enum<? extends Enum<?>> identifier, Length across) {
@@ -27,6 +31,11 @@ public class RollPaper extends AbstractPaper {
 		this.across = across;
 	}
 	
+	RollPaper(String name, String desc, String identifier, Length across) {
+		super(name, desc, identifier);
+		this.across = across;
+	}
+
 	/**
 	 * Gets the length of the paper perpendicular to the direction of the paper feed
 	 * @return returns the length, in mm.

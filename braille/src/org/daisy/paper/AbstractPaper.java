@@ -26,6 +26,11 @@ import org.daisy.factory.AbstractFactory;
 public abstract class AbstractPaper extends AbstractFactory implements Paper {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3698214577768375057L;
+
+	/**
 	 * Creates a new default paper.
 	 * @param name the name of the paper
 	 * @param desc the description of the paper
@@ -33,6 +38,10 @@ public abstract class AbstractPaper extends AbstractFactory implements Paper {
 	 * @param height height, in mm
 	 */
 	public AbstractPaper(String name, String desc, Enum<? extends Enum<?>> identifier) {
+		super(name, desc, identifier);
+	}
+	
+	public AbstractPaper(String name, String desc, String identifier) {
 		super(name, desc, identifier);
 	}
 

@@ -51,6 +51,7 @@ braille/catalog/es_once_cidat/PortathielBlueEmbosser.java -text
 braille/catalog/org_daisy/BrailleEditorsFileFormat.java -text
 braille/catalog/org_daisy/BrailleEditorsFileFormatProvider.java -text
 braille/catalog/org_daisy/BrailleEditorsTableProvider.java -text svneol=unset#text/plain
+braille/catalog/org_daisy/CustomPaperProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/EmbosserTableProvider.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/GenericEmbosser.java -text svneol=unset#text/plain
 braille/catalog/org_daisy/GenericEmbosserProvider.java -text svneol=unset#text/plain
@@ -180,6 +181,7 @@ braille/src/org/daisy/factory/package.html -text svneol=unset#text/plain
 braille/src/org/daisy/paper/AbstractPageFormat.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/AbstractPaper.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/Area.java -text
+braille/src/org/daisy/paper/CustomPaperCollection.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/DefaultPaperCatalog.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/Dimensions.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/PageFormat.java -text svneol=unset#text/plain
