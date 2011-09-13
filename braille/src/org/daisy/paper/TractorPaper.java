@@ -20,9 +20,8 @@ package org.daisy.paper;
 import org.daisy.braille.tools.Length;
 
 /**
- * Perforated paper with paper guides.
+ * Provides a paper object for perforated paper with paper guides.
  * @author Joel Håkansson
- *
  */
 public class TractorPaper extends AbstractPaper {
 	/**
@@ -31,6 +30,14 @@ public class TractorPaper extends AbstractPaper {
 	private static final long serialVersionUID = 7988082460666139365L;
 	private final Length across, along;
 	
+	/**
+	 * Creates a new tractor paper
+	 * @param name a name
+	 * @param desc a description
+	 * @param identifier an identifier
+	 * @param across the width of the paper
+	 * @param along the height of the paper
+	 */
 	public TractorPaper(String name, String desc, Enum<? extends Enum<?>> identifier, Length across, Length along) {
 		super(name, desc, identifier);
 		this.across = across;
@@ -45,7 +52,7 @@ public class TractorPaper extends AbstractPaper {
 
 	/**
 	 * Gets the length of the paper perpendicular to the direction of the paper feed
-	 * @return returns the length, in mm.
+	 * @return returns the length.
 	 */
 	//jvm1.6@Override
 	public Length getLengthAcrossFeed() {
@@ -54,7 +61,7 @@ public class TractorPaper extends AbstractPaper {
 	
 	/**
 	 * Gets the length of the paper along the direction of the paper feed
-	 * @return returns the length, in mm.
+	 * @return returns the length.
 	 */
 	//jvm1.6@Override
 	public Length getLengthAlongFeed() {

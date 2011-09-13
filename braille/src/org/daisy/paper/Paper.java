@@ -25,7 +25,23 @@ import org.daisy.factory.Factory;
  *
  */
 public interface Paper extends Factory {
-	public enum Type {SHEET, TRACTOR, ROLL};
+	/**
+	 * Defines paper types.
+	 */
+	public enum Type {
+		/**
+		 * Defines a cut-sheet paper. Implementations must extend SheetPaper
+		 */
+		SHEET, 
+		/**
+		 * Defines a tractor paper. Implementations must extend TractorPaper
+		 */
+		TRACTOR, 
+		/**
+		 * Defines a roll paper. Implementations must extend RollPaper
+		 */
+		ROLL
+	};
 
 	/**
 	 * Gets width of the paper, in mm. The width is defined as the length of the page perpendicular to

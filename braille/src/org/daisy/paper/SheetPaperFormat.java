@@ -19,7 +19,10 @@ package org.daisy.paper;
 
 import org.daisy.braille.tools.Length;
 
-
+/**
+ * Provides a paper format for cut-sheet paper.
+ * @author Joel Håkansson
+ */
 public class SheetPaperFormat extends AbstractPageFormat {
 	/**
 	 * The width/height orientation of the page
@@ -37,28 +40,48 @@ public class SheetPaperFormat extends AbstractPageFormat {
 	private final Orientation orientation;
 	private final Length pageWidth, pageHeight;
 
+	/**
+	 * Creates a new cut-sheet paper.
+	 * @param paper the paper to use
+	 * @param orientation the orientation of the paper
+	 */
 	public SheetPaperFormat(SheetPaper paper, Orientation orientation) {
 		this.pageWidth = paper.getPageWidth();
 		this.pageHeight = paper.getPageHeight();
 		this.orientation = orientation;
 	}
 	
+	/**
+	 * Creates a new cut-sheet paper.
+	 * @param pageWidth the paper width in the default orientation
+	 * @param pageHeight the paper height in the default orientation
+	 */
 	public SheetPaperFormat(Length pageWidth, Length pageHeight) {
 		this(pageWidth, pageHeight, Orientation.DEFAULT);
 	}
 	
-	public SheetPaperFormat(Length pageWidth, Length pageHeight, Orientation o) {
+	/**
+	 * Creates a new cut-sheet paper.
+	 * @param pageWidth the paper width in the default orientation
+	 * @param pageHeight the paper height in the default orientation
+	 * @param orientation the orientation
+	 */
+	public SheetPaperFormat(Length pageWidth, Length pageHeight, Orientation orientation) {
 		this.pageWidth = pageWidth;
 		this.pageHeight = pageHeight;
-		this.orientation = o;
+		this.orientation = orientation;
 	}
 
+	/**
+	 * Gets the orientation of this paper format.
+	 * @return returns the orientation 
+	 */
 	public Orientation getOrientation() {
 		return orientation;
 	}
 
 	/**
-	 * Gets the paper width
+	 * Gets the page width with respect to the orientation of the paper format
 	 * @return returns the width.
 	 */
 	public Length getPageWidth() {
@@ -71,7 +94,7 @@ public class SheetPaperFormat extends AbstractPageFormat {
 	}
 
 	/**
-	 * Gets the paper height
+	 * Gets the page height with respect to the orientation of the paper format
 	 * @return returns the height.
 	 */
 	public Length getPageHeight() {

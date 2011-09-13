@@ -19,22 +19,35 @@ package org.daisy.paper;
 
 import org.daisy.braille.tools.Length;
 
+/**
+ * Provides a paper format for tractor paper.
+ * @author Joel Håkansson
+ */
 public class TractorPaperFormat extends AbstractPageFormat {
 	private final Length across, along;
 	
+	/**
+	 * Creates a new tractor paper format.
+	 * @param paper the paper to use
+	 */
 	public TractorPaperFormat(TractorPaper paper) {
 		this.across = paper.getLengthAcrossFeed();
 		this.along = paper.getLengthAlongFeed();
 	}
 	
+	/**
+	 * Creates a new tractor paper format.
+	 * @param acrossPaperFeed the width of the paper
+	 * @param alongPaperFeed the height of the paper
+	 */
 	public TractorPaperFormat(Length acrossPaperFeed, Length alongPaperFeed) {
 		this.across = acrossPaperFeed;
 		this.along = alongPaperFeed;
 	}
 
 	/**
-	 * Gets the length of the paper perpendicular to the direction of the paper feed
-	 * @return returns the length, in mm.
+	 * Gets the length of the paper perpendicular to the direction of the paper feed.
+	 * @return returns the length.
 	 */
 	//jvm1.6@Override
 	public Length getLengthAcrossFeed() {
@@ -42,8 +55,8 @@ public class TractorPaperFormat extends AbstractPageFormat {
 	}
 	
 	/**
-	 * Gets the length of the paper along the direction of the paper feed
-	 * @return returns the length, in mm.
+	 * Gets the length of the paper along the direction of the paper feed.
+	 * @return returns the length.
 	 */
 	//jvm1.6@Override
 	public Length getLengthAlongFeed() {

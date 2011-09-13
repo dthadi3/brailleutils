@@ -17,6 +17,10 @@
  */
 package org.daisy.paper;
 
+/**
+ * Provides an abstract page format
+ * @author Joel Håkansson
+ */
 public abstract class AbstractPageFormat implements PageFormat {
 
 	public SheetPaperFormat asSheetPaperFormat() {

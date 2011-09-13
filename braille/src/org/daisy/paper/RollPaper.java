@@ -19,6 +19,10 @@ package org.daisy.paper;
 
 import org.daisy.braille.tools.Length;
 
+/**
+ * Provides a paper object for paper in rolls.
+ * @author Joel Håkansson
+ */
 public class RollPaper extends AbstractPaper {
 	/**
 	 * 
@@ -26,6 +30,13 @@ public class RollPaper extends AbstractPaper {
 	private static final long serialVersionUID = -6739289682441153310L;
 	private final Length across;
 	
+	/**
+	 * Creates a new roll paper
+	 * @param name a name for the paper
+	 * @param desc a description
+	 * @param identifier an identifier
+	 * @param across the height of the roll
+	 */
 	public RollPaper(String name, String desc, Enum<? extends Enum<?>> identifier, Length across) {
 		super(name, desc, identifier);
 		this.across = across;

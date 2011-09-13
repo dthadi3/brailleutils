@@ -26,23 +26,26 @@ package org.daisy.paper;
  *
  */
 public interface PageFormat {
+	/**
+	 * Defines page format types
+	 */
 	public enum Type {
 		/**
-		 * Implementation must extend SheetPaperFormat 
+		 * Defines a cut-sheet paper format. Implementation must extend SheetPaperFormat 
 		 */
 		SHEET,
 		/**
-		 * Implementation must extend TractorPaperFormat
+		 * Defines a tractor paper format. Implementation must extend TractorPaperFormat
 		 */
 		TRACTOR, 
 		/**
-		 * Implementation must extend RollPaperFormat
+		 * Defines a roll paper format. Implementation must extend RollPaperFormat
 		 */
 		ROLL};
 	
 	/**
 	 * Gets the paper in this paper format
-	 * @return
+	 * @return returns the type
 	 */
 	public Type getPageFormatType();
 	

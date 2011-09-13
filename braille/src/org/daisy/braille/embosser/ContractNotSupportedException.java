@@ -17,6 +17,11 @@
  */
 package org.daisy.braille.embosser;
 
+/**
+ * Provides an exception to indicate that the Contract is not supported
+ * @author Joel Håkansson
+ *
+ */
 public class ContractNotSupportedException extends Exception {
 
 	/**

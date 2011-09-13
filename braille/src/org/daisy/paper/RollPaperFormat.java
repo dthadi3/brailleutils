@@ -19,15 +19,28 @@ package org.daisy.paper;
 
 import org.daisy.braille.tools.Length;
 
-
+/**
+ * Provides a paper format for paper in rolls.
+ * @author Joel Håkansson
+ */
 public class RollPaperFormat extends AbstractPageFormat {
 	private final Length across, along;
 	
+	/**
+	 * Creates a new roll paper format
+	 * @param paper the roll paper to use
+	 * @param length the cut-length
+	 */
 	public RollPaperFormat(RollPaper paper, Length length) {
 		this.across = paper.getLengthAcrossFeed();
 		this.along = length;
 	}
 	
+	/**
+	 * Creates a new roll paper format
+	 * @param acrossPaperFeed the height of the roll
+	 * @param alongPaperFeed the cut-length
+	 */
 	public RollPaperFormat(Length acrossPaperFeed, Length alongPaperFeed) {
 		this.across = acrossPaperFeed;
 		this.along = alongPaperFeed;

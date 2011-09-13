@@ -24,6 +24,9 @@ package org.daisy.braille.embosser;
  *
  */
 public class Contract {
+	/**
+	 * Defines a braille range
+	 */
 	enum BrailleRange {
 		/** 
 		 * The braille range in this contract is undefined
@@ -38,6 +41,9 @@ public class Contract {
 		 */
 		EIGHT_DOT
 	};
+	/**
+	 * Defines a page mode
+	 */
 	enum PageMode {
 		/**
 		 * Undefined
@@ -57,11 +63,17 @@ public class Contract {
 		BOTH
 	}
 	
+	/**
+	 * Provides a builder for Contract
+	 */
 	public static class Builder {
 		// optional
 		private BrailleRange range = BrailleRange.UNDEFINED;
 		private Integer pages = null;
 		
+		/**
+		 * Creates a new Builder with no specified Contract properties
+		 */
 		public Builder() { }
 		
 		/**
@@ -77,17 +89,28 @@ public class Contract {
 				this.pages = contract.getPages();
 			}
 		}
-		
+		/**
+		 * Sets the braille range for Contracts created using this builder
+		 * @param value the braille range
+		 * @return returns this object
+		 */
 		public Builder setBrailleRange(BrailleRange value) {
 			this.range = value;
 			return this;
 		}
-		
+		/**
+		 * Sets the number of pages for Contracts created using this builder
+		 * @param value the number of pages
+		 * @return returns this object
+		 */
 		public Builder setPages(Integer value) {
 			this.pages = value;
 			return this;
 		}
-		
+		/**
+		 * Builds a new Contract based on this builders current configuration.
+		 * @return returns a new Contract
+		 */
 		public Contract build() {
 			return new Contract(this);
 		}
@@ -101,10 +124,18 @@ public class Contract {
 		this.pages = builder.pages;
 	}
 
+	/**
+	 * Gets the braille range in this Contract
+	 * @return returns the braille range
+	 */
 	public BrailleRange getBrailleRange() {
 		return range;
 	}
 	
+	/**
+	 * Gets the number of pages in this contract
+	 * @return returns the number of pages, or null if not set
+	 */
 	public Integer getPages() {
 		return pages;
 	}
