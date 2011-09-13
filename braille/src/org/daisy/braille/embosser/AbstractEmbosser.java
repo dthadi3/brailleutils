@@ -195,7 +195,8 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		return "AbstractEmbosser [props=" + props + ", settings=" + settings
 				+ ", cellHeight=" + cellHeight + ", cellWidth=" + cellWidth
 				+ ", defaultTable=" + defaultTable + ", pageFormat="
-				+ pageFormat + ", setTable=" + setTable + "]";
+				+ pageFormat + ", setTable=" + setTable + ", toString()="
+				+ super.toString() + "]";
 	}
 
 }
