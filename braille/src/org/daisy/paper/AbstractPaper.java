@@ -31,16 +31,21 @@ public abstract class AbstractPaper extends AbstractFactory implements Paper {
 	private static final long serialVersionUID = 3698214577768375057L;
 
 	/**
-	 * Creates a new default paper.
+	 * Creates a new paper.
 	 * @param name the name of the paper
 	 * @param desc the description of the paper
-	 * @param width width, in mm
-	 * @param height height, in mm
+	 * @param identifier the identifier
 	 */
 	public AbstractPaper(String name, String desc, Enum<? extends Enum<?>> identifier) {
 		super(name, desc, identifier);
 	}
 	
+	/**
+	 * Creates a new paper.
+	 * @param name the name of the paper
+	 * @param desc the description of the paper
+	 * @param identifier the identifier
+	 */
 	public AbstractPaper(String name, String desc, String identifier) {
 		super(name, desc, identifier);
 	}
