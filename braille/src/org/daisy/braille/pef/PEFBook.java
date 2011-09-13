@@ -464,4 +464,16 @@ public class PEFBook implements Serializable {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PEFBook [metadata=" + metadata + ", volumes=" + volumes
+				+ ", pageTags=" + pageTags + ", pages=" + pages + ", maxWidth="
+				+ maxWidth + ", maxHeight=" + maxHeight + ", inputEncoding="
+				+ inputEncoding + ", containsEightDot=" + containsEightDot
+				+ ", startPages=" + Arrays.toString(startPages) + "]";
+	}
+
 }

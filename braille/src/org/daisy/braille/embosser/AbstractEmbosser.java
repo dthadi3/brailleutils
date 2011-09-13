@@ -187,4 +187,15 @@ public abstract class AbstractEmbosser extends AbstractFactory implements Emboss
 		return getTableFilter().accept(table);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AbstractEmbosser [props=" + props + ", settings=" + settings
+				+ ", cellHeight=" + cellHeight + ", cellWidth=" + cellWidth
+				+ ", defaultTable=" + defaultTable + ", pageFormat="
+				+ pageFormat + ", setTable=" + setTable + "]";
+	}
+
 }

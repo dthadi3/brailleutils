@@ -81,4 +81,14 @@ public abstract class AbstractFactory implements Factory, Serializable {
 			return this.getDisplayName().compareTo(o.getDisplayName());
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AbstractFactory [name=" + name + ", desc=" + desc
+				+ ", identifier=" + identifier + "]";
+	}
+
 }
