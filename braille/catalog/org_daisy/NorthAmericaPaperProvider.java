@@ -52,7 +52,7 @@ public class NorthAmericaPaperProvider implements PaperProvider {
         papers.add(new SheetPaper("Ledger", "17 inch x 11 inch", PaperSize.LEDGER, 
         		Length.newInchValue(17),
         		Length.newInchValue(11)));
-        papers.add(new SheetPaper("Tabloid", " inch x  inch", PaperSize.TABLOID, 
+        papers.add(new SheetPaper("Tabloid", "11 inch x 17 inch", PaperSize.TABLOID,
         		Length.newInchValue(11), 
         		Length.newInchValue(17)));
 		papers.add(new SheetPaper("11.5 inch x 11 inch", "11.5 inch wide, 11 inch high", PaperSize.W11500THOU_X_H11INCH, 

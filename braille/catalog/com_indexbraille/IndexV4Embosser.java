@@ -21,7 +21,6 @@ import java.io.OutputStream;
 
 import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.EmbosserFactoryException;
-import org.daisy.braille.embosser.EmbosserTools;
 import org.daisy.braille.embosser.EmbosserWriter;
 import org.daisy.braille.embosser.EmbosserWriterProperties;
 import org.daisy.braille.embosser.SimpleEmbosserProperties;
@@ -46,6 +45,9 @@ public class IndexV4Embosser extends IndexEmbosser {
     private final static String table6dot = "org.daisy.braille.table.DefaultTableProvider.TableType.EN_US";
   //private final static String table8dot = "com_indexbraille.IndexTableProvider.TableType.INDEX_TRANSPARENT_8DOT";
 
+    private int bindingMargin = 0;
+    private static final int maxBindingMargin = 10;
+
     static {
         tableFilter = new TableFilter() {
             //jvm1.6@Override
@@ -64,18 +66,21 @@ public class IndexV4Embosser extends IndexEmbosser {
         super(name, desc, identifier);
 
         setTable = TableCatalog.newInstance().get(table6dot);
+        duplexEnabled = true;
 
         switch (type) {
             case INDEX_BASIC_D_V4:
+                maxCellsInWidth = 49;
+                break;
             case INDEX_EVEREST_D_V4:
-                duplexEnabled = true;
+            case INDEX_BRAILLE_BOX_V4:          
+                maxCellsInWidth = 48;                
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
         }
 
         maxNumberOfCopies = 10000;
-        maxCellsInWidth = 42;
         maxMarginInner = 10;
         maxMarginOuter = 10;
         maxMarginTop = 10;
@@ -83,6 +88,23 @@ public class IndexV4Embosser extends IndexEmbosser {
 
     public TableFilter getTableFilter() {
         return tableFilter;
+    }
+
+    @Override
+    public boolean supportsPrintPage(PrintPage dim) {
+
+        if (dim==null) { return false; }
+        if (type == EmbosserType.INDEX_BRAILLE_BOX_V4) {
+            Length across = dim.getLengthAcrossFeed();
+            Length along = dim.getLengthAlongFeed();
+            return (across.asMillimeter() == 210  && along.asMillimeter() == 297) ||
+                   (across.asMillimeter() == 297  && along.asMillimeter() == 420) ||
+                   (across.asInches()     == 8.5  && along.asInches()     == 11) ||
+                   (across.asInches()     == 11.5 && along.asInches()     == 11) ||
+                   (across.asInches()     == 11   && along.asInches()     == 17);
+        } else {
+            return super.supportsPrintPage(dim);
+        }
     }
 
     public EmbosserWriter newEmbosserWriter(OutputStream os) {
@@ -101,7 +123,7 @@ public class IndexV4Embosser extends IndexEmbosser {
             throw new IllegalArgumentException(new EmbosserFactoryException("Invalid number of copies: " + numberOfCopies + " is not in [1, 10000]"));
         }
 
-        byte[] header = getIndexV3Header(eightDotsEnabled, duplexEnabled, cellsInWidth);
+        byte[] header = getIndexV4Header(eightDotsEnabled, duplexEnabled);
         byte[] footer = new byte[0];
 
         EmbosserWriterProperties props =
@@ -127,94 +149,38 @@ public class IndexV4Embosser extends IndexEmbosser {
         }
     }
 
-    private byte[] getIndexV3Header(boolean eightDots,
-                                    boolean duplex,
-                                    int cellsInWidth) {
-
-        PrintPage page = getPrintPage(getPageFormat());
-        Length length = page.getLengthAlongFeed();
-        Length width = page.getLengthAcrossFeed();
-
-        byte[] xx;
-        byte y;
-        double iPart;
-        double fPart;
+    private byte[] getIndexV4Header(boolean eightDots,
+                                    boolean duplex) {
 
         StringBuffer header = new StringBuffer();
 
         header.append((char)0x1b);
-        header.append("D");                                         // Activate temporary formatting properties of a document
-        header.append("BT0");                                       // Default braille table
-        header.append(",TD0");                                      // Text dot distance = 2.5 mm
-        header.append(",LS50");                                     // Line spacing = 5 mm
+        header.append("D");                                           // Activate temporary formatting properties of a document
+        header.append("BT0");                                         // Default braille table
+        header.append(",TD0");                                        // Text dot distance = 2.5 mm
+        header.append(",LS50");                                       // Line spacing = 5 mm
         header.append(",DP");
         if (saddleStitchEnabled)       { header.append('4'); } else
         if (zFoldingEnabled && duplex) { header.append('3'); } else
         if (zFoldingEnabled)           { header.append('5'); } else
         if (duplex)                    { header.append('2'); } else
-                                       { header.append('1'); }      // Page mode
+                                       { header.append('1'); }        // Page mode
+                                                                      // Basic-D: Z-Folding sideways ???
         if (numberOfCopies > 1) {
             header.append(",MC");
-            header.append(String.valueOf(numberOfCopies));          // Multiple copies
+            header.append(String.valueOf(numberOfCopies));            // Multiple copies
         }
-        //header.append(",MI1");                                    // Multiple impact = 1
-        header.append(",PN0");                                      // No page number
-        switch (type) {
-            case INDEX_BASIC_D_V4: {
-                iPart = Math.floor(length.asInches());
-                fPart = (length.asInches() - iPart);
-                                     xx = EmbosserTools.toBytes((int)iPart, 2);
-                if (fPart > 0.75)  { xx = EmbosserTools.toBytes((int)(iPart + 1), 2);
-                                     y = '0'; } else
-                if (fPart > 2d/3d) { y = '5'; } else
-                if (fPart > 0.5)   { y = '4'; } else
-                if (fPart > 1d/3d) { y = '3'; } else
-                if (fPart > 0.25)  { y = '2'; } else
-                if (fPart > 0)     { y = '1'; } else
-                                   { y = '0'; }
-                header.append(",PL");
-                header.append((char)xx[0]);
-                header.append((char)xx[1]);
-                header.append((char)y);                             // Paper length
-
-                iPart = Math.floor(width.asInches());
-                fPart = (width.asInches() - iPart);
-                                     xx = EmbosserTools.toBytes((int)iPart, 2);
-                if (fPart > 0.75)  { xx = EmbosserTools.toBytes((int)(iPart + 1), 2);
-                                     y = '0'; } else
-                if (fPart > 2d/3d) { y = '5'; } else
-                if (fPart > 0.5)   { y = '4'; } else
-                if (fPart > 1d/3d) { y = '3'; } else
-                if (fPart > 0.25)  { y = '2'; } else
-                if (fPart > 0)     { y = '1'; } else
-                                   { y = '0'; }
-                header.append(",PW");
-                header.append((char)xx[0]);
-                header.append((char)xx[1]);
-                header.append((char)y);                             // Paper width
-                break;
-            }
-            case INDEX_EVEREST_D_V4: {
-                header.append(",PL");
-                header.append(String.valueOf(
-                    (int)Math.ceil(length.asMillimeter())));        // Paper length
-                header.append(",PW");
-                header.append(String.valueOf(
-                    (int)Math.ceil(width.asMillimeter())));         // Paper width
-                break;
-            }
-            default:
-        }
+        //header.append(",MI1");                                      // Multiple impact = 1
+        header.append(",PN0");                                        // No page number
         header.append(",CH");
-        header.append(String.valueOf(cellsInWidth));                // Characters per line
-        header.append(",IM");
-        header.append(String.valueOf(marginInner));                 // Inner margin
-        header.append(",OM");
-        header.append(String.valueOf(marginOuter));                 // Outer margin
+        header.append(String.valueOf(getMaxWidth(getPageFormat())));  // Characters per line
+        header.append(",LP");
+        header.append(String.valueOf(getMaxHeight(getPageFormat()))); // Lines per page
+        header.append(",BI");
+        header.append(String.valueOf(bindingMargin));                 // Binding margin
         header.append(",TM");
-        header.append(String.valueOf(marginTop));                   // Top margin
-        header.append(",BM");
-        header.append(String.valueOf(marginBottom));                // Bottom margin
+        header.append(String.valueOf(marginTop));                     // Top margin
+
         header.append(";");
 
         return header.toString().getBytes();
