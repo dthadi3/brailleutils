@@ -302,8 +302,8 @@ public class PEFGenerator {
                 throw new Exception("Paper too small");
             }
 
-            int marginTop = (int)Math.floor((rows-4-height)/2d);
-            int marginLeft = (int)Math.floor((cols-4-width)/2d);
+            int marginTop = (int)Math.floor((rows-2-height)/2d);
+            int marginLeft = (int)Math.floor((cols-2-width)/2d);
 
             char space = '\u2800';
             char borderLeft = '\u2807';
