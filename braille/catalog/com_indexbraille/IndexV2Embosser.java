@@ -107,7 +107,7 @@ public class IndexV2Embosser extends IndexEmbosser {
       //    throw new IllegalArgumentException(new UnsupportedPaperException("Number of pages = " + pageCount +  "; cannot exceed 200 when in magazine style mode"));
       //}
        
-        byte[] header = getIndexV2Header(duplexEnabled, eightDotsEnabled, cellsInWidth);
+        byte[] header = getIndexV2Header(cellsInWidth);
         byte[] footer = new byte[]{0x1a};
 
         EmbosserWriterProperties props =
@@ -133,9 +133,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         }
     }
 
-    private byte[] getIndexV2Header(boolean duplex,
-                                    boolean eightDots,
-                                    int cellsInWidth) {
+    private byte[] getIndexV2Header(int cellsInWidth) {
 
         StringBuffer header = new StringBuffer();
 
@@ -144,7 +142,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append((char)0x02);
         header.append("0,");                                    // 0: US table
         header.append("0,");                                    // 1: Type of braille code    = Computer
-        header.append(eightDots?'1':'0');                       // 2: 6/8 dot braille
+        header.append(eightDotsEnabled?'1':'0');                // 2: 6/8 dot braille
         header.append(",0,");                                   // 3: Capital prefix          = off
         header.append("x,");                                    // 4: Baud rate
         header.append("x,");                                    // 5: Number of data bits
@@ -160,10 +158,10 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append("0,");                                    // 12: Top margin             = 0 lines
         header.append("0,");                                    // 13: Bottom margin          = 0 lines
         header.append("4,");                                    // 14: Line spacing           = 5 mm
-        if (saddleStitchEnabled) { header.append('3'); } else
-        if (zFoldingEnabled)     { header.append('2'); } else
-        if (duplex)              { header.append('1'); } else
-                                 { header.append('0'); }        // 15: Page mode              = 1,2 or 4 pages per sheet or z-folding (3)
+        if (saddleStitchEnabled)  { header.append('3'); } else
+        if (zFoldingEnabled)      { header.append('2'); } else
+        if (duplexEnabled)        { header.append('1'); } else
+                           { header.append('0'); }              // 15: Page mode              = 1,2 or 4 pages per sheet or z-folding (3)
         header.append(",");
         header.append("0,");                                    // 16: Print mode             = normal
         header.append("0,");                                    // 17: Page number            = off
@@ -178,7 +176,7 @@ public class IndexV2Embosser extends IndexEmbosser {
         header.append("x,");                                    // 26: Graphic dot distance
         header.append("0,");                                    // 27: Text dot distance      = normal (2.5 mm)
         header.append("1,");                                    // 28: Setup                  = open (??)
-        header.append("x,x,x,x,x,x,x,x,x,x,x,");                 // 29-39: N/A
+        header.append("x,x,x,x,x,x,x,x,x,x,x,");                // 29-39: N/A
         header.append((char)0x1b);
         header.append((char)0x0f);
 

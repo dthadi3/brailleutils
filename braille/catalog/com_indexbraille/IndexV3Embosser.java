@@ -111,7 +111,7 @@ public class IndexV3Embosser extends IndexEmbosser {
             throw new IllegalArgumentException(new EmbosserFactoryException("Invalid number of copies: " + numberOfCopies + " is not in [1, 10000]"));
         }
 
-        byte[] header = getIndexV3Header(eightDotsEnabled, duplexEnabled, cellsInWidth);
+        byte[] header = getIndexV3Header();
         byte[] footer = new byte[0];
 
         EmbosserWriterProperties props =
@@ -137,9 +137,7 @@ public class IndexV3Embosser extends IndexEmbosser {
         }
     }
 
-    private byte[] getIndexV3Header(boolean eightDots,
-                                    boolean duplex,
-                                    int cellsInWidth) {
+    private byte[] getIndexV3Header() {
 
         PrintPage page = getPrintPage(getPageFormat());
         Length length = page.getLengthAlongFeed();
@@ -158,11 +156,12 @@ public class IndexV3Embosser extends IndexEmbosser {
         header.append(",TD0");                                      // Text dot distance = 2.5 mm
         header.append(",LS50");                                     // Line spacing = 5 mm
         header.append(",DP");
-        if (saddleStitchEnabled)       { header.append('4'); } else
-        if (zFoldingEnabled && duplex) { header.append('3'); } else
-        if (zFoldingEnabled)           { header.append('5'); } else
-        if (duplex)                    { header.append('2'); } else
-                                       { header.append('1'); }      // Page mode
+        if (saddleStitchEnabled)    { header.append('4'); } else
+        if (zFoldingEnabled && 
+                duplexEnabled)      { header.append('3'); } else
+        if (zFoldingEnabled)        { header.append('5'); } else
+        if (duplexEnabled)          { header.append('2'); } else
+                                    { header.append('1'); }         // Page mode
         if (numberOfCopies > 1) {
             header.append(",MC");
             header.append(String.valueOf(numberOfCopies));          // Multiple copies
@@ -218,8 +217,6 @@ public class IndexV3Embosser extends IndexEmbosser {
             }
             default:
         }
-        header.append(",CH");
-        header.append(String.valueOf(cellsInWidth));                // Characters per line
         header.append(",IM");
         header.append(String.valueOf(marginInner));                 // Inner margin
         header.append(",OM");

@@ -62,7 +62,7 @@ public class IndexEmbosserProvider implements EmbosserProvider {
                 embossers.put(EmbosserType.INDEX_4WAVES_PRO_V3,  new IndexV3Embosser("Index 4Waves Pro","", EmbosserType.INDEX_4WAVES_PRO_V3));
                 embossers.put(EmbosserType.INDEX_BASIC_D_V4,     new IndexV4Embosser("Index Basic-D V4","", EmbosserType.INDEX_BASIC_D_V4));
                 embossers.put(EmbosserType.INDEX_EVEREST_D_V4,   new IndexV4Embosser("Index Everest-D V4","", EmbosserType.INDEX_EVEREST_D_V4));
-              //embossers.put(EmbosserType.INDEX_BRAILLE_BOX_V4, new IndexV4Embosser("Index Braille Box","", EmbosserType.INDEX_BRAILLE_BOX_V4));
+                embossers.put(EmbosserType.INDEX_BRAILLE_BOX_V4, new IndexV4Embosser("Index Braille Box","", EmbosserType.INDEX_BRAILLE_BOX_V4));
         }
 
 	//jvm1.6@Override

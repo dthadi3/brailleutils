@@ -97,11 +97,14 @@ public class IndexV4Embosser extends IndexEmbosser {
         if (type == EmbosserType.INDEX_BRAILLE_BOX_V4) {
             Length across = dim.getLengthAcrossFeed();
             Length along = dim.getLengthAlongFeed();
-            return (across.asMillimeter() == 210  && along.asMillimeter() == 297) ||
-                   (across.asMillimeter() == 297  && along.asMillimeter() == 420) ||
-                   (across.asInches()     == 8.5  && along.asInches()     == 11) ||
-                   (across.asInches()     == 11.5 && along.asInches()     == 11) ||
-                   (across.asInches()     == 11   && along.asInches()     == 17);
+            if (saddleStitchEnabled) {
+                return (across.asMillimeter() == 297 && along.asMillimeter() == 420) ||
+                       (across.asInches()     == 11  && along.asInches()     == 17);
+            } else {
+                return (across.asMillimeter() == 297 && along.asMillimeter() == 210) ||
+                       (across.asInches()     == 11  && along.asInches()     == 8.5) ||
+                       (across.asInches()     == 11  && along.asInches()     == 11.5);
+            }
         } else {
             return super.supportsPrintPage(dim);
         }
@@ -123,7 +126,7 @@ public class IndexV4Embosser extends IndexEmbosser {
             throw new IllegalArgumentException(new EmbosserFactoryException("Invalid number of copies: " + numberOfCopies + " is not in [1, 10000]"));
         }
 
-        byte[] header = getIndexV4Header(eightDotsEnabled, duplexEnabled);
+        byte[] header = getIndexV4Header();
         byte[] footer = new byte[0];
 
         EmbosserWriterProperties props =
@@ -149,8 +152,7 @@ public class IndexV4Embosser extends IndexEmbosser {
         }
     }
 
-    private byte[] getIndexV4Header(boolean eightDots,
-                                    boolean duplex) {
+    private byte[] getIndexV4Header() {
 
         StringBuffer header = new StringBuffer();
 
@@ -160,12 +162,18 @@ public class IndexV4Embosser extends IndexEmbosser {
         header.append(",TD0");                                        // Text dot distance = 2.5 mm
         header.append(",LS50");                                       // Line spacing = 5 mm
         header.append(",DP");
-        if (saddleStitchEnabled)       { header.append('4'); } else
-        if (zFoldingEnabled && duplex) { header.append('3'); } else
-        if (zFoldingEnabled)           { header.append('5'); } else
-        if (duplex)                    { header.append('2'); } else
-                                       { header.append('1'); }        // Page mode
-                                                                      // Basic-D: Z-Folding sideways ???
+
+        if (saddleStitchEnabled
+                && !duplexEnabled)   { header.append('8'); } else
+//      if (swZFoldingEnabled
+//              && !duplexEnabled)   { header.append('7'); } else
+//      if (swZFoldingEnabled)       { header.append('6'); } else
+        if (zFoldingEnabled
+                && !duplexEnabled)   { header.append('5'); } else
+        if (saddleStitchEnabled)     { header.append('4'); } else
+        if (zFoldingEnabled)         { header.append('3'); } else
+        if (duplexEnabled)           { header.append('2'); } else
+                                     { header.append('1'); }          // Page mode
         if (numberOfCopies > 1) {
             header.append(",MC");
             header.append(String.valueOf(numberOfCopies));            // Multiple copies

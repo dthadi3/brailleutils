@@ -135,7 +135,7 @@ public class GenericEmbosser extends AbstractEmbosser {
     }
 
     public boolean supportsAligning() {
-        return false;
+        return true;
     }
 
 	public boolean supportsZFolding() {

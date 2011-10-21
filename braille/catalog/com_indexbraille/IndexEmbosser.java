@@ -149,8 +149,8 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
                 maxPrintPageWidth = 295d;
                 maxPrintPageHeight = 12*EmbosserTools.INCH_IN_MM;
                 break;
-//            case INDEX_BRAILLE_BOX_V4:
-//                break;
+            case INDEX_BRAILLE_BOX_V4:
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported embosser type");
         }
@@ -268,6 +268,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_4X4_PRO_V2:
             case INDEX_4X4_PRO_V3:
             case INDEX_EVEREST_D_V4:
+            case INDEX_BRAILLE_BOX_V4:
                 return true;
             case INDEX_BASIC_D_V2:
             case INDEX_EVEREST_D_V2:
@@ -298,6 +299,7 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_EVEREST_D_V4:
             case INDEX_4X4_PRO_V2:
             case INDEX_4X4_PRO_V3:
+            case INDEX_BRAILLE_BOX_V4:
             default:
                 return Paper.Type.SHEET;
         }
@@ -306,10 +308,16 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
     private PrintDirection getPrintDirection() {
         switch (type) {
             case INDEX_4X4_PRO_V2:
+                return PrintDirection.SIDEWAYS;
             case INDEX_4X4_PRO_V3:
+              //return saddleStitchEnabled?PrintDirection.SIDEWAYS:PrintDirection.UPRIGHT;
                 return PrintDirection.SIDEWAYS;
             case INDEX_EVEREST_D_V4:
                 return saddleStitchEnabled?PrintDirection.SIDEWAYS:PrintDirection.UPRIGHT;
+          //case INDEX_BASIC_D_V4:
+              //return swZFoldingEnabled?PrintDirection.SIDEWAYS:PrintDirection.UPRIGHT;
+            case INDEX_BRAILLE_BOX_V4:
+                return PrintDirection.SIDEWAYS;
             default:
                 return PrintDirection.UPRIGHT;
         }
@@ -347,6 +355,10 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         } else if (EmbosserFeatures.SADDLE_STITCH.equals(key) && supportsPrintMode(PrintMode.MAGAZINE)) {
             try {
                 saddleStitchEnabled = (Boolean)value;
+//              if (!(type==EmbosserType.INDEX_EVEREST_D_V4 ||
+//                    type==EmbosserType.INDEX_BRAILLE_BOX_V4)) {
+                  duplexEnabled = duplexEnabled || saddleStitchEnabled;
+//              }
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException("Unsupported value for saddle stitch.");
             }
@@ -362,6 +374,10 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
         } else if (EmbosserFeatures.DUPLEX.equals(key) && supportsDuplex()) {
             try {
                 duplexEnabled = (Boolean)value;
+//              if (!(type==EmbosserType.INDEX_EVEREST_D_V4 ||
+//                    type==EmbosserType.INDEX_BRAILLE_BOX_V4)) {
+                  duplexEnabled = duplexEnabled || saddleStitchEnabled;
+//              }
                 if (type==EmbosserType.INDEX_BASIC_D_V2) {
                     zFoldingEnabled = zFoldingEnabled && duplexEnabled;
                 }
