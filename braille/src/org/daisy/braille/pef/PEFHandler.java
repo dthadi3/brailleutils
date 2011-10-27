@@ -246,7 +246,7 @@ public class PEFHandler extends DefaultHandler {
 							embosser.newLine();
 						}
 //**** Added by Bert Frees *****************************************
-						else { // first row of new page
+						else if (embosser.supportsAligning()) { // first row of new page
 							addVerticalAlignPadding(topOffset);
 						}
 //******************************************************************

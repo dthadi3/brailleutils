@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import org.daisy.braille.embosser.AbstractEmbosser;
+import org.daisy.braille.embosser.AbstractEmbosserWriter.Padding;
 import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserTools;
@@ -91,6 +92,7 @@ public class GenericEmbosser extends AbstractEmbosser {
 		tc.setFeature("replacement", getFeature("replacement"));
 		ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, tc.newBrailleConverter());
 		b.breaks((String)getFeature("breaks"));
+                b.padNewline(Padding.NONE);
 		b.padNewline((String)getFeature("padNewline"));
 		final int maxWidth;
 		final int maxHeight;
@@ -103,9 +105,9 @@ public class GenericEmbosser extends AbstractEmbosser {
 		}
 		b.embosserProperties(
 				new SimpleEmbosserProperties(maxWidth, maxHeight)
-				.supports8dot(true)
-				.supportsDuplex(true)
-				.supportsAligning(false));
+				.supports8dot(supports8dot())
+				.supportsDuplex(supportsDuplex())
+				.supportsAligning(supportsAligning()));
 		return b.build();
 	}
 
