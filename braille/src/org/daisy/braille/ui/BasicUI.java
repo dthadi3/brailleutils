@@ -39,7 +39,8 @@ public class BasicUI extends AbstractUI {
 	public final static String split = "split";
 	public final static String merge = "merge";
 	public final static String generate = "generate";
-	enum Mode {EMBOSS, TEXT2PEF, PEF2TEXT, VALIDATE, SPLIT, MERGE, GENERATE};
+	public final static String list = "list";
+	enum Mode {EMBOSS, TEXT2PEF, PEF2TEXT, VALIDATE, SPLIT, MERGE, GENERATE, LIST};
 
 	private final String[] args;
 	private final Mode m;
@@ -123,6 +124,10 @@ public class BasicUI extends AbstractUI {
 				System.out.println("Starting generator application...");
 				GeneratePEF.main(getArgsSubList(1));
 				break;
+			case LIST:
+				System.out.println("Starting list application...");
+				ListStuff.main(getArgsSubList(1));
+				break;
 			default:
 				throw new RuntimeException("Coding error");
 		}
@@ -167,6 +172,7 @@ public class BasicUI extends AbstractUI {
 		values.add(new Definition(split, "split a PEF-file into several single volume files"));
 		values.add(new Definition(merge, "merge several single volume PEF-files into one"));
 		values.add(new Definition(generate, "generate a random PEF-file for testing"));
+		values.add(new Definition(list, "lists stuff"));
 		ret.add(new Argument("app_to_run", "the application to run", values));
 		return ret;
 	}

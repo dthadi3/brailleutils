@@ -165,6 +165,7 @@ braille/src/org/daisy/braille/ui/BasicUI.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/EmbossPEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/GeneratePEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/InputHelper.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/ui/ListStuff.java -text
 braille/src/org/daisy/braille/ui/MergePEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/PEFParser.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/RawPrint.java -text svneol=unset#text/plain
