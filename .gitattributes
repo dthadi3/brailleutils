@@ -66,6 +66,7 @@ braille/catalog/pl_com_harpo/MountbattenEmbosser.java -text
 braille/catalog/pl_com_harpo/MountbattenLineBreaks.java -text
 braille/catalog/se_tpb/CXTableProvider.java -text svneol=unset#text/plain
 braille/catalog/se_tpb/FA44PaperProvider.java -text svneol=unset#text/plain
+braille/doc/README.txt -text
 braille/doc/developer-guide.html -text
 braille/doc/user-guide.html -text
 braille/lib/isorelax.jar -text
@@ -292,5 +293,6 @@ braille/tests/org/daisy/braille/table/AdvancedBrailleConverterTest.java -text sv
 braille/tests/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/tools/EightToSixDotMapperTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
+braille/tests/org/daisy/paper/CustomPaperCollectionTest.java -text
 braille/tests/org/daisy/paper/PrintPageTest.java -text svneol=unset#text/plain
 braille/tests/org_daisy/EmbosserTableProviderTest.java -text svneol=unset#text/plain
