@@ -134,7 +134,6 @@ public class TextInputDetector {
 		}
 		Logger logger = Logger.getLogger(TextHandler.class.getCanonicalName());
 		HashMap<BitSet, HashMap<String, Table>> tables = analyzeTableCatalog(size>(64-4)); // 6-dot minus cleared codes
-		int colls = 0;
 		for (BitSet key : tables.keySet()) {
 			BitSet tableThumbprint = (BitSet)key.clone();
 			tableThumbprint.and(inputThumbprint);
@@ -152,7 +151,6 @@ public class TextInputDetector {
 					}
 					logger.fine("Input matches table(s):" + sb.toString());
 					res.addAll(coll);
-					colls++;
 				}
 			}
 		}

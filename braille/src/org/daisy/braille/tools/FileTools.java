@@ -76,14 +76,12 @@ public class FileTools {
 	public static URL[] toURL(File[] files) {
 		ArrayList<URL> urls = new ArrayList<URL>();
 		if (files!=null && files.length>0) {
-			int i = 0;
 			for (File f : files) {
 				try {
 					urls.add(f.toURI().toURL());
 				} catch (MalformedURLException e) {
 					logger.warning("Failed to convert " + f + " into an URL.");
 				}
-				i++;
 			}
 		}
 		return urls.toArray(new URL[]{});

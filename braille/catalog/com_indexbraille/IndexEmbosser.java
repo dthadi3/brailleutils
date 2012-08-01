@@ -168,6 +168,8 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
                     break;
                 case TRACTOR:
                     return supportsPageFormat(new TractorPaperFormat(paper.asTractorPaper()));
+				default:
+					break;
             }
         } catch (ClassCastException e) {
         }
@@ -183,6 +185,8 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
                     return supportsPrintPage(getPrintPage(format.asSheetPaperFormat()));
                 case TRACTOR:
                     return supportsPrintPage(getPrintPage(format.asTractorPaperFormat()));
+				default:
+					break;
             }
         } catch (ClassCastException e) {
         }
@@ -458,6 +462,8 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_4WAVES_PRO_V3:
                 printablePageWidth = Math.min(lengthAcrossFeed, 248.5);
                 break;
+			default:
+				break;
         }
 
         printablePageWidth  = Math.min(printablePageWidth,  maxCellsInWidth  * cellWidth);
@@ -474,6 +480,8 @@ public abstract class IndexEmbosser extends AbstractEmbosser {
             case INDEX_EVEREST_D_V3:
                 unprintableInner = Math.max(0, lengthAcrossFeed - 272.75);
                 break;
+			default:
+				break;
         }
 
         return new Area(printablePageWidth, printablePageHeight, unprintableInner, unprintableTop);
