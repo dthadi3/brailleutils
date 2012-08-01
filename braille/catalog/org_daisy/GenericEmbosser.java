@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import org.daisy.braille.embosser.AbstractEmbosser;
-import org.daisy.braille.embosser.AbstractEmbosserWriter.Padding;
 import org.daisy.braille.embosser.ConfigurableEmbosser;
 import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserTools;
@@ -92,22 +91,25 @@ public class GenericEmbosser extends AbstractEmbosser {
 		tc.setFeature("replacement", getFeature("replacement"));
 		ConfigurableEmbosser.Builder b = new ConfigurableEmbosser.Builder(os, tc.newBrailleConverter());
 		b.breaks((String)getFeature("breaks"));
-                b.padNewline(Padding.NONE);
+        // b.padNewline(Padding.NONE);
 		b.padNewline((String)getFeature("padNewline"));
-		final int maxWidth;
-		final int maxHeight;
+		SimpleEmbosserProperties sep;
 		if (getPageFormat()!=null) {
-			maxWidth = EmbosserTools.getWidth(pp, getCellWidth());
-			maxHeight = EmbosserTools.getHeight(pp, getCellHeight());
+			sep = new SimpleEmbosserProperties(
+					EmbosserTools.getWidth(pp, getCellWidth()), 
+					EmbosserTools.getHeight(pp, getCellHeight())
+					).supportsAligning(supportsAligning());
 		} else {
-			maxWidth = Integer.MAX_VALUE;
-			maxHeight = Integer.MAX_VALUE;
+			//using Integer.MAX_VALUE because SimpleEmbosserProperties/EmbosserWriterProperties
+			//does not support null width/height
+			sep = new SimpleEmbosserProperties(
+					Integer.MAX_VALUE, 
+					Integer.MAX_VALUE
+					//cannot support aligning for an unspecified page format
+					).supportsAligning(false);
 		}
-		b.embosserProperties(
-				new SimpleEmbosserProperties(maxWidth, maxHeight)
-				.supports8dot(supports8dot())
-				.supportsDuplex(supportsDuplex())
-				.supportsAligning(supportsAligning()));
+		b.embosserProperties(sep.supports8dot(supports8dot())
+				.supportsDuplex(supportsDuplex()));
 		return b.build();
 	}
 
@@ -137,6 +139,7 @@ public class GenericEmbosser extends AbstractEmbosser {
     }
 
     public boolean supportsAligning() {
+    	//should this be true?
         return true;
     }
 
