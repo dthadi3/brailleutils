@@ -116,11 +116,11 @@ braille/src/org/daisy/braille/embosser/StandardPageBreaks.java -text
 braille/src/org/daisy/braille/embosser/UnsupportedPaperException.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/UnsupportedWidthException.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/embosser/VolumeWriter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/braille/embosser/package-info.java -text
 braille/src/org/daisy/braille/facade/PEFConverterFacade.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/facade/PEFValidatorFacade.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/facade/package.html -text svneol=unset#text/plain
-braille/src/org/daisy/braille/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/braille/facade/package-info.java -text
+braille/src/org/daisy/braille/package-info.java -text
 braille/src/org/daisy/braille/pef/Element.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/InputDetectionException.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/NumeralSortString.java -text svneol=unset#text/plain
@@ -134,7 +134,7 @@ braille/src/org/daisy/braille/pef/PEFValidator.java -text svneol=unset#text/plai
 braille/src/org/daisy/braille/pef/Range.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/TextHandler.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/TextInputDetector.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/package-info.java -text
 braille/src/org/daisy/braille/pef/resource-files/RNG2Schtrn.xsl -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/resource-files/pef-2008-1-full.rng -text
 braille/src/org/daisy/braille/pef/resource-files/pef-2008-1-light.rng -text
@@ -152,13 +152,13 @@ braille/src/org/daisy/braille/table/TableCatalog.java -text svneol=unset#text/pl
 braille/src/org/daisy/braille/table/TableFilter.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/TableProperties.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/TableProvider.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/braille/table/package-info.java -text
 braille/src/org/daisy/braille/tools/EightToSixDotMapper.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/tools/FileCompare.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/tools/FileTools.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/tools/Length.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/tools/StringTranslator.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/tools/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/braille/tools/package-info.java -text
 braille/src/org/daisy/braille/tools/resource-files/normalize.xsl -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/AbstractUI.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/BasicUI.java -text svneol=unset#text/plain
@@ -173,13 +173,13 @@ braille/src/org/daisy/braille/ui/ShortFormResolver.java -text svneol=unset#text/
 braille/src/org/daisy/braille/ui/SplitPEF.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/TextParser.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/ui/ValidatePEF.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/braille/ui/package-info.java -text
 braille/src/org/daisy/factory/AbstractFactory.java -text svneol=unset#text/plain
 braille/src/org/daisy/factory/Factory.java -text svneol=unset#text/plain
 braille/src/org/daisy/factory/FactoryCatalog.java -text svneol=unset#text/plain
 braille/src/org/daisy/factory/FactoryFilter.java -text svneol=unset#text/plain
 braille/src/org/daisy/factory/Provider.java -text svneol=unset#text/plain
-braille/src/org/daisy/factory/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/factory/package-info.java -text
 braille/src/org/daisy/paper/AbstractPageFormat.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/AbstractPaper.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/Area.java -text
@@ -198,14 +198,14 @@ braille/src/org/daisy/paper/SheetPaper.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/SheetPaperFormat.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/TractorPaper.java -text svneol=unset#text/plain
 braille/src/org/daisy/paper/TractorPaperFormat.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/paper/package-info.java -text
 braille/src/org/daisy/printing/Device.java -text svneol=unset#text/plain
 braille/src/org/daisy/printing/FileDevice.java -text svneol=unset#text/plain
 braille/src/org/daisy/printing/PrinterDevice.java -text svneol=unset#text/plain
-braille/src/org/daisy/printing/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/printing/package-info.java -text
 braille/src/org/daisy/validator/Validator.java -text svneol=unset#text/plain
 braille/src/org/daisy/validator/ValidatorFactory.java -text svneol=unset#text/plain
-braille/src/org/daisy/validator/package.html -text svneol=unset#text/plain
+braille/src/org/daisy/validator/package-info.java -text
 braille/tests/be_interpoint/Interpoint55EmbosserTest.java -text
 braille/tests/be_interpoint/resource-files/double_sided.pef -text
 braille/tests/be_interpoint/resource-files/interpoint55_double_sided.prn -text svneol=unset#application/octet-stream
