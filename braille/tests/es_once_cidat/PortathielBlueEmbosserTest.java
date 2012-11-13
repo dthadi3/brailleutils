@@ -24,6 +24,7 @@ import org.daisy.paper.PageFormat;
 import org.daisy.paper.PaperCatalog;
 import org.daisy.paper.SheetPaper;
 import org.daisy.paper.SheetPaperFormat;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -47,6 +48,7 @@ public class PortathielBlueEmbosserTest {
     }
 
     @Test
+    @Ignore
     public void testTableFilter() {
 
         TableCatalog tc = TableCatalog.newInstance();
@@ -69,6 +71,7 @@ public class PortathielBlueEmbosserTest {
     }
 
     @Test
+    @Ignore
     public void testEmbosserWriter() throws IOException,
                                             ParserConfigurationException,
                                             SAXException,
