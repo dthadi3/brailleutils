@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project default="buildJars">
+<project default="buildAndTest">
 	<description>Buildfile for this project</description>
 	
 	<!-- Timestamp format definition -->
@@ -128,7 +128,7 @@
             <path id="test.run.classpath">
                 <path refid="test.classpath"/>
 				<pathelement location="${file.reference.junit}"/>
-                <fileset dir="${dist.dir}">
+                <fileset dir="${ant-output.dir}">
                     <include name="test.jar"/>
                 </fileset>
             </path>
@@ -184,45 +184,6 @@
         <target name="debianProperties" if="is.linux" depends="detectOS">
             <property file="build.debian.properties"/>
         </target>
-
-	<!-- - - - - - - - - - - - - - - - - - 
-          target: emptyBuildDir                      
-         - - - - - - - - - - - - - - - - - -->
-    <target name="emptyBuildDir">
-    	<delete dir="${build.dir}"/>
-    	<mkdir dir="${build.dir}"/>
-    </target>
-
-	<!-- - - - - - - - - - - - - - - - - - 
-          target: emptyCatalogBuildDir                      
-         - - - - - - - - - - - - - - - - - -->
-    <target name="emptyCatalogBuildDir">
-    	<delete dir="${catalog-build.dir}"/>
-    	<mkdir dir="${catalog-build.dir}"/>
-    </target>
-
-	<!-- - - - - - - - - - - - - - - - - - 
-          target: emptyTestBuildDir                      
-         - - - - - - - - - - - - - - - - - -->
-    <target name="emptyTestBuildDir">
-    	<delete dir="${test-build.dir}"/>
-    	<mkdir dir="${test-build.dir}"/>
-    </target>
-	
-	<!-- - - - - - - - - - - - - - - - - - 
-          target: emptyReportsDir                      
-         - - - - - - - - - - - - - - - - - -->
-    <target name="emptyReportsDir">
-    	<delete dir="${test.report.dir}"/>
-    	<mkdir dir="${test.report.dir}"/>
-    </target>
-	
-	<!-- - - - - - - - - - - - - - - - - - 
-          target: createJavadocDir                      
-         - - - - - - - - - - - - - - - - - -->
-    <target name="createJavadocDir">
-    	<mkdir dir="${javadoc.dir}"/>
-    </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: createCatalogJavadocDir                      
@@ -238,11 +199,15 @@
     <target name="createDistDir">
 		<mkdir dir="${dist.dir}"/>
     </target>
-	
-	<!-- - - - - - - - - - - - - - - - - -
-          target: compile              
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: buildCoreJar                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="compile" depends="emptyBuildDir, setClasspath">
+    <target name="buildCoreJar" depends="setClasspath, createDistDir">
+    	<!-- Empty build dir -->
+    	<delete dir="${build.dir}"/>
+    	<mkdir dir="${build.dir}"/>
+
     	<!-- Compile core files -->
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" debug="true" encoding="UTF-8" source="${javac.source}" target="${javac.target}" compiler="javac1.5">
 			<classpath>
@@ -250,12 +215,7 @@
 			</classpath>
         </javac>
 
-    </target>
-
-	<!-- - - - - - - - - - - - - - - - - - 
-          target: buildCoreJar                      
-         - - - - - - - - - - - - - - - - - -->
-    <target name="buildCoreJar" depends="compile, createDistDir">
+    	<!-- Build Core Jar -->
     	<jar destfile="${braille.jar}">
     		<fileset dir="${build.dir}">
     			<patternset refid="braille-jar.patternset"/>
@@ -273,24 +233,45 @@
     			<attribute name="Class-Path" value="${core.classpath.attribute}"/>
     		</manifest>
     	</jar>
+    	
+    	<!-- Build UI jar -->
+    	<jar destfile="${brailleUtils.jar}" >
+    		<fileset dir="${build.dir}">
+    			<patternset refid="braille-ui-jar.patternset"/>
+    		</fileset>
+    		<fileset dir="${src.dir}">
+    			<patternset refid="braille-ui-jar.patternset"/>
+    		</fileset>
+    		<manifest>
+    			<attribute name="Main-Class" value="org.daisy.braille.ui.BasicUI"/>
+    			<attribute name="Built-By" value="${user.name}"/>
+    			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    			<attribute name="Implementation-Title" value="${release-name} UI"/>
+    			<attribute name="Implementation-Version" value="${release-version}"/>
+    			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
+    			<attribute name="Class-Path" value="${ui.classpath.attribute}"/>
+    		</manifest>
+    	</jar>
+    	
+    	<!-- Remove build files -->
+    	<delete dir="${build.dir}"/>
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
-          target: compileCatalog                      
+          target: buildCatalogJar                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="compileCatalog" depends="buildCoreJar, emptyCatalogBuildDir">
+    <target name="buildCatalogJar" depends="buildCoreJar, createDistDir">
+    	<!-- Empty catalog build dir -->
+    	<delete dir="${catalog-build.dir}"/>
+    	<mkdir dir="${catalog-build.dir}"/>
+    		
     	<!-- Compile catalog files -->
         <javac srcdir="${catalog-src.dir}" destdir="${catalog-build.dir}" includeantruntime="false" debug="true" encoding="UTF-8" source="${javac.source}" target="${javac.target}" compiler="javac1.5">
 			<classpath>
 				<path refid="catalog.classpath"/>
 			</classpath>
         </javac>
-    </target>
-	
-	<!-- - - - - - - - - - - - - - - - - - 
-          target: buildCatalogJar                      
-         - - - - - - - - - - - - - - - - - -->
-    <target name="buildCatalogJar" depends="compileCatalog, createDistDir">
+
     	<jar destfile="${catalog.jar}">
     		<fileset dir="${catalog-build.dir}">
     			<patternset refid="catalog-jar.patternset"/>
@@ -307,26 +288,107 @@
     			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
     		</manifest>
     	</jar>
+    	
+    	<!-- Remove build files -->
+    	<delete dir="${catalog-build.dir}"/>
+    </target>
+	
+	<!-- ================================= 
+          target: buildJavadoc                      
+         ================================= -->
+    <target name="buildJavadoc" depends="setClasspath" description="Build javadoc">
+    	<!-- Empty javadoc dir -->
+    	<delete dir="${javadoc.dir}"/>
+    	<mkdir dir="${javadoc.dir}"/>
+    	
+    	<javadoc destdir="${javadoc.dir}"
+    			windowtitle="Braille Utils"
+    			encoding="UTF-8"
+    			charset="UTF-8"
+    			classpathref="javadoc.classpath"
+    			sourcepath="${src.dir}"
+    		>
+    		<link offline="true" href="http://java.sun.com/javase/6/docs/api/" packagelistLoc="ant-build/resources/javase-6"/>
+    	</javadoc>
+    </target>
+	
+	<!-- ================================= 
+          target: buildCatalogJavadoc                      
+         ================================= -->
+    <target name="buildCatalogJavadoc" depends="createCatalogJavadocDir, buildCoreJar" description="Build catalog javadoc">
+    	<javadoc destdir="${javadoc-catalog.dir}"
+    			windowtitle="Catalog"
+    			encoding="UTF-8"
+    			charset="UTF-8"
+    			classpathref="catalog-javadoc.classpath"
+    			sourcepath="${catalog-src.dir}"
+    		>
+    		<link offline="true" href="http://java.sun.com/javase/6/docs/api/" packagelistLoc="ant-build/resources/javase-6"/>
+    		<fileset dir="${src.dir}">
+    			<include name="**/*.java"/>
+    		</fileset>
+    		<fileset dir="${catalog-src.dir}">
+    			<include name="**/*.java"/>
+    		</fileset>
+    	</javadoc>
+    	<delete dir="${build.dir}"/>
+    </target>
+	
+
+	<!-- ================================= 
+          target: buildJavadocZip 
+         ================================= -->
+    <target name="buildJavadocZip" depends="buildJavadoc, createDistDir" description="Build zip javadoc">
+    	<zip destfile="${javadoc.zip}">
+    		<zipfileset dir="${javadoc.dir}" prefix="brailleUtils/docs/api">
+    			<include name="**/*.*"/>
+    		</zipfileset>
+    	</zip>
+    </target>
+	
+	<!-- ================================= 
+          target: buildZip 
+         ================================= -->
+    <target name="buildZip" description="Build zip distribution">
+    	<!-- Empty dist dir -->
+    	<delete dir="${dist.dir}"/>
+
+    	<antcall target="buildCatalogJar"/>
+
+    	<zip destfile="${distribution.zip}">
+    		<zipfileset file="${brailleUtils.jar}" prefix="brailleUtils/"/>
+    		<zipfileset file="${catalog.jar}" prefix="brailleUtils/lib"/>
+    		<zipfileset file="${braille.jar}" prefix="brailleUtils/lib"/>
+    		<zipfileset dir="${lib.dir}" prefix="brailleUtils/lib">
+    			<include name="*.jar"/>
+    		</zipfileset>
+    		<zipfileset dir="${basedir}/licenses" prefix="brailleUtils/licenses/">
+    			<include name="**/*.*"/>
+    		</zipfileset>
+    	</zip>
     </target>
 
-	<!-- - - - - - - - - - - - - - - - - - 
-          target: compileTests                      
-         - - - - - - - - - - - - - - - - - -->
-    <target name="compileTests" depends="buildCoreJar, buildCatalogJar, emptyTestBuildDir">
+	<!-- ================================= 
+          target: buildAndTest             
+         ================================= -->
+    <target name="buildAndTest" depends="buildZip, buildJavadoc" description="Build jars, javadoc and run unit tests">
+    	
+    	<!-- Empty reports dir -->
+    	<delete dir="${test.report.dir}"/>
+    	<mkdir dir="${test.report.dir}"/>
+    	
+		<!-- Empty test build dir -->
+    	<delete dir="${test-build.dir}"/>
+    	<mkdir dir="${test-build.dir}"/>
+
     	<!-- Compile test files -->
 	    <javac srcdir="${test-src.dir}" destdir="${test-build.dir}" includeantruntime="false" debug="true" encoding="UTF-8" source="${javac.source}" target="${javac.target}" compiler="javac1.5">
 			<classpath>
 				<path refid="test.classpath"/>
 			</classpath>
-	    </javac>            
-    </target>
-	
-	<!-- ================================= 
-          target: runUnitTests              
-         ================================= -->
-	<target name="runUnitTests" depends="emptyReportsDir, emptyTestBuildDir, createDistDir, compileTests" description="Run unit tests">
+	    </javac>
 
-		<jar destfile="${dist.dir}/test.jar" >
+		<jar destfile="${ant-output.dir}/test.jar" >
     		<fileset dir="${test-build.dir}">
     			<patternset refid="catalog-jar.patternset"/>
     		</fileset>
@@ -357,112 +419,9 @@
 		</junitreport>
 		
 		<delete dir="${test.report-temp.dir}"/>
-		<delete dir="${build.dir}"/>
 		<delete dir="${test-build.dir}"/>
     	<delete dir="${catalog-build.dir}"/>
-		<delete deleteonexit="true" file="${dist.dir}/test.jar"/>
-	</target>
-	
-	<!-- ================================= 
-          target: buildJavadoc                      
-         ================================= -->
-    <target name="buildJavadoc" depends="createJavadocDir, setClasspath" description="Build javadoc">
-    	<javadoc destdir="${javadoc.dir}"
-    			windowtitle="Braille Utils"
-    			encoding="UTF-8"
-    			charset="UTF-8"
-    			classpathref="javadoc.classpath"
-    			sourcepath="${src.dir}"
-    		>
-    		<link offline="true" href="http://java.sun.com/javase/6/docs/api/" packagelistLoc="ant-build/resources/javase-6"/>
-    		<fileset dir="${src.dir}">
-    			<include name="**/*.java"/>
-    		</fileset>
-    	</javadoc>
-    </target>
-	
-	<!-- ================================= 
-          target: buildCatalogJavadoc                      
-         ================================= -->
-    <target name="buildCatalogJavadoc" depends="createCatalogJavadocDir, buildCoreJar" description="Build catalog javadoc">
-    	<javadoc destdir="${javadoc-catalog.dir}"
-    			windowtitle="Catalog"
-    			encoding="UTF-8"
-    			charset="UTF-8"
-    			classpathref="catalog-javadoc.classpath"
-    			sourcepath="${catalog-src.dir}"
-    		>
-    		<link offline="true" href="http://java.sun.com/javase/6/docs/api/" packagelistLoc="ant-build/resources/javase-6"/>
-    		<fileset dir="${src.dir}">
-    			<include name="**/*.java"/>
-    		</fileset>
-    		<fileset dir="${catalog-src.dir}">
-    			<include name="**/*.java"/>
-    		</fileset>
-    	</javadoc>
-    	<delete dir="${build.dir}"/>
-    </target>
-	
-	<!-- ================================= 
-          target: buildJars              
-         ================================= -->
-    <target name="buildJars" depends="buildCoreJar, buildCatalogJar, createDistDir" description="Build jar-files for all packages">
-    	<jar destfile="${brailleUtils.jar}" >
-    		<fileset dir="${build.dir}">
-    			<patternset refid="braille-ui-jar.patternset"/>
-    		</fileset>
-    		<fileset dir="${src.dir}">
-    			<patternset refid="braille-ui-jar.patternset"/>
-    		</fileset>
-    		<manifest>
-    			<attribute name="Main-Class" value="org.daisy.braille.ui.BasicUI"/>
-    			<attribute name="Built-By" value="${user.name}"/>
-    			<attribute name="Built-On" value="${ISO-TODAY}"/>
-    			<attribute name="Implementation-Title" value="${release-name} UI"/>
-    			<attribute name="Implementation-Version" value="${release-version}"/>
-    			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
-    			<attribute name="Class-Path" value="${ui.classpath.attribute}"/>
-    		</manifest>
-    	</jar>
-
-    	<delete dir="${build.dir}"/>
-    	<delete dir="${catalog-build.dir}"/>
-    	<delete dir="${test-build.dir}"/>
-    </target>
-	
-	<!-- ================================= 
-          target: buildZip 
-         ================================= -->
-    <target name="buildZip" depends="buildJars, createDistDir" description="Build zip distribution">
-    	<zip destfile="${distribution.zip}">
-    		<zipfileset file="${brailleUtils.jar}" prefix="brailleUtils/"/>
-    		<zipfileset file="${catalog.jar}" prefix="brailleUtils/lib"/>
-    		<zipfileset file="${braille.jar}" prefix="brailleUtils/lib"/>
-    		<zipfileset dir="${lib.dir}" prefix="brailleUtils/lib">
-    			<include name="*.jar"/>
-    		</zipfileset>
-    		<zipfileset dir="${basedir}/licenses" prefix="brailleUtils/licenses/">
-    			<include name="**/*.*"/>
-    		</zipfileset>
-    	</zip>
-    </target>
-
-	<!-- ================================= 
-          target: buildJavadocZip 
-         ================================= -->
-    <target name="buildJavadocZip" depends="buildJavadoc, createDistDir" description="Build zip javadoc">
-    	<zip destfile="${javadoc.zip}">
-    		<zipfileset dir="${javadoc.dir}" prefix="brailleUtils/docs/api">
-    			<include name="**/*.*"/>
-    		</zipfileset>
-    	</zip>
-    </target>
-
-	<!-- ================================= 
-          target: all             
-         ================================= -->
-    <target name="all" depends="buildJavadoc, buildJars, runUnitTests" description="Build jars and javadoc">
-
+		<delete deleteonexit="true" file="${ant-output.dir}/test.jar"/>
     </target>
 
 </project>

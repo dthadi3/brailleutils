@@ -4,7 +4,7 @@
     <description>Builds, tests, and runs the project BrailleUtils.</description>
 
     <import file="build.xml"/>
-    <target depends="buildJars" name="jar"/>
-    <target depends="runUnitTests" name="test"/>
+    <target depends="buildZip" name="jar"/>
+    <target depends="buildAndTest" name="test"/>
 
 </project>
