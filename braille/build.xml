@@ -12,7 +12,9 @@
 	<!-- ================================================================== -->
 
 	<property name="release-name" value="Braille Utils"/>
-	<property name="release-version" value="1.2b"/>
+	<property name="release-version" value="snapshot"/>
+	<property name="repository-revision" value="N/A"/> 
+	
 	<property name="ant-build.dir" value="${basedir}/ant-build"/>
 	<property name="ant-output.dir" value="${ant-build.dir}/output"/>
 	<property name="dist.dir" value="${ant-output.dir}/dist"/>
@@ -38,8 +40,8 @@
 	<!--
 		Core jars for Braille Utils
 	-->
-	<property name="core-jar.name" value="brailleUtils-core-${release-version}.jar"/>
-	<property name="catalog-jar.name" value="brailleUtils-catalog-${release-version}.jar"/>
+	<property name="core-jar.name" value="brailleUtils-core.jar"/>
+	<property name="catalog-jar.name" value="brailleUtils-catalog.jar"/>
 
 	<property name="braille.jar" value="${dist.dir}/${core-jar.name}"/>
 	<property name="catalog.jar" value="${dist.dir}/${catalog-jar.name}"/>
@@ -47,7 +49,7 @@
 	<!--
 		UI jar for Braille Utils
 	 -->
-	<property name="brailleUtils.jar" value="${dist.dir}/brailleUtils-ui-${release-version}.jar"/>
+	<property name="brailleUtils.jar" value="${dist.dir}/brailleUtils-ui.jar"/>
 
 	<!--
 		Standalone distribution for Braille Utils
@@ -264,6 +266,7 @@
     		<manifest>
     			<attribute name="Built-By" value="${user.name}"/>
     			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    			<attribute name="Repository-Revision" value="${repository-revision}"/>
     			<attribute name="Implementation-Title" value="${release-name} Core"/>
     			<attribute name="Implementation-Version" value="${release-version}"/>
     			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>
@@ -298,6 +301,7 @@
     		<manifest>
     			<attribute name="Built-By" value="${user.name}"/>
     			<attribute name="Built-On" value="${ISO-TODAY}"/>
+    			<attribute name="Repository-Revision" value="${repository-revision}"/>
     			<attribute name="Implementation-Title" value="${release-name} Catalog"/>
     			<attribute name="Implementation-Version" value="${release-version}"/>
     			<attribute name="Implementation-URL" value="http://code.google.com/p/brailleutils/"/>

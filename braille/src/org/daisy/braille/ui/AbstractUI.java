@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import org.daisy.factory.Factory;
 import org.daisy.factory.FactoryCatalog;
@@ -292,6 +293,43 @@ public abstract class AbstractUI {
 			i++;
 		}
 		return p;
+	}
+	
+	public Map<String, String> getOptional(String[] args) {
+		Hashtable<String, String> p = new Hashtable<String, String>();
+		String[] t;
+		for (String s : args) {
+			s = s.trim();
+			t = s.split(delimiter, 2);
+			if (s.startsWith(optionalArgumentPrefix) && t.length==2) {
+				p.put(t[0].substring(1), t[1]);
+			}
+		}
+		return p;
+	}
+	
+	public List<String> getRequired(String[] args) {
+		Vector<String> p = new Vector<String>();
+		String[] t;
+		for (String s : args) {
+			s = s.trim();
+			t = s.split(delimiter, 2);
+			if (!(s.startsWith(optionalArgumentPrefix) && t.length==2)) {
+				p.add(s);
+			}
+		}
+		return p;
+	}
+	
+	public static void exitWithCode(ExitCode e) {
+		exitWithCode(e, null);
+	}
+	
+	public static void exitWithCode(ExitCode e, String message) {
+		if (message!=null) {
+			System.out.println(message);
+		}
+		System.exit(-e.ordinal());
 	}
 	
 	/**
