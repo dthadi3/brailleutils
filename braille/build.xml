@@ -361,6 +361,7 @@
     		<zipfileset file="${braille.jar}" prefix="brailleUtils/lib"/>
     		<zipfileset dir="${lib.dir}" prefix="brailleUtils/lib">
     			<include name="*.jar"/>
+    			<exclude name="junit*.*"/>
     		</zipfileset>
     		<zipfileset dir="${basedir}/licenses" prefix="brailleUtils/licenses/">
     			<include name="**/*.*"/>
