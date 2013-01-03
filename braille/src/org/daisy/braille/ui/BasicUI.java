@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.daisy.braille.tools.FileTools;
+import org.daisy.cli.AbstractUI;
 
 /**
  * Provides a basic command line UI for core functionality in

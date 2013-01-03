@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.daisy.braille.pef.PEFValidator;
+import org.daisy.cli.AbstractUI;
 import org.daisy.validator.ValidatorFactory;
 
 class ValidatePEF extends AbstractUI {

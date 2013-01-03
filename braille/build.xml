@@ -59,25 +59,22 @@
 
 	<patternset id="braille-jar.patternset">
 		<include name="org/daisy/braille/**/*.*"/>
-		<include name="org/daisy/catalog/**/*.*"/>
+		<include name="org/daisy/cli/**/*.*"/>
 		<include name="org/daisy/factory/**/*.*"/>
 		<include name="org/daisy/paper/**/*.*"/>
 		<include name="org/daisy/printing/**/*.*"/>
 		<include name="org/daisy/validator/**/*.*"/>
 		<include name="META-INF/**/*.*"/>
 		<exclude name="org/daisy/braille/ui/**/*.*"/>
-		<exclude name="**/package.html"/>
 	</patternset>
 
 	<patternset id="braille-ui-jar.patternset">
 		<include name="org/daisy/braille/ui/**/*.*"/>
-		<exclude name="**/package.html"/>
 	</patternset>
 
 	<patternset id="catalog-jar.patternset">
 		<include name="**/*.*"/>
 		<exclude name="**/doc-files/**/*.*"/>
-		<exclude name="**/package.html"/>
 	</patternset>
 
 	<!-- ================================================================== -->

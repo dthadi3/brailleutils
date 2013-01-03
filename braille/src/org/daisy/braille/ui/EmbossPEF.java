@@ -44,6 +44,7 @@ import org.daisy.braille.pef.Range;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.tools.Length;
+import org.daisy.cli.AbstractUI;
 import org.daisy.factory.Factory;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;

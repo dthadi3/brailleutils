@@ -26,6 +26,8 @@ import java.util.Map;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
 import org.daisy.braille.table.TableCatalog;
+import org.daisy.cli.AbstractUI;
+import org.daisy.cli.ShortFormResolver;
 
 /**
  * Reads an ASCII file and parses it into a basic PEF file.

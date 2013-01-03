@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.daisy.braille.pef.PEFFileSplitter;
+import org.daisy.cli.AbstractUI;
 
 /**
  * Provides a UI for splitting a PEF-file. Not for public use. 

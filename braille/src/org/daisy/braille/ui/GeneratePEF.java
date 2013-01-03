@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.daisy.braille.pef.PEFGenerator;
+import org.daisy.cli.AbstractUI;
 
 /**
  * Provides a UI for generating PEF-files. Not for public use.

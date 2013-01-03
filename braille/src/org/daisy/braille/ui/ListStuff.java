@@ -10,6 +10,7 @@ import org.daisy.braille.embosser.Embosser;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
+import org.daisy.cli.AbstractUI;
 import org.daisy.factory.Factory;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PaperCatalog;
