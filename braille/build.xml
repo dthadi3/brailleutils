@@ -94,7 +94,7 @@
             <property name="file.reference.xercesImpl" value="lib/xercesImpl.jar"/>
             <property name="file.reference.xml-apis"   value="lib/xml-apis.jar"/>
             <property name="file.reference.isorelax"   value="lib/isorelax.jar"/>
-			<property name="file.reference.junit"      value="lib/junit-4.4.jar"/>
+			<property name="file.reference.junit"      value="lib/junit-4.7.jar"/>
 
             <path id="core.classpath">
                 <pathelement location="${file.reference.saxon}"/>
