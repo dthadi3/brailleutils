@@ -67,6 +67,7 @@ braille/catalog/pl_com_harpo/MountbattenLineBreaks.java -text
 braille/catalog/se_tpb/CXTableProvider.java -text svneol=unset#text/plain
 braille/catalog/se_tpb/FA44PaperProvider.java -text svneol=unset#text/plain
 braille/doc/README.txt -text
+braille/doc/changes.txt -text
 braille/doc/developer-guide.html -text
 braille/doc/user-guide.html -text
 braille/lib/isorelax.jar -text
