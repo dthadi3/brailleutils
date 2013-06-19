@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.daisy.braille.embosser.Embosser;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
@@ -35,7 +34,7 @@ import org.xml.sax.SAXException;
 public class PortathielBlueEmbosserTest {
 
     private static EmbosserCatalog ec = EmbosserCatalog.newInstance();
-    private static Embosser e = ec.get("es_once_cidat.CidatEmbosserProvider.EmbosserType.PORTATHIEL_BLUE");
+    private static CidatEmbosser e = (CidatEmbosser)ec.get("es_once_cidat.CidatEmbosserProvider.EmbosserType.PORTATHIEL_BLUE");
 
     private static PaperCatalog pc = PaperCatalog.newInstance();
     private static PageFormat a4 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), SheetPaperFormat.Orientation.DEFAULT);

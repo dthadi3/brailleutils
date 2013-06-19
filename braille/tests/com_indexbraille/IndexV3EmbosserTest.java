@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.daisy.braille.embosser.Embosser;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
@@ -36,11 +35,11 @@ import org.xml.sax.SAXException;
 public class IndexV3EmbosserTest {
 
     private static EmbosserCatalog ec = EmbosserCatalog.newInstance();
-    private static Embosser everest = ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_EVEREST_D_V3");
-    private static Embosser basic_s = ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_BASIC_S_V3");
-    private static Embosser basic_d = ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_BASIC_D_V3");
-    private static Embosser _4x4pro = ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_4X4_PRO_V3");
-    private static Embosser _4waves = ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_4WAVES_PRO_V3");
+    private static IndexV3Embosser everest = (IndexV3Embosser)ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_EVEREST_D_V3");
+    private static IndexV3Embosser basic_s = (IndexV3Embosser)ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_BASIC_S_V3");
+    private static IndexV3Embosser basic_d = (IndexV3Embosser)ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_BASIC_D_V3");
+    private static IndexV3Embosser _4x4pro = (IndexV3Embosser)ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_4X4_PRO_V3");
+    private static IndexV3Embosser _4waves = (IndexV3Embosser)ec.get("com_indexbraille.IndexEmbosserProvider.EmbosserType.INDEX_4WAVES_PRO_V3");
 
     private static PaperCatalog pc = PaperCatalog.newInstance();
     private static PageFormat a3 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A3"), SheetPaperFormat.Orientation.DEFAULT);

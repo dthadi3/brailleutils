@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.daisy.braille.embosser.Embosser;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.EmbosserFeatures;
 import org.daisy.braille.embosser.EmbosserWriter;
@@ -34,23 +33,23 @@ import org.xml.sax.SAXException;
 public class EnablingTechnologiesEmbosserTest {
 
     private static EmbosserCatalog ec = EmbosserCatalog.newInstance();
-    private static Embosser ra =    ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_ATTACHE");
-    private static Embosser rap =   ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_ATTACHE_PRO");
-    private static Embosser r25 =   ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_25");
-    private static Embosser rp50 =  ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_PRO_50");
-    private static Embosser rpln =  ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_PRO_LE_NARROW");
-    private static Embosser rplw =  ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_PRO_LE_WIDE");
-    private static Embosser t =     ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.THOMAS");
-    private static Embosser tp =    ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.THOMAS_PRO");
-    private static Embosser m =     ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.MARATHON");
-    private static Embosser et =    ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ET");
-    private static Embosser jp =    ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.JULIET_PRO");
-    private static Embosser jp60 =  ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.JULIET_PRO_60");
-    private static Embosser jc =    ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.JULIET_CLASSIC");
-    private static Embosser bm =    ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.BOOKMAKER");
-    private static Embosser be100 = ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.BRAILLE_EXPRESS_100");
-    private static Embosser be150 = ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.BRAILLE_EXPRESS_150");
-    private static Embosser bp =    ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.BRAILLE_PLACE");
+    private static EnablingTechnologiesEmbosser ra =   (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_ATTACHE");
+    private static EnablingTechnologiesEmbosser rap =  (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_ATTACHE_PRO");
+    private static EnablingTechnologiesEmbosser r25 =  (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_25");
+    private static EnablingTechnologiesEmbosser rp50 = (EnablingTechnologiesEmbosser)ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_PRO_50");
+    private static EnablingTechnologiesEmbosser rpln = (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_PRO_LE_NARROW");
+    private static EnablingTechnologiesEmbosser rplw =  (EnablingTechnologiesEmbosser)ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ROMEO_PRO_LE_WIDE");
+    private static EnablingTechnologiesEmbosser t =     (EnablingTechnologiesEmbosser)ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.THOMAS");
+    private static EnablingTechnologiesEmbosser tp =    (EnablingTechnologiesEmbosser)ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.THOMAS_PRO");
+    private static EnablingTechnologiesEmbosser m =    (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.MARATHON");
+    private static EnablingTechnologiesEmbosser et =   (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.ET");
+    private static EnablingTechnologiesEmbosser jp =   (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.JULIET_PRO");
+    private static EnablingTechnologiesEmbosser jp60 = (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.JULIET_PRO_60");
+    private static EnablingTechnologiesEmbosser jc =   (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.JULIET_CLASSIC");
+    private static EnablingTechnologiesEmbosser bm =   (EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.BOOKMAKER");
+    private static EnablingTechnologiesEmbosser be100 =(EnablingTechnologiesEmbosser) ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.BRAILLE_EXPRESS_100");
+    private static EnablingTechnologiesEmbosser be150 = (EnablingTechnologiesEmbosser)ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.BRAILLE_EXPRESS_150");
+    private static EnablingTechnologiesEmbosser bp =    (EnablingTechnologiesEmbosser)ec.get("com_brailler.EnablingTechnologiesEmbosserProvider.EmbosserType.BRAILLE_PLACE");
 
     private static PaperCatalog pc = PaperCatalog.newInstance();
     private static PageFormat a4 = new SheetPaperFormat((SheetPaper)pc.get("org_daisy.ISO216PaperProvider.PaperSize.A4"), SheetPaperFormat.Orientation.DEFAULT);
