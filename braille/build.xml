@@ -347,7 +347,7 @@
 	<!-- ================================= 
           target: buildZip 
          ================================= -->
-    <target name="buildZip" description="Build zip distribution">
+    <target name="buildZip" description="Build zip distribution" depends="detectOS">
     	<!-- Empty dist dir -->
     	<delete dir="${dist.dir}"/>
 
@@ -358,7 +358,7 @@
     		<zipfileset file="${catalog.jar}" prefix="brailleUtils/lib"/>
     		<zipfileset file="${braille.jar}" prefix="brailleUtils/lib"/>
     		<zipfileset dir="${lib.dir}" prefix="brailleUtils/lib">
-    			<include name="*.jar"/>
+    			<include name="*.jar" unless="is.linux"/>
     			<exclude name="junit*.*"/>
     		</zipfileset>
     		<zipfileset dir="${basedir}/licenses" prefix="brailleUtils/licenses/">
