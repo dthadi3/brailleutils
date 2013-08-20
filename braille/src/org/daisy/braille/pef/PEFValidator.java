@@ -114,19 +114,14 @@ public class PEFValidator extends AbstractFactory implements org.daisy.validator
 		} catch (FileNotFoundException e) { }
 		try {
 
-			PropertyMapBuilder propertyBuilder = new PropertyMapBuilder();
-			propertyBuilder.put(ValidateProperty.ERROR_HANDLER, new TestError());
 			System.setErr(ps);
-			
-			//ValidationDriver vd = new ValidationDriver(propertyBuilder.toPropertyMap());
-			//InputStream schemaStream = ClassLoader.getSystemResourceAsStream("org/daisy/pef/pef-2008-1.rng");
-			//vd.loadSchema(new InputSource(schemaStream));
+
 			boolean ok;
-			ok = runValidation(propertyBuilder.toPropertyMap(), input, this.getClass().getResource(schemaPath));
+			ok = runValidation(input, this.getClass().getResource(schemaPath));
 			if (hasSchematron) {
 				try {
 					File schematron = transformSchematron(this.getClass().getResource(schemaPath));
-					ok &= runValidation(propertyBuilder.toPropertyMap(), input,schematron.toURI().toURL());
+					ok &= runValidation(input, schematron.toURI().toURL());
 				} catch (Exception e) {
 					e.printStackTrace();
 					ok = false;
@@ -141,7 +136,12 @@ public class PEFValidator extends AbstractFactory implements org.daisy.validator
 		}
 	}
 	
-	private boolean runValidation(PropertyMap map, URL url, URL schema) {
+	private boolean runValidation(URL url, URL schema) {
+		TestError errorHandler = new TestError();
+		PropertyMapBuilder propertyBuilder = new PropertyMapBuilder();
+
+		propertyBuilder.put(ValidateProperty.ERROR_HANDLER, errorHandler);
+		PropertyMap map = propertyBuilder.toPropertyMap();
         ValidationDriver vd = new ValidationDriver(map);
         try {
 			vd.loadSchema(new InputSource(schema.openStream()));
@@ -178,7 +178,8 @@ public class PEFValidator extends AbstractFactory implements org.daisy.validator
         return schematronSchema;
 	}
 	
-	class TestError implements ErrorHandler {
+	static class TestError implements ErrorHandler {
+		private boolean hasErrors = false;
 
 		//jvm1.6@Override
 		public void warning(SAXParseException exception) throws SAXException {
@@ -187,14 +188,20 @@ public class PEFValidator extends AbstractFactory implements org.daisy.validator
 
 		//jvm1.6@Override
 		public void error(SAXParseException exception) throws SAXException {
+			hasErrors = true;
 			buildErrorMessage("Error", exception);
 		}
 
 		//jvm1.6@Override
 		public void fatalError(SAXParseException exception) throws SAXException {
+			hasErrors = true;
 			buildErrorMessage("Fatal error", exception);
 		}
 		
+		public boolean hasErrors() {
+			return hasErrors;
+		}
+
 		private void buildErrorMessage(String type, SAXParseException e) {
 			int line = e.getLineNumber();
 			int column = e.getColumnNumber();
