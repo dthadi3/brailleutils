@@ -282,8 +282,10 @@ braille/tests/es_once_cidat/resource-files/single_sided.pef -text
 braille/tests/org/daisy/braille/pef/PEFBookTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/PEFFileMergerTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/PEFFileSplitterTest.java -text svneol=unset#text/plain
+braille/tests/org/daisy/braille/pef/PEFValidatorTest.java -text
 braille/tests/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
 braille/tests/org/daisy/braille/pef/resource-files/PEFBookTestInput.pef -text
+braille/tests/org/daisy/braille/pef/resource-files/PEFBookTestInputNotValid.pef -text
 braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestExpected.pef -text
 braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-1.pef -text
 braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-2.pef -text
