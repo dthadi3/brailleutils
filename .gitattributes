@@ -124,8 +124,12 @@ braille/src/org/daisy/braille/facade/package-info.java -text
 braille/src/org/daisy/braille/package-info.java -text
 braille/src/org/daisy/braille/pef/Element.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/InputDetectionException.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/NormalizationResource.java -text
 braille/src/org/daisy/braille/pef/NumeralSortString.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFBook.java -text svneol=unset#text/plain
+braille/src/org/daisy/braille/pef/PEFFileBatchCompare.java -text
+braille/src/org/daisy/braille/pef/PEFFileCompare.java -text
+braille/src/org/daisy/braille/pef/PEFFileCompareException.java -text
 braille/src/org/daisy/braille/pef/PEFFileMerger.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFFileSplitter.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/PEFGenerator.java -text svneol=unset#text/plain
@@ -139,6 +143,7 @@ braille/src/org/daisy/braille/pef/package-info.java -text
 braille/src/org/daisy/braille/pef/resource-files/RNG2Schtrn.xsl -text svneol=unset#text/plain
 braille/src/org/daisy/braille/pef/resource-files/pef-2008-1-full.rng -text
 braille/src/org/daisy/braille/pef/resource-files/pef-2008-1-light.rng -text
+braille/src/org/daisy/braille/pef/resource-files/strip-meta.xsl -text
 braille/src/org/daisy/braille/table/AbstractConfigurableTableProvider.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/AbstractTable.java -text svneol=unset#text/plain
 braille/src/org/daisy/braille/table/AdvancedBrailleConverter.java -text svneol=unset#text/plain
