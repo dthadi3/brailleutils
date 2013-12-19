@@ -36,10 +36,13 @@ public class PEFFileCompare {
 	public PEFFileCompare(URL nr) {
 		this(new URLNormalizationResource(nr));
 	}
-
+	
 	public boolean compare(File f1, File f2) throws PEFFileCompareException {
+		return compare(new StreamSource(f1), new StreamSource(f2));
+	}
+
+	public boolean compare(StreamSource xml1, StreamSource xml2) throws PEFFileCompareException {
 		pos = -1;
-		FileCompare fc = new FileCompare();
 
 		TransformerFactory factory = TransformerFactory.newInstance();
 		try {
@@ -50,11 +53,12 @@ public class PEFFileCompare {
 
 		try {
 			File t1 = File.createTempFile("FileCompare", ".tmp");
+			t1.deleteOnExit();
 			File t2 = File.createTempFile("FileCompare", ".tmp");
+			t2.deleteOnExit();
 
 			try {
-				StreamSource xml1 = new StreamSource(f1);
-				StreamSource xml2 = new StreamSource(f2);
+
 				Source xslt;
 				Transformer transformer;
 
@@ -65,6 +69,7 @@ public class PEFFileCompare {
 				xslt = new StreamSource(nr.getNormalizationResourceAsStream());
 				transformer = factory.newTransformer(xslt);
 				transformer.transform(xml2, new StreamResult(t2));
+				FileCompare fc = new FileCompare();
 				boolean ret = fc.compareXML(new FileInputStream(t1), new FileInputStream(t2));
 				pos = fc.getPos();
 				return ret;
@@ -77,11 +82,9 @@ public class PEFFileCompare {
 			} finally {
 				if (!t1.delete()) {
 					System.err.println("Delete failed");
-					t1.deleteOnExit();
 				}
 				if (!t2.delete()) {
 					System.err.println("Delete failed");
-					t2.deleteOnExit();
 				}
 			}
 		} catch (IOException e) {
