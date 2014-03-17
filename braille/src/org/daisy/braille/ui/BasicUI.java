@@ -98,35 +98,35 @@ public class BasicUI extends AbstractUI {
 		setPluginsDir(new File("plugins"));
 		switch (m) {
 			case EMBOSS:
-				System.out.println("Starting embossing application...");
+				logger.fine("Starting embossing application...");
 				EmbossPEF.main(getArgsSubList(1));
 				break;
 			case VALIDATE:
-				System.out.println("Starting validating application...");
+				logger.fine("Starting validating application...");
 				ValidatePEF.main(getArgsSubList(1));
 				break;
 			case PEF2TEXT:
-				System.out.println("Starting pef to text application...");
+				logger.fine("Starting pef to text application...");
 				PEFParser.main(getArgsSubList(1));
 				break;
 			case TEXT2PEF:
-				System.out.println("Starting text to pef application...");
+				logger.fine("Starting text to pef application...");
 				TextParser.main(getArgsSubList(1));
 				break;
 			case SPLIT:
-				System.out.println("Starting file splitter application...");
+				logger.fine("Starting file splitter application...");
 				SplitPEF.main(getArgsSubList(1));
 				break;
 			case MERGE:
-				System.out.println("Starting file merger application...");
+				logger.fine("Starting file merger application...");
 				MergePEF.main(getArgsSubList(1));
 				break;
 			case GENERATE:
-				System.out.println("Starting generator application...");
+				logger.fine("Starting generator application...");
 				GeneratePEF.main(getArgsSubList(1));
 				break;
 			case LIST:
-				System.out.println("Starting list application...");
+				logger.fine("Starting list application...");
 				ListStuff.main(getArgsSubList(1));
 				break;
 			default:
