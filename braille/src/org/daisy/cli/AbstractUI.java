@@ -289,8 +289,8 @@ public abstract class AbstractUI {
 				p.put(t[0].substring(1), t[1]);
 			} else {
 				p.put(ARG_PREFIX+i, s);
+				i++;
 			}
-			i++;
 		}
 		return p;
 	}
