@@ -35,13 +35,13 @@ jar {
 	include 'META-INF/**/*.*';
 	exclude 'org/daisy/braille/ui/**/*.*'
 	manifest {
-    	attributes ('Built-By': ''//'${user.name}'
-    	,'Built-On': new Date()					//'${ISO-TODAY}'
-		, 'Repository-Revision': ''//'${repository-revision}'
-		, 'Implementation-Title': ''//'${release-name} Core'
-		, 'Implementation-Version': ''//'${release-version}'
-		, 'Implementation-URL': ''//'http://code.google.com/p/brailleutils/'
-		, 'Class-Path': ''//'${core.classpath.attribute}'
+    	attributes ('Built-By': '',				//'${user.name}'
+    	'Built-On': new Date(),					//'${ISO-TODAY}'
+		'Repository-Revision': "$repositoryRevision",
+		'Implementation-Title': "$releaseName Core",
+		'Implementation-Version': "$releaseVersion",
+		'Implementation-URL': 'http://code.google.com/p/brailleutils/',
+		'Class-Path': ''													//'${core.classpath.attribute}'
 		)
 	}
 }

@@ -71,6 +71,7 @@ braille/doc/README.txt -text
 braille/doc/changes.txt -text
 braille/doc/developer-guide.html -text
 braille/doc/user-guide.html -text
+braille/gradle.properties -text
 braille/lib/isorelax.jar -text
 braille/lib/jing.jar -text
 braille/lib/junit-4.7.jar -text
