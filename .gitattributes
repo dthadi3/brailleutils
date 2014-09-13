@@ -1,4 +1,10 @@
 * text=auto !eol
+BrailleUtils/build.gradle -text
+BrailleUtils/gradle.properties -text svneol=unset#text/plain
+braille-utils.api/build.gradle -text
+braille-utils.api/gradle.properties -text svneol=unset#text/plain
+braille-utils.impl/build.gradle -text
+braille-utils.impl/gradle.properties -text svneol=unset#text/plain
 braille/.classpath -text svneol=unset#text/plain
 braille/.project -text svneol=unset#text/plain
 braille/ant-build/resources/javase-6/package-list -text
