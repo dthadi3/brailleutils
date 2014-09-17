@@ -1,10 +1,306 @@
 * text=auto !eol
+BrailleUtils/.classpath -text
+BrailleUtils/.project -text
 BrailleUtils/build.gradle -text
+BrailleUtils/docs/README.txt -text
+BrailleUtils/docs/changes.txt -text
+BrailleUtils/docs/developer-guide.html -text
+BrailleUtils/docs/user-guide.html -text
 BrailleUtils/gradle.properties -text svneol=unset#text/plain
+BrailleUtils/licenses/lgpl.txt -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/BasicUI.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/EmbossPEF.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/GeneratePEF.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/InputHelper.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/ListStuff.java -text
+BrailleUtils/src/org/daisy/braille/ui/MergePEF.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/PEFParser.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/RawPrint.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/SplitPEF.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/TextParser.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/ValidatePEF.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/package-info.java -text
+braille-utils.api/.classpath -text
+braille-utils.api/.project -text
 braille-utils.api/build.gradle -text
 braille-utils.api/gradle.properties -text svneol=unset#text/plain
+braille-utils.api/src/META-INF/services/javax.xml.transform.TransformerFactory -text
+braille-utils.api/src/META-INF/services/org.daisy.braille.table.TableProvider -text
+braille-utils.api/src/META-INF/services/org.daisy.validator.Validator -text
+braille-utils.api/src/org/daisy/braille/BrailleConstants.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/AbstractEmbosser.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/AbstractEmbosserWriter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/BufferedEmbosserWriter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/BufferedVolumeEmbosser.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/ConfigurableEmbosser.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/Contract.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/ContractNotSupportedException.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/DefaultEmbosserCatalog.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/Embosser.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserCatalog.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserFactoryException.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserFeatures.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserFilter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserProperties.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserProvider.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserTools.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserWriter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserWriterEvent.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserWriterProperties.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/FileFormat.java -text
+braille-utils.api/src/org/daisy/braille/embosser/FileFormatProperties.java -text
+braille-utils.api/src/org/daisy/braille/embosser/FileFormatProvider.java -text
+braille-utils.api/src/org/daisy/braille/embosser/FileToDeviceEmbosserWriter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/LineBreaks.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/PageBreaks.java -text
+braille-utils.api/src/org/daisy/braille/embosser/SimpleEmbosserProperties.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/StandardLineBreaks.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/StandardPageBreaks.java -text
+braille-utils.api/src/org/daisy/braille/embosser/UnsupportedPaperException.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/UnsupportedWidthException.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/VolumeWriter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/package-info.java -text
+braille-utils.api/src/org/daisy/braille/facade/PEFConverterFacade.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/facade/PEFValidatorFacade.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/facade/package-info.java -text
+braille-utils.api/src/org/daisy/braille/package-info.java -text
+braille-utils.api/src/org/daisy/braille/pef/Element.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/InputDetectionException.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/NormalizationResource.java -text
+braille-utils.api/src/org/daisy/braille/pef/NumeralSortString.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/PEFBook.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/PEFFileBatchCompare.java -text
+braille-utils.api/src/org/daisy/braille/pef/PEFFileCompare.java -text
+braille-utils.api/src/org/daisy/braille/pef/PEFFileCompareException.java -text
+braille-utils.api/src/org/daisy/braille/pef/PEFFileMerger.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/PEFFileSplitter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/PEFGenerator.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/PEFHandler.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/PEFNamespaceContext.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/PEFValidator.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/Range.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/TextHandler.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/TextInputDetector.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/package-info.java -text
+braille-utils.api/src/org/daisy/braille/pef/resource-files/RNG2Schtrn.xsl -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/resource-files/pef-2008-1-full.rng -text
+braille-utils.api/src/org/daisy/braille/pef/resource-files/pef-2008-1-light.rng -text
+braille-utils.api/src/org/daisy/braille/pef/resource-files/strip-meta.xsl -text
+braille-utils.api/src/org/daisy/braille/table/AbstractConfigurableTableProvider.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/AbstractTable.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/AdvancedBrailleConverter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/BrailleConverter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/ConfigurableTableProvider.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/DefaultTableCatalog.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/DefaultTableProvider.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/EmbosserBrailleConverter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/EmbosserTable.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/Table.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/TableCatalog.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/TableFilter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/TableProperties.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/TableProvider.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/table/package-info.java -text
+braille-utils.api/src/org/daisy/braille/tools/EightToSixDotMapper.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/tools/FileCompare.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/tools/FileTools.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/tools/Length.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/tools/StringTranslator.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/tools/package-info.java -text
+braille-utils.api/src/org/daisy/braille/tools/resource-files/normalize.xsl -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/cli/AbstractUI.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/cli/ShortFormResolver.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/cli/package-info.java -text
+braille-utils.api/src/org/daisy/factory/AbstractFactory.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/factory/Factory.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/factory/FactoryCatalog.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/factory/FactoryFilter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/factory/Provider.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/factory/package-info.java -text
+braille-utils.api/src/org/daisy/paper/AbstractPageFormat.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/AbstractPaper.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/Area.java -text
+braille-utils.api/src/org/daisy/paper/CustomPaperCollection.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/DefaultPaperCatalog.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/Dimensions.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/PageFormat.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/Paper.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/PaperCatalog.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/PaperFilter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/PaperProvider.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/PrintPage.java -text
+braille-utils.api/src/org/daisy/paper/RollPaper.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/RollPaperFormat.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/SheetPaper.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/SheetPaperFormat.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/TractorPaper.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/TractorPaperFormat.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/package-info.java -text
+braille-utils.api/src/org/daisy/printing/Device.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/printing/FileDevice.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/printing/PrinterDevice.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/printing/package-info.java -text
+braille-utils.api/src/org/daisy/validator/Validator.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/validator/ValidatorFactory.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/validator/package-info.java -text
+braille-utils.api/test/org/daisy/braille/pef/PEFBookTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/pef/PEFFileMergerTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/pef/PEFFileSplitterTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/pef/PEFValidatorTest.java -text
+braille-utils.api/test/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFBookTestInput.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFBookTestInputNotValid.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileMergerTestExpected.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-1.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-2.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-3.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-1.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-2.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-3.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileSplitterTestInput.pef -text
+braille-utils.api/test/org/daisy/braille/table/AdvancedBrailleConverterTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/tools/EightToSixDotMapperTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/paper/CustomPaperCollectionTest.java -text
+braille-utils.api/test/org/daisy/paper/PrintPageTest.java -text svneol=unset#text/plain
+braille-utils.impl/.classpath -text
+braille-utils.impl/.project -text
 braille-utils.impl/build.gradle -text
 braille-utils.impl/gradle.properties -text svneol=unset#text/plain
+braille-utils.impl/src/META-INF/services/org.daisy.braille.embosser.EmbosserProvider -text
+braille-utils.impl/src/META-INF/services/org.daisy.braille.table.TableProvider -text
+braille-utils.impl/src/META-INF/services/org.daisy.paper.PaperProvider -text
+braille-utils.impl/src/be_interpoint/Interpoint55Embosser.java -text
+braille-utils.impl/src/be_interpoint/InterpointEmbosserProvider.java -text
+braille-utils.impl/src/be_interpoint/InterpointTableProvider.java -text
+braille-utils.impl/src/com_brailler/EnablingTechnologiesDoubleSidedEmbosser.java -text
+braille-utils.impl/src/com_brailler/EnablingTechnologiesEmbosser.java -text
+braille-utils.impl/src/com_brailler/EnablingTechnologiesEmbosserProvider.java -text
+braille-utils.impl/src/com_brailler/EnablingTechnologiesSingleSidedEmbosser.java -text
+braille-utils.impl/src/com_braillo/AbstractBraillo200Embosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/AbstractBraillo440Embosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/Braillo200Embosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/Braillo200_270_400_v12_16Embosser.java -text
+braille-utils.impl/src/com_braillo/Braillo200_270_400_v1_11Embosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/Braillo400SEmbosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/Braillo400SREmbosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/Braillo440SFEmbosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/Braillo440SWEmbosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/Braillo440VolumeWriter.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/BrailloEmbosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/BrailloEmbosserProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/BrailloTableProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_braillo/BrailloVolumeWriter.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_indexbraille/BlueBarEmbosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_indexbraille/IndexEmbosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_indexbraille/IndexEmbosserProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_indexbraille/IndexTableProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_indexbraille/IndexTransparentEmbosserWriter.java -text
+braille-utils.impl/src/com_indexbraille/IndexV2Embosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/com_indexbraille/IndexV3Embosser.java -text
+braille-utils.impl/src/com_indexbraille/IndexV4Embosser.java -text
+braille-utils.impl/src/com_viewplus/TigerEmbosser.java -text
+braille-utils.impl/src/com_viewplus/ViewPlusEmbosserProvider.java -text
+braille-utils.impl/src/com_viewplus/ViewPlusTableProvider.java -text
+braille-utils.impl/src/com_yourdolphin/SupernovaTableProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/es_once_cidat/CidatEmbosser.java -text
+braille-utils.impl/src/es_once_cidat/CidatEmbosserProvider.java -text
+braille-utils.impl/src/es_once_cidat/CidatLineBreaks.java -text
+braille-utils.impl/src/es_once_cidat/CidatPageBreaks.java -text
+braille-utils.impl/src/es_once_cidat/CidatTableProvider.java -text
+braille-utils.impl/src/es_once_cidat/ImpactoEmbosser.java -text
+braille-utils.impl/src/es_once_cidat/PortathielBlueEmbosser.java -text
+braille-utils.impl/src/org_daisy/BrailleEditorsFileFormat.java -text
+braille-utils.impl/src/org_daisy/BrailleEditorsFileFormatProvider.java -text
+braille-utils.impl/src/org_daisy/BrailleEditorsTableProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/org_daisy/CustomPaperProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/org_daisy/EmbosserTableProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/org_daisy/GenericEmbosser.java -text svneol=unset#text/plain
+braille-utils.impl/src/org_daisy/GenericEmbosserProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/org_daisy/ISO216PaperProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/org_daisy/MicroBrailleFileFormatWriter.java -text
+braille-utils.impl/src/org_daisy/NoPageBreaks.java -text
+braille-utils.impl/src/org_daisy/NorthAmericaPaperProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/org_daisy/RollPaperProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/org_daisy/TractorPaperProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/pl_com_harpo/HarpoEmbosserProvider.java -text
+braille-utils.impl/src/pl_com_harpo/MountbattenEmbosser.java -text
+braille-utils.impl/src/pl_com_harpo/MountbattenLineBreaks.java -text
+braille-utils.impl/src/se_tpb/CXTableProvider.java -text svneol=unset#text/plain
+braille-utils.impl/src/se_tpb/FA44PaperProvider.java -text svneol=unset#text/plain
+braille-utils.impl/test/be_interpoint/Interpoint55EmbosserTest.java -text
+braille-utils.impl/test/be_interpoint/resource-files/double_sided.pef -text
+braille-utils.impl/test/be_interpoint/resource-files/interpoint55_double_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/be_interpoint/resource-files/interpoint55_single_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/be_interpoint/resource-files/single_sided.pef -text
+braille-utils.impl/test/com_brailler/EnablingTechnologiesEmbosserTest.java -text
+braille-utils.impl/test/com_brailler/resource-files/double_sided.pef -text
+braille-utils.impl/test/com_brailler/resource-files/juliet_pro_double_sided.prn -text
+braille-utils.impl/test/com_brailler/resource-files/juliet_pro_single_sided.prn -text
+braille-utils.impl/test/com_brailler/resource-files/single_sided.pef -text
+braille-utils.impl/test/com_brailler/resource-files/thomas_single_sided.prn -text
+braille-utils.impl/test/com_braillo/AbstractTestBraillo200Embosser.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/AbstractTestBraillo440Embosser.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/Braillo200EmbosserTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/Braillo270EmbosserTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/Braillo400SEmbosserTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/Braillo400SREmbosserTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/Braillo440SW2PEmbosserTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/Braillo440SW4PEmbosserTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/Braillo440SWSFEmbosserTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/BrailloTableProviderTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_braillo/resource-files/test-input-1.pef -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo200_us_210mm_by_12inch.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo270_us_210mm_by_12inch.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo400SR_us_a4_roll.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo400S_us_210mm_by_12inch.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-1.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-2.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-3.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo440SW_2p_us_fa44-1.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo440SW_2p_us_fa44-2.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo440SW_2p_us_fa44-3.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo440SW_4p_us_fa44-1.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo440SW_4p_us_fa44-2.prn -text
+braille-utils.impl/test/com_braillo/resource-files/test-input-1_braillo440SW_4p_us_fa44-3.prn -text
+braille-utils.impl/test/com_indexbraille/BlueBarEmbosserTest.java -text
+braille-utils.impl/test/com_indexbraille/IndexTableProviderTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/com_indexbraille/IndexV2EmbosserTest.java -text
+braille-utils.impl/test/com_indexbraille/IndexV3EmbosserTest.java -text
+braille-utils.impl/test/com_indexbraille/resource-files/4x4_pro_v2_double_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/4x4_pro_v2_saddle_stitch.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/4x4_pro_v3_double_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/4x4_pro_v3_saddle_stitch.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/basic_d_v2_double_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/basic_d_v2_single_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/basic_d_v2_zfolding.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/basic_d_v3_double_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/basic_d_v3_single_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/basic_d_v3_zfolding_double_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/basic_d_v3_zfolding_single_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/basic_s_v2_single_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/basic_s_v3_single_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/bluebar_single_sided.prn -text
+braille-utils.impl/test/com_indexbraille/resource-files/double_sided.pef -text
+braille-utils.impl/test/com_indexbraille/resource-files/everest_v2_double_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/everest_v3_double_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/com_indexbraille/resource-files/single_sided.pef -text
+braille-utils.impl/test/com_indexbraille/resource-files/test-input-1.pef -text
+braille-utils.impl/test/com_indexbraille/resource-files/test-input-1_basic-v2_12inch.prn -text
+braille-utils.impl/test/com_indexbraille/resource-files/test-input-1_everest-v2_a4.prn -text
+braille-utils.impl/test/com_yourdolphin/SupernovaTableProviderTest.java -text svneol=unset#text/plain
+braille-utils.impl/test/es_once_cidat/ImpactoEmbosserTest.java -text
+braille-utils.impl/test/es_once_cidat/PortathielBlueEmbosserTest.java -text
+braille-utils.impl/test/es_once_cidat/resource-files/double_sided.pef -text
+braille-utils.impl/test/es_once_cidat/resource-files/impacto_double_sided.prn -text
+braille-utils.impl/test/es_once_cidat/resource-files/impacto_single_sided.prn -text
+braille-utils.impl/test/es_once_cidat/resource-files/portathiel_mit_double_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/es_once_cidat/resource-files/portathiel_mit_single_sided.prn -text svneol=unset#application/octet-stream
+braille-utils.impl/test/es_once_cidat/resource-files/portathiel_transparent_double_sided.prn -text
+braille-utils.impl/test/es_once_cidat/resource-files/portathiel_transparent_single_sided.prn -text
+braille-utils.impl/test/es_once_cidat/resource-files/single_sided.pef -text
+braille-utils.impl/test/org_daisy/EmbosserTableProviderTest.java -text svneol=unset#text/plain
 braille/.classpath -text svneol=unset#text/plain
 braille/.project -text svneol=unset#text/plain
 braille/ant-build/resources/javase-6/package-list -text
@@ -12,71 +308,6 @@ braille/ant-build/resources/nsisant-1.2.jar -text
 braille/build.debian.properties -text
 braille/build.gradle -text
 braille/build.xml -text svneol=unset#text/plain
-braille/catalog/META-INF/services/org.daisy.braille.embosser.EmbosserProvider -text
-braille/catalog/META-INF/services/org.daisy.braille.table.TableProvider -text
-braille/catalog/META-INF/services/org.daisy.paper.PaperProvider -text
-braille/catalog/be_interpoint/Interpoint55Embosser.java -text
-braille/catalog/be_interpoint/InterpointEmbosserProvider.java -text
-braille/catalog/be_interpoint/InterpointTableProvider.java -text
-braille/catalog/com_brailler/EnablingTechnologiesDoubleSidedEmbosser.java -text
-braille/catalog/com_brailler/EnablingTechnologiesEmbosser.java -text
-braille/catalog/com_brailler/EnablingTechnologiesEmbosserProvider.java -text
-braille/catalog/com_brailler/EnablingTechnologiesSingleSidedEmbosser.java -text
-braille/catalog/com_braillo/AbstractBraillo200Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/AbstractBraillo440Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/Braillo200Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/Braillo200_270_400_v12_16Embosser.java -text
-braille/catalog/com_braillo/Braillo200_270_400_v1_11Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/Braillo400SEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/Braillo400SREmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/Braillo440SFEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/Braillo440SWEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/Braillo440VolumeWriter.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/BrailloEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/BrailloEmbosserProvider.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/BrailloTableProvider.java -text svneol=unset#text/plain
-braille/catalog/com_braillo/BrailloVolumeWriter.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/BlueBarEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexEmbosser.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexEmbosserProvider.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexTableProvider.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexTransparentEmbosserWriter.java -text
-braille/catalog/com_indexbraille/IndexV2Embosser.java -text svneol=unset#text/plain
-braille/catalog/com_indexbraille/IndexV3Embosser.java -text
-braille/catalog/com_indexbraille/IndexV4Embosser.java -text
-braille/catalog/com_viewplus/TigerEmbosser.java -text
-braille/catalog/com_viewplus/ViewPlusEmbosserProvider.java -text
-braille/catalog/com_viewplus/ViewPlusTableProvider.java -text
-braille/catalog/com_yourdolphin/SupernovaTableProvider.java -text svneol=unset#text/plain
-braille/catalog/es_once_cidat/CidatEmbosser.java -text
-braille/catalog/es_once_cidat/CidatEmbosserProvider.java -text
-braille/catalog/es_once_cidat/CidatLineBreaks.java -text
-braille/catalog/es_once_cidat/CidatPageBreaks.java -text
-braille/catalog/es_once_cidat/CidatTableProvider.java -text
-braille/catalog/es_once_cidat/ImpactoEmbosser.java -text
-braille/catalog/es_once_cidat/PortathielBlueEmbosser.java -text
-braille/catalog/org_daisy/BrailleEditorsFileFormat.java -text
-braille/catalog/org_daisy/BrailleEditorsFileFormatProvider.java -text
-braille/catalog/org_daisy/BrailleEditorsTableProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/CustomPaperProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/EmbosserTableProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/GenericEmbosser.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/GenericEmbosserProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/ISO216PaperProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/MicroBrailleFileFormatWriter.java -text
-braille/catalog/org_daisy/NoPageBreaks.java -text
-braille/catalog/org_daisy/NorthAmericaPaperProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/RollPaperProvider.java -text svneol=unset#text/plain
-braille/catalog/org_daisy/TractorPaperProvider.java -text svneol=unset#text/plain
-braille/catalog/pl_com_harpo/HarpoEmbosserProvider.java -text
-braille/catalog/pl_com_harpo/MountbattenEmbosser.java -text
-braille/catalog/pl_com_harpo/MountbattenLineBreaks.java -text
-braille/catalog/se_tpb/CXTableProvider.java -text svneol=unset#text/plain
-braille/catalog/se_tpb/FA44PaperProvider.java -text svneol=unset#text/plain
-braille/doc/README.txt -text
-braille/doc/changes.txt -text
-braille/doc/developer-guide.html -text
-braille/doc/user-guide.html -text
 braille/gradle.properties -text
 braille/lib/isorelax.jar -text
 braille/lib/jing.jar -text
@@ -86,231 +317,6 @@ braille/lib/stax-api-1.0.1.jar -text
 braille/lib/wstx-lgpl-3.2.8.jar -text
 braille/lib/xercesImpl.jar -text
 braille/lib/xml-apis.jar -text
-braille/licenses/lgpl.txt -text svneol=unset#text/plain
 braille/nbbuild.xml -text
 braille/nbproject/project.properties -text
 braille/nbproject/project.xml -text
-braille/src/META-INF/services/javax.xml.transform.TransformerFactory -text
-braille/src/META-INF/services/org.daisy.braille.table.TableProvider -text
-braille/src/META-INF/services/org.daisy.validator.Validator -text
-braille/src/org/daisy/braille/BrailleConstants.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/AbstractEmbosser.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/AbstractEmbosserWriter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/BufferedEmbosserWriter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/BufferedVolumeEmbosser.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/ConfigurableEmbosser.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/Contract.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/ContractNotSupportedException.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/DefaultEmbosserCatalog.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/Embosser.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserCatalog.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserFactoryException.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserFeatures.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserFilter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserProperties.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserProvider.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserTools.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserWriter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserWriterEvent.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/EmbosserWriterProperties.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/FileFormat.java -text
-braille/src/org/daisy/braille/embosser/FileFormatProperties.java -text
-braille/src/org/daisy/braille/embosser/FileFormatProvider.java -text
-braille/src/org/daisy/braille/embosser/FileToDeviceEmbosserWriter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/LineBreaks.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/PageBreaks.java -text
-braille/src/org/daisy/braille/embosser/SimpleEmbosserProperties.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/StandardLineBreaks.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/StandardPageBreaks.java -text
-braille/src/org/daisy/braille/embosser/UnsupportedPaperException.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/UnsupportedWidthException.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/VolumeWriter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/embosser/package-info.java -text
-braille/src/org/daisy/braille/facade/PEFConverterFacade.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/facade/PEFValidatorFacade.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/facade/package-info.java -text
-braille/src/org/daisy/braille/package-info.java -text
-braille/src/org/daisy/braille/pef/Element.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/InputDetectionException.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/NormalizationResource.java -text
-braille/src/org/daisy/braille/pef/NumeralSortString.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/PEFBook.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/PEFFileBatchCompare.java -text
-braille/src/org/daisy/braille/pef/PEFFileCompare.java -text
-braille/src/org/daisy/braille/pef/PEFFileCompareException.java -text
-braille/src/org/daisy/braille/pef/PEFFileMerger.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/PEFFileSplitter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/PEFGenerator.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/PEFHandler.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/PEFNamespaceContext.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/PEFValidator.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/Range.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/TextHandler.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/TextInputDetector.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/package-info.java -text
-braille/src/org/daisy/braille/pef/resource-files/RNG2Schtrn.xsl -text svneol=unset#text/plain
-braille/src/org/daisy/braille/pef/resource-files/pef-2008-1-full.rng -text
-braille/src/org/daisy/braille/pef/resource-files/pef-2008-1-light.rng -text
-braille/src/org/daisy/braille/pef/resource-files/strip-meta.xsl -text
-braille/src/org/daisy/braille/table/AbstractConfigurableTableProvider.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/AbstractTable.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/AdvancedBrailleConverter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/BrailleConverter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/ConfigurableTableProvider.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/DefaultTableCatalog.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/DefaultTableProvider.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/EmbosserBrailleConverter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/EmbosserTable.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/Table.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/TableCatalog.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/TableFilter.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/TableProperties.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/TableProvider.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/table/package-info.java -text
-braille/src/org/daisy/braille/tools/EightToSixDotMapper.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/tools/FileCompare.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/tools/FileTools.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/tools/Length.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/tools/StringTranslator.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/tools/package-info.java -text
-braille/src/org/daisy/braille/tools/resource-files/normalize.xsl -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/BasicUI.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/EmbossPEF.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/GeneratePEF.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/InputHelper.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/ListStuff.java -text
-braille/src/org/daisy/braille/ui/MergePEF.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/PEFParser.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/RawPrint.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/SplitPEF.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/TextParser.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/ValidatePEF.java -text svneol=unset#text/plain
-braille/src/org/daisy/braille/ui/package-info.java -text
-braille/src/org/daisy/cli/AbstractUI.java -text svneol=unset#text/plain
-braille/src/org/daisy/cli/ShortFormResolver.java -text svneol=unset#text/plain
-braille/src/org/daisy/cli/package-info.java -text
-braille/src/org/daisy/factory/AbstractFactory.java -text svneol=unset#text/plain
-braille/src/org/daisy/factory/Factory.java -text svneol=unset#text/plain
-braille/src/org/daisy/factory/FactoryCatalog.java -text svneol=unset#text/plain
-braille/src/org/daisy/factory/FactoryFilter.java -text svneol=unset#text/plain
-braille/src/org/daisy/factory/Provider.java -text svneol=unset#text/plain
-braille/src/org/daisy/factory/package-info.java -text
-braille/src/org/daisy/paper/AbstractPageFormat.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/AbstractPaper.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/Area.java -text
-braille/src/org/daisy/paper/CustomPaperCollection.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/DefaultPaperCatalog.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/Dimensions.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/PageFormat.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/Paper.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/PaperCatalog.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/PaperFilter.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/PaperProvider.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/PrintPage.java -text
-braille/src/org/daisy/paper/RollPaper.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/RollPaperFormat.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/SheetPaper.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/SheetPaperFormat.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/TractorPaper.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/TractorPaperFormat.java -text svneol=unset#text/plain
-braille/src/org/daisy/paper/package-info.java -text
-braille/src/org/daisy/printing/Device.java -text svneol=unset#text/plain
-braille/src/org/daisy/printing/FileDevice.java -text svneol=unset#text/plain
-braille/src/org/daisy/printing/PrinterDevice.java -text svneol=unset#text/plain
-braille/src/org/daisy/printing/package-info.java -text
-braille/src/org/daisy/validator/Validator.java -text svneol=unset#text/plain
-braille/src/org/daisy/validator/ValidatorFactory.java -text svneol=unset#text/plain
-braille/src/org/daisy/validator/package-info.java -text
-braille/tests/be_interpoint/Interpoint55EmbosserTest.java -text
-braille/tests/be_interpoint/resource-files/double_sided.pef -text
-braille/tests/be_interpoint/resource-files/interpoint55_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/be_interpoint/resource-files/interpoint55_single_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/be_interpoint/resource-files/single_sided.pef -text
-braille/tests/com_brailler/EnablingTechnologiesEmbosserTest.java -text
-braille/tests/com_brailler/resource-files/double_sided.pef -text
-braille/tests/com_brailler/resource-files/juliet_pro_double_sided.prn -text
-braille/tests/com_brailler/resource-files/juliet_pro_single_sided.prn -text
-braille/tests/com_brailler/resource-files/single_sided.pef -text
-braille/tests/com_brailler/resource-files/thomas_single_sided.prn -text
-braille/tests/com_braillo/AbstractTestBraillo200Embosser.java -text svneol=unset#text/plain
-braille/tests/com_braillo/AbstractTestBraillo440Embosser.java -text svneol=unset#text/plain
-braille/tests/com_braillo/Braillo200EmbosserTest.java -text svneol=unset#text/plain
-braille/tests/com_braillo/Braillo270EmbosserTest.java -text svneol=unset#text/plain
-braille/tests/com_braillo/Braillo400SEmbosserTest.java -text svneol=unset#text/plain
-braille/tests/com_braillo/Braillo400SREmbosserTest.java -text svneol=unset#text/plain
-braille/tests/com_braillo/Braillo440SW2PEmbosserTest.java -text svneol=unset#text/plain
-braille/tests/com_braillo/Braillo440SW4PEmbosserTest.java -text svneol=unset#text/plain
-braille/tests/com_braillo/Braillo440SWSFEmbosserTest.java -text svneol=unset#text/plain
-braille/tests/com_braillo/BrailloTableProviderTest.java -text svneol=unset#text/plain
-braille/tests/com_braillo/resource-files/test-input-1.pef -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo200_us_210mm_by_12inch.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo270_us_210mm_by_12inch.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo400SR_us_a4_roll.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo400S_us_210mm_by_12inch.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-1.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-2.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo440SWSF_us_fa44-3.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_2p_us_fa44-1.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_2p_us_fa44-2.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_2p_us_fa44-3.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_4p_us_fa44-1.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_4p_us_fa44-2.prn -text
-braille/tests/com_braillo/resource-files/test-input-1_braillo440SW_4p_us_fa44-3.prn -text
-braille/tests/com_indexbraille/BlueBarEmbosserTest.java -text
-braille/tests/com_indexbraille/IndexTableProviderTest.java -text svneol=unset#text/plain
-braille/tests/com_indexbraille/IndexV2EmbosserTest.java -text
-braille/tests/com_indexbraille/IndexV3EmbosserTest.java -text
-braille/tests/com_indexbraille/resource-files/4x4_pro_v2_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/4x4_pro_v2_saddle_stitch.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/4x4_pro_v3_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/4x4_pro_v3_saddle_stitch.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_d_v2_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_d_v2_single_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_d_v2_zfolding.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_d_v3_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_d_v3_single_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_d_v3_zfolding_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_d_v3_zfolding_single_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_s_v2_single_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/basic_s_v3_single_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/bluebar_single_sided.prn -text
-braille/tests/com_indexbraille/resource-files/double_sided.pef -text
-braille/tests/com_indexbraille/resource-files/everest_v2_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/everest_v3_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/com_indexbraille/resource-files/single_sided.pef -text
-braille/tests/com_indexbraille/resource-files/test-input-1.pef -text
-braille/tests/com_indexbraille/resource-files/test-input-1_basic-v2_12inch.prn -text
-braille/tests/com_indexbraille/resource-files/test-input-1_everest-v2_a4.prn -text
-braille/tests/com_yourdolphin/SupernovaTableProviderTest.java -text svneol=unset#text/plain
-braille/tests/es_once_cidat/ImpactoEmbosserTest.java -text
-braille/tests/es_once_cidat/PortathielBlueEmbosserTest.java -text
-braille/tests/es_once_cidat/resource-files/double_sided.pef -text
-braille/tests/es_once_cidat/resource-files/impacto_double_sided.prn -text
-braille/tests/es_once_cidat/resource-files/impacto_single_sided.prn -text
-braille/tests/es_once_cidat/resource-files/portathiel_mit_double_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/es_once_cidat/resource-files/portathiel_mit_single_sided.prn -text svneol=unset#application/octet-stream
-braille/tests/es_once_cidat/resource-files/portathiel_transparent_double_sided.prn -text
-braille/tests/es_once_cidat/resource-files/portathiel_transparent_single_sided.prn -text
-braille/tests/es_once_cidat/resource-files/single_sided.pef -text
-braille/tests/org/daisy/braille/pef/PEFBookTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/braille/pef/PEFFileMergerTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/braille/pef/PEFFileSplitterTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/braille/pef/PEFValidatorTest.java -text
-braille/tests/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/braille/pef/resource-files/PEFBookTestInput.pef -text
-braille/tests/org/daisy/braille/pef/resource-files/PEFBookTestInputNotValid.pef -text
-braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestExpected.pef -text
-braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-1.pef -text
-braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-2.pef -text
-braille/tests/org/daisy/braille/pef/resource-files/PEFFileMergerTestInput-3.pef -text
-braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-1.pef -text
-braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-2.pef -text
-braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-3.pef -text
-braille/tests/org/daisy/braille/pef/resource-files/PEFFileSplitterTestInput.pef -text
-braille/tests/org/daisy/braille/table/AdvancedBrailleConverterTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/braille/tools/EightToSixDotMapperTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
-braille/tests/org/daisy/paper/CustomPaperCollectionTest.java -text
-braille/tests/org/daisy/paper/PrintPageTest.java -text svneol=unset#text/plain
-braille/tests/org_daisy/EmbosserTableProviderTest.java -text svneol=unset#text/plain
