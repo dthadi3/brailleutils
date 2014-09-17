@@ -162,7 +162,6 @@ braille-utils.api/test/org/daisy/braille/table/AdvancedBrailleConverterTest.java
 braille-utils.api/test/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/braille/tools/EightToSixDotMapperTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
-braille-utils.api/test/org/daisy/paper/CustomPaperCollectionTest.java -text
 braille-utils.api/test/org/daisy/paper/PrintPageTest.java -text svneol=unset#text/plain
 braille-utils.impl/.classpath -text
 braille-utils.impl/.project -text
@@ -300,6 +299,7 @@ braille-utils.impl/test/es_once_cidat/resource-files/portathiel_mit_single_sided
 braille-utils.impl/test/es_once_cidat/resource-files/portathiel_transparent_double_sided.prn -text
 braille-utils.impl/test/es_once_cidat/resource-files/portathiel_transparent_single_sided.prn -text
 braille-utils.impl/test/es_once_cidat/resource-files/single_sided.pef -text
+braille-utils.impl/test/org/daisy/paper/CustomPaperCollectionTest.java -text
 braille-utils.impl/test/org_daisy/EmbosserTableProviderTest.java -text svneol=unset#text/plain
 braille/.classpath -text svneol=unset#text/plain
 braille/.project -text svneol=unset#text/plain
