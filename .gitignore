@@ -1,4 +1,6 @@
 BrailleUtils/build
+braille-utils.api/.gradle
+braille-utils.api/build
 braille-utils.impl/build
 braille/ant-build/output
 braille/bin
