@@ -110,10 +110,12 @@ braille-utils.api/src/org/daisy/braille/tools/package-info.java -text
 braille-utils.api/src/org/daisy/braille/tools/resource-files/normalize.xsl -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/cli/AbstractUI.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/cli/Argument.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/cli/DefaultCommandParser.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/cli/Definition.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/cli/ExitCode.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/cli/OptionalArgument.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/cli/ShortFormResolver.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/cli/SwitchArgument.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/cli/package-info.java -text
 braille-utils.api/src/org/daisy/factory/AbstractFactory.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/factory/Factory.java -text svneol=unset#text/plain
@@ -166,6 +168,7 @@ braille-utils.api/test/org/daisy/braille/table/AdvancedBrailleConverterTest.java
 braille-utils.api/test/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/braille/tools/EightToSixDotMapperTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/cli/DefaultCommandParserTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/paper/PrintPageTest.java -text svneol=unset#text/plain
 braille-utils.impl/.classpath -text
 braille-utils.impl/.project -text
