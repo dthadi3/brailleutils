@@ -90,7 +90,6 @@ braille-utils.api/src/org/daisy/braille/table/AbstractTable.java -text svneol=un
 braille-utils.api/src/org/daisy/braille/table/AdvancedBrailleConverter.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/BrailleConverter.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/ConfigurableTableProvider.java -text svneol=unset#text/plain
-braille-utils.api/src/org/daisy/braille/table/DefaultTableCatalog.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/DefaultTableProvider.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/EmbosserBrailleConverter.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/EmbosserTable.java -text svneol=unset#text/plain
@@ -128,7 +127,6 @@ braille-utils.api/src/org/daisy/paper/AbstractPageFormat.java -text svneol=unset
 braille-utils.api/src/org/daisy/paper/AbstractPaper.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/paper/Area.java -text
 braille-utils.api/src/org/daisy/paper/CustomPaperCollection.java -text svneol=unset#text/plain
-braille-utils.api/src/org/daisy/paper/DefaultPaperCatalog.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/paper/Dimensions.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/paper/PageFormat.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/paper/Paper.java -text svneol=unset#text/plain
