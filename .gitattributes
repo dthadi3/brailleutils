@@ -85,11 +85,9 @@ braille-utils.api/src/org/daisy/braille/pef/resource-files/RNG2Schtrn.xsl -text 
 braille-utils.api/src/org/daisy/braille/pef/resource-files/pef-2008-1-full.rng -text
 braille-utils.api/src/org/daisy/braille/pef/resource-files/pef-2008-1-light.rng -text
 braille-utils.api/src/org/daisy/braille/pef/resource-files/strip-meta.xsl -text
-braille-utils.api/src/org/daisy/braille/table/AbstractConfigurableTableProvider.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/AbstractTable.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/AdvancedBrailleConverter.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/BrailleConverter.java -text svneol=unset#text/plain
-braille-utils.api/src/org/daisy/braille/table/ConfigurableTableProvider.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/DefaultTableProvider.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/EmbosserBrailleConverter.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/table/EmbosserTable.java -text svneol=unset#text/plain
@@ -121,6 +119,7 @@ braille-utils.api/src/org/daisy/factory/AbstractFactory.java -text svneol=unset#
 braille-utils.api/src/org/daisy/factory/Factory.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/factory/FactoryCatalog.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/factory/FactoryFilter.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/factory/FactoryProperties.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/factory/Provider.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/factory/package-info.java -text
 braille-utils.api/src/org/daisy/paper/AbstractPageFormat.java -text svneol=unset#text/plain
