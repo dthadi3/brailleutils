@@ -120,6 +120,7 @@ braille-utils.api/src/org/daisy/factory/Factory.java -text svneol=unset#text/pla
 braille-utils.api/src/org/daisy/factory/FactoryCatalog.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/factory/FactoryFilter.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/factory/FactoryProperties.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/factory/FactoryPropertiesComparator.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/factory/Provider.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/factory/package-info.java -text
 braille-utils.api/src/org/daisy/paper/AbstractPageFormat.java -text svneol=unset#text/plain
