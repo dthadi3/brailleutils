@@ -14,6 +14,7 @@ BrailleUtils/src/org/daisy/braille/ui/GeneratePEF.java -text svneol=unset#text/p
 BrailleUtils/src/org/daisy/braille/ui/InputHelper.java -text svneol=unset#text/plain
 BrailleUtils/src/org/daisy/braille/ui/ListStuff.java -text
 BrailleUtils/src/org/daisy/braille/ui/MergePEF.java -text svneol=unset#text/plain
+BrailleUtils/src/org/daisy/braille/ui/PEFInfo.java -text svneol=unset#text/plain
 BrailleUtils/src/org/daisy/braille/ui/PEFParser.java -text svneol=unset#text/plain
 BrailleUtils/src/org/daisy/braille/ui/RawPrint.java -text svneol=unset#text/plain
 BrailleUtils/src/org/daisy/braille/ui/SplitPEF.java -text svneol=unset#text/plain
