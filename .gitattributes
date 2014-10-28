@@ -28,7 +28,7 @@ braille-utils.api/build.gradle -text
 braille-utils.api/gradle.properties -text svneol=unset#text/plain
 braille-utils.api/src/META-INF/services/javax.xml.transform.TransformerFactory -text
 braille-utils.api/src/META-INF/services/org.daisy.braille.table.TableProvider -text
-braille-utils.api/src/META-INF/services/org.daisy.validator.Validator -text
+braille-utils.api/src/META-INF/services/org.daisy.validator.ValidatorProvider -text
 braille-utils.api/src/org/daisy/braille/BrailleConstants.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/embosser/AbstractEmbosser.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/embosser/AbstractEmbosserWriter.java -text svneol=unset#text/plain
@@ -68,6 +68,7 @@ braille-utils.api/src/org/daisy/braille/facade/package-info.java -text
 braille-utils.api/src/org/daisy/braille/facade/packageinfo -text
 braille-utils.api/src/org/daisy/braille/package-info.java -text
 braille-utils.api/src/org/daisy/braille/packageinfo -text
+braille-utils.api/src/org/daisy/braille/pef/DefaultValidatorProvider.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/Element.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/InputDetectionException.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/NormalizationResource.java -text
@@ -160,6 +161,8 @@ braille-utils.api/src/org/daisy/printing/package-info.java -text
 braille-utils.api/src/org/daisy/printing/packageinfo -text
 braille-utils.api/src/org/daisy/validator/Validator.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/validator/ValidatorFactory.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/validator/ValidatorFactoryService.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/validator/ValidatorProvider.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/validator/package-info.java -text
 braille-utils.api/src/org/daisy/validator/packageinfo -text
 braille-utils.api/test/org/daisy/braille/pef/PEFBookTest.java -text svneol=unset#text/plain
@@ -183,6 +186,7 @@ braille-utils.api/test/org/daisy/braille/tools/EightToSixDotMapperTest.java -tex
 braille-utils.api/test/org/daisy/braille/tools/StringTranslatorTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/cli/DefaultCommandParserTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/paper/PrintPageTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/validator/ValidatorFactoryTest.java -text svneol=unset#text/plain
 braille-utils.impl/.classpath -text
 braille-utils.impl/.project -text
 braille-utils.impl/bnd.bnd -text
