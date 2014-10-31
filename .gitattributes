@@ -143,6 +143,7 @@ braille-utils.api/src/org/daisy/paper/Dimensions.java -text svneol=unset#text/pl
 braille-utils.api/src/org/daisy/paper/PageFormat.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/paper/Paper.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/paper/PaperCatalog.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/paper/PaperCatalogService.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/paper/PaperFilter.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/paper/PaperProvider.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/paper/PrintPage.java -text
