@@ -39,6 +39,7 @@ braille-utils.api/src/org/daisy/braille/embosser/Contract.java -text svneol=unse
 braille-utils.api/src/org/daisy/braille/embosser/ContractNotSupportedException.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/embosser/Embosser.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/embosser/EmbosserCatalog.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/embosser/EmbosserCatalogService.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/embosser/EmbosserFactoryException.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/embosser/EmbosserFeatures.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/embosser/EmbosserFilter.java -text svneol=unset#text/plain
