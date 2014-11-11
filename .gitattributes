@@ -65,6 +65,7 @@ braille-utils.api/src/org/daisy/braille/embosser/package-info.java -text
 braille-utils.api/src/org/daisy/braille/embosser/packageinfo -text
 braille-utils.api/src/org/daisy/braille/facade/PEFConverterFacade.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/facade/PEFValidatorFacade.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/facade/TextConverterFacade.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/facade/package-info.java -text
 braille-utils.api/src/org/daisy/braille/facade/packageinfo -text
 braille-utils.api/src/org/daisy/braille/package-info.java -text
