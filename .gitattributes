@@ -86,6 +86,7 @@ braille-utils.api/src/org/daisy/braille/pef/PEFHandler.java -text svneol=unset#t
 braille-utils.api/src/org/daisy/braille/pef/PEFNamespaceContext.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/PEFValidator.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/Range.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/StaxPEFBook.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/TextHandler.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/TextInputDetector.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/package-info.java -text
@@ -173,6 +174,8 @@ braille-utils.api/test/org/daisy/braille/pef/PEFFileMergerTest.java -text svneol
 braille-utils.api/test/org/daisy/braille/pef/PEFFileSplitterTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/braille/pef/PEFValidatorTest.java -text
 braille-utils.api/test/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/pef/StaxPEFBookTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/pef/resource-files/8-dot-chart.pef -text
 braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFBookTestInput.pef -text
 braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFBookTestInputNotValid.pef -text
 braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileMergerTestExpected.pef -text
@@ -183,6 +186,9 @@ braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileSplitterTestE
 braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-2.pef -text
 braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileSplitterTestExpected-3.pef -text
 braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFFileSplitterTestInput.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/multiple-dimensions.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/uneven-sections-duplex.pef -text
+braille-utils.api/test/org/daisy/braille/pef/resource-files/uneven-sections-simplex.pef -text
 braille-utils.api/test/org/daisy/braille/table/AdvancedBrailleConverterTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/braille/table/EmbosserBrailleConverterTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/braille/tools/EightToSixDotMapperTest.java -text svneol=unset#text/plain
