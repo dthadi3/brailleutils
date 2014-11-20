@@ -114,6 +114,7 @@ braille-utils.api/src/org/daisy/braille/tools/FileCompare.java -text svneol=unse
 braille-utils.api/src/org/daisy/braille/tools/FileTools.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/tools/Length.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/tools/StringTranslator.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/tools/XMLFileCompare.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/tools/package-info.java -text
 braille-utils.api/src/org/daisy/braille/tools/packageinfo -text
 braille-utils.api/src/org/daisy/braille/tools/resource-files/normalize.xsl -text svneol=unset#text/plain
