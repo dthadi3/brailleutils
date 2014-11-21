@@ -89,6 +89,7 @@ braille-utils.api/src/org/daisy/braille/pef/Range.java -text svneol=unset#text/p
 braille-utils.api/src/org/daisy/braille/pef/StaxPEFBook.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/TextHandler.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/TextInputDetector.java -text svneol=unset#text/plain
+braille-utils.api/src/org/daisy/braille/pef/XPathPEFBook.java -text svneol=unset#text/plain
 braille-utils.api/src/org/daisy/braille/pef/package-info.java -text
 braille-utils.api/src/org/daisy/braille/pef/packageinfo -text
 braille-utils.api/src/org/daisy/braille/pef/resource-files/RNG2Schtrn.xsl -text svneol=unset#text/plain
@@ -176,6 +177,7 @@ braille-utils.api/test/org/daisy/braille/pef/PEFFileSplitterTest.java -text svne
 braille-utils.api/test/org/daisy/braille/pef/PEFValidatorTest.java -text
 braille-utils.api/test/org/daisy/braille/pef/RangeTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/braille/pef/StaxPEFBookTest.java -text svneol=unset#text/plain
+braille-utils.api/test/org/daisy/braille/pef/XPathPEFBookTest.java -text svneol=unset#text/plain
 braille-utils.api/test/org/daisy/braille/pef/resource-files/8-dot-chart.pef -text
 braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFBookTestInput.pef -text
 braille-utils.api/test/org/daisy/braille/pef/resource-files/PEFBookTestInputNotValid.pef -text
