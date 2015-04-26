@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/joeha480/brailleutils.svg?branch=master)](https://travis-ci.org/joeha480/brailleutils)
+
 # Braille Utils
 _Communicating with embossers has never been easier!_
 
