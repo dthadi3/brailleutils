@@ -1,2 +1,8 @@
 language: java
 jdk: openjdk6
+after_success: ./upload.sh
+
+env:
+  global:
+    - secure: "e9xrR/ltGb2jxv1JjOidN6+6wo8h9BbC/tcaaL5OQzRZC2GCtEB5u0e/8G/A98Y6uO03StpXdj8LrUdDWuf/R8KOpbSsCKbweggYHMck3+DfQjyF+1cxi4wE6Ux6AYDxbEJfehISvcz6jnal6QPR2Pc0bC67wH2MFBYlNb3qulI="
+    - secure: "F9SoTCe5HMsAPPgZxkkpwi+zppolDA9btmC0KPwSWVkx2MuHUOScAaQJn100X8jAvCI+Fi5GvaUSWxfGy3qn8Bc4pRL7t1JchYjg2s44TRCjRcuTxL4ujGT4mShPHPQFk0fdHgUx3oTyvaXrN4StINEN7d+LYNIw5x2BfFOvtKs="
