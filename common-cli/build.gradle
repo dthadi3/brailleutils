@@ -21,13 +21,13 @@ sourceSets {
 jar {
 	doFirst {
 		manifest {
-	    	attributes ('Built-By': '',				//'${user.name}'
-	    	'Built-On': new Date(),					//'${ISO-TODAY}'
+	    	attributes ('Built-By': System.getProperty("user.name"),
+	    	'Built-On': new Date().format('yyyy-MM-dd'),
 			'Repository-Revision': "$repositoryRevision",
 			'Implementation-Title': "$releaseName Common CLI",
 			'Implementation-Version': version,
 			'Implementation-URL': 'http://code.google.com/p/brailleutils/',
-			'Class-Path': configurations.compile.collect { it.getName() }.join(' ')					//'${core.classpath.attribute}'
+			//'Class-Path': configurations.compile.collect { it.getName() }.join(' ')					//'${core.classpath.attribute}'
 			)
 		}
 	}
@@ -46,7 +46,7 @@ configurations {
 }
 
 dependencies {
-
+	testCompile group: 'junit', name: 'junit', version: '4.7'
 }
 
 task javadocJar(type: Jar) {
