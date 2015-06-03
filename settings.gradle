@@ -1,1 +1,2 @@
 include 'braille-utils.api', 'braille-utils.impl'
+include 'common-cli'
