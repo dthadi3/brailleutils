@@ -1,4 +1,4 @@
-package org.daisy.braille.api.table;
+package org.daisy.braille.impl.table;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 
 import org.daisy.braille.BrailleConstants;
 import org.daisy.braille.api.table.EmbosserBrailleConverter.EightDotFallbackMethod;
+import org.daisy.braille.impl.table.AdvancedBrailleConverter;
 import org.daisy.braille.tools.StringTranslator.MatchMode;
 import org.junit.Test;
 public class AdvancedBrailleConverterTest {
