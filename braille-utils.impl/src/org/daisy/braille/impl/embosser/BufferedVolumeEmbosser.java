@@ -15,7 +15,7 @@
  * along with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package org.daisy.braille.api.embosser;
+package org.daisy.braille.impl.embosser;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +24,10 @@ import java.util.Stack;
 
 import javax.print.PrintException;
 
+import org.daisy.braille.api.embosser.Device;
+import org.daisy.braille.api.embosser.EmbosserWriterProperties;
+import org.daisy.braille.api.embosser.LineBreaks;
+import org.daisy.braille.api.embosser.StandardLineBreaks;
 import org.daisy.braille.api.table.BrailleConverter;
 
 /**

@@ -15,19 +15,22 @@
  * along with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package org.daisy.braille.api.embosser;
+package org.daisy.braille.impl.embosser;
 
 import java.io.IOException;
 import java.util.List;
 
-import org.daisy.braille.api.embosser.EmbosserWriterEvent.CloseEvent;
-import org.daisy.braille.api.embosser.EmbosserWriterEvent.NewLineEvent;
-import org.daisy.braille.api.embosser.EmbosserWriterEvent.NewPageEvent;
-import org.daisy.braille.api.embosser.EmbosserWriterEvent.NewSectionAndPageEvent;
-import org.daisy.braille.api.embosser.EmbosserWriterEvent.NewVolumeSectionAndPageEvent;
-import org.daisy.braille.api.embosser.EmbosserWriterEvent.OpenEvent;
-import org.daisy.braille.api.embosser.EmbosserWriterEvent.SetRowGapEvent;
-import org.daisy.braille.api.embosser.EmbosserWriterEvent.WriteEvent;
+import org.daisy.braille.api.embosser.Contract;
+import org.daisy.braille.api.embosser.ContractNotSupportedException;
+import org.daisy.braille.api.embosser.EmbosserWriter;
+import org.daisy.braille.impl.embosser.EmbosserWriterEvent.CloseEvent;
+import org.daisy.braille.impl.embosser.EmbosserWriterEvent.NewLineEvent;
+import org.daisy.braille.impl.embosser.EmbosserWriterEvent.NewPageEvent;
+import org.daisy.braille.impl.embosser.EmbosserWriterEvent.NewSectionAndPageEvent;
+import org.daisy.braille.impl.embosser.EmbosserWriterEvent.NewVolumeSectionAndPageEvent;
+import org.daisy.braille.impl.embosser.EmbosserWriterEvent.OpenEvent;
+import org.daisy.braille.impl.embosser.EmbosserWriterEvent.SetRowGapEvent;
+import org.daisy.braille.impl.embosser.EmbosserWriterEvent.WriteEvent;
 
 /**
  * Provides an easy way to add a communications contract to an EmbosserWriter.

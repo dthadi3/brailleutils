@@ -15,12 +15,17 @@
  * along with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package org.daisy.braille.api.embosser;
+package org.daisy.braille.impl.embosser;
 
 import java.io.File;
 import java.io.IOException;
 
 import javax.print.PrintException;
+
+import org.daisy.braille.api.embosser.Contract;
+import org.daisy.braille.api.embosser.ContractNotSupportedException;
+import org.daisy.braille.api.embosser.Device;
+import org.daisy.braille.api.embosser.EmbosserWriter;
 
 /**
  * Provides a bridge between a Device and file based EmbosserWriter

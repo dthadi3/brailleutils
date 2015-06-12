@@ -15,10 +15,13 @@
  * along with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package org.daisy.braille.api.embosser;
+package org.daisy.braille.impl.embosser;
 
 import java.util.HashMap;
 
+import org.daisy.braille.api.embosser.Embosser;
+import org.daisy.braille.api.embosser.EmbosserFeatures;
+import org.daisy.braille.api.embosser.PrintPage;
 import org.daisy.braille.api.factory.AbstractFactory;
 import org.daisy.braille.api.paper.Area;
 import org.daisy.braille.api.paper.PageFormat;
