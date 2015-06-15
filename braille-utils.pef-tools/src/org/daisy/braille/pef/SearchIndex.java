@@ -1,4 +1,4 @@
-package org.daisy.braille.tools;
+package org.daisy.braille.pef;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,6 +1,5 @@
 package org.daisy.braille.pef;
 
-import org.daisy.braille.tools.SearchIndex;
 
 public class PEFSearchIndex extends SearchIndex<PEFBook> {
     private final static String REGEX = "[\\s\\.,:/-]";

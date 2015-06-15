@@ -1,4 +1,4 @@
-package org.daisy.braille.tools;
+package org.daisy.braille.pef;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
