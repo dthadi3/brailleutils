@@ -1,2 +1,3 @@
 include 'braille-utils.api'
 include 'common-cli'
+include 'braille-utils.pef-tools'
