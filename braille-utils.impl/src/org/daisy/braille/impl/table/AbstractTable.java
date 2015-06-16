@@ -15,9 +15,10 @@
  * along with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package org.daisy.braille.api.table;
+package org.daisy.braille.impl.table;
 
 import org.daisy.braille.api.factory.AbstractFactory;
+import org.daisy.braille.api.table.Table;
 
 /**
  * Provides an abstract base for Table factories.
