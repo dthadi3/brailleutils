@@ -1,4 +1,4 @@
-package org.daisy.braille.tools;
+package org.daisy.braille.pef;
 
 import java.io.File;
 import java.io.FileInputStream;
