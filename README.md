@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/joeha480/brailleutils.svg?branch=master)](https://travis-ci.org/joeha480/brailleutils)
 
+Note: Braille Utils will be split up into smaller repos (at https://github.com/brailleapps) very soon. This repo will only be retained for archival purposes.
+For more information, see https://github.com/joeha480/brailleutils/issues/67
+
 # Braille Utils
 _Communicating with embossers has never been easier!_
 
