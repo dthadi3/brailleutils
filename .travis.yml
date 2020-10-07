@@ -1,5 +1,7 @@
 language: java
 jdk: oraclejdk9
+Before_env:
+  - sudo chmod +X ~/.gradle/wrapper/dists/gradle-2.8-bin/4rsda7i357a5ogdj89yq8dntm/gradle-2.8/bin/gradle
 after_success:
   - ./upload.sh
   - ./publish-javadoc.sh
